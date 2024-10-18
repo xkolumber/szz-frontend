@@ -15,3 +15,11 @@ export interface ActualEvent {
   text2: string;
   slug: string;
 }
+
+export interface Gallery {
+  id: string;
+  nazov: string;
+  datum: string;
+  fotky: string[];
+  rok: string;
+}

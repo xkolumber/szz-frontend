@@ -702,3 +702,7 @@ textarea:focus {
 .flex_col {
   flex-direction: column;
 }
+
+.active_navbar {
+  background-color: rgba(41, 128, 64, 0.1);
+}

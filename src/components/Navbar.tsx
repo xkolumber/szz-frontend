@@ -1,13 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import logo from "../assets/logo.svg";
 import SearchInput from "./SearchInput";
 
 const Navbar = () => {
+  let location = useLocation();
   const data = [
     {
       title: "Domov",
-      slug: "/",
+      slug: "/domov",
     },
     {
       title: "O nás",
@@ -23,13 +24,14 @@ const Navbar = () => {
     },
     {
       title: "Archív",
-      slug: "/",
+      slug: "/archiv",
     },
     {
       title: "Galéria",
-      slug: "/",
+      slug: "/galeria",
     },
   ];
+
   return (
     <div className="own_edge navbar_stroke">
       <div className="flex flex-row items-center main_section justify-between !pt-0 !pb-0 ">
@@ -40,7 +42,13 @@ const Navbar = () => {
 
         <div className="flex-row gap-[64px] hidden lg:flex">
           {data.map((object, index) => (
-            <Link to={object.slug} key={index}>
+            <Link
+              to={object.slug === "/domov" ? "/" : object.slug}
+              key={index}
+              className={`${
+                location.pathname.includes(object.slug) ? "active_navbar" : ""
+              }`}
+            >
               {object.title}
             </Link>
           ))}

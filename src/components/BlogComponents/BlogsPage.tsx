@@ -1,5 +1,3 @@
-import React from "react";
-
 const BlogsPage = () => {
   return (
     <div className="own_edge">

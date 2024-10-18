@@ -8,6 +8,9 @@ import NavbarInfo from "./components/NavbarInfo";
 import BlogsPage from "./components/BlogComponents/BlogsPage";
 import EventsPage from "./components/EventComponents/EventsPage";
 import EventDetailPage from "./components/EventComponents/EventDetailPage";
+import GalleryPage from "./components/GalleryComponents/GalleryPage";
+import GalleryPageId from "./components/GalleryComponents/GalleryPageId";
+import ArchivePage from "./components/ArchivePage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -67,6 +70,30 @@ function App() {
           element={
             <Layout>
               <EventDetailPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/galeria"
+          element={
+            <Layout>
+              <GalleryPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/galeria/:id"
+          element={
+            <Layout>
+              <GalleryPageId />
+            </Layout>
+          }
+        />
+        <Route
+          path="/archiv"
+          element={
+            <Layout>
+              <ArchivePage />
             </Layout>
           }
         />

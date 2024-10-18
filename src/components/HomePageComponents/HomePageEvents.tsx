@@ -39,7 +39,7 @@ const HomePageEvents = () => {
   return (
     <div className=" own_edge">
       <div className="main_section">
-        <div className="flex flex-row justify-between mt-[80px] items-center mb-[32px]">
+        <div className="flex flex-row justify-between  items-center mb-[32px]">
           <h2 className="uppercase">Aktuálne výstavy a podujatia</h2>
           <ButtonWithArrow
             title="Zobraziť všetky"

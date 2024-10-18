@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ActualEvent } from "../../lib/interface";
+import ButtonWithArrow from "../ButtonWithArrow";
 import IconCalendar from "../Icons/IconCalendar";
 import IconLocation from "../Icons/IconLocation";
-import ButtonWithArrow from "../ButtonWithArrow";
 
 const EventDetailPage = () => {
   const [data, setData] = useState<ActualEvent>();

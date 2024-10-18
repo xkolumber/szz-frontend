@@ -1,11 +1,10 @@
 import HomePageActualJobs from "./HomePageActualJobs";
 import HomePageEvents from "./HomePageEvents";
-import HomePagePranostika from "./HomePagePranostika";
 
 const HomePage = () => {
   return (
     <>
-      <HomePagePranostika />
+      {/* <HomePagePranostika /> */}
       <div className="own_edge">
         <div className="main_section !pt-0 flex flex-col md:flex-row">
           <div className="flex flex-col">
