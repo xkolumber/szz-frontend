@@ -1,4 +1,5 @@
 import HomePageActualJobs from "./HomePageActualJobs";
+import HomePageEvents from "./HomePageEvents";
 import HomePagePranostika from "./HomePagePranostika";
 
 const HomePage = () => {
@@ -29,6 +30,7 @@ const HomePage = () => {
         </SmoothCorner> */}
       </div>
       <HomePageActualJobs />
+      <HomePageEvents />
     </>
   );
 };

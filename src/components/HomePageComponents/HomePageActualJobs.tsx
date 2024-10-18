@@ -41,7 +41,7 @@ const HomePageActualJobs = () => {
           <div className="flex flex-col md:flex-row gap-[24px]">
             {data.map((object, index) => (
               <div
-                className={`flex flex-col p-[24px] rounded-[24px] w-full max-w-[400px]`}
+                className={`flex flex-col p-[24px] rounded-[16px] w-full max-w-[400px]`}
                 key={index}
                 style={{ background: object.farba }}
               >

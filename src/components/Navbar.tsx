@@ -15,11 +15,11 @@ const Navbar = () => {
     },
     {
       title: "Blog",
-      slug: "/",
+      slug: "/blog",
     },
     {
       title: "Výstavy a podujatia",
-      slug: "/",
+      slug: "/vystavy-a-podujatia",
     },
     {
       title: "Archív",

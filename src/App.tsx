@@ -5,6 +5,9 @@ import AboutUs from "./components/AboutUs";
 import { ReactNode } from "react";
 import Navbar from "./components/Navbar";
 import NavbarInfo from "./components/NavbarInfo";
+import BlogsPage from "./components/BlogComponents/BlogsPage";
+import EventsPage from "./components/EventComponents/EventsPage";
+import EventDetailPage from "./components/EventComponents/EventDetailPage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -39,6 +42,31 @@ function App() {
           element={
             <Layout>
               <AboutUs />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/blog"
+          element={
+            <Layout>
+              <BlogsPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/vystavy-a-podujatia"
+          element={
+            <Layout>
+              <EventsPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/vystavy-a-podujatia/:slug"
+          element={
+            <Layout>
+              <EventDetailPage />
             </Layout>
           }
         />
