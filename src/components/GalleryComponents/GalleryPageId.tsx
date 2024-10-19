@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Gallery } from "../../lib/interface";
+import { API_URL_BASIC, Gallery } from "../../lib/interface";
 
 const GalleryPageId = () => {
   const [data, setData] = useState<Gallery>();
@@ -9,16 +9,13 @@ const GalleryPageId = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:5000/api/getallgaleries/${id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          }
-        );
+        const response = await fetch(`${API_URL_BASIC}/getallgaleries/${id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
 
         if (!response.ok) {
           throw new Error("Network response was not ok");

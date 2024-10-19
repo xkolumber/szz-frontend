@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import axios from "axios";
 import classnames from "classnames";
-import { API_URL } from "../lib/interface";
+import { API_URL_TASK } from "../lib/interface";
 import { UpdateTaskForm } from "./UpdateTaskForm";
 
 export const Task = ({ task, fetchTasks }: any) => {
@@ -15,7 +15,7 @@ export const Task = ({ task, fetchTasks }: any) => {
 
   const handleUpdateTaskCompletion = async () => {
     try {
-      await axios.put(API_URL, {
+      await axios.put(API_URL_TASK, {
         id,
         name,
         completed: !isComplete,
@@ -28,7 +28,7 @@ export const Task = ({ task, fetchTasks }: any) => {
 
   const handleDeleteTask = async () => {
     try {
-      await axios.delete(`${API_URL}/${task.id}`);
+      await axios.delete(`${API_URL_TASK}/${task.id}`);
 
       await fetchTasks();
     } catch (err) {

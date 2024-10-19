@@ -2,7 +2,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import { Button, Dialog, DialogTitle, TextField } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import { API_URL } from "../lib/interface";
+import { API_URL_TASK } from "../lib/interface";
 
 export const UpdateTaskForm = ({
   fetchTasks,
@@ -15,7 +15,7 @@ export const UpdateTaskForm = ({
 
   const handleUpdateTaskName = async () => {
     try {
-      await axios.put(API_URL, {
+      await axios.put(API_URL_TASK, {
         id,
         name: taskName,
         completed,

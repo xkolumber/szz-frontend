@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Select from "react-select";
-import { Gallery } from "../../lib/interface";
+import { API_URL_BASIC, Gallery } from "../../lib/interface";
 
 const GalleryPage = () => {
   const [data, setData] = useState<Gallery[]>([]);
@@ -37,7 +37,7 @@ const GalleryPage = () => {
         }
 
         const response = await fetch(
-          `http://localhost:5000/api/getallgaleries/${strana}/${rok}`,
+          `${API_URL_BASIC}/getallgaleries/${strana}/${rok}`,
           {
             method: "GET",
             headers: {

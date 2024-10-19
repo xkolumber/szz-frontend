@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ActualEvent } from "../../lib/interface";
+import { ActualEvent, API_URL_BASIC } from "../../lib/interface";
 import ButtonWithArrow from "../ButtonWithArrow";
 import IconCalendar from "../Icons/IconCalendar";
 import IconLocation from "../Icons/IconLocation";
@@ -14,7 +14,7 @@ const EventDetailPage = () => {
     const getData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/getactualevent/${slug}`,
+          `${API_URL_BASIC}/getactualevent/${slug}`,
           {
             method: "GET",
             headers: {

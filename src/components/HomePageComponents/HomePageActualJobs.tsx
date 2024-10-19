@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ActualJob } from "../../lib/interface";
+import { ActualJob, API_URL_BASIC } from "../../lib/interface";
 
 const HomePageActualJobs = () => {
   const [data, setData] = useState<ActualJob[]>([]);
@@ -7,16 +7,13 @@ const HomePageActualJobs = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/getactualjobs",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          }
-        );
+        const response = await fetch(`${API_URL_BASIC}/getactualjobs`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
 
         if (!response.ok) {
           throw new Error("Network response was not ok");

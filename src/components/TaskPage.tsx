@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { API_URL } from "../lib/interface";
+import { API_URL_TASK } from "../lib/interface";
 import { AddTaskForm } from "./AddTaskForm";
 import { Task } from "./Task";
 
@@ -9,7 +9,7 @@ const TaskPage = () => {
 
   const fetchTasks = async () => {
     try {
-      const { data } = await axios.get(API_URL);
+      const { data } = await axios.get(API_URL_TASK);
 
       setTasks(data);
     } catch (err) {

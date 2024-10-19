@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ActualEvent } from "../../lib/interface";
+import { ActualEvent, API_URL_BASIC } from "../../lib/interface";
 import IconCalendar from "../Icons/IconCalendar";
 
 const EventsPage = () => {
@@ -9,16 +9,13 @@ const EventsPage = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/getactualevents",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          }
-        );
+        const response = await fetch(`${API_URL_BASIC}/getactualevents`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
 
         if (!response.ok) {
           throw new Error("Network response was not ok");
