@@ -23,3 +23,5 @@ export interface Gallery {
   fotky: string[];
   rok: string;
 }
+
+export const API_URL = "http://localhost:5000/apitask/task";

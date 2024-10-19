@@ -11,6 +11,7 @@ import EventDetailPage from "./components/EventComponents/EventDetailPage";
 import GalleryPage from "./components/GalleryComponents/GalleryPage";
 import GalleryPageId from "./components/GalleryComponents/GalleryPageId";
 import ArchivePage from "./components/ArchivePage";
+import TaskPage from "./components/TaskPage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -94,6 +95,14 @@ function App() {
           element={
             <Layout>
               <ArchivePage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/task"
+          element={
+            <Layout>
+              <TaskPage />
             </Layout>
           }
         />
