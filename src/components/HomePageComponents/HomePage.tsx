@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import HomePageActualJobs from "./HomePageActualJobs";
 import HomePageEvents from "./HomePageEvents";
 
@@ -17,10 +18,13 @@ const HomePage = () => {
             </p>
           </div>
           <div className="flex flex-col">
-            <div className="bg-[#EDF3DD] pl-[64px] pt-[37.5px] pb-[37.5px] pr-[40px] rounded-[24px] flex flex-row gap-16  items-center">
+            <Link
+              className="bg-[#EDF3DD] pl-[64px] pt-[37.5px] pb-[37.5px] pr-[40px] rounded-[24px] flex flex-row gap-16  items-center"
+              to={"/zvaz"}
+            >
               <h3 className="uppercase">Sekcia pre zväz</h3>
               <button className="btn btn--green">Otvoriť</button>
-            </div>
+            </Link>
           </div>
         </div>
         {/* <SmoothCorner>

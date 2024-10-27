@@ -39,7 +39,7 @@ const EventsPage = () => {
           <div className="flex flex-col md:flex-row gap-[24px]">
             {data.map((object, index) => (
               <Link
-                className={`flex flex-col  rounded-[24px] w-full max-w-[464px]`}
+                className={`flex flex-col  rounded-[24px] w-full max-w-[464px] hover:scale-[1.02] duration-200`}
                 key={index}
                 to={`/vystavy-a-podujatia/${object.slug}`}
               >

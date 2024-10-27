@@ -68,7 +68,7 @@ const GalleryPage = () => {
     setSelectedYear(selectedOption);
 
     const response = await fetch(
-      `http://localhost:5000/api/getallgaleries/${strana}/${selectedOption.value}`,
+      `${API_URL_BASIC}/getallgaleries/${strana}/${selectedOption.value}`,
       {
         method: "GET",
         headers: {

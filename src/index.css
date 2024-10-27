@@ -5,6 +5,7 @@
 :root {
   --color-primary: #111111;
   --color-secondary: #a0a0a0;
+  --colot-tertiary: #6b9156;
 }
 html {
   font-size: 62.5%;
@@ -366,13 +367,13 @@ th {
   color: white;
 }
 .btn--tertiary {
-  background: none;
+  background: var(--colot-tertiary);
   border: 1px solid white;
   color: white;
 }
 .btn--tertiary:hover {
-  background: white;
-  color: black;
+  background: #698758;
+  /* color: black; */
 }
 .btn--fourthtiary {
   background: black;
@@ -705,4 +706,8 @@ textarea:focus {
 
 .active_navbar {
   background-color: rgba(41, 128, 64, 0.1);
+}
+
+.light_green {
+  background: rgba(86, 171, 108, 0.15);
 }

@@ -12,6 +12,7 @@ import GalleryPage from "./components/GalleryComponents/GalleryPage";
 import GalleryPageId from "./components/GalleryComponents/GalleryPageId";
 import ArchivePage from "./components/ArchivePage";
 import TaskPage from "./components/TaskPage";
+import UnionPage from "./components/UnionElements/UnionPage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -95,6 +96,14 @@ function App() {
           element={
             <Layout>
               <ArchivePage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/zvaz"
+          element={
+            <Layout>
+              <UnionPage />
             </Layout>
           }
         />

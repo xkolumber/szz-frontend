@@ -24,6 +24,16 @@ export interface Gallery {
   rok: string;
 }
 
+export interface UnionData {
+  id: string;
+  nazov: string;
+  slug: string;
+  rodic: string | null;
+  text: string;
+  pdf: string[];
+  fotky: string[];
+}
+
 // export const API_URL_BASIC =
 //   "https://5iadehf6h7d46jwwlxicm4x3p40itdlf.lambda-url.eu-north-1.on.aws/api";
 

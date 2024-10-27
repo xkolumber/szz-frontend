@@ -39,16 +39,13 @@ const GalleryPageId = () => {
 
   const getData2 = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/getgaleriesexcept/${id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${API_URL_BASIC}/getgaleriesexcept/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -91,7 +88,7 @@ const GalleryPageId = () => {
                   <img
                     src={object}
                     key={index}
-                    className="rounded-[16px] w-full h-full object-cover cursor-pointer"
+                    className="rounded-[16px] w-full h-full object-cover cursor-pointer hover:scale-[1.02] duration-200"
                     onClick={() => handleOpenGallery(index)}
                   />
                 ))}
