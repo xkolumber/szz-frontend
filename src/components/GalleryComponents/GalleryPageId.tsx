@@ -1,40 +1,82 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { API_URL_BASIC, Gallery } from "../../lib/interface";
+import ButtonWithArrow from "../ButtonWithArrow";
+import Lightbox, { SlideImage } from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 const GalleryPageId = () => {
   const [data, setData] = useState<Gallery>();
+  const [data2, setData2] = useState<Gallery[]>([]);
   const { id } = useParams<{ id: string }>();
+  const [open, setOpen] = useState(false);
+  const [initialSlide, setInitialSlide] = useState(0);
+  const [choosenAlbum, setChoosenAlbum] = useState<SlideImage[]>([]);
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await fetch(`${API_URL_BASIC}/getallgaleries/${id}`, {
+  const getData = async () => {
+    try {
+      const response = await fetch(`${API_URL_BASIC}/getallgaleries/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const responseData = await response.json();
+
+      if (responseData != null) {
+        setData(responseData);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const getData2 = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/getgaleriesexcept/${id}`,
+        {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-        });
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
         }
+      );
 
-        const responseData = await response.json();
-
-        if (responseData != null) {
-          setData(responseData);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
-    };
 
+      const responseData = await response.json();
+
+      if (responseData != null) {
+        setData2(responseData);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
     if (id) {
       getData();
+      getData2();
     }
   }, [id]);
+
+  const handleOpenGallery = (index: number) => {
+    const transformedAlbum = data!.fotky.map((url) => ({ src: url }));
+    setChoosenAlbum(transformedAlbum);
+    setOpen(true);
+    setInitialSlide(index);
+  };
 
   return (
     <div className="own_edge">
@@ -49,7 +91,8 @@ const GalleryPageId = () => {
                   <img
                     src={object}
                     key={index}
-                    className="rounded-[16px] w-full h-full object-cover"
+                    className="rounded-[16px] w-full h-full object-cover cursor-pointer"
+                    onClick={() => handleOpenGallery(index)}
                   />
                 ))}
               </div>
@@ -59,6 +102,39 @@ const GalleryPageId = () => {
           <div className="min-h-screen">
             <p>Loading...</p>
           </div>
+        )}
+
+        <div className="flex flex-row justify-between mt-[80px] items-center mb-[32px]">
+          <h2 className="uppercase ">Ďalšie albumy</h2>
+          <ButtonWithArrow title="Zobraziť všetky" link={`/galeria`} />
+        </div>
+
+        {data2 ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[24px]">
+            {data2.map((object, index) => (
+              <Link
+                className={`flex flex-col  rounded-[24px] w-full max-w-[464px] hover:scale-[1.02] duration-200`}
+                key={index}
+                to={`/galeria/${object.id}`}
+              >
+                <img src={object.fotky[0]} className="rounded-[16px]" />
+
+                <h5 className="pt-[8px]">{object.nazov}</h5>
+                <p className="opacity-60">{object.datum}</p>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <p>Loading...</p>
+        )}
+
+        {open && (
+          <Lightbox
+            open={open}
+            slides={choosenAlbum}
+            close={() => setOpen(false)}
+            index={initialSlide}
+          />
         )}
       </div>
     </div>

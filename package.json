@@ -23,7 +23,8 @@
     "react-select": "^5.8.1",
     "react-smooth-corners": "^1.0.4",
     "react-syntax-highlighter": "^15.6.1",
-    "smooth-corners": "^1.0.8"
+    "smooth-corners": "^1.0.8",
+    "yet-another-react-lightbox": "^3.21.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
