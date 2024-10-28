@@ -88,7 +88,7 @@ const GalleryPage = () => {
   };
 
   return (
-    <div className="own_edge">
+    <div className="own_edge min-h-screen">
       <div className="main_section">
         <div className="flex flex-row justify-between">
           <h2 className="uppercase ">Galéria</h2>

@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import ButtonWithArrow from "../ButtonWithArrow";
 import { Link } from "react-router-dom";
 import { ActualEvent, API_URL_BASIC } from "../../lib/interface";
 import IconCalendar from "../Icons/IconCalendar";
-import ButtonWithArrow from "../ButtonWithArrow";
 
 const HomePageEvents = () => {
   const [data, setData] = useState<ActualEvent[]>([]);
@@ -32,9 +32,8 @@ const HomePageEvents = () => {
 
     getData();
   }, []);
-
   return (
-    <div className=" own_edge">
+    <div className="own_edge">
       <div className="main_section">
         <div className="flex flex-row justify-between  items-center mb-[32px]">
           <h2 className="uppercase">Aktuálne výstavy a podujatia</h2>
@@ -43,28 +42,22 @@ const HomePageEvents = () => {
             link={`/vystavy-a-podujatia`}
           />
         </div>
-
         {data ? (
-          <div className="flex flex-col md:flex-row gap-[24px]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
             {data.map((object, index) => (
               <Link
-                className={`flex flex-col  rounded-[24px] w-full max-w-[464px] hover:scale-[1.02] duration-200`}
+                className={`flex flex-col  rounded-[24px] max-w-[464px]  w-full hover:scale-[1.02] duration-200 `}
                 key={index}
                 to={`/vystavy-a-podujatia/${object.slug}`}
               >
-                <img
-                  src={object.titulna_foto}
-                  width={400}
-                  height={400}
-                  className="rounded-[16px]"
-                />
+                {" "}
+                <img src={object.titulna_foto} className="rounded-[16px]" />
                 <div className="flex flex-row gap-6 pt-[24px] opacity-60">
                   <IconCalendar />
                   <p className="font-medium">
                     {object.datum} {object.cas}
                   </p>
                 </div>
-
                 <h5 className="pt-[8px]">{object.nazov_vystavy}</h5>
               </Link>
             ))}

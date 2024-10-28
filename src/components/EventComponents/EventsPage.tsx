@@ -32,7 +32,7 @@ const EventsPage = () => {
     getData();
   }, []);
   return (
-    <div className="own_edge">
+    <div className="own_edge min-h-screen">
       <div className="main_section">
         <h2 className="uppercase text-center">výstavy a podujatia</h2>
         {data ? (

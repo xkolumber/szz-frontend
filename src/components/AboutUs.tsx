@@ -31,7 +31,7 @@ const AboutUs = () => {
   }, []);
 
   return (
-    <div className="own_edge">
+    <div className="own_edge min-h-screen">
       <div className="main_section !pt-0">
         <h2>O nás</h2>
         {data ? (

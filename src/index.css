@@ -521,12 +521,12 @@ th {
     padding: 2.5rem;
   }
 }
-@media screen and (min-width: 1536px) {
+/* @media screen and (min-width: 1536px) {
   .own_edge {
     padding-left: 8rem;
     padding-right: 8rem;
   }
-}
+} */
 
 .footer h1,
 .footer h2,

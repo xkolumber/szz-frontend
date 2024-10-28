@@ -1,6 +1,6 @@
 const ArchivePage = () => {
   return (
-    <div className="own_edge">
+    <div className="own_edge min-h-screen">
       <div className="main_section !pt-0">
         <h2>Archív</h2>
 
