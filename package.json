@@ -19,9 +19,11 @@
     "classnames": "^2.5.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.27.0",
     "react-select": "^5.8.1",
     "react-smooth-corners": "^1.0.4",
+    "react-spinners": "^0.14.1",
     "react-syntax-highlighter": "^15.6.1",
     "smooth-corners": "^1.0.8",
     "yet-another-react-lightbox": "^3.21.6"
