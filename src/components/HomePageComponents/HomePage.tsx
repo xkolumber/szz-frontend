@@ -3,6 +3,7 @@ import IconProtection from "../Icons/IconProtection";
 import IconRadio from "../Icons/IconRadio";
 import HomePageActualJobs from "./HomePageActualJobs";
 import HomePageEvents from "./HomePageEvents";
+import HomePageBlogSection from "./HomePageBlogSection";
 
 const HomePage = () => {
   return (
@@ -60,6 +61,7 @@ const HomePage = () => {
       </div>
       <HomePageActualJobs />
       <HomePageEvents />
+      <HomePageBlogSection />
     </>
   );
 };

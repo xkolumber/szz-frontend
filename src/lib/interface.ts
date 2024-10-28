@@ -41,6 +41,20 @@ export interface NavbarInfoData {
   typ: "link" | "pdf";
 }
 
+export interface Blog {
+  nazov_blog: string;
+  slug: string;
+  datum: string;
+  titulna_foto: string;
+  popis1: string;
+  foto1: string;
+  popis2: string;
+  foto2: string;
+  popis3: string;
+  foto3: string;
+  pdf: string[];
+}
+
 // export const API_URL_BASIC =
 //   "https://5iadehf6h7d46jwwlxicm4x3p40itdlf.lambda-url.eu-north-1.on.aws/api";
 

@@ -19,6 +19,7 @@ import NavbarInfo from "./components/NavbarInfo";
 import NotFound from "./components/NotFound";
 import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
+import BlogDetailPage from "./components/BlogComponents/BlogDetailPage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -62,6 +63,14 @@ function App() {
           element={
             <Layout>
               <BlogsPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/blog/:slug"
+          element={
+            <Layout>
+              <BlogDetailPage />
             </Layout>
           }
         />

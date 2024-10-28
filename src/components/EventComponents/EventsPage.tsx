@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ActualEvent, API_URL_BASIC } from "../../lib/interface";
 import IconCalendar from "../Icons/IconCalendar";
+import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 
 const EventsPage = () => {
   const [data, setData] = useState<ActualEvent[]>([]);
@@ -34,21 +35,17 @@ const EventsPage = () => {
   return (
     <div className="own_edge min-h-screen">
       <div className="main_section">
+        <ButtonWithArrowLeft title="Domovská stránka" link={`/blog`} />
         <h2 className="uppercase text-center">výstavy a podujatia</h2>
         {data ? (
-          <div className="flex flex-col md:flex-row gap-[24px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]">
             {data.map((object, index) => (
               <Link
-                className={`flex flex-col  rounded-[24px] w-full max-w-[464px] hover:scale-[1.02] duration-200`}
+                className={`flex flex-col  rounded-[24px] w-full  hover:scale-[1.02] duration-200`}
                 key={index}
                 to={`/vystavy-a-podujatia/${object.slug}`}
               >
-                <img
-                  src={object.titulna_foto}
-                  width={400}
-                  height={400}
-                  className="rounded-[16px]"
-                />
+                <img src={object.titulna_foto} className="rounded-[16px]" />
                 <div className="flex flex-row gap-6 pt-[24px] opacity-60">
                   <IconCalendar />
                   <p className="font-medium">

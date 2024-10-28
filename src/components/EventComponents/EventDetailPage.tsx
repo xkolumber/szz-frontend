@@ -10,60 +10,58 @@ const EventDetailPage = () => {
   const [data2, setData2] = useState<ActualEvent[]>([]);
   const { slug } = useParams<{ slug: string }>();
 
+  const getData = async () => {
+    try {
+      const response = await fetch(`${API_URL_BASIC}/getactualevent/${slug}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const responseData = await response.json();
+
+      if (responseData != null) {
+        setData(responseData);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const getData2 = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/getactualeventsexcept/${slug}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const responseData = await response.json();
+
+      if (responseData != null) {
+        setData2(responseData);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await fetch(
-          `${API_URL_BASIC}/getactualevent/${slug}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const responseData = await response.json();
-
-        if (responseData != null) {
-          setData(responseData);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    const getData2 = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:5000/api/getactualeventsexcept/${slug}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const responseData = await response.json();
-
-        if (responseData != null) {
-          setData2(responseData);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     if (slug) {
       console.log(slug);
       getData();

@@ -216,7 +216,9 @@ const UnionPage = () => {
               <p className="mt-[40px]">{choosenUnionData?.text}</p>
               {choosenUnionData.pdf.length > 0 && (
                 <>
-                  <h5 className="mt-[40px]">Dokumenty na stiahnutie</h5>
+                  <h5 className="mt-[40px] uppercase">
+                    Dokumenty na stiahnutie
+                  </h5>
                   <div className="flex flex-row gap-4">
                     {" "}
                     {choosenUnionData?.pdf.map((object, index) => (
