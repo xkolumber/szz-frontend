@@ -1,16 +1,22 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NotFound from "./components/NotFound";
-import HomePage from "./components/HomePageComponents/HomePage";
-import AboutUs from "./components/AboutUs";
 import { ReactNode } from "react";
-import Navbar from "./components/Navbar";
-import NavbarInfo from "./components/NavbarInfo";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AboutUs from "./components/AboutUs";
+import AdminAboutUs from "./components/AdminComponents/AdminAboutUs";
+import AdminBlogsPage from "./components/AdminComponents/AdminBlogsPage";
+import AdminEventsPage from "./components/AdminComponents/AdminEventsPage";
+import AdminGalleryPage from "./components/AdminComponents/AdminGalleryPage";
+import AdminLayout from "./components/AdminComponents/AdminLayout";
+import AdminPage from "./components/AdminComponents/AdminPage";
+import ArchivePage from "./components/ArchivePage";
 import BlogsPage from "./components/BlogComponents/BlogsPage";
-import EventsPage from "./components/EventComponents/EventsPage";
 import EventDetailPage from "./components/EventComponents/EventDetailPage";
+import EventsPage from "./components/EventComponents/EventsPage";
 import GalleryPage from "./components/GalleryComponents/GalleryPage";
 import GalleryPageId from "./components/GalleryComponents/GalleryPageId";
-import ArchivePage from "./components/ArchivePage";
+import HomePage from "./components/HomePageComponents/HomePage";
+import Navbar from "./components/Navbar";
+import NavbarInfo from "./components/NavbarInfo";
+import NotFound from "./components/NotFound";
 import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
 
@@ -107,6 +113,14 @@ function App() {
             </Layout>
           }
         />
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminPage />} />
+          <Route path="o-nas" element={<AdminAboutUs />} />
+          <Route path="galeria" element={<AdminGalleryPage />} />
+          <Route path="blog" element={<AdminBlogsPage />} />
+          <Route path="vystavy-a-podujatia" element={<AdminEventsPage />} />
+        </Route>
+
         <Route
           path="/task"
           element={

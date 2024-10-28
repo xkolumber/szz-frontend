@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { API_URL_BASIC } from "../lib/interface";
+import React, { useEffect, useState } from "react";
+import { API_URL_BASIC } from "../../lib/interface";
 
-const AboutUs = () => {
+const AdminPage = () => {
   const [data, setData] = useState("");
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(`${API_URL_BASIC}/getdata`, {
+        const response = await fetch(`${API_URL_BASIC}/adminPage`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -33,7 +33,7 @@ const AboutUs = () => {
   return (
     <div className="own_edge">
       <div className="main_section !pt-0">
-        <h2>O nás</h2>
+        <h2>Admin Page</h2>
         {data ? (
           <div>
             <p>{data}</p>
@@ -46,4 +46,4 @@ const AboutUs = () => {
   );
 };
 
-export default AboutUs;
+export default AdminPage;

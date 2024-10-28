@@ -2,35 +2,10 @@ import { Link, useLocation } from "react-router-dom";
 
 import logo from "../assets/logo.svg";
 import SearchInput from "./SearchInput";
+import { data } from "../lib/functionsClient";
 
 const Navbar = () => {
   let location = useLocation();
-  const data = [
-    {
-      title: "Domov",
-      slug: "/domov",
-    },
-    {
-      title: "O nás",
-      slug: "/o-nas",
-    },
-    {
-      title: "Blog",
-      slug: "/blog",
-    },
-    {
-      title: "Výstavy a podujatia",
-      slug: "/vystavy-a-podujatia",
-    },
-    {
-      title: "Archív",
-      slug: "/archiv",
-    },
-    {
-      title: "Galéria",
-      slug: "/galeria",
-    },
-  ];
 
   return (
     <div className="own_edge navbar_stroke">
