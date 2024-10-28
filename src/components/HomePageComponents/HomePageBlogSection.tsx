@@ -51,7 +51,7 @@ const HomePageBlogSection = () => {
                 <h5 className="uppercase mt-[24px]">{data[0].nazov_blog}</h5>
                 <p className="opacity-80 ">{data[0].popis1}</p>
               </Link>
-              <div className="flex flex-col md:w-1/2 gap-[24px]">
+              <div className="hidden lg:flex flex-col md:w-1/2 gap-[24px]">
                 {data &&
                   data.length > 1 &&
                   data.map(
