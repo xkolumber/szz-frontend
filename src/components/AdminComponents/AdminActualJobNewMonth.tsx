@@ -1,23 +1,24 @@
 import React, { useState } from "react";
-import { API_URL_AMIN, NavbarInfoData } from "../../lib/interface";
-import StepBack from "../StepBack";
 import toast, { Toaster } from "react-hot-toast";
-import AdminNotAuthorized from "./AdminNotAuthorized";
-import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
+import { ActualJob, API_URL_AMIN } from "../../lib/interface";
+import StepBack from "../StepBack";
+import AdminNotAuthorized from "./AdminNotAuthorized";
 
-const AdminNavbarDataNewId = () => {
+const AdminActualJobNewMonth = () => {
   const [isLoading, setIsLoading] = useState(false);
+
   const [authorized] = useState("ano");
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  const [actualizeData, setActualizeData] = useState<NavbarInfoData>({
+  const [actualizeData, setActualizeData] = useState<ActualJob>({
     id: "",
-    nazov: "",
+    mesiac: "",
     link: "",
-    poradie: 0,
-    typ: "link",
+    text: "",
+    farba: "",
   });
 
   const handleChange = (
@@ -32,17 +33,15 @@ const AdminNavbarDataNewId = () => {
     });
   };
 
-  const handleAddNavbarData = async (event: any) => {
+  const handleAddMonth = async (event: any) => {
     event.preventDefault();
-
-    if (actualizeData.typ != "link" && actualizeData.typ != "pdf") {
-      toast.error("Typ musí byť pdf alebo link ");
+    if (!actualizeData.farba.startsWith("#")) {
+      toast.error("Farba musí začínať s #");
       return;
     }
-
     try {
       setIsLoading(true);
-      const response = await fetch(`${API_URL_AMIN}/navbar/addnavbarinfodata`, {
+      const response = await fetch(`${API_URL_AMIN}/actualjobs/addactualjob`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,10 +49,10 @@ const AdminNavbarDataNewId = () => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          nazov: actualizeData.nazov,
+          mesiac: actualizeData.mesiac,
           link: actualizeData.link,
-          poradie: actualizeData.poradie,
-          typ: actualizeData.typ,
+          text: actualizeData.text,
+          farba: actualizeData.farba,
         }),
       });
 
@@ -63,8 +62,8 @@ const AdminNavbarDataNewId = () => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Oznam bol pridaný");
-        navigate("/admin/hlavicka-odkazy");
+        toast.success("Mesiac bol pridaný");
+        navigate("/admin/aktualne-prace");
       }
     } catch (error) {
       toast.error("niekde nastala chyba");
@@ -79,71 +78,77 @@ const AdminNavbarDataNewId = () => {
         <div className=" w-full">
           <StepBack />
           <Toaster />
-          <h2>Nový odkaz</h2>
+          <h2>Nový mesiac</h2>
 
-          <form className=" products_admin " onSubmit={handleAddNavbarData}>
+          <form className=" products_admin " onSubmit={handleAddMonth}>
             <div className="product_admin_row">
-              <p>Názov:</p>
+              <p>Mesiac:</p>
               <input
                 type="text"
-                name="nazov"
+                name="mesiac"
                 onChange={handleChange}
                 className="w-[70%]"
-                value={actualizeData?.nazov}
+                maxLength={50}
+                value={actualizeData?.mesiac}
                 required
               />
             </div>
             <div className="product_admin_row">
-              <p>Link:</p>
+              <p>Link PDF:</p>
               <input
                 type="text"
                 name="link"
                 onChange={handleChange}
                 className="w-[70%]"
                 value={actualizeData?.link}
+                maxLength={1000}
                 required
               />
             </div>
             <div className="product_admin_row">
-              <p>Poradie:</p>
-              <input
-                type="number"
-                name="poradie"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.poradie}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Typ odkazu: 'pdf' alebo 'link'</p>
+              <p>Text:</p>
               <input
                 type="text"
-                name="typ"
+                name="text"
                 onChange={handleChange}
                 className="w-[70%]"
-                value={actualizeData?.typ}
+                value={actualizeData?.text}
+                maxLength={250}
                 required
               />
             </div>
-            <button
-              className={`btn btn--tertiary !mt-4 ${
-                isLoading && "disabledPrimaryBtn"
-              }`}
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <ClipLoader
-                  size={20}
-                  color={"#00000"}
-                  loading={true}
-                  className="ml-16 mr-16"
-                />
-              ) : (
-                "Aktualizovať"
-              )}
-            </button>
+            <div className="product_admin_row">
+              <p>Farba mesiacu: '#ffffff' </p>
+              <input
+                type="text"
+                name="farba"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.farba}
+                maxLength={10}
+                required
+              />
+            </div>
+            <div className="flex flex-row justify-between mt-8">
+              <button
+                className={`btn btn--tertiary ${
+                  isLoading && "disabledPrimaryBtn"
+                }`}
+                type="submit"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <ClipLoader
+                    size={20}
+                    color={"#00000"}
+                    loading={true}
+                    className="ml-16 mr-16"
+                  />
+                ) : (
+                  "Aktualizovať"
+                )}
+              </button>
+            </div>
           </form>
         </div>
       )}
@@ -153,4 +158,4 @@ const AdminNavbarDataNewId = () => {
   );
 };
 
-export default AdminNavbarDataNewId;
+export default AdminActualJobNewMonth;

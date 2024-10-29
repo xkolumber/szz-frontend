@@ -762,6 +762,9 @@ textarea:focus {
   flex-direction: column;
   width: 75%;
 }
+input:focus {
+  border: 3px solid black !important;
+}
 
 @media screen and (min-width: 768px) {
   .product_admin_row {

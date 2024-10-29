@@ -50,4 +50,8 @@ export const navbar_admin_data = [
     title: "Hlavička odkazy",
     slug: "/admin/hlavicka-odkazy",
   },
+  {
+    title: "Aktuálne práce",
+    slug: "/admin/aktualne-prace",
+  },
 ];

@@ -2,32 +2,32 @@ import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { API_URL_AMIN, NavbarInfoData } from "../../lib/interface";
+import { ActualJob, API_URL_AMIN } from "../../lib/interface";
 import StepBack from "../StepBack";
 import AdminNotAuthorized from "./AdminNotAuthorized";
 
-const AdminNavbarDataId = () => {
+const AdminActualJobId = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
 
-  const [data, setData] = useState<NavbarInfoData>();
+  const [data, setData] = useState<ActualJob>();
   const [authorized, setAuthorized] = useState("ano");
   const token = localStorage.getItem("token");
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const [actualizeData, setActualizeData] = useState<NavbarInfoData>({
+  const [actualizeData, setActualizeData] = useState<ActualJob>({
     id: "",
-    nazov: "",
+    mesiac: "",
     link: "",
-    poradie: 0,
-    typ: "link",
+    text: "",
+    farba: "",
   });
 
   const getData = async () => {
     try {
       const response = await fetch(
-        `${API_URL_AMIN}/navbar/getnavbarinfodataid/${id}`,
+        `${API_URL_AMIN}/actualjobs/getactualjob/${id}`,
         {
           method: "GET",
           headers: {
@@ -70,16 +70,14 @@ const AdminNavbarDataId = () => {
 
   const handleSaveProduct = async (event: any) => {
     event.preventDefault();
-
-    if (actualizeData.typ != "link" && actualizeData.typ != "pdf") {
-      toast.error("Typ musí byť pdf alebo link ");
+    if (!actualizeData.farba.startsWith("#")) {
+      toast.error("Farba musí začínať s #");
       return;
     }
-
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${API_URL_AMIN}/navbar/updatenavbarinfodata/`,
+        `${API_URL_AMIN}/actualjobs/updateactualjob/`,
         {
           method: "PUT",
           headers: {
@@ -89,10 +87,10 @@ const AdminNavbarDataId = () => {
           },
           body: JSON.stringify({
             id: data?.id,
-            nazov: actualizeData.nazov,
+            mesiac: actualizeData.mesiac,
             link: actualizeData.link,
-            poradie: actualizeData.poradie,
-            typ: actualizeData.typ,
+            text: actualizeData.text,
+            farba: actualizeData.farba,
           }),
         }
       );
@@ -103,7 +101,7 @@ const AdminNavbarDataId = () => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Oznam bol aktualizovaný");
+        toast.success("Mesiac bol aktualizovaný");
         getData();
       }
     } catch (error) {
@@ -117,7 +115,7 @@ const AdminNavbarDataId = () => {
     try {
       setIsLoadingDelete(true);
       const response = await fetch(
-        `${API_URL_AMIN}/navbar/deletenavbarinfodata/${data!.id}`,
+        `${API_URL_AMIN}/actualjobs/deleteactualjob/${data!.id}`,
         {
           method: "delete",
           headers: {
@@ -137,8 +135,8 @@ const AdminNavbarDataId = () => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Oznam bol odstránený");
-        navigate("/admin/hlavicka-odkazy");
+        toast.success("Mesiac bol odstránený");
+        navigate("/admin/aktualne-prace");
       }
     } catch (error) {
       toast.error("niekde nastala chyba");
@@ -153,50 +151,54 @@ const AdminNavbarDataId = () => {
         <div className=" w-full">
           <StepBack />
           <Toaster />
-          <h2>Úprava: {data.nazov}</h2>
+          <h2>Úprava mesiaca: {data.mesiac}</h2>
 
           <form className=" products_admin " onSubmit={handleSaveProduct}>
             <div className="product_admin_row">
-              <p>Názov:</p>
+              <p>Mesiac:</p>
               <input
                 type="text"
-                name="nazov"
+                name="mesiac"
                 onChange={handleChange}
                 className="w-[70%]"
-                value={actualizeData?.nazov}
+                maxLength={50}
+                value={actualizeData?.mesiac}
                 required
               />
             </div>
             <div className="product_admin_row">
-              <p>Link:</p>
+              <p>Link PDF:</p>
               <input
                 type="text"
                 name="link"
                 onChange={handleChange}
                 className="w-[70%]"
                 value={actualizeData?.link}
+                maxLength={1000}
                 required
               />
             </div>
             <div className="product_admin_row">
-              <p>Poradie:</p>
-              <input
-                type="number"
-                name="poradie"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.poradie}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Typ odkazu: 'pdf' alebo 'link'</p>
+              <p>Text:</p>
               <input
                 type="text"
-                name="typ"
+                name="text"
                 onChange={handleChange}
                 className="w-[70%]"
-                value={actualizeData?.typ}
+                value={actualizeData?.text}
+                maxLength={250}
+                required
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>Farba mesiacu: '#ffffff' </p>
+              <input
+                type="text"
+                name="farba"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.farba}
+                maxLength={10}
                 required
               />
             </div>
@@ -246,4 +248,4 @@ const AdminNavbarDataId = () => {
   );
 };
 
-export default AdminNavbarDataId;
+export default AdminActualJobId;
