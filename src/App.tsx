@@ -20,6 +20,9 @@ import NotFound from "./components/NotFound";
 import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
 import BlogDetailPage from "./components/BlogComponents/BlogDetailPage";
+import AdminNavbarData from "./components/AdminComponents/AdminNavbarData";
+import AdminNavbarDataId from "./components/AdminComponents/AdminNavbarDataId";
+import AdminNavbarDataNewId from "./components/AdminComponents/AdminNavbarDataNewId";
 
 interface LayoutProps {
   children: ReactNode;
@@ -124,6 +127,12 @@ function App() {
         />
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminPage />} />
+          <Route path="hlavicka-odkazy" element={<AdminNavbarData />} />
+          <Route path="hlavicka-odkazy/:id" element={<AdminNavbarDataId />} />
+          <Route
+            path="hlavicka-odkazy/novy-odkaz"
+            element={<AdminNavbarDataNewId />}
+          />
           <Route path="o-nas" element={<AdminAboutUs />} />
           <Route path="galeria" element={<AdminGalleryPage />} />
           <Route path="blog" element={<AdminBlogsPage />} />

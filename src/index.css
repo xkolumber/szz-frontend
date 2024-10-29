@@ -711,3 +711,66 @@ textarea:focus {
 .light_green {
   background: rgba(86, 171, 108, 0.15);
 }
+
+.admin_section_2fr {
+  width: 100%;
+}
+.admin_section_2fr tr {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.admin_section_2fr tr {
+  border-bottom: 1px solid black;
+}
+
+.products_admin p {
+  color: black;
+}
+
+.products_admin input[type="text"],
+.products_admin input[type="number"],
+.products_admin textarea {
+  padding: 10px;
+  background-color: white;
+  color: black;
+  box-sizing: border-box;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 1px solid black;
+  height: 4.5rem;
+  font-size: 1.4rem;
+  width: 75%;
+  border-radius: 0px;
+}
+
+.product_admin_row {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  /* margin-bottom: 2rem; */
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+.product_admin_col {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+}
+
+@media screen and (min-width: 768px) {
+  .product_admin_row {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.disabledPrimaryBtn {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

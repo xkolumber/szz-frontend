@@ -81,8 +81,8 @@ function AdminLayout({ children }: LayoutProps) {
             </button>
           </div>
         </div>
-        <main className="own_edge">
-          <div className="main_section !pt-0"> {children || <Outlet />} </div>
+        <main className="own_edge w-full">
+          <div className="main_section "> {children || <Outlet />} </div>
         </main>
       </div>
     </>

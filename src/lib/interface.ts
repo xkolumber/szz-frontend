@@ -35,6 +35,7 @@ export interface UnionData {
 }
 
 export interface NavbarInfoData {
+  id: string;
   nazov: string;
   link: string;
   poradie: number;

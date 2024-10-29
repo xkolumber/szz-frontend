@@ -46,4 +46,8 @@ export const navbar_admin_data = [
     title: "Galéria",
     slug: "/admin/galeria",
   },
+  {
+    title: "Hlavička odkazy",
+    slug: "/admin/hlavicka-odkazy",
+  },
 ];
