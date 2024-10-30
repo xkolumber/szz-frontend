@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import IconProtection from "../Icons/IconProtection";
 import IconRadio from "../Icons/IconRadio";
 import HomePageActualJobs from "./HomePageActualJobs";
-import HomePageEvents from "./HomePageEvents";
 import HomePageBlogSection from "./HomePageBlogSection";
+import HomePageEvents from "./HomePageEvents";
 
 const HomePage = () => {
   return (
@@ -59,6 +59,7 @@ const HomePage = () => {
           <button className="btn btn--green">Otvoriť</button>
         </SmoothCorner> */}
       </div>
+
       <HomePageActualJobs />
       <HomePageEvents />
       <HomePageBlogSection />
