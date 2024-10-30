@@ -52,7 +52,9 @@ function AdminLayout({ children }: LayoutProps) {
         <div className="bg-[#6b9156] w-[350px] ">
           <div className="flex flex-col min-h-screen justify-between items-center  sticky top-0">
             <div className="flex flex-col items-center">
-              <img src={logo} width={90} height={90} className="!mt-8" />
+              <Link to={"/"}>
+                <img src={logo} width={90} height={90} className="!mt-8" />
+              </Link>
 
               <Link to={"/admin"}>
                 <h5 className="text-white mt-8">Admin</h5>

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { NavbarInfoData } from "../lib/interface";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const NavbarInfo = () => {
   const [data, setData] = useState<NavbarInfoData[]>([]);
@@ -41,42 +43,57 @@ const NavbarInfo = () => {
 
   return (
     <div className="flex flex-row gap-6 main_section !pt-0 !pb-0 justify-between">
-      <div className="flex flex-row gap-[32px]">
-        {data.map((object, index) =>
-          object.typ === "link" ? (
-            <Link className="text-white" key={index} to={object.link}>
-              {object.nazov}
-            </Link>
-          ) : (
-            <Link
-              className="text-white"
-              key={index}
-              to={object.link}
-              target="_blank"
-            >
-              {object.nazov}
-            </Link>
-          )
-        )}
-      </div>
-      <div className="flex-row gap-[32px] hidden md:flex">
-        {data2.map((object, index) =>
-          object.typ === "link" ? (
-            <Link className="text-white" key={index} to={object.link}>
-              {object.nazov}
-            </Link>
-          ) : (
-            <Link
-              className="text-white"
-              key={index}
-              to={object.link}
-              target="_blank"
-            >
-              {object.nazov}
-            </Link>
-          )
-        )}
-      </div>
+      {data.length != 0 ? (
+        <div className="flex flex-row gap-[32px]">
+          {data.map((object, index) =>
+            object.typ === "link" ? (
+              <Link className="text-white" key={index} to={object.link}>
+                {object.nazov}
+              </Link>
+            ) : (
+              <Link
+                className="text-white"
+                key={index}
+                to={object.link}
+                target="_blank"
+              >
+                {object.nazov}
+              </Link>
+            )
+          )}
+        </div>
+      ) : (
+        <div className="hidden md:flex flex-row gap-[32px]">
+          <Skeleton width={80} height={20} borderRadius={8} />
+          <Skeleton width={120} height={20} borderRadius={8} />
+          <Skeleton width={80} height={20} borderRadius={8} />
+        </div>
+      )}
+      {data2.length != 0 ? (
+        <div className="flex-row gap-[32px] hidden md:flex">
+          {data2.map((object, index) =>
+            object.typ === "link" ? (
+              <Link className="text-white" key={index} to={object.link}>
+                {object.nazov}
+              </Link>
+            ) : (
+              <Link
+                className="text-white"
+                key={index}
+                to={object.link}
+                target="_blank"
+              >
+                {object.nazov}
+              </Link>
+            )
+          )}
+        </div>
+      ) : (
+        <div className="hidden md:flex flex-row gap-[32px]">
+          <Skeleton width={80} height={20} borderRadius={8} />
+          <Skeleton width={80} height={20} borderRadius={8} />
+        </div>
+      )}
     </div>
   );
 };
