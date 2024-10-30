@@ -762,7 +762,9 @@ textarea:focus {
   flex-direction: column;
   width: 75%;
 }
-input:focus {
+
+.products_admin input[type="text"]:focus,
+.products_admin input[type="number"]:focus {
   border: 3px solid black !important;
 }
 
@@ -808,4 +810,12 @@ input:focus {
   background: transparent;
   cursor: pointer;
   font-size: 20px;
+}
+
+.litle_line {
+  height: auto;
+  width: 1px;
+  background: rgba(34, 34, 34, 0.25);
+  margin-left: 40px;
+  margin-right: 40px;
 }

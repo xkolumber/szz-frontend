@@ -15,6 +15,7 @@ export interface ActualEvent {
   text1: string;
   text2: string;
   slug: string;
+  typ: "SK" | "ZAH";
 }
 
 export interface Gallery {

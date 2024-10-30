@@ -1,20 +1,14 @@
-// @ts-nocheck
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Select from "react-select";
 import { Gallery } from "../../lib/interface";
+import { options_years } from "../../lib/functionsClient";
 
 const GalleryPage = () => {
   const [data, setData] = useState<Gallery[]>([]);
 
-  let [searchParams, setSearchParams] = useSearchParams();
-  const options = [
-    { value: "2024", label: "2024" },
-    { value: "2023", label: "2023" },
-    { value: "2022", label: "2022" },
-    { value: "2021", label: "2021" },
-    { value: "2020", label: "2020" },
-  ];
+  let [searchParams] = useSearchParams();
+
   const [selectedYear, setSelectedYear] = useState({ value: "", label: "" });
   const navigate = useNavigate();
 
@@ -25,10 +19,10 @@ const GalleryPage = () => {
         let rok = searchParams.get("rok") || new Date().getFullYear();
         if (!searchParams.has("strana") || !searchParams.has("rok")) {
           navigate(`?strana=${strana}&rok=${rok}`);
-          setSelectedYear(options[0]);
+          setSelectedYear(options_years[0]);
         }
         if (searchParams.get("rok")) {
-          const findlabel = options.find(
+          const findlabel = options_years.find(
             (object) => object.value === searchParams.get("rok")
           );
           if (findlabel) {
@@ -97,7 +91,7 @@ const GalleryPage = () => {
           <div className="flex flex-row items-center gap-6">
             <p className="uppercase font-medium">Rok fotogalérie</p>
             <Select
-              options={options}
+              options={options_years}
               onChange={handleChangeYear}
               value={selectedYear}
             />

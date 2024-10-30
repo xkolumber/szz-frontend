@@ -55,3 +55,27 @@ export const navbar_admin_data = [
     slug: "/admin/aktualne-prace",
   },
 ];
+
+export const options_years = [
+  { value: "2024", label: "2024" },
+  { value: "2023", label: "2023" },
+  { value: "2022", label: "2022" },
+  { value: "2021", label: "2021" },
+  { value: "2020", label: "2020" },
+];
+
+export const options_months = [
+  { value: "-1", label: "Vybrať..." },
+  { value: "0", label: "Január" },
+  { value: "1", label: "Február" },
+  { value: "2", label: "Marec" },
+  { value: "3", label: "Apríl" },
+  { value: "4", label: "Máj" },
+  { value: "5", label: "Jún" },
+  { value: "6", label: "Júl" },
+  { value: "7", label: "August" },
+  { value: "8", label: "September" },
+  { value: "9", label: "Október" },
+  { value: "10", label: "November" },
+  { value: "11", label: "December" },
+];
