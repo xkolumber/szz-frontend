@@ -15,50 +15,95 @@ const EventsPage = () => {
   let [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
+  const getData = async () => {
+    try {
+      let rok = searchParams.get("rok") || new Date().getFullYear().toString();
+      let mesiac = searchParams.get("mesiac") || "-1";
+      let stat = searchParams.get("stat") || "vsetky";
+
+      if (
+        !searchParams.has("rok") ||
+        !searchParams.has("mesiac") ||
+        !searchParams.has("stat")
+      ) {
+        navigate(`?rok=${rok}&mesiac=${mesiac}&stat=${stat}`);
+      }
+
+      const selectedYear = options_years.find((object) => object.value === rok);
+      if (selectedYear) {
+        setSelectedYear(selectedYear);
+      }
+
+      if (parseInt(mesiac) !== -1) {
+        const adjustedMonth = (parseInt(mesiac) - 1).toString();
+        const selectedMonth = options_months.find(
+          (object) => object.value === adjustedMonth
+        );
+
+        if (selectedMonth) {
+          setSelectedMonth(selectedMonth);
+        }
+      } else {
+        const defaultMonth = options_months[0];
+        setSelectedMonth(defaultMonth);
+      }
+
+      if (stat === "sk" || stat === "zah") {
+        setCountry(stat);
+      } else {
+        setCountry("vsetky");
+      }
+
+      fetchData();
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   useEffect(() => {
-    setSelectedYear(options_years[0]);
-    setSelectedMonth(options_months[0]);
-    const getData = async () => {
-      try {
-        let rok = searchParams.get("rok") || new Date().getFullYear();
-        let mesiac = searchParams.get("mesiac") || new Date().getMonth() + 1;
-        let stat = searchParams.get("stat");
+    getData();
+  }, []);
 
-        if (
-          !searchParams.has("mesiac") ||
-          !searchParams.has("rok") ||
-          !searchParams.has("stat")
-        ) {
-          navigate(`?rok=${rok}&stat=vsetky`);
-          setSelectedYear(options_years[0]);
-        }
-        if (stat) {
-          if (stat === "sk" || stat === "zah") {
-            setCountry(stat);
-          } else {
-            setCountry("vsetky");
-          }
-        }
-        if (rok) {
-          const findlabel = options_years.find(
-            (object) => object.value === searchParams.get("rok")
-          );
-          if (findlabel) {
-            setSelectedYear(findlabel);
-          }
-        }
+  const handleChangeYear = async (selectedOption: any) => {
+    setSelectedYear(selectedOption);
+    const newSearchParams = new URLSearchParams(window.location.search);
+    newSearchParams.set("rok", selectedOption.value);
+    navigate(`?${newSearchParams.toString()}`);
+  };
+  const handleChangeMonth = async (selectedOption: any) => {
+    setSelectedMonth(selectedOption);
+    const newSearchParams = new URLSearchParams(window.location.search);
+    const month_correct = parseInt(selectedOption.value);
+    if (selectedOption.value === "-1") {
+      newSearchParams.set("mesiac", month_correct.toString());
+    } else {
+      newSearchParams.set("mesiac", (month_correct + 1).toString());
+    }
 
-        if (mesiac) {
-          const findlabel = options_months.find(
-            (object) => object.value === searchParams.get("mesiac")
-          );
-          if (findlabel) {
-            setSelectedMonth(findlabel);
-          }
-        }
+    navigate(`?${newSearchParams.toString()}`);
+  };
 
+  const handleChangeCountry = (typ: string) => {
+    if (typ === country) {
+      setCountry("vsetky");
+      const newSearchParams = new URLSearchParams(window.location.search);
+      newSearchParams.set("stat", "vsetky");
+      navigate(`?${newSearchParams.toString()}`);
+    } else {
+      setCountry(typ);
+      const newSearchParams = new URLSearchParams(window.location.search);
+      newSearchParams.set("stat", typ);
+      navigate(`?${newSearchParams.toString()}`);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      if (selectedYear && selectedMonth && country) {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/getactualevents`,
+          `${import.meta.env.VITE_API_URL}/api/getactualeventssorted/${
+            selectedYear.value
+          }/${selectedMonth.value}/${country}`,
           {
             method: "GET",
             headers: {
@@ -73,56 +118,20 @@ const EventsPage = () => {
         }
 
         const responseData = await response.json();
+        console.log(responseData);
 
         setData(responseData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
       }
-    };
-
-    getData();
-  }, []);
-
-  const handleChangeYear = async (selectedOption: any) => {
-    setSelectedYear(selectedOption);
-    const newSearchParams = new URLSearchParams(window.location.search);
-    newSearchParams.set("rok", selectedOption.value);
-    navigate(`?${newSearchParams.toString()}`);
-    // let strana = searchParams.get("strana") || "1";
-    // navigate(`?strana=${strana}&rok=${selectedOption.value}`);
-    // setSelectedYear(selectedOption);
-    // const response = await fetch(
-    //   `${import.meta.env.VITE_API_URL}/api/getallgaleries/${strana}/${
-    //     selectedOption.value
-    //   }`,
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Accept: "application/json",
-    //     },
-    //   }
-    // );
-    // if (!response.ok) {
-    //   throw new Error("Network response was not ok");
-    // }
-    // const responseData = await response.json();
-    // setData(responseData);
-  };
-  const handleChangeMonth = async (selectedOption: any) => {
-    setSelectedMonth(selectedOption);
-    const newSearchParams = new URLSearchParams(window.location.search);
-    const month_correct = parseInt(selectedOption.value);
-    newSearchParams.set("mesiac", (month_correct + 1).toString());
-    navigate(`?${newSearchParams.toString()}`);
+    } catch (error) {
+      console.log("error");
+    }
   };
 
-  const handleChangeCountry = (typ: string) => {
-    setCountry(typ);
-    const newSearchParams = new URLSearchParams(window.location.search);
-    newSearchParams.set("stat", typ);
-    navigate(`?${newSearchParams.toString()}`);
-  };
+  useEffect(() => {
+    if (selectedMonth && selectedYear && country) {
+      fetchData();
+    }
+  }, [selectedMonth, selectedYear, country]);
 
   return (
     <div className="own_edge min-h-screen">
