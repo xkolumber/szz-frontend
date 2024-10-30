@@ -56,6 +56,10 @@ const HomePageActualJobs = () => {
                 spaceBetween: 20,
               },
               1024: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+              1280: {
                 slidesPerView: 4,
                 spaceBetween: 20,
               },
@@ -70,7 +74,7 @@ const HomePageActualJobs = () => {
             {data.map((object, index) => (
               <SwiperSlide key={index}>
                 <div
-                  className={`flex flex-col p-[24px] rounded-[16px] w-full max-w-[400px]`}
+                  className={`flex flex-col p-[24px] rounded-[16px] w-full `}
                   key={index}
                   style={{ background: object.farba }}
                 >
