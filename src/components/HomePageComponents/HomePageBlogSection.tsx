@@ -10,7 +10,7 @@ const HomePageBlogSection = () => {
     const getData = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/blogshomepage`,
+          `${import.meta.env.VITE_API_URL}/admin/blogs/getblogsopen`,
           {
             method: "GET",
             headers: {
@@ -26,7 +26,7 @@ const HomePageBlogSection = () => {
 
         const responseData = await response.json();
 
-        setData(responseData);
+        setData(responseData.Items);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

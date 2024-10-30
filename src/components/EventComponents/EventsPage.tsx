@@ -118,8 +118,6 @@ const EventsPage = () => {
         }
 
         const responseData = await response.json();
-        console.log(responseData);
-
         setData(responseData);
       }
     } catch (error) {
@@ -199,6 +197,9 @@ const EventsPage = () => {
           </div>
         ) : (
           <p>Loading...</p>
+        )}
+        {data.length === 0 && (
+          <p>So zadanými kritériami sa bohužiaľ nevyskutuje žiadna udalosť.</p>
         )}
       </div>
     </div>

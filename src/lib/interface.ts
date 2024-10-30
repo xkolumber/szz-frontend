@@ -45,6 +45,7 @@ export interface NavbarInfoData {
 }
 
 export interface Blog {
+  id: string;
   nazov_blog: string;
   slug: string;
   datum: string;
@@ -55,5 +56,5 @@ export interface Blog {
   foto2: string;
   popis3: string;
   foto3: string;
-  pdf: string[];
+  pdf: string;
 }

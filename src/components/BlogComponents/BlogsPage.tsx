@@ -10,7 +10,7 @@ const BlogsPage = () => {
     const getData = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/getallblogs`,
+          `${import.meta.env.VITE_API_URL}/admin/blogs/getblogsopen`,
           {
             method: "GET",
             headers: {
@@ -26,7 +26,7 @@ const BlogsPage = () => {
 
         const responseData = await response.json();
 
-        setData(responseData);
+        setData(responseData.Items);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -47,7 +47,10 @@ const BlogsPage = () => {
                 key={index}
                 to={`/blog/${object.slug}`}
               >
-                <img src={object.titulna_foto} className="rounded-[16px]" />
+                <img
+                  src={object.titulna_foto}
+                  className="rounded-[16px] max-h-[280px]"
+                />
 
                 <h5 className="pt-[8px]">{object.nazov_blog}</h5>
                 <p className="opacity-80 line-clamp-4">{object.popis1}</p>

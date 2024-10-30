@@ -79,3 +79,33 @@ export const options_months = [
   { value: "10", label: "November" },
   { value: "11", label: "December" },
 ];
+
+export function createSlug(title: string): string {
+  const slug = title
+    .toString()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "")
+    .replace(/--+/g, "-");
+
+  return slug;
+}
+
+export function isValidDate(datum: string) {
+  const datePattern = /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(\d{4})$/;
+
+  if (!datePattern.test(datum)) {
+    return false;
+  }
+
+  const [day, month, year] = datum.split(".").map(Number);
+  const date = new Date(year, month - 1, day);
+  return (
+    date.getFullYear() === year &&
+    date.getMonth() === month - 1 &&
+    date.getDate() === day
+  );
+}

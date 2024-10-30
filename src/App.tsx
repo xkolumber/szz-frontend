@@ -26,6 +26,8 @@ import AdminNavbarDataNewId from "./components/AdminComponents/AdminNavbarDataNe
 import AdminActualJobs from "./components/AdminComponents/AdminActualJobs";
 import AdminActualJobId from "./components/AdminComponents/AdminActualJobId";
 import AdminActualJobNewMonth from "./components/AdminComponents/AdminActualJobNewMonth";
+import AdminBlogPageId from "./components/AdminComponents/AdminBlogPageId";
+import AdminBlogPageNew from "./components/AdminComponents/AdminBlogPageNew";
 
 interface LayoutProps {
   children: ReactNode;
@@ -139,6 +141,8 @@ function App() {
           <Route path="o-nas" element={<AdminAboutUs />} />
           <Route path="galeria" element={<AdminGalleryPage />} />
           <Route path="blog" element={<AdminBlogsPage />} />
+          <Route path="blog/:id" element={<AdminBlogPageId />} />
+          <Route path="blog/novy-blog" element={<AdminBlogPageNew />} />
           <Route path="vystavy-a-podujatia" element={<AdminEventsPage />} />
           <Route path="aktualne-prace" element={<AdminActualJobs />} />
           <Route path="aktualne-prace/:id" element={<AdminActualJobId />} />

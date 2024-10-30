@@ -12,7 +12,7 @@ const BlogDetailPage = () => {
   const getData = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api//getblog/${slug}`,
+        `${import.meta.env.VITE_API_URL}/admin/blogs/getblogopen/${slug}`,
         {
           method: "GET",
           headers: {
@@ -27,7 +27,6 @@ const BlogDetailPage = () => {
       }
 
       const responseData = await response.json();
-
       if (responseData != null) {
         setData(responseData);
       }
@@ -39,7 +38,7 @@ const BlogDetailPage = () => {
   const getData2 = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/getblogsexcept/${slug}`,
+        `${import.meta.env.VITE_API_URL}/admin/blogs/getblogsexcept/${slug}`,
         {
           method: "GET",
           headers: {
@@ -65,11 +64,12 @@ const BlogDetailPage = () => {
 
   useEffect(() => {
     if (slug) {
-      console.log(slug);
       getData();
       getData2();
     }
   }, [slug]);
+
+  console.log(data);
   return (
     <div className="own_edge">
       <div className="main_section !pt-0 ">
@@ -122,7 +122,7 @@ const BlogDetailPage = () => {
                 />
               )}
 
-              {data.pdf.length > 0 && (
+              {/* {data.pdf.length > 0 && (
                 <>
                   <h5 className="mt-[40px] uppercase">
                     Dokumenty na stiahnutie
@@ -134,13 +134,14 @@ const BlogDetailPage = () => {
                         to={object}
                         className="btn btn--tertiary"
                         target="_blank"
+                        key={index}
                       >
                         Dokument {index}
                       </Link>
                     ))}
                   </div>
                 </>
-              )}
+              )} */}
               <div className="flex flex-row justify-between opacity-60 mt-16">
                 <p className="uppercase font-semibold ">
                   Publikované {data.datum}
