@@ -7,36 +7,38 @@ import "swiper/css/pagination";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { ActualJob } from "../../lib/interface";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const HomePageActualJobs = () => {
   const [data, setData] = useState<ActualJob[]>([]);
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/admin/actualjobs/getactualjobsopen`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+  const getData = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/actualjobs/getactualjobsopen`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
         }
+      );
 
-        const responseData = await response.json();
-
-        setData(responseData.Items);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
-    };
 
+      const responseData = await response.json();
+
+      setData(responseData.Items);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
     getData();
   }, []);
 
@@ -44,7 +46,7 @@ const HomePageActualJobs = () => {
     <div className="bg-[#EDF3DD] own_edge">
       <div className="main_section">
         <h2 className="uppercase">Aktuálne práce v záhrade</h2>
-        {data ? (
+        {data.length != 0 ? (
           <Swiper
             breakpoints={{
               320: {
@@ -57,10 +59,6 @@ const HomePageActualJobs = () => {
               },
               1024: {
                 slidesPerView: 3,
-                spaceBetween: 20,
-              },
-              1280: {
-                slidesPerView: 4,
                 spaceBetween: 20,
               },
             }}
@@ -94,7 +92,26 @@ const HomePageActualJobs = () => {
             ))}
           </Swiper>
         ) : (
-          <p>Loading...</p>
+          <div className="hidden md:grid grid-cols-3 gap-[20px]  mt-[40px]  mb-8">
+            <Skeleton
+              width="100%"
+              height={130}
+              borderRadius={16}
+              baseColor="#7188A1"
+            />
+            <Skeleton
+              width="100%"
+              height={130}
+              borderRadius={16}
+              baseColor="#8BAFBD"
+            />
+            <Skeleton
+              width="100%"
+              height={130}
+              borderRadius={16}
+              baseColor="#A79ABA"
+            />
+          </div>
         )}
       </div>
     </div>
