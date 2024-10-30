@@ -57,14 +57,14 @@ export interface Blog {
   pdf: string[];
 }
 
-export const API_URL_BASIC =
-  "https://5iadehf6h7d46jwwlxicm4x3p40itdlf.lambda-url.eu-north-1.on.aws/api";
+// export const API_URL_BASIC =
+//   "https://5iadehf6h7d46jwwlxicm4x3p40itdlf.lambda-url.eu-north-1.on.aws/api";
 
-export const API_URL_TASK =
-  "https://5iadehf6h7d46jwwlxicm4x3p40itdlf.lambda-url.eu-north-1.on.aws/apitask/task";
+// export const API_URL_TASK =
+//   "https://5iadehf6h7d46jwwlxicm4x3p40itdlf.lambda-url.eu-north-1.on.aws/apitask/task";
 
-export const API_URL_AMIN =
-  "https://5iadehf6h7d46jwwlxicm4x3p40itdlf.lambda-url.eu-north-1.on.aws/admin";
+// export const API_URL_AMIN =
+//   "https://5iadehf6h7d46jwwlxicm4x3p40itdlf.lambda-url.eu-north-1.on.aws/admin";
 
 // export const API_URL_BASIC = "http://localhost:5000/api";
 

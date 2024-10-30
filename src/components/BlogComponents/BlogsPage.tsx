@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { API_URL_BASIC, Blog } from "../../lib/interface";
+import { Blog } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 
 const BlogsPage = () => {
@@ -9,13 +9,16 @@ const BlogsPage = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(`${API_URL_BASIC}/getallblogs`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/getallblogs`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Network response was not ok");

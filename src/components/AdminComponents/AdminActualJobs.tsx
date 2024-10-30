@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ActualJob, API_URL_AMIN } from "../../lib/interface";
+import { ActualJob } from "../../lib/interface";
 import StepBack from "../StepBack";
 import AdminNotAuthorized from "./AdminNotAuthorized";
 
@@ -13,7 +13,7 @@ const AdminActualJobs = () => {
     const getData = async () => {
       try {
         const response = await fetch(
-          `${API_URL_AMIN}/actualjobs/getactualjobs`,
+          `${import.meta.env.VITE_API_URL}/admin/actualjobs/getactualjobs`,
           {
             method: "GET",
             headers: {

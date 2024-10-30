@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 
-import { ClipLoader } from "react-spinners";
 import toast, { Toaster } from "react-hot-toast";
-import { API_URL_AMIN } from "../lib/interface";
+import { ClipLoader } from "react-spinners";
 
 const LoginElement = () => {
   const [data, setData] = useState({
@@ -18,17 +17,20 @@ const LoginElement = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${API_URL_AMIN}/signin`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          username: data.username,
-          password: data.password,
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/signin`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            username: data.username,
+            password: data.password,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");

@@ -5,7 +5,6 @@ import { useState } from "react";
 
 import axios from "axios";
 import classnames from "classnames";
-import { API_URL_TASK } from "../lib/interface";
 import { UpdateTaskForm } from "./UpdateTaskForm";
 
 export const Task = ({ task, fetchTasks }: any) => {
@@ -15,7 +14,7 @@ export const Task = ({ task, fetchTasks }: any) => {
 
   const handleUpdateTaskCompletion = async () => {
     try {
-      await axios.put(API_URL_TASK, {
+      await axios.put(`${import.meta.env.VITE_API_URL}/apitask/task`, {
         id,
         name,
         completed: !isComplete,
@@ -28,7 +27,9 @@ export const Task = ({ task, fetchTasks }: any) => {
 
   const handleDeleteTask = async () => {
     try {
-      await axios.delete(`${API_URL_TASK}/${task.id}`);
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/apitask/task/${task.id}`
+      );
 
       await fetchTasks();
     } catch (err) {

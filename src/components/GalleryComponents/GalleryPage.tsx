@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Select from "react-select";
-import { API_URL_BASIC, Gallery } from "../../lib/interface";
+import { Gallery } from "../../lib/interface";
 
 const GalleryPage = () => {
   const [data, setData] = useState<Gallery[]>([]);
@@ -37,7 +37,7 @@ const GalleryPage = () => {
         }
 
         const response = await fetch(
-          `${API_URL_BASIC}/getallgaleries/${strana}/${rok}`,
+          `${import.meta.env.VITE_API_URL}/api/getallgaleries/${strana}/${rok}`,
           {
             method: "GET",
             headers: {
@@ -68,7 +68,9 @@ const GalleryPage = () => {
     setSelectedYear(selectedOption);
 
     const response = await fetch(
-      `${API_URL_BASIC}/getallgaleries/${strana}/${selectedOption.value}`,
+      `${import.meta.env.VITE_API_URL}/api/getallgaleries/${strana}/${
+        selectedOption.value
+      }`,
       {
         method: "GET",
         headers: {

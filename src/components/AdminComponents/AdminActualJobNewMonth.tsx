@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { ActualJob, API_URL_AMIN } from "../../lib/interface";
+import { ActualJob } from "../../lib/interface";
 import StepBack from "../StepBack";
 import AdminNotAuthorized from "./AdminNotAuthorized";
 
@@ -41,20 +41,23 @@ const AdminActualJobNewMonth = () => {
     }
     try {
       setIsLoading(true);
-      const response = await fetch(`${API_URL_AMIN}/actualjobs/addactualjob`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          mesiac: actualizeData.mesiac,
-          link: actualizeData.link,
-          text: actualizeData.text,
-          farba: actualizeData.farba,
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/actualjobs/addactualjob`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            mesiac: actualizeData.mesiac,
+            link: actualizeData.link,
+            text: actualizeData.text,
+            farba: actualizeData.farba,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");

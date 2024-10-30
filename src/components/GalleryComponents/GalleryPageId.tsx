@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { API_URL_BASIC, Gallery } from "../../lib/interface";
-import ButtonWithArrow from "../ButtonWithArrow";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { Gallery } from "../../lib/interface";
+import ButtonWithArrow from "../ButtonWithArrow";
 
 const GalleryPageId = () => {
   const [data, setData] = useState<Gallery>();
@@ -15,13 +15,16 @@ const GalleryPageId = () => {
 
   const getData = async () => {
     try {
-      const response = await fetch(`${API_URL_BASIC}/getallgaleries/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/getallgaleries/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -39,13 +42,16 @@ const GalleryPageId = () => {
 
   const getData2 = async () => {
     try {
-      const response = await fetch(`${API_URL_BASIC}/getgaleriesexcept/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/getgaleriesexcept/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");

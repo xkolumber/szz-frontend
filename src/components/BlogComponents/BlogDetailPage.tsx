@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { API_URL_BASIC, Blog } from "../../lib/interface";
+import { Blog } from "../../lib/interface";
 import ButtonWithArrow from "../ButtonWithArrow";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 
@@ -11,13 +11,16 @@ const BlogDetailPage = () => {
 
   const getData = async () => {
     try {
-      const response = await fetch(`${API_URL_BASIC}/getblog/${slug}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api//getblog/${slug}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -36,7 +39,7 @@ const BlogDetailPage = () => {
   const getData2 = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/getblogsexcept/${slug}`,
+        `${import.meta.env.VITE_API_URL}/api/getblogsexcept/${slug}`,
         {
           method: "GET",
           headers: {

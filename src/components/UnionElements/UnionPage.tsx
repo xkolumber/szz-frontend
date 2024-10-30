@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import { API_URL_BASIC, UnionData } from "../../lib/interface";
+import { UnionData } from "../../lib/interface";
 import IconArrowUp from "../Icons/IconArrowUp";
 
 const UnionPage = () => {
@@ -20,13 +20,16 @@ const UnionPage = () => {
 
   const getData = async () => {
     try {
-      const response = await fetch(`${API_URL_BASIC}/getdataunion`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/getdataunion`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");

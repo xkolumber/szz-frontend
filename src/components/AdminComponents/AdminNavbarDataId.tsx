@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { API_URL_AMIN, NavbarInfoData } from "../../lib/interface";
+import { NavbarInfoData } from "../../lib/interface";
 import StepBack from "../StepBack";
 import AdminNotAuthorized from "./AdminNotAuthorized";
 
@@ -27,7 +27,9 @@ const AdminNavbarDataId = () => {
   const getData = async () => {
     try {
       const response = await fetch(
-        `${API_URL_AMIN}/navbar/getnavbarinfodataid/${id}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/admin/navbar/getnavbarinfodataid/${id}`,
         {
           method: "GET",
           headers: {
@@ -79,7 +81,7 @@ const AdminNavbarDataId = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${API_URL_AMIN}/navbar/updatenavbarinfodata/`,
+        `${import.meta.env.VITE_API_URL}/admin/navbar/updatenavbarinfodata/`,
         {
           method: "PUT",
           headers: {
@@ -117,7 +119,9 @@ const AdminNavbarDataId = () => {
     try {
       setIsLoadingDelete(true);
       const response = await fetch(
-        `${API_URL_AMIN}/navbar/deletenavbarinfodata/${data!.id}`,
+        `${import.meta.env.VITE_API_URL}/admin/navbar/deletenavbarinfodata/${
+          data!.id
+        }`,
         {
           method: "delete",
           headers: {

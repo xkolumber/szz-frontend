@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { API_URL_AMIN, NavbarInfoData } from "../../lib/interface";
+import { NavbarInfoData } from "../../lib/interface";
 import StepBack from "../StepBack";
 import AdminNotAuthorized from "./AdminNotAuthorized";
 
@@ -13,7 +13,7 @@ const AdminNavbarData = () => {
     const getData = async () => {
       try {
         const response = await fetch(
-          `${API_URL_AMIN}/navbar/getnavbarinfodata`,
+          `${import.meta.env.VITE_API_URL}/admin/navbar/getnavbarinfodata`,
           {
             method: "GET",
             headers: {

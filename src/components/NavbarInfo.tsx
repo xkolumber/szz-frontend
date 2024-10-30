@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { API_URL_AMIN, NavbarInfoData } from "../lib/interface";
+import { NavbarInfoData } from "../lib/interface";
 
 const NavbarInfo = () => {
   const [data, setData] = useState<NavbarInfoData[]>([]);
@@ -9,7 +9,7 @@ const NavbarInfo = () => {
   const getData = async () => {
     try {
       const response = await fetch(
-        `${API_URL_AMIN}/navbar/getnavbarinfodataopen`,
+        `${import.meta.env.VITE_API_URL}/admin/navbar/getnavbarinfodataopen`,
         {
           method: "GET",
           headers: {

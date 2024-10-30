@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { ActualJob, API_URL_AMIN } from "../../lib/interface";
+import { ActualJob } from "../../lib/interface";
 import StepBack from "../StepBack";
 import AdminNotAuthorized from "./AdminNotAuthorized";
 
@@ -27,7 +27,7 @@ const AdminActualJobId = () => {
   const getData = async () => {
     try {
       const response = await fetch(
-        `${API_URL_AMIN}/actualjobs/getactualjob/${id}`,
+        `${import.meta.env.VITE_API_URL}/admin/actualjobs/getactualjob/${id}`,
         {
           method: "GET",
           headers: {
@@ -77,7 +77,7 @@ const AdminActualJobId = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${API_URL_AMIN}/actualjobs/updateactualjob/`,
+        `${import.meta.env.VITE_API_URL}/admin/actualjobs/updateactualjob/`,
         {
           method: "PUT",
           headers: {
@@ -115,7 +115,9 @@ const AdminActualJobId = () => {
     try {
       setIsLoadingDelete(true);
       const response = await fetch(
-        `${API_URL_AMIN}/actualjobs/deleteactualjob/${data!.id}`,
+        `${import.meta.env.VITE_API_URL}/admin/actualjobs/deleteactualjob/${
+          data!.id
+        }`,
         {
           method: "delete",
           headers: {

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { API_URL_AMIN } from "../../lib/interface";
 import AdminNotAuthorized from "./AdminNotAuthorized";
 
 const AdminPage = () => {
@@ -10,14 +9,17 @@ const AdminPage = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(`${API_URL_AMIN}/data`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/admin/data`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Network response was not ok");

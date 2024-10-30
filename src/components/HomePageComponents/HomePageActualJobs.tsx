@@ -6,7 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { ActualJob, API_URL_AMIN } from "../../lib/interface";
+import { ActualJob } from "../../lib/interface";
 
 const HomePageActualJobs = () => {
   const [data, setData] = useState<ActualJob[]>([]);
@@ -15,7 +15,7 @@ const HomePageActualJobs = () => {
     const getData = async () => {
       try {
         const response = await fetch(
-          `${API_URL_AMIN}/actualjobs/getactualjobsopen`,
+          `${import.meta.env.VITE_API_URL}/admin/actualjobs/getactualjobsopen`,
           {
             method: "GET",
             headers: {

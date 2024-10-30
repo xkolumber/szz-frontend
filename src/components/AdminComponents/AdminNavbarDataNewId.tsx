@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { API_URL_AMIN, NavbarInfoData } from "../../lib/interface";
-import StepBack from "../StepBack";
 import toast, { Toaster } from "react-hot-toast";
-import AdminNotAuthorized from "./AdminNotAuthorized";
-import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
+import { NavbarInfoData } from "../../lib/interface";
+import StepBack from "../StepBack";
+import AdminNotAuthorized from "./AdminNotAuthorized";
 
 const AdminNavbarDataNewId = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -42,20 +42,23 @@ const AdminNavbarDataNewId = () => {
 
     try {
       setIsLoading(true);
-      const response = await fetch(`${API_URL_AMIN}/navbar/addnavbarinfodata`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          nazov: actualizeData.nazov,
-          link: actualizeData.link,
-          poradie: actualizeData.poradie,
-          typ: actualizeData.typ,
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/navbar/addnavbarinfodata`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            nazov: actualizeData.nazov,
+            link: actualizeData.link,
+            poradie: actualizeData.poradie,
+            typ: actualizeData.typ,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
