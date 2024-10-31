@@ -23,7 +23,7 @@ const HomePage = () => {
           </div>
           <div className="flex flex-col md:w-[50%]">
             <Link
-              className="bg-[#EDF3DD] pl-[64px] pt-[37.5px] pb-[37.5px] pr-[40px] rounded-[24px] flex flex-row gap-16  items-center justify-between"
+              className="bg-[#EDF3DD] mt-8 md:mt-0 p-8 xl:pl-[64px] xl:pt-[37.5px] xl:pb-[37.5px] xl:pr-[40px] rounded-[24px] flex flex-row gap-16  items-center justify-between"
               to={"/zvaz"}
             >
               <h3 className="uppercase">Sekcia pre zväz</h3>

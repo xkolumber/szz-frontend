@@ -17,7 +17,7 @@ const HomePageEvents = () => {
     return (
       <div className="bg-[#EDF3DD] own_edge">
         <div className="main_section">
-          <div className="flex flex-row justify-between  items-center mb-[32px]">
+          <div className="flex flex-col md:flex-row justify-between  md:items-center mb-[32px]">
             <h2 className="uppercase">Aktuálne výstavy a podujatia</h2>
             <ButtonWithArrow
               title="Zobraziť všetky"
@@ -36,7 +36,7 @@ const HomePageEvents = () => {
   return (
     <div className="own_edge">
       <div className="main_section">
-        <div className="flex flex-row justify-between  items-center mb-[32px]">
+        <div className="flex flex-col md:flex-row  justify-between  md:items-center mb-[32px]">
           <h2 className="uppercase">Aktuálne výstavy a podujatia</h2>
           <ButtonWithArrow
             title="Zobraziť všetky"

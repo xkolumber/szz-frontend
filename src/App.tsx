@@ -33,6 +33,7 @@ import PoradnaPage from "./PoradnaPage";
 import AdminFaqPage from "./components/AdminComponents/AdminFaqPage";
 import AdminFaqPageId from "./components/AdminComponents/AdminFaqPageId";
 import AdminFaqPageNew from "./components/AdminComponents/AdminFaqPageNew";
+import Footer from "./components/Footer";
 
 interface LayoutProps {
   children: ReactNode;
@@ -46,6 +47,7 @@ function Layout({ children }: LayoutProps) {
       </div>
       <Navbar />
       <main>{children}</main>
+      <Footer />
     </>
   );
 }

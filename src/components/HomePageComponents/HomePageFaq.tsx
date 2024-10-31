@@ -31,7 +31,7 @@ const HomePageFaq = () => {
   return (
     <div className="own_edge ">
       <div className="main_section">
-        <div className="flex flex-row  ">
+        <div className="flex flex-col md:flex-row  ">
           <div className="flex flex-col md:w-1/2">
             {" "}
             <h2 className="uppercase">Máte nejaké otázky?</h2>
@@ -43,7 +43,7 @@ const HomePageFaq = () => {
           </div>
           <div className="md:w-1/2">
             <FaqElements homepage={true} data={dataFaqs} />
-            <div className="flex flex-row justify-between items-center mt-8">
+            <div className="flex flex-row justify-between items-center mt-16 md:mt-8 mb-16">
               <h5 className="uppercase">Viac nájdete v poradni</h5>
               <Link className="btn btn--tertiary" to={"/poradna"}>
                 Otvoriť poradňu

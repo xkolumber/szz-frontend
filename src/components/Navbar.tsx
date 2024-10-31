@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import logo from "../assets/logo.svg";
 import SearchInput from "./SearchInput";
-import { data } from "../lib/functionsClient";
+import { navbar_data } from "../lib/functionsClient";
 
 const Navbar = () => {
   let location = useLocation();
@@ -16,7 +16,7 @@ const Navbar = () => {
         </Link>
 
         <div className="flex-row gap-[64px] hidden lg:flex">
-          {data.map((object, index) => (
+          {navbar_data.map((object, index) => (
             <Link
               to={object.slug === "/domov" ? "/" : object.slug}
               key={index}

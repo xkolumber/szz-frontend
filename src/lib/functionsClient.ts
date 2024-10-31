@@ -1,4 +1,4 @@
-export const data = [
+export const navbar_data = [
   {
     title: "Domov",
     slug: "/domov",
