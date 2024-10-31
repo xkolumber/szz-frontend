@@ -1,36 +1,28 @@
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { getAboutUsData } from "../lib/functions";
 
 const AboutUs = () => {
-  const [data, setData] = useState("");
+  const { data, status, error, isLoading } = useQuery({
+    queryKey: ["about_us"],
+    queryFn: getAboutUsData,
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+  });
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/getdata`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          }
-        );
+  if (isLoading) {
+    return (
+      <div className="own_edge min-h-screen">
+        <div className="main_section !pt-0">
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const responseData = await response.json();
-
-        setData(responseData.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    getData();
-  }, []);
+  if (status === "error") {
+    return <p>Error: {error.message}</p>;
+  }
 
   return (
     <div className="own_edge min-h-screen">

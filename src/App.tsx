@@ -2,12 +2,21 @@ import { ReactNode } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AboutUs from "./components/AboutUs";
 import AdminAboutUs from "./components/AdminComponents/AdminAboutUs";
+import AdminActualJobId from "./components/AdminComponents/AdminActualJobId";
+import AdminActualJobNewMonth from "./components/AdminComponents/AdminActualJobNewMonth";
+import AdminActualJobs from "./components/AdminComponents/AdminActualJobs";
+import AdminBlogPageId from "./components/AdminComponents/AdminBlogPageId";
+import AdminBlogPageNew from "./components/AdminComponents/AdminBlogPageNew";
 import AdminBlogsPage from "./components/AdminComponents/AdminBlogsPage";
 import AdminEventsPage from "./components/AdminComponents/AdminEventsPage";
 import AdminGalleryPage from "./components/AdminComponents/AdminGalleryPage";
 import AdminLayout from "./components/AdminComponents/AdminLayout";
+import AdminNavbarData from "./components/AdminComponents/AdminNavbarData";
+import AdminNavbarDataId from "./components/AdminComponents/AdminNavbarDataId";
+import AdminNavbarDataNewId from "./components/AdminComponents/AdminNavbarDataNewId";
 import AdminPage from "./components/AdminComponents/AdminPage";
 import ArchivePage from "./components/ArchivePage";
+import BlogDetailPage from "./components/BlogComponents/BlogDetailPage";
 import BlogsPage from "./components/BlogComponents/BlogsPage";
 import EventDetailPage from "./components/EventComponents/EventDetailPage";
 import EventsPage from "./components/EventComponents/EventsPage";
@@ -19,15 +28,7 @@ import NavbarInfo from "./components/NavbarInfo";
 import NotFound from "./components/NotFound";
 import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
-import BlogDetailPage from "./components/BlogComponents/BlogDetailPage";
-import AdminNavbarData from "./components/AdminComponents/AdminNavbarData";
-import AdminNavbarDataId from "./components/AdminComponents/AdminNavbarDataId";
-import AdminNavbarDataNewId from "./components/AdminComponents/AdminNavbarDataNewId";
-import AdminActualJobs from "./components/AdminComponents/AdminActualJobs";
-import AdminActualJobId from "./components/AdminComponents/AdminActualJobId";
-import AdminActualJobNewMonth from "./components/AdminComponents/AdminActualJobNewMonth";
-import AdminBlogPageId from "./components/AdminComponents/AdminBlogPageId";
-import AdminBlogPageNew from "./components/AdminComponents/AdminBlogPageNew";
+import ScrollToTop from "./components/ScrollToTop";
 
 interface LayoutProps {
   children: ReactNode;
@@ -48,6 +49,7 @@ function Layout({ children }: LayoutProps) {
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route
           path="/"

@@ -109,3 +109,5 @@ export function isValidDate(datum: string) {
     date.getDate() === day
   );
 }
+
+export const LIMIT_BLOG = 4;
