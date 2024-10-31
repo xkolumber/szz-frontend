@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Faq } from "../../lib/interface";
-import StepBack from "../StepBack";
-import AdminNotAuthorized from "./AdminNotAuthorized";
+import { Blog } from "../../../lib/interface";
+import StepBack from "../../StepBack";
+import AdminNotAuthorized from "../AdminNotAuthorized";
 
-const AdminFaqPage = () => {
-  const [data, setData] = useState<Faq[]>([]);
+const AdminBlogsPage = () => {
+  const [data, setData] = useState<Blog[]>([]);
   const [authorized, setAuthorized] = useState("ano");
   const token = localStorage.getItem("token");
 
@@ -13,7 +13,7 @@ const AdminFaqPage = () => {
     const getData = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/admin/faq/getfaqdata`,
+          `${import.meta.env.VITE_API_URL}/admin/blogs/getblogs`,
           {
             method: "GET",
             headers: {
@@ -45,10 +45,11 @@ const AdminFaqPage = () => {
       {data && authorized === "ano" && (
         <div className=" w-full">
           <StepBack />
-          <h2>Otázky a odpovede</h2>
+          <h2>Blog sekcia</h2>
+          <p>V tejto časti vytvárate články.</p>
 
-          <Link to="/admin/otazky-a-odpovede/nova-otazka">
-            <p className="underline">Pridať novú otázku / odpoveď</p>
+          <Link to="/admin/blog/novy-blog">
+            <p className="underline">Pridať nový blog</p>
           </Link>
 
           <table className="admin_section_2fr mt-8">
@@ -62,10 +63,10 @@ const AdminFaqPage = () => {
               {data.map((object, index) => (
                 <tr key={index}>
                   <td className="text-left flex items-center">
-                    {object.otazka}
+                    {object.nazov_blog}
                   </td>
                   <td className="flex justify-end">
-                    <Link to={`/admin/otazky-a-odpovede/${object.id} `}>
+                    <Link to={`/admin/blog/${object.id} `}>
                       <button className="btn btn--tertiary">Info</button>
                     </Link>
                   </td>
@@ -81,4 +82,4 @@ const AdminFaqPage = () => {
   );
 };
 
-export default AdminFaqPage;
+export default AdminBlogsPage;

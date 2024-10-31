@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Blog } from "../../lib/interface";
-import StepBack from "../StepBack";
-import AdminNotAuthorized from "./AdminNotAuthorized";
+import { ActualJob } from "../../../lib/interface";
+import StepBack from "../../StepBack";
+import AdminNotAuthorized from "../AdminNotAuthorized";
 
-const AdminBlogsPage = () => {
-  const [data, setData] = useState<Blog[]>([]);
+const AdminActualJobs = () => {
+  const [data, setData] = useState<ActualJob[]>([]);
   const [authorized, setAuthorized] = useState("ano");
   const token = localStorage.getItem("token");
 
@@ -13,7 +13,7 @@ const AdminBlogsPage = () => {
     const getData = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/admin/blogs/getblogs`,
+          `${import.meta.env.VITE_API_URL}/admin/actualjobs/getactualjobs`,
           {
             method: "GET",
             headers: {
@@ -45,11 +45,14 @@ const AdminBlogsPage = () => {
       {data && authorized === "ano" && (
         <div className=" w-full">
           <StepBack />
-          <h2>Blog sekcia</h2>
-          <p>V tejto časti vytvárate články.</p>
+          <h2>Aktuálne práce v mesiacoch</h2>
+          <p>
+            V tejto časti viete upraviť popis, PDF dokument a farbu v
+            jednotlivých mesiacoch.
+          </p>
 
-          <Link to="/admin/blog/novy-blog">
-            <p className="underline">Pridať nový blog</p>
+          <Link to="/admin/aktualne-prace/novy-mesiac">
+            <p className="underline">Pridať nový mesiac</p>
           </Link>
 
           <table className="admin_section_2fr mt-8">
@@ -63,10 +66,10 @@ const AdminBlogsPage = () => {
               {data.map((object, index) => (
                 <tr key={index}>
                   <td className="text-left flex items-center">
-                    {object.nazov_blog}
+                    {object.mesiac}
                   </td>
                   <td className="flex justify-end">
-                    <Link to={`/admin/blog/${object.id} `}>
+                    <Link to={`/admin/aktualne-prace/${object.id} `}>
                       <button className="btn btn--tertiary">Info</button>
                     </Link>
                   </td>
@@ -82,4 +85,4 @@ const AdminBlogsPage = () => {
   );
 };
 
-export default AdminBlogsPage;
+export default AdminActualJobs;

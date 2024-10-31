@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { NavbarInfoData } from "../../lib/interface";
-import StepBack from "../StepBack";
-import AdminNotAuthorized from "./AdminNotAuthorized";
+import { NavbarInfoData } from "../../../lib/interface";
+import StepBack from "../../StepBack";
+import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const AdminNavbarData = () => {
   const [data, setData] = useState<NavbarInfoData[]>([]);

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { Faq } from "../../lib/interface";
-import StepBack from "../StepBack";
-import AdminNotAuthorized from "./AdminNotAuthorized";
+import { Faq } from "../../../lib/interface";
+import StepBack from "../../StepBack";
+import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const AdminFaqPageNew = () => {
   const [isLoading, setIsLoading] = useState(false);

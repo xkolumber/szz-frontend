@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ActualJob } from "../../lib/interface";
-import StepBack from "../StepBack";
-import AdminNotAuthorized from "./AdminNotAuthorized";
+import { Faq } from "../../../lib/interface";
+import StepBack from "../../StepBack";
+import AdminNotAuthorized from "../AdminNotAuthorized";
 
-const AdminActualJobs = () => {
-  const [data, setData] = useState<ActualJob[]>([]);
+const AdminFaqPage = () => {
+  const [data, setData] = useState<Faq[]>([]);
   const [authorized, setAuthorized] = useState("ano");
   const token = localStorage.getItem("token");
 
@@ -13,7 +13,7 @@ const AdminActualJobs = () => {
     const getData = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/admin/actualjobs/getactualjobs`,
+          `${import.meta.env.VITE_API_URL}/admin/faq/getfaqdata`,
           {
             method: "GET",
             headers: {
@@ -45,14 +45,10 @@ const AdminActualJobs = () => {
       {data && authorized === "ano" && (
         <div className=" w-full">
           <StepBack />
-          <h2>Aktuálne práce v mesiacoch</h2>
-          <p>
-            V tejto časti viete upraviť popis, PDF dokument a farbu v
-            jednotlivých mesiacoch.
-          </p>
+          <h2>Otázky a odpovede</h2>
 
-          <Link to="/admin/aktualne-prace/novy-mesiac">
-            <p className="underline">Pridať nový mesiac</p>
+          <Link to="/admin/otazky-a-odpovede/nova-otazka">
+            <p className="underline">Pridať novú otázku / odpoveď</p>
           </Link>
 
           <table className="admin_section_2fr mt-8">
@@ -66,10 +62,10 @@ const AdminActualJobs = () => {
               {data.map((object, index) => (
                 <tr key={index}>
                   <td className="text-left flex items-center">
-                    {object.mesiac}
+                    {object.otazka}
                   </td>
                   <td className="flex justify-end">
-                    <Link to={`/admin/aktualne-prace/${object.id} `}>
+                    <Link to={`/admin/otazky-a-odpovede/${object.id} `}>
                       <button className="btn btn--tertiary">Info</button>
                     </Link>
                   </td>
@@ -85,4 +81,4 @@ const AdminActualJobs = () => {
   );
 };
 
-export default AdminActualJobs;
+export default AdminFaqPage;

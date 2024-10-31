@@ -2,23 +2,22 @@ import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { ActualJob } from "../../lib/interface";
-import StepBack from "../StepBack";
-import AdminNotAuthorized from "./AdminNotAuthorized";
+import { NavbarInfoData } from "../../../lib/interface";
+import StepBack from "../../StepBack";
+import AdminNotAuthorized from "../AdminNotAuthorized";
 
-const AdminActualJobNewMonth = () => {
+const AdminNavbarDataNewId = () => {
   const [isLoading, setIsLoading] = useState(false);
-
   const [authorized] = useState("ano");
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  const [actualizeData, setActualizeData] = useState<ActualJob>({
+  const [actualizeData, setActualizeData] = useState<NavbarInfoData>({
     id: "",
-    mesiac: "",
+    nazov: "",
     link: "",
-    text: "",
-    farba: "",
+    poradie: 0,
+    typ: "link",
   });
 
   const handleChange = (
@@ -33,16 +32,18 @@ const AdminActualJobNewMonth = () => {
     });
   };
 
-  const handleAddMonth = async (event: any) => {
+  const handleAddNavbarData = async (event: any) => {
     event.preventDefault();
-    if (!actualizeData.farba.startsWith("#")) {
-      toast.error("Farba musí začínať s #");
+
+    if (actualizeData.typ != "link" && actualizeData.typ != "pdf") {
+      toast.error("Typ musí byť pdf alebo link ");
       return;
     }
+
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/actualjobs/addactualjob`,
+        `${import.meta.env.VITE_API_URL}/admin/navbar/addnavbarinfodata`,
         {
           method: "POST",
           headers: {
@@ -51,10 +52,10 @@ const AdminActualJobNewMonth = () => {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            mesiac: actualizeData.mesiac,
+            nazov: actualizeData.nazov,
             link: actualizeData.link,
-            text: actualizeData.text,
-            farba: actualizeData.farba,
+            poradie: actualizeData.poradie,
+            typ: actualizeData.typ,
           }),
         }
       );
@@ -65,8 +66,8 @@ const AdminActualJobNewMonth = () => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Mesiac bol pridaný");
-        navigate("/admin/aktualne-prace");
+        toast.success("Oznam bol pridaný");
+        navigate("/admin/hlavicka-odkazy");
       }
     } catch (error) {
       toast.error("niekde nastala chyba");
@@ -81,77 +82,71 @@ const AdminActualJobNewMonth = () => {
         <div className=" w-full">
           <StepBack />
           <Toaster />
-          <h2>Nový mesiac</h2>
+          <h2>Nový odkaz</h2>
 
-          <form className=" products_admin " onSubmit={handleAddMonth}>
+          <form className=" products_admin " onSubmit={handleAddNavbarData}>
             <div className="product_admin_row">
-              <p>Mesiac:</p>
+              <p>Názov:</p>
               <input
                 type="text"
-                name="mesiac"
+                name="nazov"
                 onChange={handleChange}
                 className="w-[70%]"
-                maxLength={50}
-                value={actualizeData?.mesiac}
+                value={actualizeData?.nazov}
                 required
               />
             </div>
             <div className="product_admin_row">
-              <p>Link PDF:</p>
+              <p>Link:</p>
               <input
                 type="text"
                 name="link"
                 onChange={handleChange}
                 className="w-[70%]"
                 value={actualizeData?.link}
-                maxLength={1000}
                 required
               />
             </div>
             <div className="product_admin_row">
-              <p>Text:</p>
+              <p>Poradie:</p>
               <input
-                type="text"
-                name="text"
+                type="number"
+                name="poradie"
                 onChange={handleChange}
                 className="w-[70%]"
-                value={actualizeData?.text}
-                maxLength={250}
+                value={actualizeData?.poradie}
                 required
               />
             </div>
             <div className="product_admin_row">
-              <p>Farba mesiacu: '#ffffff' </p>
+              <p>Typ odkazu: 'pdf' alebo 'link'</p>
               <input
                 type="text"
-                name="farba"
+                name="typ"
                 onChange={handleChange}
                 className="w-[70%]"
-                value={actualizeData?.farba}
-                maxLength={10}
+                value={actualizeData?.typ}
                 required
               />
             </div>
-            <div className="flex flex-row justify-between mt-8">
-              <button
-                className={`btn btn--tertiary ${
-                  isLoading && "disabledPrimaryBtn"
-                }`}
-                type="submit"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <ClipLoader
-                    size={20}
-                    color={"#00000"}
-                    loading={true}
-                    className="ml-16 mr-16"
-                  />
-                ) : (
-                  "Aktualizovať"
-                )}
-              </button>
-            </div>
+            <button
+              className={`btn btn--tertiary !mt-4 ${
+                isLoading && "disabledPrimaryBtn"
+              }`}
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <ClipLoader
+                  size={20}
+                  color={"#00000"}
+                  loading={true}
+                  className="ml-16 mr-16"
+                />
+              ) : (
+                "Aktualizovať"
+              )}
+            </button>
           </form>
         </div>
       )}
@@ -161,4 +156,4 @@ const AdminActualJobNewMonth = () => {
   );
 };
 
-export default AdminActualJobNewMonth;
+export default AdminNavbarDataNewId;

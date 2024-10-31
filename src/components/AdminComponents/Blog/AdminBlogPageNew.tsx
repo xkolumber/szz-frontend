@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { createSlug, isValidDate } from "../../lib/functionsClient";
-import { Blog } from "../../lib/interface";
-import StepBack from "../StepBack";
-import AdminNotAuthorized from "./AdminNotAuthorized";
+import { createSlug, isValidDate } from "../../../lib/functionsClient";
+import { Blog } from "../../../lib/interface";
+import StepBack from "../../StepBack";
+import AdminNotAuthorized from "../AdminNotAuthorized";
 
-const AdminBlogPageId = () => {
+const AdminBlogNew = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
 
-  const [data, setData] = useState<Blog>();
-  const [authorized, setAuthorized] = useState("ano");
+  const [authorized] = useState("ano");
   const token = localStorage.getItem("token");
-  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const [actualizeData, setActualizeData] = useState<Blog>({
@@ -31,38 +28,6 @@ const AdminBlogPageId = () => {
     foto3: "",
     pdf: "",
   });
-
-  const getData = async () => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/blogs/getblog/${id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const responseData = await response.json();
-
-      setData(responseData);
-      setActualizeData(responseData);
-    } catch (error) {
-      setAuthorized("nie");
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   const handleChange = (
     e:
@@ -87,16 +52,15 @@ const AdminBlogPageId = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/blogs/updateblog`,
+        `${import.meta.env.VITE_API_URL}/admin/blogs/addblog`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            id: data?.id,
             nazov_blog: actualizeData.nazov_blog,
             slug: createSlug(actualizeData.nazov_blog),
             datum: actualizeData.datum,
@@ -116,9 +80,10 @@ const AdminBlogPageId = () => {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
       const responseData = await response.json();
+
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Blog bol aktualizovaný");
-        getData();
+        toast.success("Blog bol úspešne vytvorený");
+        navigate("/admin/blog");
       }
     } catch (error) {
       toast.error("niekde nastala chyba");
@@ -128,47 +93,13 @@ const AdminBlogPageId = () => {
     }
   };
 
-  const handleDeleteItem = async () => {
-    try {
-      setIsLoadingDelete(true);
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/blogs/deleteblog/${data!.id}`,
-        {
-          method: "delete",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            id: data?.id,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const responseData = await response.json();
-      if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Blog bol odstránený");
-        navigate("/admin/blog");
-      }
-    } catch (error) {
-      toast.error("niekde nastala chyba");
-    } finally {
-      setIsLoadingDelete(false);
-    }
-  };
-
   return (
     <div>
-      {data && authorized === "ano" && (
+      {authorized === "ano" && (
         <div className=" w-full">
           <StepBack />
           <Toaster />
-          <h2>Úprava článku: {data.nazov_blog}</h2>
+          <h2>Nový blog: </h2>
 
           <form className=" products_admin " onSubmit={handleSaveProduct}>
             <div className="product_admin_row">
@@ -190,6 +121,7 @@ const AdminBlogPageId = () => {
                 onChange={handleChange}
                 className="w-[70%]"
                 value={actualizeData?.datum}
+                placeholder="DD.MM.YYYY"
                 required
               />
             </div>
@@ -291,24 +223,7 @@ const AdminBlogPageId = () => {
                     className="ml-16 mr-16"
                   />
                 ) : (
-                  "Aktualizovať"
-                )}
-              </button>
-              <button
-                className="btn btn--primary !bg-red-500 "
-                onClick={handleDeleteItem}
-                type="button"
-                disabled={isLoadingDelete}
-              >
-                {isLoadingDelete ? (
-                  <ClipLoader
-                    size={20}
-                    color={"#00000"}
-                    loading={true}
-                    className="ml-16 mr-16"
-                  />
-                ) : (
-                  "Odstrániť"
+                  "Pridať"
                 )}
               </button>
             </div>
@@ -321,4 +236,4 @@ const AdminBlogPageId = () => {
   );
 };
 
-export default AdminBlogPageId;
+export default AdminBlogNew;
