@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import { getAboutUsData } from "../lib/functions";
 
 const AboutUs = () => {

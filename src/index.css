@@ -819,3 +819,15 @@ textarea:focus {
   margin-left: 40px;
   margin-right: 40px;
 }
+
+/*Toggle */
+
+.toogle {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(53, 26, 40, 0.15);
+  flex-direction: column;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  cursor: pointer;
+}

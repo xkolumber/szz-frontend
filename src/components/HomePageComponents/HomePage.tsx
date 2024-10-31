@@ -4,6 +4,7 @@ import IconRadio from "../Icons/IconRadio";
 import HomePageActualJobs from "./HomePageActualJobs";
 import HomePageBlogSection from "./HomePageBlogSection";
 import HomePageEvents from "./HomePageEvents";
+import HomePageFaq from "./HomePageFaq";
 
 const HomePage = () => {
   return (
@@ -63,6 +64,7 @@ const HomePage = () => {
       <HomePageActualJobs />
       <HomePageEvents />
       <HomePageBlogSection />
+      <HomePageFaq />
     </>
   );
 };

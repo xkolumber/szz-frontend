@@ -29,6 +29,7 @@ import NotFound from "./components/NotFound";
 import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
 import ScrollToTop from "./components/ScrollToTop";
+import PoradnaPage from "./PoradnaPage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -159,6 +160,14 @@ function App() {
           element={
             <Layout>
               <TaskPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/poradna"
+          element={
+            <Layout>
+              <PoradnaPage />
             </Layout>
           }
         />
