@@ -4,6 +4,8 @@ import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { UnionData } from "../../lib/interface";
 import IconArrowUp from "../Icons/IconArrowUp";
+import ButtonWithElement from "../ButtonWithElement";
+import IconDownload from "../Icons/IconDownload";
 
 interface Props {
   data: UnionData[];
@@ -131,13 +133,11 @@ const UnionPageElements = ({ data }: Props) => {
               .filter((object) => object.rodic === "null")
               .map((object) => (
                 <div className="flex flex-col" key={object.id}>
-                  <div className="flex flex-row justify-between items-center pt-[12px] pb-[12px]">
-                    <h6
-                      className="cursor-pointer uppercase"
-                      onClick={() => handleClickedCategory(object.slug)}
-                    >
-                      {object.nazov}
-                    </h6>
+                  <div
+                    className="flex flex-row justify-between items-center pt-[12px] pb-[12px] cursor-pointer"
+                    onClick={() => handleClickedCategory(object.slug)}
+                  >
+                    <h6 className="cursor-pointer uppercase">{object.nazov}</h6>
                     <IconArrowUp choosen={object.slug === category} />
                   </div>
 
@@ -147,13 +147,13 @@ const UnionPageElements = ({ data }: Props) => {
                       category === object.slug && (
                         <div className="flex flex-col">
                           <div className=" light_green rounded-[8px] pl-[24px] pr-[24px] pt-[16px] pb-[16px] ">
-                            <div className="flex flex-row justify-between items-center">
-                              <h6
-                                className="cursor-pointer uppercase"
-                                onClick={() =>
-                                  handleClickedSubCategory(object2.slug)
-                                }
-                              >
+                            <div
+                              className="flex flex-row justify-between items-center cursor-pointer"
+                              onClick={() =>
+                                handleClickedSubCategory(object2.slug)
+                              }
+                            >
+                              <h6 className="cursor-pointer uppercase">
                                 {object2.nazov}
                               </h6>
                               <IconArrowUp
@@ -165,21 +165,19 @@ const UnionPageElements = ({ data }: Props) => {
                                 object3.rodic === object2.id &&
                                 subCategory === object2.slug && (
                                   <div
-                                    className={`flex flex-row justify-between items-center light_green rounded-[8px] pl-[24px] pr-[24px] pt-[16px] pb-[16px] mb-4 mt-4 ${
+                                    className={`flex flex-row justify-between items-center light_green rounded-[8px] pl-[24px] pr-[24px] pt-[16px] pb-[16px] mb-4 mt-4 cursor-pointer ${
                                       subSubCategory === object3.slug &&
                                       "!bg-[#298040]"
                                     } `}
+                                    onClick={() =>
+                                      handleClickedSubSubCategory(object3.slug)
+                                    }
                                   >
                                     <p
                                       className={`cursor-pointer uppercase line-clamp-1 ${
                                         subSubCategory === object3.slug &&
                                         "text-white"
                                       } `}
-                                      onClick={() =>
-                                        handleClickedSubSubCategory(
-                                          object3.slug
-                                        )
-                                      }
                                     >
                                       {object3.nazov}
                                     </p>
@@ -205,12 +203,11 @@ const UnionPageElements = ({ data }: Props) => {
                   <div className="flex flex-row gap-4">
                     {" "}
                     {choosenUnionData?.pdf.map((object, index) => (
-                      <Link
-                        to={object}
-                        className="btn btn--tertiary"
-                        target="_blank"
-                      >
-                        Dokument {index}
+                      <Link to={object} target="_blank">
+                        <ButtonWithElement
+                          text={`Dokument ${index}`}
+                          element={<IconDownload />}
+                        />
                       </Link>
                     ))}
                   </div>
