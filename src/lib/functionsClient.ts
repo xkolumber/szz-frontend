@@ -35,6 +35,10 @@ export const navbar_admin_data = [
     slug: "/admin/o-nas",
   },
   {
+    title: "Zväz",
+    slug: "/admin/zvaz",
+  },
+  {
     title: "Blog",
     slug: "/admin/blog",
   },
@@ -115,3 +119,5 @@ export function isValidDate(datum: string) {
 }
 
 export const LIMIT_BLOG = 4;
+
+export const empty_three_values = ["", "", ""];

@@ -34,6 +34,9 @@ import AdminFaqPage from "./components/AdminComponents/AdminFaqPage";
 import AdminFaqPageId from "./components/AdminComponents/AdminFaqPageId";
 import AdminFaqPageNew from "./components/AdminComponents/AdminFaqPageNew";
 import Footer from "./components/Footer";
+import AdminUnionPage from "./components/AdminComponents/Union/AdminUnionPage";
+import AdminUnionPageId from "./components/AdminComponents/Union/AdminUnionPageId";
+import AdminUnionPageNew from "./components/AdminComponents/Union/AdminUnionPageNew";
 
 interface LayoutProps {
   children: ReactNode;
@@ -154,6 +157,10 @@ function App() {
           <Route path="vystavy-a-podujatia" element={<AdminEventsPage />} />
           <Route path="aktualne-prace" element={<AdminActualJobs />} />
           <Route path="aktualne-prace/:id" element={<AdminActualJobId />} />
+
+          <Route path="zvaz" element={<AdminUnionPage />} />
+          <Route path="zvaz/:id" element={<AdminUnionPageId />} />
+          <Route path="zvaz/novy-dokument" element={<AdminUnionPageNew />} />
 
           <Route path="/admin/otazky-a-odpovede" element={<AdminFaqPage />} />
           <Route

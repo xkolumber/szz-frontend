@@ -30,10 +30,19 @@ export interface UnionData {
   id: string;
   nazov: string;
   slug: string;
-  rodic: string | null;
+  rodic: string;
   text: string;
   pdf: string[];
   fotky: string[];
+}
+
+export interface UnionDataIdName {
+  id: string;
+  nazov: string;
+}
+export interface SelectOption {
+  label: string;
+  value: string;
 }
 
 export interface NavbarInfoData {

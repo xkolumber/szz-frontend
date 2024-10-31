@@ -1,33 +1,38 @@
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
+import Select from "react-select";
 import { ClipLoader } from "react-spinners";
-import { ActualJob } from "../../lib/interface";
-import StepBack from "../StepBack";
-import AdminNotAuthorized from "./AdminNotAuthorized";
+import { createSlug } from "../../../lib/functionsClient";
+import { SelectOption, UnionData } from "../../../lib/interface";
+import StepBack from "../../StepBack";
+import AdminNotAuthorized from "../AdminNotAuthorized";
 
-const AdminActualJobId = () => {
+const AdminUnionPageId = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
 
-  const [data, setData] = useState<ActualJob>();
+  const [data, setData] = useState<UnionData>();
   const [authorized, setAuthorized] = useState("");
   const token = localStorage.getItem("token");
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [selectedOptions, setSelectOptions] = useState<SelectOption[]>([]);
 
-  const [actualizeData, setActualizeData] = useState<ActualJob>({
+  const [actualizeData, setActualizeData] = useState<UnionData>({
     id: "",
-    mesiac: "",
-    link: "",
+    nazov: "",
+    slug: "",
+    rodic: "",
     text: "",
-    farba: "",
+    pdf: [],
+    fotky: [],
   });
 
   const getData = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/actualjobs/getactualjob/${id}`,
+        `${import.meta.env.VITE_API_URL}/admin/union/getunionid/${id}`,
         {
           method: "GET",
           headers: {
@@ -54,8 +59,45 @@ const AdminActualJobId = () => {
     }
   };
 
+  const getData2 = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/union/getuniondataonlyidname`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        setAuthorized("nie");
+        throw new Error("Network response was not ok");
+      }
+
+      const responseData = await response.json();
+
+      setSelectOptions([
+        { label: "Ziaden", value: "null" },
+        ...responseData
+          .filter((item: any) => item.id !== id)
+          .map((item: any) => ({
+            label: item.nazov,
+            value: item.id,
+          })),
+      ]);
+    } catch (error) {
+      setAuthorized("nie");
+      console.error("Error fetching data:", error);
+    }
+  };
+
   useEffect(() => {
     getData();
+    getData2();
   }, []);
 
   const handleChange = (
@@ -70,16 +112,30 @@ const AdminActualJobId = () => {
     });
   };
 
+  const handleChangeItemArray = (
+    title: string,
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setActualizeData((prevData) => {
+      const updatedArray = [
+        ...(prevData[title as keyof UnionData] as string[]),
+      ];
+      updatedArray[index] = event.target.value;
+      return {
+        ...prevData,
+        [title]: updatedArray,
+      };
+    });
+  };
+
   const handleSaveProduct = async (event: any) => {
     event.preventDefault();
-    if (!actualizeData.farba.startsWith("#")) {
-      toast.error("Farba musí začínať s #");
-      return;
-    }
+
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/actualjobs/updateactualjob/`,
+        `${import.meta.env.VITE_API_URL}/admin/union/updateunion/`,
         {
           method: "PUT",
           headers: {
@@ -89,10 +145,12 @@ const AdminActualJobId = () => {
           },
           body: JSON.stringify({
             id: data?.id,
-            mesiac: actualizeData.mesiac,
-            link: actualizeData.link,
+            nazov: actualizeData.nazov,
+            slug: createSlug(actualizeData.nazov),
+            rodic: actualizeData.rodic,
             text: actualizeData.text,
-            farba: actualizeData.farba,
+            pdf: actualizeData.pdf,
+            fotky: actualizeData.fotky,
           }),
         }
       );
@@ -103,7 +161,7 @@ const AdminActualJobId = () => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Mesiac bol aktualizovaný");
+        toast.success("Objekt bol aktualizovaný");
         getData();
       }
     } catch (error) {
@@ -117,9 +175,7 @@ const AdminActualJobId = () => {
     try {
       setIsLoadingDelete(true);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/actualjobs/deleteactualjob/${
-          data!.id
-        }`,
+        `${import.meta.env.VITE_API_URL}/admin/union/deleteunion/${data!.id}`,
         {
           method: "delete",
           headers: {
@@ -139,13 +195,22 @@ const AdminActualJobId = () => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Mesiac bol odstránený");
-        navigate("/admin/aktualne-prace");
+        toast.success("Objekt bol odstránený");
+        navigate("/admin/zvaz");
       }
     } catch (error) {
       toast.error("niekde nastala chyba");
     } finally {
       setIsLoadingDelete(false);
+    }
+  };
+
+  const handleChangeParent = (selectedOption: SelectOption | null) => {
+    if (selectedOption) {
+      setActualizeData((prevData) => ({
+        ...prevData,
+        rodic: selectedOption.value,
+      }));
     }
   };
 
@@ -155,30 +220,38 @@ const AdminActualJobId = () => {
         <div className=" w-full">
           <StepBack />
           <Toaster />
-          <h2>Úprava mesiaca: {data.mesiac}</h2>
+          <h2>Úprava dokumentu: {data.nazov}</h2>
 
           <form className=" products_admin " onSubmit={handleSaveProduct}>
             <div className="product_admin_row">
-              <p>Mesiac:</p>
+              <p>Názov:</p>
               <input
                 type="text"
-                name="mesiac"
+                name="nazov"
                 onChange={handleChange}
                 className="w-[70%]"
                 maxLength={50}
-                value={actualizeData?.mesiac}
+                value={actualizeData?.nazov}
                 required
               />
             </div>
-            <div className="product_admin_row">
-              <p>Link PDF:</p>
+            <div className="product_admin_row ">
+              <p>Rodič</p>
+              <Select
+                options={selectedOptions}
+                onChange={handleChangeParent}
+                value={selectedOptions.find(
+                  (option) => option.value === actualizeData.rodic
+                )}
+              />
+
               <input
                 type="text"
-                name="link"
-                onChange={handleChange}
+                name="rodic"
                 className="w-[70%]"
-                value={actualizeData?.link}
+                value={actualizeData?.rodic}
                 maxLength={1000}
+                readOnly
                 required
               />
             </div>
@@ -195,17 +268,36 @@ const AdminActualJobId = () => {
               />
             </div>
             <div className="product_admin_row">
-              <p>Farba mesiacu: '#ffffff' </p>
-              <input
-                type="text"
-                name="farba"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.farba}
-                maxLength={10}
-                required
-              />
+              <p>Pdf:</p>
+              <div className="flex flex-col">
+                {actualizeData.pdf.map((size, index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    name={`pdf${index}`}
+                    value={size}
+                    onChange={(e) => handleChangeItemArray("pdf", index, e)}
+                    className="md:!w-[450px] mt-2"
+                  />
+                ))}
+              </div>
             </div>
+            <div className="product_admin_row">
+              <p>Fotky:</p>
+              <div className="flex flex-col">
+                {actualizeData.fotky.map((size, index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    name={`fotky${index}`}
+                    value={size}
+                    onChange={(e) => handleChangeItemArray("fotky", index, e)}
+                    className="md:!w-[450px] mt-2"
+                  />
+                ))}
+              </div>
+            </div>
+
             <div className="flex flex-row justify-between mt-8">
               <button
                 className={`btn btn--tertiary ${
@@ -252,4 +344,4 @@ const AdminActualJobId = () => {
   );
 };
 
-export default AdminActualJobId;
+export default AdminUnionPageId;
