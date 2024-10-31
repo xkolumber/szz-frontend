@@ -30,6 +30,9 @@ import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
 import ScrollToTop from "./components/ScrollToTop";
 import PoradnaPage from "./PoradnaPage";
+import AdminFaqPage from "./components/AdminComponents/AdminFaqPage";
+import AdminFaqPageId from "./components/AdminComponents/AdminFaqPageId";
+import AdminFaqPageNew from "./components/AdminComponents/AdminFaqPageNew";
 
 interface LayoutProps {
   children: ReactNode;
@@ -149,6 +152,17 @@ function App() {
           <Route path="vystavy-a-podujatia" element={<AdminEventsPage />} />
           <Route path="aktualne-prace" element={<AdminActualJobs />} />
           <Route path="aktualne-prace/:id" element={<AdminActualJobId />} />
+
+          <Route path="/admin/otazky-a-odpovede" element={<AdminFaqPage />} />
+          <Route
+            path="/admin/otazky-a-odpovede/:id"
+            element={<AdminFaqPageId />}
+          />
+          <Route
+            path="/admin/otazky-a-odpovede/nova-otazka"
+            element={<AdminFaqPageNew />}
+          />
+
           <Route
             path="aktualne-prace/novy-mesiac"
             element={<AdminActualJobNewMonth />}

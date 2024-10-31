@@ -58,3 +58,9 @@ export interface Blog {
   foto3: string;
   pdf: string;
 }
+
+export interface Faq {
+  id: string;
+  otazka: string;
+  odpoved: string;
+}

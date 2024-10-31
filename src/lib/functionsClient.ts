@@ -54,6 +54,10 @@ export const navbar_admin_data = [
     title: "Aktuálne práce",
     slug: "/admin/aktualne-prace",
   },
+  {
+    title: "Otázky a odpovede",
+    slug: "/admin/otazky-a-odpovede",
+  },
 ];
 
 export const options_years = [
@@ -111,66 +115,3 @@ export function isValidDate(datum: string) {
 }
 
 export const LIMIT_BLOG = 4;
-
-export const questions = [
-  {
-    title: "Je mykorhíza hnojivo?",
-    text: "Nie je to tak. Mykorhíza je symbióza rastlín a pôdnych (mykorhíznych) húb. Mykohrízne huby žijú v koreňoch alebo na koreňoch rastliny a podporujú ju počas celého jej života. Zlepšujú príjem hnojív a vody z pôdy. Na rozdiel od hnojív sa mykorhízne huby nemusia pridávať opakovane. Na hnojenie rastlín odporúčame úplne prírodné hnojivo Conavit.",
-  },
-  {
-    title: "Je možné aplikovať mykorhízu zalievaním alebo postrekom?",
-    text: "Bohužiaľ, nie je možné použiť ani zalievanie, ani postrek. Mykorhízne huby sa musia pripojiť ku koreňovému systému rastliny. Preto sa prípravky Symbiom musia aplikovať priamo na korene rastliny alebo do pôdy v blízkosti koreňov rastliny.",
-  },
-  {
-    title: "Rastliny už mám zasadené. Môžem ešte nejako použiť mykorhízu?",
-    text: "Môžete. Len pozor, mykorhízne huby sa musia dostať čo najbližšie ku koreňom rastliny. Preto sa musia aplikovať do koreňovej zóny, a to buď vykopávaním pôdy, kopaním jamiek (15 - 20 cm hlbokých) alebo pomocou injektora.",
-  },
-  {
-    title: "Potrebujú huby v produktoch Symbiom vegetačný pokoj?",
-    text: "Mykorhízne huby nepotrebujú vegetačný pokoj. Kopírujú životný cyklus rastliny, v ktorej koreňovom systéme žijú.",
-  },
-  {
-    title: "Existuje len jeden druh pôdnej huby?",
-    text: "Existuje niekoľko druhov mykorhíznych húb. Jednotlivé produkty Symbiom preto obsahujú len tie druhy, ktoré zodpovedajú danej skupine rastlín a sú pre ne najprínosnejšie. Vždy si vyberte správny mykorhízny prípravok podľa rastlín, ktoré chcete pestovať.",
-  },
-  {
-    title: "Je mykorhíza účinná pre všetky rastliny?",
-    text: "Mykorhíznu symbiózu možno nájsť u viac ako 80 % rastlín sveta, s výnimkou čelade kapustovité a láskavcovité napr. kel, kapusta, ružičkový kel, predklíčka, repa, repka, špenát, kaleráb a iné. U zástupcov týchto čeľadí rastlín sa neoplatí aplikovať mykorhízne prípravky.",
-  },
-  {
-    title: "Ako viem, ktorý výrobok si mám vybrať?",
-    text: "Každý z našich produktov sa zameriava na konkrétnu skupinu rastlín podľa príslušného druhu mykorhíznej huby. Pre ľahšiu orientáciu v produktoch Symbiom môžete použiť vyhľadávacie pole na odkaze https://www.symbiom.sk/vyhladavanie alebo náš prehľad rastlín a tabuľku vhodnosti.",
-  },
-  {
-    title: "Môžem rastlinu predávkovať?",
-    text: "Nemôžete. Aj minimálne množstvo prípravku môže vytvoriť mykorhízu a postupne kolonizovať celý koreňový systém, ale trvá to niekoľko mesiacov. Preto je vhodnejšie aplikovať do koreňovej zóny odporúčané minimálne množstvo prípravku, aby sa kolonizácia koreňov urýchlila a rastlina mohla čo najskôr využívať výhody mykorhízy.",
-  },
-  {
-    title: "Ak sú mykorhízne huby už v pôde, prečo ich znova aplikovať?",
-    text: "Mykorhíznych húb je v niektorých pôdach pomerne málo a môžu byť vo väčšej vzdialenosti od novovytvorených koreňov rastlín. To môže spomaliť vytváranie mykorhíznej symbiózy a tiež mať pozitívny vplyv na rast rastlín. Čím skôr sa mykorhíza vytvorí, tým lepšie pre rastlinu. Okrem toho v niektorých pôdach môžu byť populácie mykorhíznych húb výrazne negatívne ovplyvnené predchádzajúcimi agrotechnickými postupmi (hlboká orba, používanie hnojív, pesticídov atď.), takže aplikácia mykorhíznych húb je zase potrebná na oživenie pôdy.",
-  },
-  {
-    title: "Môžem použiť pesticídy na rastliny ošetrené mykorhíznymi hubami?",
-    text: "Pesticídy aplikované na listy rastlín vo všeobecnosti nemajú nepriaznivý vplyv na tvorbu alebo funkciu mykorhízy. Naopak, niektoré systémové alebo kontaktné fungicídy aplikované do pôdy môžu mykorhízu eliminovať až dokonca zničiť.",
-  },
-  {
-    title: "Ovplyvní aplikácia hnojív vývoj mykorhízy?",
-    text: "Vysoké dávky hnojív, najmä fosforečných, negatívne ovplyvňujú vývoj mykorhíznych húb v pôde. Možný inhibičný účinok je v prípade organických hnojív s postupným uvoľňovaním podstatne menší ako pri anorganických rozpustných hnojivách.",
-  },
-  {
-    title: "Pôsobi mykorhíza proti chorobám rastlín?",
-    text: "Mykorhíza vo všeobecnosti zlepšujú zdravie a vitalitu rastlín a ich koreňov. Preto rastliny s mykorhíznymi hubami lepšie odolávajú infekciám spôsobeným rastlinnými patogénmi (najmä koreňovými patogénmi).",
-  },
-  {
-    title: "Vyskytujú sa v kompostoch mykorhízne huby?",
-    text: "Mykorhízne huby nie sú v kompostoch prirodzene prítomné. Kompost sa počas výroby často zahrieva na teplotu 50-60 °C, čo ničí mykorhízne huby a iné prospešné mikroorganizmy.",
-  },
-  {
-    title: "Môže kompost ovplyvniť mykorhízu?",
-    text: "Niektoré komposty sú kompatibilné s mykorhíznymi hubami a ich použitie je preto neobmedzené. Iné však môžu mať vysoký obsah solí alebo živín, ktoré inhibujú mykorhízne huby.",
-  },
-  {
-    title: "Ako dlho prežívajú mykorhízne huby v pôde?",
-    text: "Spóry arbuskulárnych mykorhíznych húb sú veľmi odolné a môžu žiť v pôde mnoho rokov bez koreňov hostiteľskej rastliny. V optimálnych podmienkach môžu prežiť až niekoľko rokov, najmenej však dva. Ideálne je aplikovať ich priamo pri výsadbe na koreň rastliny, vtedy je účinok najviditeľnejší.",
-  },
-];
