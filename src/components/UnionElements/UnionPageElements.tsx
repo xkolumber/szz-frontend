@@ -46,18 +46,16 @@ const UnionPageElements = ({ data }: Props) => {
       setChoosenUnionData(findItem);
       setSubcategory(slug);
       setSubSubCategory("");
-      let podsekcia = searchParams.get("podsekcia");
-      if (podsekcia != slug) {
-        navigate(
-          `${location.pathname}?${searchParams.toString()}&podsekcia=${slug}`
-        );
+
+      const currentPodsekcia = searchParams.get("podsekcia");
+      if (currentPodsekcia !== slug) {
+        searchParams.set("podsekcia", slug);
       } else {
         searchParams.delete("predmet");
-        navigate(`${location.pathname}?${searchParams.toString()}`);
       }
+      navigate(`${location.pathname}?${searchParams.toString()}`);
     }
   };
-
   const handleClickedSubSubCategory = (slug: string) => {
     const findItem = data?.find((item) => item.slug === slug);
     if (findItem) {

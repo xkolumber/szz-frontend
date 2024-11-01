@@ -27,7 +27,7 @@ const UnionPage = () => {
       <div className="own_edge">
         <div className="main_section !pt-0 min-h-[600px]">
           {" "}
-          <p>Loading...</p>;
+          <p>Loading...</p>
         </div>
       </div>
     );
