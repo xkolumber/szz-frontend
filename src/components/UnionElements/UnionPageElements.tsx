@@ -47,10 +47,17 @@ const UnionPageElements = ({ data }: Props) => {
       setSubcategory(slug);
       setSubSubCategory("");
 
+      const findItem2 = data?.find((item) => item.slug === subSubCategory);
+
+      if (findItem2?.rodic != findItem.id) {
+        searchParams.delete("predmet");
+      }
+
       const currentPodsekcia = searchParams.get("podsekcia");
       if (currentPodsekcia !== slug) {
         searchParams.set("podsekcia", slug);
       } else {
+        console.log("som tu?");
         searchParams.delete("predmet");
       }
       navigate(`${location.pathname}?${searchParams.toString()}`);
