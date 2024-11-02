@@ -7,7 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { ActualJob } from "../../../lib/interface";
-import IconDownload from "../../Icons/IconDownload";
+import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
 
@@ -168,6 +168,12 @@ const AdminActualJobId = () => {
   };
 
   const onDrop = useCallback((files: any) => {
+    const file = files[0];
+    if (file.type !== "application/pdf") {
+      toast.error("V tejto sekcii sa môžu nahrávať iba PDF súbory!");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("file", files[0]);
 
@@ -199,7 +205,7 @@ const AdminActualJobId = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const dragAreaClasses = classNames({
-    "p-10 border-gray-400 border-2 border-dashed rounded-lg": true,
+    "p-10 border-gray-400 border-2 border-dashed rounded-lg w-[300px]": true,
     "bg-gray-200": isDragActive,
   });
 
@@ -226,12 +232,12 @@ const AdminActualJobId = () => {
             </div>
             <div className="product_admin_row">
               <p>Link PDF:</p>
-              <div className="flex flex-col w-[70%]">
+              <div className="flex flex-col w-[75%]">
                 <input
                   type="text"
                   name="nazov"
                   onChange={handlePdfChange}
-                  className="w-[70%] mb-2"
+                  className="mb-2"
                   value={actualizeData?.pdf.nazov}
                   maxLength={1000}
                   required
@@ -240,7 +246,7 @@ const AdminActualJobId = () => {
                   type="text"
                   name="link"
                   onChange={handlePdfChange}
-                  className="w-[70%] "
+                  className="mb-2"
                   value={actualizeData?.pdf.link}
                   maxLength={1000}
                   required
@@ -250,17 +256,11 @@ const AdminActualJobId = () => {
                     {...getInputProps()}
                     className="border border-red-500"
                   />
-                  {isDragActive ? (
-                    <div className="flex flex-col">
-                      <IconDownload />
-                      <div className="text-center">Drop the file</div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col">
-                      <IconDownload />
-                      <p className="text-center">Drop files here</p>
-                    </div>
-                  )}
+
+                  <div className="flex flex-col items-center justify-center gap-4">
+                    <IconUpload />
+                    <p className="text-center">Drop files here</p>
+                  </div>
                 </div>
                 {fileUpload && (
                   <div className="mt-10">
@@ -288,7 +288,7 @@ const AdminActualJobId = () => {
               />
             </div>
             <div className="product_admin_row">
-              <p>Farba mesiacu: '#ffffff' </p>
+              <p>Farba mesiaca '#ffffff' </p>
               <input
                 type="text"
                 name="farba"
