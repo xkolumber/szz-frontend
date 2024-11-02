@@ -204,12 +204,12 @@ const UnionPageElements = ({ data }: Props) => {
                   <h5 className="mt-[40px] uppercase">
                     Dokumenty na stiahnutie
                   </h5>
-                  <div className="flex flex-row gap-4">
+                  <div className="flex flex-wrap gap-4">
                     {" "}
                     {choosenUnionData?.pdf.map((object, index) => (
-                      <Link to={object} target="_blank">
+                      <Link to={object.link} target="_blank">
                         <ButtonWithElement
-                          text={`Dokument ${index}`}
+                          text={object.nazov}
                           element={<IconDownload />}
                         />
                       </Link>

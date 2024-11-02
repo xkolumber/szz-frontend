@@ -32,7 +32,7 @@ export interface UnionData {
   slug: string;
   rodic: string;
   text: string;
-  pdf: string[];
+  pdf: Pdf[];
   fotky: string[];
 }
 

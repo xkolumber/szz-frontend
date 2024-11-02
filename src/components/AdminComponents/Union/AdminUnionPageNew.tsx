@@ -7,9 +7,12 @@ import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
 import { createSlug, empty_three_values } from "../../../lib/functionsClient";
 import Select from "react-select";
+import IconTrash from "../../Icons/IconTrash";
+import axios from "axios";
 
 const AdminUnionPageNew = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [dataLoading, setDataLoading] = useState(false);
   const [selectedOptions, setSelectOptions] = useState<SelectOption[]>([]);
 
   const [authorized, setAuthorized] = useState("ano");
@@ -22,8 +25,8 @@ const AdminUnionPageNew = () => {
     slug: "",
     rodic: "",
     text: "",
-    pdf: empty_three_values,
-    fotky: empty_three_values,
+    pdf: [],
+    fotky: [],
   });
 
   const handleChange = (
@@ -48,6 +51,25 @@ const AdminUnionPageNew = () => {
         ...(prevData[title as keyof UnionData] as string[]),
       ];
       updatedArray[index] = event.target.value;
+      return {
+        ...prevData,
+        [title]: updatedArray,
+      };
+    });
+  };
+
+  const handleChangeItemTwoArray = (
+    title: string,
+    index: number,
+    field: string,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setActualizeData((prevData) => {
+      const updatedArray = [...(prevData[title as keyof UnionData] as any[])];
+      updatedArray[index] = {
+        ...updatedArray[index],
+        [field]: event.target.value,
+      };
       return {
         ...prevData,
         [title]: updatedArray,
@@ -144,6 +166,119 @@ const AdminUnionPageNew = () => {
     getData2();
   }, []);
 
+  const handleDeletePhoto = (src: string) => {
+    const new_pdf_data = actualizeData.fotky.filter((item) => item != src);
+    setActualizeData((prevData) => ({
+      ...prevData,
+      fotky: new_pdf_data,
+    }));
+  };
+
+  const handleAddInputPdf = () => {
+    setActualizeData((prevData) => ({
+      ...prevData,
+      pdf: [...prevData.pdf, { nazov: "", link: "" }],
+    }));
+  };
+
+  const handleAddInputPhoto = () => {
+    setActualizeData((prevData) => ({
+      ...prevData,
+      fotky: [...prevData.fotky, ""],
+    }));
+  };
+
+  useEffect(() => {
+    if (dataLoading) {
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "scroll";
+      };
+    }
+  }, [dataLoading]);
+
+  const handleUploadPhoto = async (e: any, index: number) => {
+    setDataLoading(true);
+    const file = e.target.files[0];
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/admin/upload/photoUnion`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      const { uploadUrl } = response.data;
+
+      setActualizeData((prevData) => {
+        const updatedPhoto = [...prevData.fotky];
+        updatedPhoto[index] = uploadUrl;
+        return { ...prevData, fotky: updatedPhoto };
+      });
+    } catch (error) {
+      console.error("Error uploading PDF:", error);
+      alert("Failed to upload PDF. Please try again.");
+    } finally {
+      setDataLoading(false);
+    }
+  };
+
+  const handleDeleteObjectPdf = (nazov: string, link: string) => {
+    const new_pdf_data = actualizeData.pdf.filter(
+      (item) => item.nazov != nazov && item.link != link
+    );
+    setActualizeData((prevData) => ({
+      ...prevData,
+      pdf: new_pdf_data,
+    }));
+  };
+
+  const handleUploadPdf = async (e: any, index: number) => {
+    setDataLoading(true);
+    const file = e.target.files[0];
+    if (!file || file.type !== "application/pdf") {
+      alert("Please upload only PDF files.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/admin/upload/pdf`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      const { uploadUrl, fileName } = response.data;
+
+      setActualizeData((prevData) => {
+        const updatedPdf = [...prevData.pdf];
+        updatedPdf[index] = { nazov: fileName, link: uploadUrl };
+        return { ...prevData, pdf: updatedPdf };
+      });
+    } catch (error) {
+      console.error("Error uploading PDF:", error);
+      alert("Failed to upload PDF. Please try again.");
+    } finally {
+      setDataLoading(false);
+    }
+  };
+
   return (
     <div>
       {authorized === "ano" && (
@@ -199,31 +334,80 @@ const AdminUnionPageNew = () => {
             <div className="product_admin_row">
               <p>Pdf:</p>
               <div className="flex flex-col">
-                {actualizeData.pdf.map((size, index) => (
-                  <input
-                    key={index}
-                    type="text"
-                    name={`pdf${index}`}
-                    value={size}
-                    onChange={(e) => handleChangeItemArray("pdf", index, e)}
-                    className="md:!w-[450px] mt-2"
-                  />
+                {actualizeData.pdf.map((object, index) => (
+                  <div key={index} className="flex flex-row gap-4 items-center">
+                    <input
+                      type="text"
+                      name={`pdf-nazov${index}`}
+                      value={object.nazov}
+                      onChange={(e) =>
+                        handleChangeItemTwoArray("pdf", index, "nazov", e)
+                      }
+                      className="md:!w-[250px] mt-2"
+                    />
+                    <input
+                      type="text"
+                      name={`pdf-link-${index}`}
+                      value={object.link}
+                      onChange={(e) =>
+                        handleChangeItemTwoArray("pdf", index, "link", e)
+                      }
+                      className="md:!w-[250px] mt-2"
+                    />
+                    <div
+                      className=""
+                      onClick={() =>
+                        handleDeleteObjectPdf(object.nazov, object.link)
+                      }
+                    >
+                      <IconTrash />
+                    </div>
+                    <input
+                      type="file"
+                      accept="application/pdf"
+                      onChange={(e) => handleUploadPdf(e, index)}
+                      className="mt-2"
+                    />
+                  </div>
                 ))}
+                <p
+                  className="underline cursor-pointer mt-4"
+                  onClick={handleAddInputPdf}
+                >
+                  Pridať pdf
+                </p>
               </div>
             </div>
             <div className="product_admin_row">
               <p>Fotky:</p>
               <div className="flex flex-col">
-                {actualizeData.fotky.map((size, index) => (
-                  <input
-                    key={index}
-                    type="text"
-                    name={`fotky${index}`}
-                    value={size}
-                    onChange={(e) => handleChangeItemArray("fotky", index, e)}
-                    className="md:!w-[450px] mt-2"
-                  />
+                {actualizeData.fotky.map((object, index) => (
+                  <div className="flex flex-row gap-4 items-center">
+                    <input
+                      key={index}
+                      type="text"
+                      name={`fotky${index}`}
+                      value={object}
+                      onChange={(e) => handleChangeItemArray("fotky", index, e)}
+                      className="md:!w-[450px] mt-2"
+                    />
+                    <div className="" onClick={() => handleDeletePhoto(object)}>
+                      <IconTrash />
+                    </div>
+                    <input
+                      type="file"
+                      accept=".png, .jpg, .jpeg"
+                      onChange={(e) => handleUploadPhoto(e, index)}
+                      className="mt-2"
+                    />
+                  </div>
                 ))}
+                <p
+                  className="underline cursor-pointer mt-4"
+                  onClick={handleAddInputPhoto}
+                >
+                  Pridať foto
+                </p>
               </div>
             </div>
 
@@ -252,6 +436,22 @@ const AdminUnionPageNew = () => {
       )}
 
       {authorized === "nie" && <AdminNotAuthorized />}
+
+      {dataLoading && (
+        <>
+          {" "}
+          <div className="behind_card_background"></div>
+          <div className="popup_message">
+            <h5 className="text-center">Objekt sa nahráva do cloudu...</h5>
+            <ClipLoader
+              size={20}
+              color={"#00000"}
+              loading={true}
+              className="ml-16 mr-16"
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

@@ -94,26 +94,26 @@ const BlogDetailPage = () => {
                 />
               )}
 
-              {/* {data.pdf.length > 0 && (
+              {blogData.pdf.length > 0 && (
                 <>
                   <h5 className="mt-[40px] uppercase">
                     Dokumenty na stiahnutie
                   </h5>
-                  <div className="flex flex-row gap-4">
+                  <div className="flex flex-wrap gap-4">
                     {" "}
-                    {data?.pdf.map((object, index) => (
+                    {blogData?.pdf.map((object, index) => (
                       <Link
-                        to={object}
+                        to={object.link}
                         className="btn btn--tertiary"
                         target="_blank"
                         key={index}
                       >
-                        Dokument {index}
+                        {object.nazov}
                       </Link>
                     ))}
                   </div>
                 </>
-              )} */}
+              )}
               <div className="flex flex-row justify-between opacity-60 mt-16">
                 <p className="uppercase font-semibold ">
                   Publikované {blogData.datum}
