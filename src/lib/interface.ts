@@ -79,5 +79,13 @@ export interface Pdf {
   link: string;
 }
 
-
-export intet
+export interface AboutUsPage {
+  id: string;
+  text1: string;
+  foto1: string;
+  text2: string;
+  foto2: string;
+  text3: string;
+  foto3: string;
+  datum: string;
+}

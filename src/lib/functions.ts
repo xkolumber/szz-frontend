@@ -98,7 +98,9 @@ export async function fetchBlogs(limit: number) {
 export async function getAboutUsData() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/getdata`,
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/aboutus/getaboutuspageopen/sdfg5s4fd5g-asdfasdf-5465`,
       {
         method: "GET",
         headers: {
@@ -114,9 +116,10 @@ export async function getAboutUsData() {
 
     const responseData = await response.json();
 
-    return responseData.data;
+    return responseData;
   } catch (error) {
     console.error("Error fetching data:", error);
+    return null;
   }
 }
 

@@ -15,7 +15,6 @@ import IconTrash from "../../Icons/IconTrash";
 const AdminBlogNew = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
-  const [fileUpload, setFileUpload] = useState<any>(null);
 
   const [authorized] = useState("ano");
   const token = localStorage.getItem("token");
@@ -142,9 +141,6 @@ const AdminBlogNew = () => {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
-          },
-          onUploadProgress: () => {
-            setFileUpload({ fileName: file.name });
           },
         }
       )

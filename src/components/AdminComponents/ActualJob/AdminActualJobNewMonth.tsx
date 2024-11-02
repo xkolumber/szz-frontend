@@ -1,15 +1,14 @@
+import axios from "axios";
+import classNames from "classnames";
 import React, { useCallback, useState } from "react";
+import { useDropzone } from "react-dropzone";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { ActualJob } from "../../../lib/interface";
+import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
-import axios from "axios";
-import classNames from "classnames";
-import { useDropzone } from "react-dropzone";
-import IconDownload from "../../Icons/IconDownload";
-import IconUpload from "../../Icons/IconUpload";
 
 const AdminActualJobNewMonth = () => {
   const [isLoading, setIsLoading] = useState(false);
