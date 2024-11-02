@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { classNames } from "@react-pdf-viewer/core";
+import axios from "axios";
+import FormData from "form-data";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { ActualJob } from "../../../lib/interface";
+import IconDownload from "../../Icons/IconDownload";
 import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const AdminActualJobId = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
+  const [fileUpload, setFileUpload] = useState<any>(null);
 
   const [data, setData] = useState<ActualJob>();
   const [authorized, setAuthorized] = useState("");
@@ -19,7 +25,7 @@ const AdminActualJobId = () => {
   const [actualizeData, setActualizeData] = useState<ActualJob>({
     id: "",
     mesiac: "",
-    link: "",
+    pdf: { nazov: "", link: "" },
     text: "",
     farba: "",
   });
@@ -70,6 +76,18 @@ const AdminActualJobId = () => {
     });
   };
 
+  const handlePdfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setActualizeData((prevData) => ({
+      ...prevData,
+      pdf: {
+        ...prevData.pdf,
+        [name]: value,
+      },
+    }));
+  };
+
   const handleSaveProduct = async (event: any) => {
     event.preventDefault();
     if (!actualizeData.farba.startsWith("#")) {
@@ -90,7 +108,7 @@ const AdminActualJobId = () => {
           body: JSON.stringify({
             id: data?.id,
             mesiac: actualizeData.mesiac,
-            link: actualizeData.link,
+            pdf: actualizeData.pdf,
             text: actualizeData.text,
             farba: actualizeData.farba,
           }),
@@ -149,6 +167,42 @@ const AdminActualJobId = () => {
     }
   };
 
+  const onDrop = useCallback((files: any) => {
+    const formData = new FormData();
+    formData.append("file", files[0]);
+
+    axios
+      .post(`${import.meta.env.VITE_API_URL}/admin/upload/pdf`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: () => {
+          setFileUpload({ fileName: files[0].name });
+        },
+      })
+      .then((response) => {
+        const { message, uploadUrl, fileName } = response.data;
+
+        if (message === "done") {
+          setActualizeData((prevData) => ({
+            ...prevData,
+            pdf: { nazov: fileName, link: uploadUrl },
+          }));
+        }
+      })
+      .catch((error) => {
+        console.error("Error uploading file:", error);
+      });
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+  const dragAreaClasses = classNames({
+    "p-10 border-gray-400 border-2 border-dashed rounded-lg": true,
+    "bg-gray-200": isDragActive,
+  });
+
   return (
     <div>
       {data && authorized === "ano" && (
@@ -172,15 +226,54 @@ const AdminActualJobId = () => {
             </div>
             <div className="product_admin_row">
               <p>Link PDF:</p>
-              <input
-                type="text"
-                name="link"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.link}
-                maxLength={1000}
-                required
-              />
+              <div className="flex flex-col w-[70%]">
+                <input
+                  type="text"
+                  name="nazov"
+                  onChange={handlePdfChange}
+                  className="w-[70%] mb-2"
+                  value={actualizeData?.pdf.nazov}
+                  maxLength={1000}
+                  required
+                />
+                <input
+                  type="text"
+                  name="link"
+                  onChange={handlePdfChange}
+                  className="w-[70%] "
+                  value={actualizeData?.pdf.link}
+                  maxLength={1000}
+                  required
+                />
+                <div className={dragAreaClasses} {...getRootProps()}>
+                  <input
+                    {...getInputProps()}
+                    className="border border-red-500"
+                  />
+                  {isDragActive ? (
+                    <div className="flex flex-col">
+                      <IconDownload />
+                      <div className="text-center">Drop the file</div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col">
+                      <IconDownload />
+                      <p className="text-center">Drop files here</p>
+                    </div>
+                  )}
+                </div>
+                {fileUpload && (
+                  <div className="mt-10">
+                    <div className="">
+                      <div className="flex">
+                        <div className="w-full">
+                          <p className="mb-4">{fileUpload.fileName}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="product_admin_row">
               <p>Text:</p>

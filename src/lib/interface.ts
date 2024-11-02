@@ -1,7 +1,7 @@
 export interface ActualJob {
   id: string;
   mesiac: string;
-  link: string;
+  pdf: Pdf;
   text: string;
   farba: string;
 }
@@ -72,4 +72,9 @@ export interface Faq {
   id: string;
   otazka: string;
   odpoved: string;
+}
+
+export interface Pdf {
+  nazov: string;
+  link: string;
 }

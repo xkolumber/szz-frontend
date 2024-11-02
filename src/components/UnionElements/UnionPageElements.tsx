@@ -57,7 +57,6 @@ const UnionPageElements = ({ data }: Props) => {
       if (currentPodsekcia !== slug) {
         searchParams.set("podsekcia", slug);
       } else {
-        console.log("som tu?");
         searchParams.delete("predmet");
       }
       navigate(`${location.pathname}?${searchParams.toString()}`);

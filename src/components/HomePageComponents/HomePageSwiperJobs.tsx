@@ -21,7 +21,7 @@ const HomePageSwiperJobs = ({ data }: Props) => {
   const showDocument = (link_: string) => {
     setDocumentLink(link_);
     setIsOpen(true);
-    setDocumentLink("https://pdffilesown.s3.eu-north-1.amazonaws.com/test.pdf");
+    setDocumentLink(link_);
   };
 
   const handleClose = () => {
@@ -37,6 +37,7 @@ const HomePageSwiperJobs = ({ data }: Props) => {
       };
     }
   }, [isOpen]);
+
   return (
     <div>
       {data && (
@@ -72,7 +73,7 @@ const HomePageSwiperJobs = ({ data }: Props) => {
                   <h3 className="uppercase text-white">{object.mesiac}</h3>
                   <button
                     className="btn btn--white"
-                    onClick={() => showDocument(object.link)}
+                    onClick={() => showDocument(object.pdf.link)}
                   >
                     Pozrieť práce
                   </button>
