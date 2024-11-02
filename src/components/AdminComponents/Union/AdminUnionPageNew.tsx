@@ -1,14 +1,14 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 import { ClipLoader } from "react-spinners";
+import { createSlug } from "../../../lib/functionsClient";
 import { SelectOption, UnionData } from "../../../lib/interface";
+import IconTrash from "../../Icons/IconTrash";
 import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
-import { createSlug, empty_three_values } from "../../../lib/functionsClient";
-import Select from "react-select";
-import IconTrash from "../../Icons/IconTrash";
-import axios from "axios";
 
 const AdminUnionPageNew = () => {
   const [isLoading, setIsLoading] = useState(false);

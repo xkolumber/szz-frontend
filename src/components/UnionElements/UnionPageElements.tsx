@@ -207,7 +207,7 @@ const UnionPageElements = ({ data }: Props) => {
                   <div className="flex flex-wrap gap-4">
                     {" "}
                     {choosenUnionData?.pdf.map((object, index) => (
-                      <Link to={object.link} target="_blank">
+                      <Link to={object.link} target="_blank" key={index}>
                         <ButtonWithElement
                           text={object.nazov}
                           element={<IconDownload />}

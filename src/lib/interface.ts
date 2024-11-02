@@ -78,3 +78,6 @@ export interface Pdf {
   nazov: string;
   link: string;
 }
+
+
+export intet

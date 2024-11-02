@@ -16,7 +16,6 @@ const AdminBlogPageId = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
-  const [fileUpload, setFileUpload] = useState<any>(null);
   const [clickedPhoto, setClickedPhoto] = useState("");
   const [openPopUp, setOpenPopUp] = useState(false);
   const [data, setData] = useState<Blog>();
@@ -210,9 +209,6 @@ const AdminBlogPageId = () => {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
-          },
-          onUploadProgress: () => {
-            setFileUpload({ fileName: file.name });
           },
         }
       )
