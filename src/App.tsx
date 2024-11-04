@@ -9,7 +9,7 @@ import AdminBlogPageId from "./components/AdminComponents/Blog/AdminBlogPageId";
 import AdminBlogPageNew from "./components/AdminComponents/Blog/AdminBlogPageNew";
 import AdminBlogsPage from "./components/AdminComponents/Blog/AdminBlogsPage";
 import AdminEventsPage from "./components/AdminComponents/Events/AdminEventsPage";
-import AdminGalleryPage from "./components/AdminComponents/AdminGalleryPage";
+import AdminGalleryPage from "./components/AdminComponents/Gallery/AdminGalleryPage";
 import AdminLayout from "./components/AdminComponents/AdminLayout";
 import AdminNavbarData from "./components/AdminComponents/NavbarData/AdminNavbarData";
 import AdminNavbarDataId from "./components/AdminComponents/NavbarData/AdminNavbarDataId";
@@ -39,6 +39,8 @@ import AdminUnionPageId from "./components/AdminComponents/Union/AdminUnionPageI
 import AdminUnionPageNew from "./components/AdminComponents/Union/AdminUnionPageNew";
 import AdminEventPageId from "./components/AdminComponents/Events/AdminEventPageId";
 import AdminEventPageNew from "./components/AdminComponents/Events/AdminEventPageNew";
+import AdminGalleryPageNew from "./components/AdminComponents/Gallery/AdminGalleryPageNew";
+import AdminGalleryPageId from "./components/AdminComponents/Gallery/AdminGalleryPageId";
 
 interface LayoutProps {
   children: ReactNode;
@@ -153,6 +155,8 @@ function App() {
           />
           <Route path="o-nas" element={<AdminAboutUs />} />
           <Route path="galeria" element={<AdminGalleryPage />} />
+          <Route path="galeria/novy-album" element={<AdminGalleryPageNew />} />
+          <Route path="galeria/:id" element={<AdminGalleryPageId />} />
           <Route path="blog" element={<AdminBlogsPage />} />
           <Route path="blog/:id" element={<AdminBlogPageId />} />
           <Route path="blog/novy-blog" element={<AdminBlogPageNew />} />

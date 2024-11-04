@@ -12,7 +12,7 @@ const EventsPage = () => {
   const [selectedYear, setSelectedYear] = useState({ value: "", label: "" });
   const [selectedMonth, setSelectedMonth] = useState({ value: "", label: "" });
   const [country, setCountry] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   let [searchParams] = useSearchParams();
   const navigate = useNavigate();

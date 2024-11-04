@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Select from "react-select";
 import { Gallery } from "../../lib/interface";
 import { options_years } from "../../lib/functionsClient";
+import EventPagesSkeleton from "../EventComponents/EventPagesSkeleton";
 
 const GalleryPage = () => {
   const [data, setData] = useState<Gallery[]>([]);
@@ -11,9 +12,11 @@ const GalleryPage = () => {
 
   const [selectedYear, setSelectedYear] = useState({ value: "", label: "" });
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
+      setIsLoading(true);
       try {
         let strana = searchParams.get("strana") || "1";
         let rok = searchParams.get("rok") || new Date().getFullYear();
@@ -31,7 +34,9 @@ const GalleryPage = () => {
         }
 
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/getallgaleries/${strana}/${rok}`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/admin/gallery/getgallerysorted/${rok}`,
           {
             method: "GET",
             headers: {
@@ -50,6 +55,8 @@ const GalleryPage = () => {
         setData(responseData);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -61,26 +68,32 @@ const GalleryPage = () => {
     navigate(`?strana=${strana}&rok=${selectedOption.value}`);
     setSelectedYear(selectedOption);
 
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/getallgaleries/${strana}/${
-        selectedOption.value
-      }`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/gallery/getgallerysorted/${
+          selectedOption.value
+        }`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
-    );
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
+      const responseData = await response.json();
+
+      setData(responseData);
+    } catch (error) {
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
     }
-
-    const responseData = await response.json();
-
-    setData(responseData);
   };
 
   return (
@@ -99,23 +112,30 @@ const GalleryPage = () => {
         </div>
 
         <p>Vitajte v galérii Slovenského zväzu záhradkárov!</p>
-        {data ? (
+        {!isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px] mt-8">
-            {data.map((object, index) => (
-              <Link
-                className={`flex flex-col  rounded-[24px] w-full max-w-[464px] hover:scale-[1.02] duration-200`}
-                key={index}
-                to={`/galeria/${object.id}`}
-              >
-                <img src={object.fotky[0]} className="rounded-[16px]" />
+            {data &&
+              data.map((object, index) => (
+                <Link
+                  className={`flex flex-col  rounded-[24px] w-full max-w-[464px] hover:scale-[1.02] duration-200`}
+                  key={index}
+                  to={`/galeria/${object.id}`}
+                >
+                  <img
+                    src={object.fotky[0]}
+                    className="rounded-[16px] object-cover h-[280px]"
+                  />
 
-                <h5 className="pt-[8px]">{object.nazov}</h5>
-                <p className="opacity-60">{object.datum}</p>
-              </Link>
-            ))}
+                  <h5 className="pt-[8px]">{object.nazov}</h5>
+                  <p className="opacity-60">{object.datum}</p>
+                </Link>
+              ))}
           </div>
         ) : (
-          <p>Loading...</p>
+          <EventPagesSkeleton />
+        )}
+        {data.length === 0 && !isLoading && (
+          <p>So zadanými kritériami sa bohužiaľ nenašla žiadna galéria.</p>
         )}
       </div>
     </div>

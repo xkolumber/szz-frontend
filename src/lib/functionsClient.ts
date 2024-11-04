@@ -123,6 +123,10 @@ export function isValidTime(time: string): boolean {
   return timePattern.test(time);
 }
 
+export function isValidYear(year: string): boolean {
+  return year.length === 4 && /^\d{4}$/.test(year);
+}
+
 export const LIMIT_BLOG = 4;
 
 export const empty_three_values = ["", "", ""];

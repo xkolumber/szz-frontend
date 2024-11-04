@@ -16,7 +16,9 @@ const GalleryPageId = () => {
   const getData = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/getallgaleries/${id}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/admin/gallery/getgalleryalbumopen/${id}`,
         {
           method: "GET",
           headers: {
@@ -43,7 +45,9 @@ const GalleryPageId = () => {
   const getData2 = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/getgaleriesexcept/${id}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/admin/gallery/getgalleriessexcept/${id}`,
         {
           method: "GET",
           headers: {
@@ -120,7 +124,10 @@ const GalleryPageId = () => {
                 key={index}
                 to={`/galeria/${object.id}`}
               >
-                <img src={object.fotky[0]} className="rounded-[16px]" />
+                <img
+                  src={object.fotky[0]}
+                  className="rounded-[16px]  object-cover h-[280px]"
+                />
 
                 <h5 className="pt-[8px]">{object.nazov}</h5>
                 <p className="opacity-60">{object.datum}</p>
