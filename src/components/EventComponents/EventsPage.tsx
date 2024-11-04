@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import Select from "react-select";
+import { options_months, options_years } from "../../lib/functionsClient";
 import { ActualEvent } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import IconCalendar from "../Icons/IconCalendar";
-import Select from "react-select";
-import { options_months, options_years } from "../../lib/functionsClient";
+import EventPagesSkeleton from "./EventPagesSkeleton";
 
 const EventsPage = () => {
   const [data, setData] = useState<ActualEvent[]>([]);
   const [selectedYear, setSelectedYear] = useState({ value: "", label: "" });
   const [selectedMonth, setSelectedMonth] = useState({ value: "", label: "" });
   const [country, setCountry] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   let [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -99,6 +101,7 @@ const EventsPage = () => {
 
   const fetchData = async () => {
     try {
+      setIsLoading(true);
       if (selectedYear && selectedMonth && country) {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/admin/events/getactualeventssorted/${
@@ -122,6 +125,8 @@ const EventsPage = () => {
       }
     } catch (error) {
       console.log("error");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -175,34 +180,35 @@ const EventsPage = () => {
           </div>
         </div>
 
-        {data ? (
+        {!isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]">
-            {data.map((object, index) => (
-              <Link
-                className={`flex flex-col  rounded-[24px] w-full  hover:scale-[1.02] duration-200`}
-                key={index}
-                to={`/vystavy-a-podujatia/${object.slug}`}
-              >
-                <img
-                  src={object.titulna_foto}
-                  className="rounded-[16px] object-cover h-[280px]"
-                />
-                <div className="flex flex-row gap-6 pt-[8px] lg:pt-[24px] opacity-60">
-                  <IconCalendar />
-                  <p className="font-medium">
-                    {object.datum_den}.{object.datum_mesiac}.{object.datum_rok}{" "}
-                    {object.cas}
-                  </p>
-                </div>
+            {data &&
+              data.map((object, index) => (
+                <Link
+                  className={`flex flex-col  rounded-[24px] w-full  hover:scale-[1.02] duration-200`}
+                  key={index}
+                  to={`/vystavy-a-podujatia/${object.slug}`}
+                >
+                  <img
+                    src={object.titulna_foto}
+                    className="rounded-[16px] object-cover h-[280px]"
+                  />
+                  <div className="flex flex-row gap-6 pt-[8px] lg:pt-[24px] opacity-60">
+                    <IconCalendar />
+                    <p className="font-medium">
+                      {object.datum_den}.{object.datum_mesiac}.
+                      {object.datum_rok} {object.cas}
+                    </p>
+                  </div>
 
-                <h5 className="pt-[8px]">{object.nazov_vystavy}</h5>
-              </Link>
-            ))}
+                  <h5 className="pt-[8px]">{object.nazov_vystavy}</h5>
+                </Link>
+              ))}
           </div>
         ) : (
-          <p>Loading...</p>
+          <EventPagesSkeleton />
         )}
-        {data.length === 0 && (
+        {data.length === 0 && !isLoading && (
           <p>So zadanými kritériami sa bohužiaľ nevyskutuje žiadna udalosť.</p>
         )}
       </div>

@@ -33,6 +33,7 @@ const HomePageEvents = () => {
   if (status === "error") {
     return <p>Error: {error.message}</p>;
   }
+
   return (
     <div className="own_edge">
       <div className="main_section">
