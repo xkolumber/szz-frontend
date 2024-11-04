@@ -8,7 +8,7 @@ import AdminActualJobs from "./components/AdminComponents/ActualJob/AdminActualJ
 import AdminBlogPageId from "./components/AdminComponents/Blog/AdminBlogPageId";
 import AdminBlogPageNew from "./components/AdminComponents/Blog/AdminBlogPageNew";
 import AdminBlogsPage from "./components/AdminComponents/Blog/AdminBlogsPage";
-import AdminEventsPage from "./components/AdminComponents/AdminEventsPage";
+import AdminEventsPage from "./components/AdminComponents/Events/AdminEventsPage";
 import AdminGalleryPage from "./components/AdminComponents/AdminGalleryPage";
 import AdminLayout from "./components/AdminComponents/AdminLayout";
 import AdminNavbarData from "./components/AdminComponents/NavbarData/AdminNavbarData";
@@ -37,6 +37,8 @@ import Footer from "./components/Footer";
 import AdminUnionPage from "./components/AdminComponents/Union/AdminUnionPage";
 import AdminUnionPageId from "./components/AdminComponents/Union/AdminUnionPageId";
 import AdminUnionPageNew from "./components/AdminComponents/Union/AdminUnionPageNew";
+import AdminEventPageId from "./components/AdminComponents/Events/AdminEventPageId";
+import AdminEventPageNew from "./components/AdminComponents/Events/AdminEventPageNew";
 
 interface LayoutProps {
   children: ReactNode;
@@ -155,6 +157,14 @@ function App() {
           <Route path="blog/:id" element={<AdminBlogPageId />} />
           <Route path="blog/novy-blog" element={<AdminBlogPageNew />} />
           <Route path="vystavy-a-podujatia" element={<AdminEventsPage />} />
+          <Route
+            path="vystavy-a-podujatia/:id"
+            element={<AdminEventPageId />}
+          />
+          <Route
+            path="vystavy-a-podujatia/nova-udalost"
+            element={<AdminEventPageNew />}
+          />
           <Route path="aktualne-prace" element={<AdminActualJobs />} />
           <Route path="aktualne-prace/:id" element={<AdminActualJobId />} />
 

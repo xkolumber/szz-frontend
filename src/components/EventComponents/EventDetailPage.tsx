@@ -4,16 +4,29 @@ import { ActualEvent } from "../../lib/interface";
 import ButtonWithArrow from "../ButtonWithArrow";
 import IconCalendar from "../Icons/IconCalendar";
 import IconLocation from "../Icons/IconLocation";
+import ButtonWithElement from "../ButtonWithElement";
+import IconDownload from "../Icons/IconDownload";
+import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 
 const EventDetailPage = () => {
+  const [open, setOpen] = useState(false);
+  const [initialSlide, setInitialSlide] = useState(0);
   const [data, setData] = useState<ActualEvent>();
   const [data2, setData2] = useState<ActualEvent[]>([]);
   const { slug } = useParams<{ slug: string }>();
+  const [choosenAlbum, setChoosenAlbum] = useState<SlideImage[]>([]);
+
+  const handleOpenGallery = (choosenArticel: ActualEvent, index: number) => {
+    const transformedAlbum = choosenArticel.fotky.map((url) => ({ src: url }));
+    setChoosenAlbum(transformedAlbum);
+    setOpen(true);
+    setInitialSlide(index);
+  };
 
   const getData = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/getactualevent/${slug}`,
+        `${import.meta.env.VITE_API_URL}/admin/events/geteventslug/${slug}`,
         {
           method: "GET",
           headers: {
@@ -40,7 +53,9 @@ const EventDetailPage = () => {
   const getData2 = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/getactualeventsexcept/${slug}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/admin/events/getactualeventsexcept/${slug}`,
         {
           method: "GET",
           headers: {
@@ -66,7 +81,6 @@ const EventDetailPage = () => {
 
   useEffect(() => {
     if (slug) {
-      console.log(slug);
       getData();
       getData2();
     }
@@ -82,7 +96,8 @@ const EventDetailPage = () => {
               <div className="flex flex-row gap-6  ">
                 <IconCalendar />
                 <p className="font-medium">
-                  {data.datum} {data.cas}
+                  {data.datum_den}.{data.datum_mesiac}.{data.datum_rok}{" "}
+                  {data.cas}
                 </p>
               </div>
               <div className="flex flex-row gap-6  ">
@@ -100,6 +115,41 @@ const EventDetailPage = () => {
             <div className="max-w-[900px] m-auto mt-[80px]">
               <p>{data.text1}</p>
               <p className=" mt-[80px]">{data.text2}</p>
+              {data.pdf.length > 0 && (
+                <>
+                  <h5 className="uppercase mt-[80px]">Dokumenty k podujatiu</h5>
+                  <div className="flex flex-wrap gap-4">
+                    {data?.pdf.map((object, index) => (
+                      <Link to={object.link} target="_blank" key={index}>
+                        <ButtonWithElement
+                          text={object.nazov}
+                          element={<IconDownload />}
+                        />
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {data.fotky.length > 0 && (
+                <>
+                  <h5 className="mt-[40px]">Súvisiace fotogragie</h5>
+                  <div className="flex flex-row gap-4">
+                    {" "}
+                    {data?.fotky.map(
+                      (object, index) =>
+                        object != "" && (
+                          <img
+                            src={object}
+                            key={index}
+                            className="max-w-[150px] max-h-[150px] rounded-[16px] w-full h-full object-cover cursor-pointer hover:scale-[1.02] duration-200"
+                            onClick={() => handleOpenGallery(data, index)}
+                          />
+                        )
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           </>
         ) : (
@@ -128,12 +178,13 @@ const EventDetailPage = () => {
                   src={object.titulna_foto}
                   width={400}
                   height={400}
-                  className="rounded-[16px]"
+                  className="rounded-[16px] object-cover h-[280px]"
                 />
                 <div className="flex flex-row gap-6 pt-[24px] opacity-60">
                   <IconCalendar />
                   <p className="font-medium">
-                    {object.datum} {object.cas}
+                    {object.datum_den}.{object.datum_mesiac}.{object.datum_rok}{" "}
+                    {object.cas}
                   </p>
                 </div>
 
@@ -145,6 +196,14 @@ const EventDetailPage = () => {
           <p>Loading...</p>
         )}
       </div>
+      {open && (
+        <Lightbox
+          open={open}
+          slides={choosenAlbum}
+          close={() => setOpen(false)}
+          index={initialSlide}
+        />
+      )}
     </div>
   );
 };

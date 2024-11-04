@@ -101,7 +101,7 @@ const EventsPage = () => {
     try {
       if (selectedYear && selectedMonth && country) {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/getactualeventssorted/${
+          `${import.meta.env.VITE_API_URL}/admin/events/getactualeventssorted/${
             selectedYear.value
           }/${selectedMonth.value}/${country}`,
           {
@@ -183,11 +183,15 @@ const EventsPage = () => {
                 key={index}
                 to={`/vystavy-a-podujatia/${object.slug}`}
               >
-                <img src={object.titulna_foto} className="rounded-[16px]" />
+                <img
+                  src={object.titulna_foto}
+                  className="rounded-[16px] object-cover h-[280px]"
+                />
                 <div className="flex flex-row gap-6 pt-[8px] lg:pt-[24px] opacity-60">
                   <IconCalendar />
                   <p className="font-medium">
-                    {object.datum} {object.cas}
+                    {object.datum_den}.{object.datum_mesiac}.{object.datum_rok}{" "}
+                    {object.cas}
                   </p>
                 </div>
 

@@ -118,6 +118,11 @@ export function isValidDate(datum: string) {
   );
 }
 
+export function isValidTime(time: string): boolean {
+  const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
+  return timePattern.test(time);
+}
+
 export const LIMIT_BLOG = 4;
 
 export const empty_three_values = ["", "", ""];

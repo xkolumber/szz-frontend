@@ -48,7 +48,7 @@ export async function getActualJobs() {
 export async function getActualThreeEvents() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/getactualeventsthree`,
+      `${import.meta.env.VITE_API_URL}/admin/events/getactualeventsthree`,
       {
         method: "GET",
         headers: {

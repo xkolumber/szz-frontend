@@ -7,15 +7,21 @@ export interface ActualJob {
 }
 
 export interface ActualEvent {
+  id: string;
   nazov_vystavy: string;
-  datum: string;
+  datum_den: string;
+  datum_mesiac: string;
+  datum_rok: string;
   miesto_podujatia: string;
   cas: string;
+  hostia: string;
   titulna_foto: string;
   text1: string;
   text2: string;
   slug: string;
-  typ: "SK" | "ZAH";
+  typ: "sk" | "zah";
+  pdf: Pdf[];
+  fotky: string[];
 }
 
 export interface Gallery {

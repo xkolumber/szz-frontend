@@ -53,11 +53,15 @@ const HomePageEvents = () => {
                 to={`/vystavy-a-podujatia/${object.slug}`}
               >
                 {" "}
-                <img src={object.titulna_foto} className="rounded-[16px]" />
+                <img
+                  src={object.titulna_foto}
+                  className="rounded-[16px] object-cover h-[280px]"
+                />
                 <div className="flex flex-row gap-6 pt-[24px] opacity-60">
                   <IconCalendar />
                   <p className="font-medium">
-                    {object.datum} {object.cas}
+                    {object.datum_den}.{object.datum_mesiac}.{object.datum_rok}{" "}
+                    {object.cas}
                   </p>
                 </div>
                 <h5 className="pt-[8px]">{object.nazov_vystavy}</h5>
