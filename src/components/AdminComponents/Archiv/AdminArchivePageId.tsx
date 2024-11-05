@@ -212,6 +212,18 @@ const AdminArchivePageId = () => {
                 required
               />
             </div>
+
+            <div className="product_admin_row">
+              <p>rok:</p>
+              <input
+                type="text"
+                name="rok"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.rok}
+                required
+              />
+            </div>
             <div className="product_admin_row">
               <p>pdf_link:</p>
               <input
@@ -227,17 +239,6 @@ const AdminArchivePageId = () => {
                 accept="application/pdf"
                 onChange={(e) => handleUploadPdf(e)}
                 className="mt-2"
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>rok:</p>
-              <input
-                type="text"
-                name="rok"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.rok}
-                required
               />
             </div>
 
