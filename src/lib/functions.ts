@@ -100,7 +100,7 @@ export async function getAboutUsData() {
     const response = await fetch(
       `${
         import.meta.env.VITE_API_URL
-      }/admin/aboutus/getaboutuspage/sdfg5s4fd5g-asdfasdf-5465`,
+      }/admin/aboutus/getaboutuspageopen/sdfg5s4fd5g-asdfasdf-5465`,
       {
         method: "GET",
         headers: {
