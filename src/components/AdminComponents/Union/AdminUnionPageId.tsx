@@ -9,8 +9,10 @@ import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
 import IconTrash from "../../Icons/IconTrash";
 import axios from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AdminUnionPageId = () => {
+  const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
@@ -218,6 +220,7 @@ const AdminUnionPageId = () => {
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
         toast.success("Objekt bol odstránený");
+        await queryClient.invalidateQueries({ queryKey: ["admin_union"] });
         navigate("/admin/zvaz");
       }
     } catch (error) {

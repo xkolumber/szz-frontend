@@ -9,8 +9,8 @@ import AdminNotAuthorized from "../AdminNotAuthorized";
 const AdminAboutUs = () => {
   const token = localStorage.getItem("token");
 
-  const { data, status, error, isLoading, refetch } = useQuery<AboutUsPage>({
-    queryKey: ["about_us_admin"],
+  const { data, status, isLoading, refetch } = useQuery<AboutUsPage>({
+    queryKey: ["admin_about_us"],
     queryFn: () => getAboutUsDataToken(token),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
@@ -27,7 +27,13 @@ const AdminAboutUs = () => {
   }
 
   if (status === "error") {
-    return <p>Error: {error.message}</p>;
+    return (
+      <div className="own_edge min-h-screen">
+        <div className="main_section !pt-0">
+          <p>Error</p>
+        </div>
+      </div>
+    );
   }
 
   return (

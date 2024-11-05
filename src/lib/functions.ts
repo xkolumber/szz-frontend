@@ -234,6 +234,38 @@ export async function fetchFaqDataClient() {
   }
 }
 
+export async function fetchUnionDataToken(token: string | null) {
+  if (token) {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/union/getuniondata`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData.Items;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
 export async function fetchUnionDataClient() {
   try {
     const response = await fetch(

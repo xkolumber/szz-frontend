@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -11,6 +12,7 @@ import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const AdminUnionPageNew = () => {
+  const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
   const [selectedOptions, setSelectOptions] = useState<SelectOption[]>([]);
@@ -80,6 +82,11 @@ const AdminUnionPageNew = () => {
   const handleAddNewObject = async (event: any) => {
     event.preventDefault();
 
+    if (actualizeData.rodic === "") {
+      toast.error("Vyberte hodnotu pre RODIČ");
+      return;
+    }
+
     try {
       setIsLoading(true);
       const response = await fetch(
@@ -108,7 +115,8 @@ const AdminUnionPageNew = () => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Objekt bol aktualizovaný");
+        toast.success("Objekt bol vytvorený");
+        await queryClient.invalidateQueries({ queryKey: ["admin_union"] });
         navigate("/admin/zvaz");
       }
     } catch (error) {
