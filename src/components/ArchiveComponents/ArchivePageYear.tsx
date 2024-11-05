@@ -39,16 +39,18 @@ const ArchivePageYear = () => {
     <div className="own_edge">
       <div className="main_section !pt-0 min-h-screen ">
         <h2>Dokumenty</h2>
-        {data?.map((object, index) => (
-          <Link
-            to={object.pdf_link}
-            target="_blank"
-            key={index}
-            className="underline"
-          >
-            {object.pdf_nazov}
-          </Link>
-        ))}
+        <div className="flex flex-col gap-4">
+          {data?.map((object, index) => (
+            <Link
+              to={object.pdf_link}
+              target="_blank"
+              key={index}
+              className="underline"
+            >
+              {object.pdf_nazov}
+            </Link>
+          ))}
+        </div>
         {data?.length === 0 && (
           <p>V tejto sekcii zatiaľ nie sú žiadne dokumenty.</p>
         )}
