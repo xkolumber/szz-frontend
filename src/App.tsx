@@ -4,7 +4,7 @@ import AboutUs from "./components/AboutUs";
 import AdminActualJobId from "./components/AdminComponents/ActualJob/AdminActualJobId";
 import AdminActualJobNewMonth from "./components/AdminComponents/ActualJob/AdminActualJobNewMonth";
 import AdminActualJobs from "./components/AdminComponents/ActualJob/AdminActualJobs";
-import AdminAboutUs from "./components/AdminComponents/AdminAboutUs";
+import AdminAboutUs from "./components/AdminComponents/AboutUs/AdminAboutUs";
 import AdminLayout from "./components/AdminComponents/AdminLayout";
 import AdminPage from "./components/AdminComponents/AdminPage";
 import AdminArchivePage from "./components/AdminComponents/Archiv/AdminArchivePage";

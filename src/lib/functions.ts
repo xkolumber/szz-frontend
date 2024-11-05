@@ -100,7 +100,7 @@ export async function getAboutUsData() {
     const response = await fetch(
       `${
         import.meta.env.VITE_API_URL
-      }/admin/aboutus/getaboutuspageopen/sdfg5s4fd5g-asdfasdf-5465`,
+      }/admin/aboutus/getaboutuspage/sdfg5s4fd5g-asdfasdf-5465`,
       {
         method: "GET",
         headers: {
@@ -119,6 +119,40 @@ export async function getAboutUsData() {
     return responseData;
   } catch (error) {
     console.error("Error fetching data:", error);
+    return null;
+  }
+}
+
+export async function getAboutUsDataToken(token: string | null) {
+  if (token) {
+    try {
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_API_URL
+        }/admin/aboutus/getaboutuspage/sdfg5s4fd5g-asdfasdf-5465`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
     return null;
   }
 }

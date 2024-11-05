@@ -40,10 +40,10 @@ const AdminPage = () => {
   return (
     <div className="own_edge">
       <div className="main_section !pt-0">
-        <h2>Admin Page</h2>
+        <h2>Admin sekcia</h2>
         {data && authorized === "ano" && (
           <div>
-            <p>{data}</p>
+            <p>Vitajte v adminskej sekcii.</p>
           </div>
         )}
 
