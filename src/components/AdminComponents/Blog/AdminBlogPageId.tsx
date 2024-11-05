@@ -23,6 +23,7 @@ const AdminBlogPageId = () => {
 
   const token = localStorage.getItem("token");
   const { id } = useParams<{ id: string }>();
+
   const navigate = useNavigate();
   const popupRef = useRef<HTMLDivElement>(null);
 

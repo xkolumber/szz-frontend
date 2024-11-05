@@ -95,3 +95,10 @@ export interface AboutUsPage {
   foto3: string;
   datum: string;
 }
+
+export interface Archive {
+  id: string;
+  pdf_link: string;
+  pdf_nazov: string;
+  rok: string;
+}

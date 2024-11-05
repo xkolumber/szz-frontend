@@ -62,6 +62,10 @@ export const navbar_admin_data = [
     title: "Otázky a odpovede",
     slug: "/admin/otazky-a-odpovede",
   },
+  {
+    title: "Archív",
+    slug: "/admin/archiv",
+  },
 ];
 
 export const options_years = [
@@ -130,3 +134,7 @@ export function isValidYear(year: string): boolean {
 export const LIMIT_BLOG = 4;
 
 export const empty_three_values = ["", "", ""];
+
+export const years = [
+  2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2028, 2029, 2030,
+];

@@ -221,3 +221,32 @@ export async function fetchUnionDataClient() {
     console.error("Error fetching data:", error);
   }
 }
+
+export async function fetchArchiveByYear(year: string | undefined) {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/archive/getarchivebyearopen/${year}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const responseData = await response.json();
+
+    if (responseData != null) {
+      return responseData;
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}

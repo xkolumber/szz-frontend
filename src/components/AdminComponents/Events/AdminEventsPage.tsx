@@ -6,7 +6,7 @@ import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const AdminEventsPage = () => {
   const [data, setData] = useState<ActualEvent[]>([]);
-  const [authorized, setAuthorized] = useState("ano");
+  const [authorized, setAuthorized] = useState("nie");
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -31,6 +31,7 @@ const AdminEventsPage = () => {
         const responseData = await response.json();
 
         setData(responseData.Items);
+        setAuthorized("ano");
       } catch (error) {
         setAuthorized("nie");
         console.error("Error fetching data:", error);

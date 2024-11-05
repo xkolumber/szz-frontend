@@ -43,7 +43,7 @@ const Footer = () => {
               <a href="tel:++421910211001">
                 <p className="text-white underline  mb-1">+421 910 211 001</p>
               </a>
-              <a href="mailto:info@energysportrent.sk?subject=Otázka">
+              <a href="mailto:info@zz.sk?subject=Otázka">
                 <p className="text-white underline  mb-1">info@szz.sk</p>
               </a>
             </div>
