@@ -4,6 +4,8 @@ import { fetchUnionDataToken } from "../../../lib/functions";
 import { UnionData } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
+import AdminDataSkeleton from "../AdminDataSkeleton";
+import AdminErrorStatus from "../AdminErrorStatus";
 
 const AdminUnionPage = () => {
   const token = localStorage.getItem("token");
@@ -17,36 +19,33 @@ const AdminUnionPage = () => {
 
   if (isLoading) {
     return (
-      <div className="own_edge min-h-screen">
-        <div className="main_section !pt-0">
-          <p>Loading...</p>
-        </div>
+      <div className="">
+        <StepBack />
+        <h2>Zväz</h2>
+        <p>V tejto časti viete upraviť všetky dokumenty zväzu.</p>
+        <Link to="/admin/zvaz/novy-dokument">
+          <p className="underline">Pridať novú sekciu</p>
+        </Link>
+        <AdminDataSkeleton />
       </div>
     );
   }
 
   if (status === "error") {
-    return (
-      <div className="own_edge min-h-screen">
-        <div className="main_section !pt-0">
-          <p>Error</p>
-        </div>
-      </div>
-    );
+    return <AdminErrorStatus />;
   }
 
   return (
     <div>
-      {data && (
-        <div className=" w-full">
-          <StepBack />
-          <h2>Zväz</h2>
-          <p>V tejto časti viete upraviť všetky dokumenty zväzu.</p>
+      <div className=" w-full">
+        <StepBack />
+        <h2>Zväz</h2>
+        <p>V tejto časti viete upraviť všetky dokumenty zväzu.</p>
 
-          <Link to="/admin/zvaz/novy-dokument">
-            <p className="underline">Pridať novú sekciu</p>
-          </Link>
-
+        <Link to="/admin/zvaz/novy-dokument">
+          <p className="underline">Pridať novú sekciu</p>
+        </Link>
+        {data && (
           <table className="admin_section_2fr mt-8">
             <thead>
               <tr className="bg-tertiary">
@@ -70,10 +69,10 @@ const AdminUnionPage = () => {
                 ))}
             </tbody>
           </table>
-        </div>
-      )}
+        )}
 
-      {data === null && <AdminNotAuthorized />}
+        {data === null && <AdminNotAuthorized />}
+      </div>
     </div>
   );
 };

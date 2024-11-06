@@ -298,6 +298,41 @@ export async function fetchUnionDataToken(token: string | null) {
   }
 }
 
+export async function fetchUnionDataIdToken(
+  token: string | null,
+  id: string | undefined
+) {
+  if (token && id) {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/union/getunionid/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
 export async function fetchUnionDataClient() {
   try {
     const response = await fetch(

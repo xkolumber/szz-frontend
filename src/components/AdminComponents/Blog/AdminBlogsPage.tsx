@@ -4,6 +4,8 @@ import { fetchBlogsToken } from "../../../lib/functions";
 import { Blog } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
+import AdminErrorStatus from "../AdminErrorStatus";
+import AdminDataSkeleton from "../AdminDataSkeleton";
 
 const AdminBlogsPage = () => {
   const token = localStorage.getItem("token");
@@ -17,22 +19,21 @@ const AdminBlogsPage = () => {
 
   if (isLoading) {
     return (
-      <div className="own_edge min-h-screen">
-        <div className="main_section !pt-0">
-          <p>Loading...</p>
-        </div>
+      <div className="">
+        <StepBack />
+        <h2>Blog sekcia</h2>
+        <p>V tejto časti vytvárate články.</p>
+
+        <Link to="/admin/blog/novy-blog">
+          <p className="underline">Pridať nový blog</p>
+        </Link>
+        <AdminDataSkeleton />
       </div>
     );
   }
 
   if (status === "error") {
-    return (
-      <div className="own_edge min-h-screen">
-        <div className="main_section !pt-0">
-          <p>Error</p>
-        </div>
-      </div>
-    );
+    return <AdminErrorStatus />;
   }
 
   return (
