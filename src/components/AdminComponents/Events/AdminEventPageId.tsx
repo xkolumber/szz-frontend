@@ -9,25 +9,25 @@ const AdminEventPageId = () => {
   const token = localStorage.getItem("token");
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
-  const cachedEvents =
+  const cachedElements =
     queryClient.getQueryData<ActualEvent[]>(["admin_events"]) || [];
 
-  const cachedEvent = cachedEvents.find((event) => event.id === id);
+  const cachedElement = cachedElements.find((event) => event.id === id);
   const directCachedEvent = queryClient.getQueryData<ActualEvent>([
     "admin_events",
     id,
   ]);
 
-  const initialEventData = directCachedEvent || cachedEvent;
+  const initialElementData = directCachedEvent || cachedElement;
 
   const {
-    data = initialEventData,
+    data = initialElementData,
     isLoading,
     status,
   } = useQuery<ActualEvent>({
     queryKey: ["admin_events", id],
     queryFn: () => fetchEventIdToken(token, id),
-    enabled: !initialEventData,
+    enabled: !initialElementData,
   });
 
   if (isLoading) {
@@ -51,16 +51,16 @@ const AdminEventPageId = () => {
   }
 
   const revalidateFunction = async () => {
-    const cachedEvents =
+    const cachedElements =
       queryClient.getQueryData<ActualEvent[]>(["admin_events"]) || [];
 
-    if (cachedEvents.length > 0) {
-      const cachedEvent = cachedEvents.find((event) => event.id === id);
+    if (cachedElements.length > 0) {
+      const cachedElement = cachedElements.find((object) => object.id === id);
 
-      const initialEventData = cachedEvent;
+      const initialElementData = cachedElement;
       queryClient.setQueryData<ActualEvent>(
         ["admin_events", id],
-        initialEventData
+        initialElementData
       );
     } else {
       const data2: ActualEvent[] = await queryClient.fetchQuery({
@@ -68,12 +68,12 @@ const AdminEventPageId = () => {
         queryFn: () => fetchEventsToken(token),
       });
 
-      const cachedEvent = data2.find((event) => event.id === id);
+      const cachedElement = data2.find((object) => object.id === id);
 
-      const initialEventData = cachedEvent;
+      const initialElementData = cachedElement;
       queryClient.setQueryData<ActualEvent>(
         ["admin_events", id],
-        initialEventData
+        initialElementData
       );
     }
   };

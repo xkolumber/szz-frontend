@@ -9,21 +9,25 @@ const AdminBlogPageId = () => {
   const token = localStorage.getItem("token");
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
-  const cachedBlogs = queryClient.getQueryData<Blog[]>(["admin_blogs"]) || [];
+  const cachedElements =
+    queryClient.getQueryData<Blog[]>(["admin_blogs"]) || [];
 
-  const cachedBlog = cachedBlogs.find((blog) => blog.id === id);
-  const directCachedBlog = queryClient.getQueryData<Blog>(["admin_blogs", id]);
+  const cachedElement = cachedElements.find((blog) => blog.id === id);
+  const directCachedElement = queryClient.getQueryData<Blog>([
+    "admin_blogs",
+    id,
+  ]);
 
-  const initialBlogData = directCachedBlog || cachedBlog;
+  const initialElementData = directCachedElement || cachedElement;
 
   const {
-    data = initialBlogData,
+    data = initialElementData,
     isLoading,
     status,
   } = useQuery<Blog>({
     queryKey: ["admin_blogs", id],
     queryFn: () => fetchBlogIdToken(token, id),
-    enabled: !initialBlogData,
+    enabled: !initialElementData,
   });
 
   if (isLoading) {
@@ -47,23 +51,24 @@ const AdminBlogPageId = () => {
   }
 
   const revalidateFunction = async () => {
-    const cachedBlogs = queryClient.getQueryData<Blog[]>(["admin_blogs"]) || [];
+    const cachedElements =
+      queryClient.getQueryData<Blog[]>(["admin_blogs"]) || [];
 
-    if (cachedBlogs.length > 0) {
-      const cachedEvent = cachedBlogs.find((event) => event.id === id);
+    if (cachedElements.length > 0) {
+      const cachedElement = cachedElements.find((event) => event.id === id);
 
-      const initialBlogData = cachedEvent;
-      queryClient.setQueryData<Blog>(["admin_blogs", id], initialBlogData);
+      const initialElementData = cachedElement;
+      queryClient.setQueryData<Blog>(["admin_blogs", id], initialElementData);
     } else {
       const data2: Blog[] = await queryClient.fetchQuery({
         queryKey: ["admin_blogs"],
         queryFn: () => fetchBlogsToken(token),
       });
 
-      const cachedEvent = data2.find((event) => event.id === id);
+      const cachedElement = data2.find((event) => event.id === id);
 
-      const initialEventData = cachedEvent;
-      queryClient.setQueryData<Blog>(["admin_blogs", id], initialEventData);
+      const initialElementData = cachedElement;
+      queryClient.setQueryData<Blog>(["admin_blogs", id], initialElementData);
     }
   };
 

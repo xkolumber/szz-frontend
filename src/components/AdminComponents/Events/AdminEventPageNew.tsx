@@ -15,9 +15,10 @@ const AdminEventPageNew = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
-
   const [authorized] = useState("ano");
+
   const token = localStorage.getItem("token");
+
   const navigate = useNavigate();
 
   const [actualizeData, setActualizeData] = useState<ActualEvent>({

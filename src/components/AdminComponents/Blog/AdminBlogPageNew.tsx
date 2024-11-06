@@ -11,8 +11,11 @@ import { useDropzone } from "react-dropzone";
 import classNames from "classnames";
 import axios from "axios";
 import IconTrash from "../../Icons/IconTrash";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AdminBlogNew = () => {
+  const queryClient = useQueryClient();
+
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
 
@@ -112,6 +115,7 @@ const AdminBlogNew = () => {
 
       if (responseData.$metadata.httpStatusCode === 200) {
         toast.success("Blog bol úspešne vytvorený");
+        await queryClient.refetchQueries({ queryKey: ["admin_blogs"] });
         navigate("/admin/blog");
       }
     } catch (error) {

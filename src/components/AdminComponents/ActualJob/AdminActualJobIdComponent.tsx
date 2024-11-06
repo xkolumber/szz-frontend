@@ -1,5 +1,7 @@
+import { classNames } from "@react-pdf-viewer/core";
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import classNames from "classnames";
+import FormData from "form-data";
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast, { Toaster } from "react-hot-toast";
@@ -8,26 +10,60 @@ import { ClipLoader } from "react-spinners";
 import { ActualJob } from "../../../lib/interface";
 import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
-import { useQueryClient } from "@tanstack/react-query";
 
-const AdminActualJobNewMonth = () => {
+interface Props {
+  data: ActualJob;
+  onDataUpdated: () => void;
+}
+
+const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
   const queryClient = useQueryClient();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [fileUpload, setFileUpload] = useState<any>(null);
 
-  const [authorized] = useState("ano");
+  //   const [data, setData] = useState<ActualJob>();
+  //   const [authorized, setAuthorized] = useState("");
   const token = localStorage.getItem("token");
+  //   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const [actualizeData, setActualizeData] = useState<ActualJob>({
-    id: "",
-    mesiac: "",
-    pdf: { nazov: "", link: "" },
-    text: "",
-    farba: "",
-  });
+  const [actualizeData, setActualizeData] = useState<ActualJob>(data);
+
+  //   const getData = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `${import.meta.env.VITE_API_URL}/admin/actualjobs/getactualjob/${id}`,
+  //         {
+  //           method: "GET",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Accept: "application/json",
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+
+  //       if (!response.ok) {
+  //         setAuthorized("nie");
+  //         throw new Error("Network response was not ok");
+  //       }
+
+  //       const responseData = await response.json();
+  //       setAuthorized("ano");
+
+  //       setData(responseData);
+  //       setActualizeData(responseData);
+  //     } catch (error) {
+  //       setAuthorized("nie");
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+
+  //   useEffect(() => {
+  //     getData();
+  //   }, []);
 
   const handleChange = (
     e:
@@ -53,7 +89,7 @@ const AdminActualJobNewMonth = () => {
     }));
   };
 
-  const handleAddMonth = async (event: any) => {
+  const handleSaveProduct = async (event: any) => {
     event.preventDefault();
     if (!actualizeData.farba.startsWith("#")) {
       toast.error("Farba musí začínať s #");
@@ -62,15 +98,16 @@ const AdminActualJobNewMonth = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/actualjobs/addactualjob`,
+        `${import.meta.env.VITE_API_URL}/admin/actualjobs/updateactualjob/`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
+            id: data?.id,
             mesiac: actualizeData.mesiac,
             pdf: actualizeData.pdf,
             text: actualizeData.text,
@@ -85,14 +122,51 @@ const AdminActualJobNewMonth = () => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Mesiac bol pridaný");
+        toast.success("Mesiac bol aktualizovaný");
+        await queryClient.refetchQueries({ queryKey: ["admin_jobs"] });
+        onDataUpdated();
+      }
+    } catch (error) {
+      toast.error("niekde nastala chyba");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDeleteItem = async () => {
+    try {
+      setIsLoadingDelete(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/actualjobs/deleteactualjob/${
+          data!.id
+        }`,
+        {
+          method: "delete",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            id: data?.id,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const responseData = await response.json();
+      if (responseData.$metadata.httpStatusCode === 200) {
+        toast.success("Mesiac bol odstránený");
         await queryClient.refetchQueries({ queryKey: ["admin_jobs"] });
         navigate("/admin/aktualne-prace");
       }
     } catch (error) {
       toast.error("niekde nastala chyba");
     } finally {
-      setIsLoading(false);
+      setIsLoadingDelete(false);
     }
   };
 
@@ -134,19 +208,19 @@ const AdminActualJobNewMonth = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const dragAreaClasses = classNames({
-    "p-10 border-gray-400 border-2 border-dashed rounded-lg": true,
+    "p-10 border-gray-400 border-2 border-dashed rounded-lg w-[300px]": true,
     "bg-gray-200": isDragActive,
   });
 
   return (
     <div>
-      {authorized === "ano" && (
+      {data && (
         <div className=" w-full">
           <StepBack />
           <Toaster />
-          <h2>Nový mesiac</h2>
+          <h2>Úprava mesiaca: {data.mesiac}</h2>
 
-          <form className=" products_admin " onSubmit={handleAddMonth}>
+          <form className=" products_admin " onSubmit={handleSaveProduct}>
             <div className="product_admin_row">
               <p>Mesiac:</p>
               <input
@@ -167,6 +241,7 @@ const AdminActualJobNewMonth = () => {
                   name="nazov"
                   onChange={handlePdfChange}
                   className="mb-2"
+                  value={actualizeData?.pdf.nazov}
                   maxLength={1000}
                   required
                 />
@@ -184,6 +259,7 @@ const AdminActualJobNewMonth = () => {
                     {...getInputProps()}
                     className="border border-red-500"
                   />
+
                   <div className="flex flex-col items-center justify-center gap-4">
                     <IconUpload />
                     <p className="text-center">Drop files here</p>
@@ -215,7 +291,7 @@ const AdminActualJobNewMonth = () => {
               />
             </div>
             <div className="product_admin_row">
-              <p>Farba mesiacu: '#ffffff' </p>
+              <p>Farba mesiaca '#ffffff' </p>
               <input
                 type="text"
                 name="farba"
@@ -245,14 +321,31 @@ const AdminActualJobNewMonth = () => {
                   "Aktualizovať"
                 )}
               </button>
+              <button
+                className="btn btn--primary !bg-red-500 "
+                onClick={handleDeleteItem}
+                type="button"
+                disabled={isLoadingDelete}
+              >
+                {isLoadingDelete ? (
+                  <ClipLoader
+                    size={20}
+                    color={"#00000"}
+                    loading={true}
+                    className="ml-16 mr-16"
+                  />
+                ) : (
+                  "Odstrániť"
+                )}
+              </button>
             </div>
           </form>
         </div>
       )}
 
-      {authorized === "nie" && <AdminNotAuthorized />}
+      {/* {authorized === "nie" && <AdminNotAuthorized />} */}
     </div>
   );
 };
 
-export default AdminActualJobNewMonth;
+export default AdminActualJobIdComponent;

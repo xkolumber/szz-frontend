@@ -16,7 +16,7 @@ const AdminGalleryPageId = () => {
   const cachedElements =
     queryClient.getQueryData<Gallery[]>(["admin_galleries"]) || [];
 
-  const cachedElement = cachedElements.find((event) => event.id === id);
+  const cachedElement = cachedElements.find((object) => object.id === id);
   const directCachedElement = queryClient.getQueryData<Gallery>([
     "admin_galleries",
     id,
@@ -59,7 +59,7 @@ const AdminGalleryPageId = () => {
       queryClient.getQueryData<Gallery[]>(["admin_galleries"]) || [];
 
     if (cachedElements.length > 0) {
-      const cachedElement = cachedElements.find((event) => event.id === id);
+      const cachedElement = cachedElements.find((object) => object.id === id);
 
       const initialElementData = cachedElement;
       queryClient.setQueryData<Gallery>(
@@ -72,7 +72,7 @@ const AdminGalleryPageId = () => {
         queryFn: () => fetchGalleriesToken(token),
       });
 
-      const cachedElement = data2.find((event) => event.id === id);
+      const cachedElement = data2.find((object) => object.id === id);
 
       const initialElementData = cachedElement;
       queryClient.setQueryData<Gallery>(
