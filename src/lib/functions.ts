@@ -157,6 +157,38 @@ export async function getAboutUsDataToken(token: string | null) {
   }
 }
 
+export async function fetchBlogsToken(token: string | null) {
+  if (token) {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/blogs/getblogs`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData.Items;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
 export async function fetchBlogBySlug(slug: string) {
   try {
     const response = await fetch(
