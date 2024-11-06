@@ -75,9 +75,8 @@ const AdminAboutUsComponent = ({ data, refetch }: Props) => {
 
       console.log(responseData);
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Blog bol aktualizovaný");
+        toast.success("Sekcia bola aktualizovaná");
         refetch();
-        // getData();
       }
     } catch (error) {
       toast.error("niekde nastala chyba");

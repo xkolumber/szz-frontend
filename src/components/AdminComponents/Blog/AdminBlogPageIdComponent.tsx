@@ -14,9 +14,10 @@ import StepBack from "../../StepBack";
 
 interface Props {
   data: Blog;
+  onEventUpdated: () => void;
 }
 
-const AdminBlogPageIdComponent = ({ data }: Props) => {
+const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
@@ -104,7 +105,8 @@ const AdminBlogPageIdComponent = ({ data }: Props) => {
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
         toast.success("Blog bol aktualizovaný");
-        await queryClient.invalidateQueries({ queryKey: ["admin_union"] });
+        await queryClient.refetchQueries({ queryKey: ["admin_blogs"] });
+        onEventUpdated();
       }
     } catch (error) {
       toast.error("niekde nastala chyba");
@@ -139,7 +141,7 @@ const AdminBlogPageIdComponent = ({ data }: Props) => {
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
         toast.success("Blog bol odstránený");
-        await queryClient.invalidateQueries({ queryKey: ["admin_union"] });
+        await queryClient.refetchQueries({ queryKey: ["admin_blogs"] });
         navigate("/admin/blog");
       }
     } catch (error) {

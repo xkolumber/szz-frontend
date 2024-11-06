@@ -1,70 +1,30 @@
-import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useNavigate, useParams } from "react-router-dom";
-import Select from "react-select";
+import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { createSlug } from "../../../lib/functionsClient";
-import { SelectOption, UnionData } from "../../../lib/interface";
+import { isValidTime } from "../../../lib/functionsClient";
+import { ActualEvent } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import StepBack from "../../StepBack";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface Props {
-  data: UnionData;
+  data: ActualEvent;
   onDataUpdated: () => void;
 }
 
-const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
+const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
   const queryClient = useQueryClient();
+
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
 
   const token = localStorage.getItem("token");
-  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [selectedOptions, setSelectOptions] = useState<SelectOption[]>([]);
 
-  const [actualizeData, setActualizeData] = useState<UnionData>(data);
-
-  const getData2 = async () => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/union/getuniondataonlyidname`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const responseData = await response.json();
-
-      setSelectOptions([
-        { label: "Ziaden", value: "null" },
-        ...responseData
-          .filter((item: any) => item.id !== id)
-          .map((item: any) => ({
-            label: item.nazov,
-            value: item.id,
-          })),
-      ]);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    getData2();
-  }, []);
+  const [actualizeData, setActualizeData] = useState<ActualEvent>(data);
 
   const handleChange = (
     e:
@@ -78,23 +38,6 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
     });
   };
 
-  const handleChangeItemArray = (
-    title: string,
-    index: number,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setActualizeData((prevData) => {
-      const updatedArray = [
-        ...(prevData[title as keyof UnionData] as string[]),
-      ];
-      updatedArray[index] = event.target.value;
-      return {
-        ...prevData,
-        [title]: updatedArray,
-      };
-    });
-  };
-
   const handleChangeItemTwoArray = (
     title: string,
     index: number,
@@ -102,7 +45,7 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setActualizeData((prevData) => {
-      const updatedArray = [...(prevData[title as keyof UnionData] as any[])];
+      const updatedArray = [...(prevData[title as keyof ActualEvent] as any[])];
       updatedArray[index] = {
         ...updatedArray[index],
         [field]: event.target.value,
@@ -114,13 +57,40 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
     });
   };
 
+  const handleChangeItemArray = (
+    title: string,
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setActualizeData((prevData) => {
+      const updatedArray = [
+        ...(prevData[title as keyof ActualEvent] as string[]),
+      ];
+      updatedArray[index] = event.target.value;
+      return {
+        ...prevData,
+        [title]: updatedArray,
+      };
+    });
+  };
+
   const handleSaveProduct = async (event: any) => {
     event.preventDefault();
+
+    if (actualizeData.typ != "sk" && actualizeData.typ != "zah") {
+      toast.error("Udalosť musí mať tvar sk alebo zah!");
+      return;
+    }
+
+    if (!isValidTime(actualizeData.cas)) {
+      toast.error("Čas musí byť v tvare HH:MM.");
+      return;
+    }
 
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/union/updateunion/`,
+        `${import.meta.env.VITE_API_URL}/admin/events/updateevent`,
         {
           method: "PUT",
           headers: {
@@ -130,10 +100,18 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
           },
           body: JSON.stringify({
             id: data?.id,
-            nazov: actualizeData.nazov,
-            slug: createSlug(actualizeData.nazov),
-            rodic: actualizeData.rodic,
-            text: actualizeData.text,
+            nazov_vystavy: actualizeData.nazov_vystavy,
+            datum_den: actualizeData.datum_den,
+            datum_mesiac: actualizeData.datum_mesiac,
+            datum_rok: actualizeData.datum_rok,
+            miesto_podujatia: actualizeData.miesto_podujatia,
+            cas: actualizeData.cas,
+            hostia: actualizeData.hostia,
+            titulna_foto: actualizeData.titulna_foto,
+            text1: actualizeData.text1,
+            text2: actualizeData.text2,
+            slug: actualizeData.slug,
+            typ: actualizeData.typ,
             pdf: actualizeData.pdf,
             fotky: actualizeData.fotky,
           }),
@@ -146,8 +124,8 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Objekt bol aktualizovaný");
-        await queryClient.refetchQueries({ queryKey: ["admin_union"] });
+        toast.success("Oznam bol aktualizovaný");
+        await queryClient.refetchQueries({ queryKey: ["admin_events"] });
         onDataUpdated();
       }
     } catch (error) {
@@ -161,7 +139,7 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
     try {
       setIsLoadingDelete(true);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/union/deleteunion/${data!.id}`,
+        `${import.meta.env.VITE_API_URL}/admin/events/deleteevent/${data!.id}`,
         {
           method: "delete",
           headers: {
@@ -181,9 +159,9 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Objekt bol odstránený");
-        await queryClient.invalidateQueries({ queryKey: ["admin_union"] });
-        navigate("/admin/zvaz");
+        await queryClient.refetchQueries({ queryKey: ["admin_events"] });
+        toast.success("Udalosť bola odstránená");
+        navigate("/admin/vystavy-a-podujatia");
       }
     } catch (error) {
       toast.error("niekde nastala chyba");
@@ -192,13 +170,14 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
     }
   };
 
-  const handleChangeParent = (selectedOption: SelectOption | null) => {
-    if (selectedOption) {
-      setActualizeData((prevData) => ({
-        ...prevData,
-        rodic: selectedOption.value,
-      }));
-    }
+  const handleDeleteObjectPdf = (nazov: string, link: string) => {
+    const new_pdf_data = actualizeData.pdf.filter(
+      (item) => item.nazov != nazov && item.link != link
+    );
+    setActualizeData((prevData) => ({
+      ...prevData,
+      pdf: new_pdf_data,
+    }));
   };
 
   const handleUploadPdf = async (e: any, index: number) => {
@@ -239,6 +218,21 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
     }
   };
 
+  const handleAddInputPdf = () => {
+    setActualizeData((prevData) => ({
+      ...prevData,
+      pdf: [...prevData.pdf, { nazov: "", link: "" }],
+    }));
+  };
+
+  const handleDeletePhoto = (src: string) => {
+    const new_pdf_data = actualizeData.fotky.filter((item) => item != src);
+    setActualizeData((prevData) => ({
+      ...prevData,
+      fotky: new_pdf_data,
+    }));
+  };
+
   const handleUploadPhoto = async (e: any, index: number) => {
     setDataLoading(true);
     const file = e.target.files[0];
@@ -272,32 +266,6 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
       setDataLoading(false);
     }
   };
-
-  const handleDeleteObjectPdf = (nazov: string, link: string) => {
-    const new_pdf_data = actualizeData.pdf.filter(
-      (item) => item.nazov != nazov && item.link != link
-    );
-    setActualizeData((prevData) => ({
-      ...prevData,
-      pdf: new_pdf_data,
-    }));
-  };
-
-  const handleDeletePhoto = (src: string) => {
-    const new_pdf_data = actualizeData.fotky.filter((item) => item != src);
-    setActualizeData((prevData) => ({
-      ...prevData,
-      fotky: new_pdf_data,
-    }));
-  };
-
-  const handleAddInputPdf = () => {
-    setActualizeData((prevData) => ({
-      ...prevData,
-      pdf: [...prevData.pdf, { nazov: "", link: "" }],
-    }));
-  };
-
   const handleAddInputPhoto = () => {
     setActualizeData((prevData) => ({
       ...prevData,
@@ -305,65 +273,135 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
     }));
   };
 
-  useEffect(() => {
-    if (dataLoading) {
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = "scroll";
-      };
-    }
-  }, [dataLoading]);
-
   return (
     <div>
       {data && (
         <div className=" w-full">
           <StepBack />
           <Toaster />
-          <h2>Úprava dokumentu: {data.nazov}</h2>
+          <h2>Úprava udalosti: {data.nazov_vystavy}</h2>
 
           <form className=" products_admin " onSubmit={handleSaveProduct}>
             <div className="product_admin_row">
-              <p>Názov:</p>
+              <p>Názov výstavy:</p>
               <input
                 type="text"
-                name="nazov"
+                name="nazov_vystavy"
                 onChange={handleChange}
                 className="w-[70%]"
-                maxLength={50}
-                value={actualizeData?.nazov}
-                required
-              />
-            </div>
-            <div className="product_admin_row ">
-              <p>Rodič</p>
-              <Select
-                options={selectedOptions}
-                onChange={handleChangeParent}
-                value={selectedOptions.find(
-                  (option) => option.value === actualizeData.rodic
-                )}
-              />
-
-              <input
-                type="text"
-                name="rodic"
-                className="w-[70%]"
-                value={actualizeData?.rodic}
-                maxLength={1000}
-                readOnly
+                value={actualizeData?.nazov_vystavy}
                 required
               />
             </div>
             <div className="product_admin_row">
-              <p>Text:</p>
+              <p>Dátum deň:</p>
               <input
                 type="text"
-                name="text"
+                name="datum_den"
                 onChange={handleChange}
                 className="w-[70%]"
-                value={actualizeData?.text}
-                maxLength={250}
+                value={actualizeData?.datum_den}
+                required
+                placeholder="12"
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>Dátum mesiac:</p>
+              <input
+                type="text"
+                name="datum_mesiac"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.datum_mesiac}
+                required
+                placeholder="08"
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>Dátum rok:</p>
+              <input
+                type="text"
+                name="datum_rok"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.datum_rok}
+                required
+                placeholder="2024"
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>Čas:</p>
+              <input
+                type="text"
+                name="cas"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.cas}
+                required
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>Miesto podujatia:</p>
+              <input
+                type="text"
+                name="miesto_podujatia"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.miesto_podujatia}
+                required
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>Hostia:</p>
+              <input
+                type="text"
+                name="hostia"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.hostia}
+              />
+            </div>
+
+            <div className="product_admin_row">
+              <p>Titulná foto:</p>
+              <input
+                type="text"
+                name="titulna_foto"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.titulna_foto}
+                required
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>Text 1:</p>
+              <input
+                type="text"
+                name="text1"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.text1}
+                required
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>Text 2:</p>
+              <input
+                type="text"
+                name="text2"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.text2}
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>Typ: sk | zah </p>
+              <input
+                type="text"
+                name="typ"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.typ}
                 required
               />
             </div>
@@ -414,8 +452,9 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
                 </p>
               </div>
             </div>
+
             <div className="product_admin_row">
-              <p>Fotky:</p>
+              <p>Prislúchajúce fotky:</p>
               <div className="flex flex-col">
                 {actualizeData.fotky.map((object, index) => (
                   <div className="flex flex-row gap-4 items-center" key={index}>
@@ -450,10 +489,10 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
             <div className="flex flex-row justify-between mt-8">
               <button
                 className={`btn btn--tertiary ${
-                  (isLoading || dataLoading) && "disabledPrimaryBtn"
+                  isLoading && "disabledPrimaryBtn"
                 }`}
                 type="submit"
-                disabled={isLoading || dataLoading}
+                disabled={isLoading}
               >
                 {isLoading ? (
                   <ClipLoader
@@ -506,4 +545,5 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
     </div>
   );
 };
-export default AdminUnionPageIdComponent;
+
+export default AdminEventPageIdComponent;

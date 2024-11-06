@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -6,30 +7,26 @@ import { isValidDate, isValidYear } from "../../../lib/functionsClient";
 import { Gallery } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
-import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
 
-const AdminGalleryPageNew = () => {
+interface Props {
+  data: Gallery;
+  onDataUpdated: () => void;
+}
+
+const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
   const queryClient = useQueryClient();
 
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [clickedPhoto, setClickedPhoto] = useState("");
   const [openPopUp, setOpenPopUp] = useState(false);
+  const [actualizeData, setActualizeData] = useState<Gallery>(data);
 
-  const [authorized] = useState("ano");
   const token = localStorage.getItem("token");
+
   const navigate = useNavigate();
-
-  const [actualizeData, setActualizeData] = useState<Gallery>({
-    id: "",
-    nazov: "",
-    datum: "",
-    fotky: [],
-    rok: "",
-  });
-
   const popupRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (
@@ -74,15 +71,16 @@ const AdminGalleryPageNew = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/gallery/addgalleryalbum`,
+        `${import.meta.env.VITE_API_URL}/admin/gallery/updategalleryalbum`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
+            id: data?.id,
             nazov: actualizeData.nazov,
             datum: actualizeData.datum,
             fotky: actualizeData.fotky,
@@ -95,11 +93,10 @@ const AdminGalleryPageNew = () => {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
       const responseData = await response.json();
-
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Album bol úspešne vytvorený");
+        toast.success("Blog bol aktualizovaný");
         await queryClient.refetchQueries({ queryKey: ["admin_galleries"] });
-        navigate("/admin/galeria");
+        onDataUpdated();
       }
     } catch (error) {
       toast.error("niekde nastala chyba");
@@ -109,19 +106,72 @@ const AdminGalleryPageNew = () => {
     }
   };
 
+  const handleDeleteItem = async () => {
+    try {
+      setIsLoadingDelete(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/gallery/deletegalleryalbum/${
+          data!.id
+        }`,
+        {
+          method: "delete",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            id: data?.id,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const responseData = await response.json();
+      if (responseData.$metadata.httpStatusCode === 200) {
+        toast.success("Album bol odstránený");
+        await queryClient.refetchQueries({ queryKey: ["admin_events"] });
+        navigate("/admin/galeria");
+      }
+    } catch (error) {
+      toast.error("niekde nastala chyba");
+    } finally {
+      setIsLoadingDelete(false);
+    }
+  };
+
   useEffect(() => {
-    if (dataLoading) {
+    if (dataLoading || openPopUp) {
       document.body.style.overflow = "hidden";
       return () => {
         document.body.style.overflow = "scroll";
       };
     }
-  }, [dataLoading]);
+  }, [dataLoading, openPopUp]);
 
-  const handleShowBiggerIamge = (src: string) => {
-    setClickedPhoto(src);
-    setOpenPopUp(true);
-  };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(event.target as Node)
+      ) {
+        setOpenPopUp(false);
+      }
+    };
+
+    if (openPopUp) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [openPopUp]);
 
   const handleDeletePhoto = (src: string) => {
     const new_pdf_data = actualizeData.fotky.filter((item) => item != src);
@@ -172,34 +222,18 @@ const AdminGalleryPageNew = () => {
     }
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        popupRef.current &&
-        !popupRef.current.contains(event.target as Node)
-      ) {
-        setOpenPopUp(false);
-      }
-    };
-
-    if (openPopUp) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [openPopUp]);
+  const handleShowBiggerIamge = (src: string) => {
+    setClickedPhoto(src);
+    setOpenPopUp(true);
+  };
 
   return (
     <div>
-      {authorized === "ano" && (
+      {data && (
         <div className=" w-full">
           <StepBack />
           <Toaster />
-          <h2>Nový album: </h2>
+          <h2>Úprava galérie: {data.nazov}</h2>
 
           <form className=" products_admin " onSubmit={handleSaveProduct}>
             <div className="product_admin_row">
@@ -295,15 +329,30 @@ const AdminGalleryPageNew = () => {
                     className="ml-16 mr-16"
                   />
                 ) : (
-                  "Pridať"
+                  "Aktualizovať"
+                )}
+              </button>
+              <button
+                className="btn btn--primary !bg-red-500 "
+                onClick={handleDeleteItem}
+                type="button"
+                disabled={isLoadingDelete}
+              >
+                {isLoadingDelete ? (
+                  <ClipLoader
+                    size={20}
+                    color={"#00000"}
+                    loading={true}
+                    className="ml-16 mr-16"
+                  />
+                ) : (
+                  "Odstrániť"
                 )}
               </button>
             </div>
           </form>
         </div>
       )}
-
-      {authorized === "nie" && <AdminNotAuthorized />}
 
       {dataLoading && (
         <>
@@ -338,4 +387,4 @@ const AdminGalleryPageNew = () => {
   );
 };
 
-export default AdminGalleryPageNew;
+export default AdminGalleryPageIdComponent;

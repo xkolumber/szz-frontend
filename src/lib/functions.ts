@@ -95,6 +95,76 @@ export async function fetchBlogs(limit: number) {
   }
 }
 
+export async function fetchBlogIdToken(
+  token: string | null,
+  id: string | undefined
+) {
+  if (token && id) {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/blogs/getblog/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
+export async function fetchEventIdToken(
+  token: string | null,
+  id: string | undefined
+) {
+  if (token && id) {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/events/getevent/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
 export async function getAboutUsData() {
   try {
     const response = await fetch(
@@ -381,5 +451,104 @@ export async function fetchArchiveByYear(year: string | undefined) {
     }
   } catch (error) {
     console.error("Error fetching data:", error);
+  }
+}
+
+export async function fetchEventsToken(token: string | null) {
+  if (token) {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/events/getallevents`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData.Items;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
+export async function fetchGalleriesToken(token: string | null) {
+  if (token) {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/gallery/getallgalleries`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData.Items;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
+export async function fetchGalleryIdToken(
+  token: string | null,
+  id: string | undefined
+) {
+  if (token && id) {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/gallery/getgalleryalbum/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
   }
 }

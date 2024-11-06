@@ -18,8 +18,11 @@ const AdminAboutUs = () => {
 
   if (isLoading) {
     return (
-      <div className="own_edge min-h-screen">
+      <div className=" min-h-screen">
         <div className="main_section !pt-0">
+          <StepBack />
+          <Toaster />
+          <h2>O nás sekcia</h2>
           <p>Loading...</p>
         </div>
       </div>

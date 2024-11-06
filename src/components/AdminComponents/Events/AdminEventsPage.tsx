@@ -1,49 +1,42 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import { fetchEventsToken } from "../../../lib/functions";
 import { ActualEvent } from "../../../lib/interface";
 import StepBack from "../../StepBack";
+import AdminDataSkeleton from "../AdminDataSkeleton";
+import AdminErrorStatus from "../AdminErrorStatus";
 import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const AdminEventsPage = () => {
-  const [data, setData] = useState<ActualEvent[]>([]);
-  const [authorized, setAuthorized] = useState("nie");
   const token = localStorage.getItem("token");
+  const { data, status, isLoading } = useQuery<ActualEvent[]>({
+    queryKey: ["admin_events"],
+    queryFn: () => fetchEventsToken(token),
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+  });
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/admin/events/getallevents`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+  if (isLoading) {
+    return (
+      <div className="">
+        <StepBack />
+        <h2>Výstavy a podujatia</h2>
 
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
+        <Link to="/admin/vystavy-a-podujatia/nova-udalost">
+          <p className="underline">Pridať novú výstavu / podujatie</p>
+        </Link>
+        <AdminDataSkeleton />
+      </div>
+    );
+  }
 
-        const responseData = await response.json();
-
-        setData(responseData.Items);
-        setAuthorized("ano");
-      } catch (error) {
-        setAuthorized("nie");
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    getData();
-  }, []);
+  if (status === "error") {
+    return <AdminErrorStatus />;
+  }
 
   return (
     <div>
-      {data && authorized === "ano" && (
+      {data && (
         <div className=" w-full">
           <StepBack />
           <h2>Výstavy a podujatia</h2>
@@ -77,7 +70,7 @@ const AdminEventsPage = () => {
         </div>
       )}
 
-      {authorized === "nie" && <AdminNotAuthorized />}
+      {data === null && <AdminNotAuthorized />}
     </div>
   );
 };

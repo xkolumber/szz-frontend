@@ -8,8 +8,11 @@ import { ActualEvent } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AdminEventPageNew = () => {
+  const queryClient = useQueryClient();
+
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
 
@@ -136,6 +139,7 @@ const AdminEventPageNew = () => {
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
         toast.success("Udalosť bola vytvorená");
+        await queryClient.refetchQueries({ queryKey: ["admin_events"] });
         navigate("/admin/vystavy-a-podujatia");
       }
     } catch (error) {

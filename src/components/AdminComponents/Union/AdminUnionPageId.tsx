@@ -1,6 +1,9 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { fetchUnionDataIdToken } from "../../../lib/functions";
+import {
+  fetchUnionDataIdToken,
+  fetchUnionDataToken,
+} from "../../../lib/functions";
 import { UnionData } from "../../../lib/interface";
 import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminUnionPageIdComponent from "./AdminUnionPageIdComponent";
@@ -50,9 +53,42 @@ const AdminUnionPageId = () => {
     );
   }
 
+  const revalidateFunction = async () => {
+    const cachedUnions =
+      queryClient.getQueryData<UnionData[]>(["admin_union"]) || [];
+
+    if (cachedUnions.length > 0) {
+      const cachedEvent = cachedUnions.find((event) => event.id === id);
+
+      const initialUnionData = cachedEvent;
+      queryClient.setQueryData<UnionData>(
+        ["admin_union", id],
+        initialUnionData
+      );
+    } else {
+      const data2: UnionData[] = await queryClient.fetchQuery({
+        queryKey: ["admin_union"],
+        queryFn: () => fetchUnionDataToken(token),
+      });
+
+      const cachedEvent = data2.find((event) => event.id === id);
+
+      const initialUnionData = cachedEvent;
+      queryClient.setQueryData<UnionData>(
+        ["admin_union", id],
+        initialUnionData
+      );
+    }
+  };
+
   return (
     <>
-      {data && <AdminUnionPageIdComponent data={data} />}{" "}
+      {data && (
+        <AdminUnionPageIdComponent
+          data={data}
+          onDataUpdated={revalidateFunction}
+        />
+      )}{" "}
       {data === null && <AdminNotAuthorized />}
     </>
   );
