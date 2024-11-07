@@ -1,6 +1,9 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { fetchBlogIdToken, fetchBlogsToken } from "../../../lib/functions";
+import {
+  fetchActualJobIdToken,
+  fetchActualJobsToken,
+} from "../../../lib/functions";
 import { ActualJob } from "../../../lib/interface";
 import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminActualJobIdComponent from "./AdminActualJobIdComponent";
@@ -26,7 +29,7 @@ const AdminActualJobId = () => {
     status,
   } = useQuery<ActualJob>({
     queryKey: ["admin_jobs", id],
-    queryFn: () => fetchBlogIdToken(token, id),
+    queryFn: () => fetchActualJobIdToken(token, id),
     enabled: !initialElementData,
   });
 
@@ -65,7 +68,7 @@ const AdminActualJobId = () => {
     } else {
       const data2: ActualJob[] = await queryClient.fetchQuery({
         queryKey: ["admin_jobs"],
-        queryFn: () => fetchBlogsToken(token),
+        queryFn: () => fetchActualJobsToken(token),
       });
 
       const cachedElement = data2.find((event) => event.id === id);

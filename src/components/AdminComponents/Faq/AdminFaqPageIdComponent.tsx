@@ -1,26 +1,26 @@
+import { useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { Faq } from "../../../lib/interface";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
-import { useQueryClient } from "@tanstack/react-query";
 
-const AdminFaqPageNew = () => {
+interface Props {
+  data: Faq;
+  onDataUpdated: () => void;
+}
+
+const AdminFaqPageIdComponent = ({ data, onDataUpdated }: Props) => {
   const queryClient = useQueryClient();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [authorized] = useState("ano");
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
 
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  const [actualizeData, setActualizeData] = useState<Faq>({
-    id: "",
-    otazka: "",
-    odpoved: "",
-  });
+  const [actualizeData, setActualizeData] = useState<Faq>(data);
 
   const handleChange = (
     e:
@@ -40,15 +40,16 @@ const AdminFaqPageNew = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/faq/addfaq`,
+        `${import.meta.env.VITE_API_URL}/admin/faq/updatefaq`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
+            id: data?.id,
             otazka: actualizeData.otazka,
             odpoved: actualizeData.odpoved,
           }),
@@ -56,30 +57,64 @@ const AdminFaqPageNew = () => {
       );
 
       if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
+        throw new Error("Network response was not ok");
       }
-      const responseData = await response.json();
 
+      const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Faq bol úspešne vytvorený");
+        toast.success("Objekt bol aktualizovaný");
         await queryClient.refetchQueries({ queryKey: ["admin_faq"] });
-        navigate("/admin/otazky-a-odpovede");
+        onDataUpdated();
       }
     } catch (error) {
       toast.error("niekde nastala chyba");
-      console.error("Error details:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleDeleteItem = async () => {
+    try {
+      setIsLoadingDelete(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/faq/deletefaq/${data!.id}`,
+        {
+          method: "delete",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            id: data?.id,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const responseData = await response.json();
+      if (responseData.$metadata.httpStatusCode === 200) {
+        toast.success("Otázka bola odstránená");
+        await queryClient.refetchQueries({ queryKey: ["admin_faq"] });
+        navigate("/admin/otazky-a-odpovede");
+      }
+    } catch (error) {
+      toast.error("niekde nastala chyba");
+    } finally {
+      setIsLoadingDelete(false);
+    }
+  };
+
   return (
     <div>
-      {authorized === "ano" && (
+      {data && (
         <div className=" w-full">
           <StepBack />
           <Toaster />
-          <h2>Nová otázka / odpoveď: </h2>
+          <h2>Úprava otázky: {data.otazka}</h2>
 
           <form className=" products_admin " onSubmit={handleSaveProduct}>
             <div className="product_admin_row">
@@ -121,17 +156,32 @@ const AdminFaqPageNew = () => {
                     className="ml-16 mr-16"
                   />
                 ) : (
-                  "Pridať"
+                  "Aktualizovať"
+                )}
+              </button>
+              <button
+                className="btn btn--primary !bg-red-500 "
+                onClick={handleDeleteItem}
+                type="button"
+                disabled={isLoadingDelete}
+              >
+                {isLoadingDelete ? (
+                  <ClipLoader
+                    size={20}
+                    color={"#00000"}
+                    loading={true}
+                    className="ml-16 mr-16"
+                  />
+                ) : (
+                  "Odstrániť"
                 )}
               </button>
             </div>
           </form>
         </div>
       )}
-
-      {authorized === "nie" && <AdminNotAuthorized />}
     </div>
   );
 };
 
-export default AdminFaqPageNew;
+export default AdminFaqPageIdComponent;

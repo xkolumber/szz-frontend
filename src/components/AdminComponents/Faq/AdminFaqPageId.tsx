@@ -1,217 +1,82 @@
-import React, { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import { useNavigate, useParams } from "react-router-dom";
-import { ClipLoader } from "react-spinners";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import { fetchFaqIdToken, fetchFaqToken } from "../../../lib/functions";
 import { Faq } from "../../../lib/interface";
-import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
+import AdminFaqPageIdComponent from "./AdminFaqPageIdComponent";
 
 const AdminFaqPageId = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
-
-  const [data, setData] = useState<Faq>();
-  const [authorized, setAuthorized] = useState("ano");
   const token = localStorage.getItem("token");
+  const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
+  const cachedElements = queryClient.getQueryData<Faq[]>(["admin_faq"]) || [];
 
-  const [actualizeData, setActualizeData] = useState<Faq>({
-    id: "",
-    otazka: "",
-    odpoved: "",
+  const cachedElement = cachedElements.find((event) => event.id === id);
+  const directCachedEvent = queryClient.getQueryData<Faq>(["admin_faq", id]);
+
+  const initialElementData = directCachedEvent || cachedElement;
+
+  const {
+    data = initialElementData,
+    isLoading,
+    status,
+  } = useQuery<Faq>({
+    queryKey: ["admin_faq", id],
+    queryFn: () => fetchFaqIdToken(token, id),
+    enabled: !initialElementData,
   });
 
-  const getData = async () => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/faq/getfaq/${id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  if (isLoading) {
+    return (
+      <div className="own_edge min-h-screen">
+        <div className="main_section !pt-0">
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+  if (status === "error") {
+    return (
+      <div className="own_edge min-h-screen">
+        <div className="main_section !pt-0">
+          <p>Error</p>
+        </div>
+      </div>
+    );
+  }
 
-      const responseData = await response.json();
+  const revalidateFunction = async () => {
+    const cachedElements = queryClient.getQueryData<Faq[]>(["admin_faq"]) || [];
 
-      setData(responseData);
-      setActualizeData(responseData);
-    } catch (error) {
-      setAuthorized("nie");
-      console.error("Error fetching data:", error);
-    }
-  };
+    if (cachedElements.length > 0) {
+      const cachedElement = cachedElements.find((object) => object.id === id);
 
-  useEffect(() => {
-    getData();
-  }, []);
+      const initialElementData = cachedElement;
+      queryClient.setQueryData<Faq>(["admin_faq", id], initialElementData);
+    } else {
+      const data2: Faq[] = await queryClient.fetchQuery({
+        queryKey: ["admin_faq"],
+        queryFn: () => fetchFaqToken(token),
+      });
 
-  const handleChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setActualizeData((prevData) => {
-      const updatedData = { ...prevData, [name]: value };
-      return updatedData;
-    });
-  };
+      const cachedElement = data2.find((object) => object.id === id);
 
-  const handleSaveProduct = async (event: any) => {
-    event.preventDefault();
-
-    try {
-      setIsLoading(true);
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/faq/updatefaq`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            id: data?.id,
-            otazka: actualizeData.otazka,
-            odpoved: actualizeData.odpoved,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const responseData = await response.json();
-      if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Oznam bol aktualizovaný");
-        getData();
-      }
-    } catch (error) {
-      toast.error("niekde nastala chyba");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleDeleteItem = async () => {
-    try {
-      setIsLoadingDelete(true);
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/faq/deletefaq/${data!.id}`,
-        {
-          method: "delete",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            id: data?.id,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const responseData = await response.json();
-      if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Otázka bola odstránená");
-        navigate("/admin/otazky-a-odpovede");
-      }
-    } catch (error) {
-      toast.error("niekde nastala chyba");
-    } finally {
-      setIsLoadingDelete(false);
+      const initialElementData = cachedElement;
+      queryClient.setQueryData<Faq>(["admin_faq", id], initialElementData);
     }
   };
 
   return (
     <div>
-      {data && authorized === "ano" && (
-        <div className=" w-full">
-          <StepBack />
-          <Toaster />
-          <h2>Úprava otázky: {data.otazka}</h2>
-
-          <form className=" products_admin " onSubmit={handleSaveProduct}>
-            <div className="product_admin_row">
-              <p>Otázka:</p>
-              <input
-                type="text"
-                name="otazka"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.otazka}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Odpoved:</p>
-              <input
-                type="text"
-                name="odpoved"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.odpoved}
-                required
-              />
-            </div>
-
-            <div className="flex flex-row justify-between mt-8">
-              <button
-                className={`btn btn--tertiary ${
-                  isLoading && "disabledPrimaryBtn"
-                }`}
-                type="submit"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <ClipLoader
-                    size={20}
-                    color={"#00000"}
-                    loading={true}
-                    className="ml-16 mr-16"
-                  />
-                ) : (
-                  "Aktualizovať"
-                )}
-              </button>
-              <button
-                className="btn btn--primary !bg-red-500 "
-                onClick={handleDeleteItem}
-                type="button"
-                disabled={isLoadingDelete}
-              >
-                {isLoadingDelete ? (
-                  <ClipLoader
-                    size={20}
-                    color={"#00000"}
-                    loading={true}
-                    className="ml-16 mr-16"
-                  />
-                ) : (
-                  "Odstrániť"
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
+      {data && (
+        <AdminFaqPageIdComponent
+          data={data}
+          onDataUpdated={revalidateFunction}
+        />
       )}
 
-      {authorized === "nie" && <AdminNotAuthorized />}
+      {data == null && <AdminNotAuthorized />}
     </div>
   );
 };
