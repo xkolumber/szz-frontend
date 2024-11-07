@@ -1,8 +1,8 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import {
-  fetchGalleriesToken,
-  fetchGalleryIdToken,
+  fetchNavbarDataIdToken,
+  fetchNavbarDataToken,
 } from "../../../lib/functions";
 import { NavbarInfoData } from "../../../lib/interface";
 import AdminNotAuthorized from "../AdminNotAuthorized";
@@ -30,7 +30,7 @@ const AdminNavbarDataId = () => {
     status,
   } = useQuery<NavbarInfoData>({
     queryKey: ["admin_navbar", id],
-    queryFn: () => fetchGalleryIdToken(token, id),
+    queryFn: () => fetchNavbarDataIdToken(token, id),
     enabled: !initialElementData,
   });
 
@@ -69,7 +69,7 @@ const AdminNavbarDataId = () => {
     } else {
       const data2: NavbarInfoData[] = await queryClient.fetchQuery({
         queryKey: ["admin_navbar"],
-        queryFn: () => fetchGalleriesToken(token),
+        queryFn: () => fetchNavbarDataToken(token),
       });
 
       const cachedElement = data2.find((object) => object.id === id);

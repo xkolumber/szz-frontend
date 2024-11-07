@@ -651,6 +651,42 @@ export async function fetchNavbarDataToken(token: string | null) {
     return null;
   }
 }
+export async function fetchNavbarDataIdToken(
+  token: string | null,
+  id: string | undefined
+) {
+  if (token && id) {
+    try {
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_API_URL
+        }/admin/navbar/getnavbarinfodataid/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
 
 export async function fetchFaqToken(token: string | null) {
   if (token) {
