@@ -8,7 +8,7 @@ const Navbar = () => {
   let location = useLocation();
 
   return (
-    <div className="own_edge navbar_stroke">
+    <div className="own_edge navbar_stroke bg-white sticky top-0 z-20">
       <div className="flex flex-row items-center main_section justify-between !pt-0 !pb-0 ">
         <Link to={"/"}>
           {" "}
@@ -28,6 +28,7 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
+
         <SearchInput />
       </div>
     </div>

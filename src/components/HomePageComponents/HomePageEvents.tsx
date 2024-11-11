@@ -15,8 +15,8 @@ const HomePageEvents = () => {
 
   if (isLoading) {
     return (
-      <div className="bg-[#EDF3DD] own_edge">
-        <div className="main_section">
+      <div className="own_edge !mt-48">
+        <div className="main_section ">
           <div className="flex flex-col md:flex-row justify-between  md:items-center mb-[32px]">
             <h2 className="uppercase">Aktuálne výstavy a podujatia</h2>
             <ButtonWithArrow
@@ -35,7 +35,7 @@ const HomePageEvents = () => {
   }
 
   return (
-    <div className="own_edge">
+    <div className="own_edge !mt-20 lg:!mt-48 relative">
       <div className="main_section">
         <div className="flex flex-col md:flex-row  justify-between  md:items-center mb-[32px]">
           <h2 className="uppercase">Aktuálne výstavy a podujatia</h2>

@@ -49,10 +49,18 @@ const HomePageActualJobs = () => {
   }
 
   return (
-    <div className="bg-[#EDF3DD] own_edge">
-      <div className="main_section">
-        <h2 className="uppercase">Aktuálne práce v záhrade</h2>
-        {data && <HomePageSwiperJobs data={data} />}
+    <div className="relative h-auto">
+      {" "}
+      <img
+        src="/bgbroown.svg"
+        alt="Background"
+        className="absolute inset-0 w-full h-[400px] md:h-[579px] object-cover -z-10"
+      />
+      <div className="relative own_edge">
+        <div className="main_section z-10">
+          <h2 className="uppercase">Aktuálne práce v záhrade</h2>
+          {data && <HomePageSwiperJobs data={data} />}
+        </div>
       </div>
     </div>
   );

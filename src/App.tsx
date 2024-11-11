@@ -54,7 +54,7 @@ interface LayoutProps {
 function Layout({ children }: LayoutProps) {
   return (
     <>
-      <div className="bg-[#298040] own_edge ">
+      <div className="bg-[#3F8124] own_edge !hidden md:!flex">
         <NavbarInfo />
       </div>
       <Navbar />

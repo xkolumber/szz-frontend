@@ -35,27 +35,13 @@ const NavbarInfo = () => {
     0,
     sortedData.length - 2
   );
-  const additionalData: NavbarInfoData[] = sortedData.slice(-2);
 
   return (
     <div className="flex flex-row gap-6 main_section !pt-0 !pb-0 justify-between">
       <div className="flex flex-row gap-[32px]">
         {displayedData.map((object, index) => (
           <Link
-            className="text-white"
-            key={index}
-            to={object.link}
-            target={object.typ === "link" ? "_self" : "_blank"}
-          >
-            {object.nazov}
-          </Link>
-        ))}
-      </div>
-
-      <div className="flex-row gap-[32px] hidden md:flex">
-        {additionalData.map((object, index) => (
-          <Link
-            className="text-white"
+            className="btn btn--navbar"
             key={index}
             to={object.link}
             target={object.typ === "link" ? "_self" : "_blank"}

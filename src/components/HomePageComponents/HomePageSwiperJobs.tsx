@@ -72,8 +72,9 @@ const HomePageSwiperJobs = ({ data }: Props) => {
                 <div className="flex flex-row justify-between items-center">
                   <h3 className="uppercase text-white">{object.mesiac}</h3>
                   <button
-                    className="btn btn--white"
+                    className="btn btn--navbar"
                     onClick={() => showDocument(object.pdf.link)}
+                    style={{ color: object.farba }}
                   >
                     Pozrieť práce
                   </button>

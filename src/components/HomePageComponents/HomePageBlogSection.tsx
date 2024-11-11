@@ -41,7 +41,12 @@ const HomePageBlogSection = () => {
   }
 
   return (
-    <div className="own_edge bg-[#FFEEDC]">
+    <div className="own_edge relative h-auto">
+      <img
+        src="/bgblog.svg"
+        alt="Background"
+        className="absolute inset-0 w-full h-[530px] lg:h-[979px] object-cover -z-10"
+      />
       <div className="main_section">
         <div className="flex flex-row justify-between  items-center mb-[32px]">
           <h2 className="uppercase">Blog</h2>
