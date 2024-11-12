@@ -46,9 +46,9 @@ import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
 import PoradnaPage from "./PoradnaPage";
 import ArchivePageYear from "./components/ArchiveComponents/ArchivePageYear";
-import AdminSponsors from "./components/AdminComponents/AdminSponsors/AdminSponsors";
-import AdminSponsorNew from "./components/AdminComponents/AdminSponsors/AdminSponsorNew";
-import AdminSponsorId from "./components/AdminComponents/AdminSponsors/AdminSponsorId";
+import AdminSponsors from "./components/AdminComponents/Sponsors/AdminSponsors";
+import AdminSponsorNew from "./components/AdminComponents/Sponsors/AdminSponsorNew";
+import AdminSponsorId from "./components/AdminComponents/Sponsors/AdminSponsorId";
 
 interface LayoutProps {
   children: ReactNode;

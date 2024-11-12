@@ -39,10 +39,6 @@ export const navbar_admin_data = [
     slug: "/admin/blog",
   },
   {
-    title: "Domov",
-    slug: "/admin",
-  },
-  {
     title: "Galéria",
     slug: "/admin/galeria",
   },
