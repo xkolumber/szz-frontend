@@ -16,13 +16,24 @@ const NavbarInfo = () => {
     return (
       <div className="flex flex-row gap-6 main_section !pt-0 !pb-0 justify-between">
         <div className="hidden md:flex flex-row gap-[32px]">
-          <Skeleton width={80} height={20} borderRadius={8} />
-          <Skeleton width={120} height={20} borderRadius={8} />
-          <Skeleton width={80} height={20} borderRadius={8} />
-        </div>
-        <div className="flex-row gap-[32px] hidden md:flex">
-          <Skeleton width={80} height={20} borderRadius={8} />
-          <Skeleton width={80} height={20} borderRadius={8} />
+          <Skeleton
+            width={90}
+            height={50}
+            borderRadius={8}
+            baseColor="#ffffff"
+          />
+          <Skeleton
+            width={120}
+            height={50}
+            borderRadius={8}
+            baseColor="#ffffff"
+          />
+          <Skeleton
+            width={80}
+            height={50}
+            borderRadius={8}
+            baseColor="#ffffff"
+          />
         </div>
       </div>
     );

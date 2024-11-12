@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
@@ -7,36 +5,16 @@ import "swiper/css/pagination";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { ActualJob } from "../../lib/interface";
-import Modal from "../Modal";
-import PDFViewer from "../PdfViewer";
 
 interface Props {
   data: ActualJob[];
+  clickedLink: (link: string | null) => void;
 }
 
-const HomePageSwiperJobs = ({ data }: Props) => {
-  const [documentLink, setDocumentLink] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
-
+const HomePageSwiperJobs = ({ data, clickedLink }: Props) => {
   const showDocument = (link_: string) => {
-    setDocumentLink(link_);
-    setIsOpen(true);
-    setDocumentLink(link_);
+    clickedLink(link_);
   };
-
-  const handleClose = () => {
-    setIsOpen(false);
-    setDocumentLink(null);
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = "scroll";
-      };
-    }
-  }, [isOpen]);
 
   return (
     <div>
@@ -85,10 +63,6 @@ const HomePageSwiperJobs = ({ data }: Props) => {
           ))}
         </Swiper>
       )}
-
-      <Modal isOpen={isOpen} onClose={handleClose}>
-        <PDFViewer pdfUrl={documentLink} />
-      </Modal>
     </div>
   );
 };
