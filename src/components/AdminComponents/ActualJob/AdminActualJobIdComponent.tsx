@@ -23,47 +23,10 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [fileUpload, setFileUpload] = useState<any>(null);
 
-  //   const [data, setData] = useState<ActualJob>();
-  //   const [authorized, setAuthorized] = useState("");
   const token = localStorage.getItem("token");
-  //   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const [actualizeData, setActualizeData] = useState<ActualJob>(data);
-
-  //   const getData = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `${import.meta.env.VITE_API_URL}/admin/actualjobs/getactualjob/${id}`,
-  //         {
-  //           method: "GET",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Accept: "application/json",
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-
-  //       if (!response.ok) {
-  //         setAuthorized("nie");
-  //         throw new Error("Network response was not ok");
-  //       }
-
-  //       const responseData = await response.json();
-  //       setAuthorized("ano");
-
-  //       setData(responseData);
-  //       setActualizeData(responseData);
-  //     } catch (error) {
-  //       setAuthorized("nie");
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     getData();
-  //   }, []);
 
   const handleChange = (
     e:
@@ -342,8 +305,6 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
           </form>
         </div>
       )}
-
-      {/* {authorized === "nie" && <AdminNotAuthorized />} */}
     </div>
   );
 };

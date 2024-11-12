@@ -13,7 +13,7 @@ const AdminArchivePageId = () => {
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
 
   const [data, setData] = useState<Archive>();
-  const [authorized, setAuthorized] = useState("ano");
+  const [authorized, setAuthorized] = useState("");
 
   const token = localStorage.getItem("token");
   const { id } = useParams<{ id: string }>();
@@ -24,6 +24,7 @@ const AdminArchivePageId = () => {
     pdf_link: "",
     pdf_nazov: "",
     rok: "",
+    typ: "",
   });
 
   const getData = async () => {
@@ -45,6 +46,7 @@ const AdminArchivePageId = () => {
       }
 
       const responseData = await response.json();
+      setAuthorized("ano");
 
       setData(responseData);
       setActualizeData(responseData);
@@ -89,6 +91,7 @@ const AdminArchivePageId = () => {
             pdf_link: actualizeData.pdf_link,
             pdf_nazov: actualizeData.pdf_nazov,
             rok: actualizeData.rok,
+            typ: actualizeData.typ,
           }),
         }
       );
@@ -158,7 +161,7 @@ const AdminArchivePageId = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/admin/upload/pdfarchive/${
+        `${import.meta.env.VITE_API_URL}/admin/upload/archivedocs/${
           actualizeData.rok
         }`,
         formData,
@@ -225,7 +228,7 @@ const AdminArchivePageId = () => {
               />
             </div>
             <div className="product_admin_row">
-              <p>pdf_link:</p>
+              <p>link:</p>
               <input
                 type="text"
                 name="pdf_link"
@@ -239,6 +242,17 @@ const AdminArchivePageId = () => {
                 accept="application/pdf"
                 onChange={(e) => handleUploadPdf(e)}
                 className="mt-2"
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>typ súboru: (pdf, doc, docx...)</p>
+              <input
+                type="text"
+                name="typ"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.typ}
+                required
               />
             </div>
 

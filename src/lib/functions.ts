@@ -821,3 +821,70 @@ export async function fetchSponsorIdToken(
     return null;
   }
 }
+
+export async function fetchDocsToken(token: string | null) {
+  if (token) {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/docs/getdocs`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData.Items;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
+export async function fetchDocIdToken(
+  token: string | null,
+  id: string | undefined
+) {
+  if (token && id) {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/docs/getdoc/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}

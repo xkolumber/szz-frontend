@@ -110,3 +110,10 @@ export interface Sponsor {
   logo: string;
   nazov: string;
 }
+
+export interface Tlacivo {
+  id: string;
+  link: string;
+  nazov: string;
+  typ: string;
+}

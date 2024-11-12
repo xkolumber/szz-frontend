@@ -63,6 +63,10 @@ export const navbar_admin_data = [
     slug: "/admin/sponzori",
   },
   {
+    title: "Tlačivá",
+    slug: "/admin/tlaciva",
+  },
+  {
     title: "Zväz",
     slug: "/admin/zvaz",
   },

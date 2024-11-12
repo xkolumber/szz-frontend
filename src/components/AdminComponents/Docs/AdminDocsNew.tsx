@@ -1,26 +1,27 @@
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { Archive } from "../../../lib/interface";
+import { Tlacivo } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
 
-const AdminArchivePageNew = () => {
+const AdminDocsNew = () => {
+  const queryClient = useQueryClient();
+
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
 
   const [authorized] = useState("ano");
-
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  const [actualizeData, setActualizeData] = useState<Archive>({
+  const [actualizeData, setActualizeData] = useState<Tlacivo>({
     id: "",
-    pdf_link: "",
-    pdf_nazov: "",
-    rok: "",
+    link: "",
+    nazov: "",
     typ: "",
   });
 
@@ -36,13 +37,12 @@ const AdminArchivePageNew = () => {
     });
   };
 
-  const handleSaveProduct = async (event: any) => {
+  const handleAddDoc = async (event: any) => {
     event.preventDefault();
-
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/archive/addarchivedoc`,
+        `${import.meta.env.VITE_API_URL}/admin/docs/adddoc`,
         {
           method: "POST",
           headers: {
@@ -51,34 +51,31 @@ const AdminArchivePageNew = () => {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            pdf_link: actualizeData.pdf_link,
-            pdf_nazov: actualizeData.pdf_nazov,
-            rok: actualizeData.rok,
+            link: actualizeData.link,
+            nazov: actualizeData.nazov,
+            typ: actualizeData.typ,
           }),
         }
       );
 
       if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
+        throw new Error("Network response was not ok");
       }
+
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Dokument bol úspešne vytvorený");
-        navigate(`/admin/archiv/${actualizeData.rok}`);
+        toast.success("Mesiac bol pridaný");
+        await queryClient.refetchQueries({ queryKey: ["admin_docs"] });
+        navigate("/admin/tlaciva");
       }
     } catch (error) {
       toast.error("niekde nastala chyba");
-      console.error("Error details:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleUploadPdf = async (e: any) => {
-    if (actualizeData.rok === "") {
-      toast.error("Najskôr zadajte rok");
-      return;
-    }
     setDataLoading(true);
     const file = e.target.files[0];
     if (!file || file.type !== "application/pdf") {
@@ -91,9 +88,7 @@ const AdminArchivePageNew = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/admin/upload/archivedocs/${
-          actualizeData.rok
-        }`,
+        `${import.meta.env.VITE_API_URL}/admin/upload/archivedocs/tlaciva`,
         formData,
         {
           headers: {
@@ -106,7 +101,7 @@ const AdminArchivePageNew = () => {
       const { uploadUrl } = response.data;
 
       setActualizeData((prevData) => {
-        return { ...prevData, pdf_link: uploadUrl };
+        return { ...prevData, link: uploadUrl };
       });
     } catch (error) {
       console.error("Error uploading PDF:", error);
@@ -116,54 +111,35 @@ const AdminArchivePageNew = () => {
     }
   };
 
-  useEffect(() => {
-    if (dataLoading) {
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = "scroll";
-      };
-    }
-  }, [dataLoading]);
-
   return (
     <div>
       {authorized === "ano" && (
         <div className=" w-full">
           <StepBack />
           <Toaster />
-          <h2>Nový dokument</h2>
+          <h2>Nové tlačivo</h2>
 
-          <form className=" products_admin " onSubmit={handleSaveProduct}>
+          <form className=" products_admin " onSubmit={handleAddDoc}>
             <div className="product_admin_row">
               <p>Názov:</p>
               <input
                 type="text"
-                name="pdf_nazov"
+                name="nazov"
                 onChange={handleChange}
                 className="w-[70%]"
-                value={actualizeData?.pdf_nazov}
+                maxLength={50}
+                value={actualizeData?.nazov}
                 required
               />
             </div>
             <div className="product_admin_row">
-              <p>rok:</p>
+              <p>link:</p>
               <input
                 type="text"
-                name="rok"
+                name="link"
                 onChange={handleChange}
                 className="w-[70%]"
-                value={actualizeData?.rok}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>pdf_link:</p>
-              <input
-                type="text"
-                name="pdf_link"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.pdf_link}
+                value={actualizeData?.link}
                 required
               />
               <input
@@ -184,14 +160,13 @@ const AdminArchivePageNew = () => {
                 required
               />
             </div>
-
             <div className="flex flex-row justify-between mt-8">
               <button
                 className={`btn btn--tertiary ${
-                  (isLoading || dataLoading) && "disabledPrimaryBtn"
+                  isLoading && "disabledPrimaryBtn"
                 }`}
                 type="submit"
-                disabled={isLoading || dataLoading}
+                disabled={isLoading}
               >
                 {isLoading ? (
                   <ClipLoader
@@ -201,7 +176,7 @@ const AdminArchivePageNew = () => {
                     className="ml-16 mr-16"
                   />
                 ) : (
-                  "Aktualizovať"
+                  "Pridať"
                 )}
               </button>
             </div>
@@ -210,7 +185,6 @@ const AdminArchivePageNew = () => {
       )}
 
       {authorized === "nie" && <AdminNotAuthorized />}
-
       {dataLoading && (
         <>
           {" "}
@@ -230,4 +204,4 @@ const AdminArchivePageNew = () => {
   );
 };
 
-export default AdminArchivePageNew;
+export default AdminDocsNew;

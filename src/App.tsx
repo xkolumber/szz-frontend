@@ -49,6 +49,9 @@ import ArchivePageYear from "./components/ArchiveComponents/ArchivePageYear";
 import AdminSponsors from "./components/AdminComponents/Sponsors/AdminSponsors";
 import AdminSponsorNew from "./components/AdminComponents/Sponsors/AdminSponsorNew";
 import AdminSponsorId from "./components/AdminComponents/Sponsors/AdminSponsorId";
+import AdminDocs from "./components/AdminComponents/Docs/AdminDocs";
+import AdminDocsNew from "./components/AdminComponents/Docs/AdminDocsNew";
+import AdminDocsId from "./components/AdminComponents/Docs/AdminDocsId";
 
 interface LayoutProps {
   children: ReactNode;
@@ -213,6 +216,11 @@ function App() {
           <Route path="sponzori" element={<AdminSponsors />} />
           <Route path="sponzori/novy-sponzor" element={<AdminSponsorNew />} />
           <Route path="sponzori/:id" element={<AdminSponsorId />} />
+
+          <Route path="tlaciva" element={<AdminDocs />} />
+          <Route path="tlaciva/nove-tlacivo" element={<AdminDocsNew />} />
+          <Route path="tlaciva/:id" element={<AdminDocsId />} />
+
           <Route
             path="archiv/novy-dokument"
             element={<AdminArchivePageNew />}

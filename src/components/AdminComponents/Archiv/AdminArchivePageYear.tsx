@@ -6,7 +6,7 @@ import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const AdminArchivePageYear = () => {
   const [data, setData] = useState<Archive[]>([]);
-  const [authorized, setAuthorized] = useState("ano");
+  const [authorized, setAuthorized] = useState("");
   const token = localStorage.getItem("token");
 
   const { rok } = useParams<{ rok: string }>();
@@ -31,6 +31,7 @@ const AdminArchivePageYear = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
+        setAuthorized("ano");
 
         const responseData = await response.json();
 
