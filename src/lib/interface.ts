@@ -102,3 +102,10 @@ export interface Archive {
   pdf_nazov: string;
   rok: string;
 }
+
+export interface Sponsor {
+  id: string;
+  link: string;
+  logo: string;
+  nazov: string;
+}

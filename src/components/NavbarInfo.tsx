@@ -41,16 +41,14 @@ const NavbarInfo = () => {
 
   if (status === "error") return <p>Error: {error.message}</p>;
 
-  const sortedData = data.sort((a: any, b: any) => a.poradie - b.poradie);
-  const displayedData: NavbarInfoData[] = sortedData.slice(
-    0,
-    sortedData.length - 2
+  const sortedData: NavbarInfoData[] = data.sort(
+    (a: any, b: any) => a.poradie - b.poradie
   );
 
   return (
     <div className="flex flex-row gap-6 main_section !pt-0 !pb-0 justify-between">
       <div className="flex flex-row gap-[32px]">
-        {displayedData.map((object, index) => (
+        {sortedData.map((object, index) => (
           <Link
             className="btn btn--navbar"
             key={index}

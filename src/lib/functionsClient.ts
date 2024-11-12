@@ -27,24 +27,20 @@ export const navbar_data = [
 
 export const navbar_admin_data = [
   {
-    title: "Domov",
-    slug: "/admin",
+    title: "Aktuálne práce",
+    slug: "/admin/aktualne-prace",
   },
   {
-    title: "O nás",
-    slug: "/admin/o-nas",
-  },
-  {
-    title: "Zväz",
-    slug: "/admin/zvaz",
+    title: "Archív",
+    slug: "/admin/archiv",
   },
   {
     title: "Blog",
     slug: "/admin/blog",
   },
   {
-    title: "Výstavy a podujatia",
-    slug: "/admin/vystavy-a-podujatia",
+    title: "Domov",
+    slug: "/admin",
   },
   {
     title: "Galéria",
@@ -55,16 +51,24 @@ export const navbar_admin_data = [
     slug: "/admin/hlavicka-odkazy",
   },
   {
-    title: "Aktuálne práce",
-    slug: "/admin/aktualne-prace",
+    title: "O nás",
+    slug: "/admin/o-nas",
   },
   {
     title: "Otázky a odpovede",
     slug: "/admin/otazky-a-odpovede",
   },
   {
-    title: "Archív",
-    slug: "/admin/archiv",
+    title: "Výstavy a podujatia",
+    slug: "/admin/vystavy-a-podujatia",
+  },
+  {
+    title: "Sponzori",
+    slug: "/admin/sponzori",
+  },
+  {
+    title: "Zväz",
+    slug: "/admin/zvaz",
   },
 ];
 
