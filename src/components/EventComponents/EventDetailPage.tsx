@@ -108,7 +108,7 @@ const EventDetailPage = () => {
                 src={data.titulna_foto}
                 width={900}
                 height={900}
-                className="rounded-[16px] max-w-[1080px] max-h-[459px] object-cover mt-8"
+                className="rounded-[16px] w-full max-w-[1080px] max-h-[459px] object-cover mt-8"
               />
             </div>
 

@@ -37,9 +37,9 @@ const HomePageIntro = () => {
 
   return (
     <div className="own_edge relative">
-      <div className="main_section  flex flex-col md:flex-row justify-between">
-        <div className="flex flex-col">
-          <h1 className="uppercase max-w-[680px] text-center md:text-left">
+      <div className="main_section  flex flex-col lg:flex-row justify-between">
+        <div className="flex flex-col items-center lg:items-start">
+          <h1 className="uppercase max-w-[680px] text-center lg:text-left">
             <span className="relative">
               <span
                 className={`${
@@ -53,9 +53,17 @@ const HomePageIntro = () => {
               <IconBirdWithoutEye />
             </span>{" "}
             je miesto,
+            <span
+              className={`uppercase lg:hidden max-w-[680px] text-center md:text-left  duration-300 ${
+                isFading ? "opacity-20" : "opacity-100"
+              }`}
+            >
+              {" "}
+              {texts[currentTextIndex].text}
+            </span>
           </h1>
           <h1
-            className={`uppercase max-w-[680px] text-center md:text-left  duration-300 ${
+            className={`hidden lg:block uppercase max-w-[680px] text-center md:text-left  duration-300 ${
               isFading ? "opacity-20" : "opacity-100"
             }`}
           >
@@ -71,11 +79,11 @@ const HomePageIntro = () => {
             }`}
           />
 
-          <p className="max-w-[400px] opacity-80 text-center md:text-left">
+          <p className="max-w-[400px] opacity-80 text-center lg:text-left pt-4">
             Lorem ipsum dolor sit amet consectetur.Convallis purus vehicula nisi
             rutrum.
           </p>
-          <div className="flex flex-row gap-24 md:gap-16 mt-16">
+          <div className="flex flex-row gap-24 md:gap-16 mt-4 md:justify-center lg:justify-start">
             <ButtonWithArrow
               link="zvaz"
               title="Kto sme"
@@ -90,9 +98,9 @@ const HomePageIntro = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col md:w-[50%]">
+        <div className="flex flex-col lg:w-[50%]">
           <Link
-            className="bg-[#3F8124] mt-8 md:mt-0 p-8 xl:pl-[64px] xl:pt-[37.5px] xl:pb-[37.5px] xl:pr-[40px] rounded-[24px] flex flex-col md:flex-row gap-4 md:gap-16  items-center justify-between"
+            className="bg-[#3F8124] mt-8 lg:mt-0 p-8 xl:pl-[64px] xl:pt-[37.5px] xl:pb-[37.5px] xl:pr-[40px] rounded-[24px] flex flex-col md:flex-row gap-4 md:gap-16  items-center justify-between"
             to={"/zvaz"}
           >
             <h3 className="uppercase text-white">Sekcia pre zväz</h3>

@@ -57,7 +57,12 @@ const HomePageSwiperJobs = ({ data, clickedLink }: Props) => {
                     Pozrieť práce
                   </button>
                 </div>
-                <p className="text-white line-clamp-2 pt-4">{object.text}</p>
+                <p className="uppercase pt-4 text-white font-bold">
+                  Pranostika
+                </p>
+                <p className="text-white line-clamp-2 opacity-80">
+                  {object.text}
+                </p>
               </div>
             </SwiperSlide>
           ))}

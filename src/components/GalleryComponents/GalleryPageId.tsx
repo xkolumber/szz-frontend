@@ -93,7 +93,7 @@ const GalleryPageId = () => {
             <div className="flex items-center flex-col">
               <h1>{data?.nazov}</h1>
               <p className="opacity-60">{data.datum}</p>
-              <div className="grid grid-cols-4 gap-24 mt-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-24 mt-8">
                 {data.fotky.map((object, index) => (
                   <img
                     src={object}

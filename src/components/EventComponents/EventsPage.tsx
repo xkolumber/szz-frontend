@@ -140,10 +140,10 @@ const EventsPage = () => {
     <div className="own_edge min-h-screen">
       <div className="main_section">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/blog`} />
-        <h2 className="uppercase text-center">výstavy a podujatia</h2>
+        <h2 className="uppercase text-center pt-4">výstavy a podujatia</h2>
         <div className="flex flex-col md:flex-row justify-center mb-[40px] mt-[20px]">
           <div className="flex flex-row items-center gap-6 mr-[40px]">
-            <p className="uppercase font-medium">Mesiac</p>
+            <p className="uppercase font-medium w-[60px]">Mesiac</p>
             <Select
               options={options_months}
               onChange={handleChangeMonth}
@@ -151,8 +151,8 @@ const EventsPage = () => {
             />
           </div>
 
-          <div className="flex flex-row items-center gap-6 ">
-            <p className="uppercase font-medium">Rok: </p>
+          <div className="flex flex-row items-center gap-6 pt-4 md:pt-0">
+            <p className="uppercase font-medium w-[60px] ">Rok: </p>
             <Select
               options={options_years}
               onChange={handleChangeYear}
@@ -160,7 +160,7 @@ const EventsPage = () => {
             />
           </div>
           <div className="litle_line"></div>
-          <div className="flex flex-row items-center gap-[40px] ">
+          <div className="flex flex-row items-center gap-[40px] pt-8 md:pt-0">
             <h6
               className={`uppercase cursor-pointer ${
                 country === "sk" && "text-[#6B9156]"

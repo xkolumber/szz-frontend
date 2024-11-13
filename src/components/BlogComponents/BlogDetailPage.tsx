@@ -58,7 +58,7 @@ const BlogDetailPage = () => {
                 src={blogData.titulna_foto}
                 width={900}
                 height={900}
-                className="rounded-[16px] max-w-[1080px] max-h-[459px] object-cover mt-8"
+                className="rounded-[16px] w-full max-w-[1080px] max-h-[459px] object-cover mt-8"
               />
             </div>
 
@@ -70,7 +70,7 @@ const BlogDetailPage = () => {
                   src={blogData.foto1}
                   width={900}
                   height={900}
-                  className="rounded-[16px] max-w-[622px] max-h-[459px] object-cover mt-8 m-auto"
+                  className="rounded-[16px] w-full max-w-[622px] max-h-[459px] object-cover mt-8 m-auto"
                 />
               )}
               {blogData.popis2 && <p className="mt-40">{blogData.popis2}</p>}
@@ -80,7 +80,7 @@ const BlogDetailPage = () => {
                   src={blogData.foto2}
                   width={900}
                   height={900}
-                  className="rounded-[16px] max-w-[622px] max-h-[459px] object-cover mt-8 m-auto"
+                  className="rounded-[16px] w-full max-w-[622px] max-h-[459px] object-cover mt-8 m-auto"
                 />
               )}
               {blogData.popis3 && <p className="mt-40">{blogData.popis3}</p>}
@@ -90,7 +90,7 @@ const BlogDetailPage = () => {
                   src={blogData.foto3}
                   width={900}
                   height={900}
-                  className="rounded-[16px] max-w-[622px] max-h-[459px] object-cover mt-8 m-auto"
+                  className="rounded-[16px] w-full max-w-[622px] max-h-[459px] object-cover mt-8 m-auto"
                 />
               )}
 

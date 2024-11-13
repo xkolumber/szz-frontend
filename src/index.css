@@ -147,17 +147,14 @@ th {
 }
 
 .nav__item {
-  /* padding: 1.5rem 2rem; */
-  font-weight: 600;
+  padding: 1.5rem 2rem;
+  font-weight: 300;
   border: 0;
   align-items: center;
   display: flex;
   transition: 0.2s ease-in;
-  position: relative;
-  text-transform: uppercase;
-  padding-bottom: 3.2rem;
-  font-size: 24px;
 }
+
 .nav__item:hover {
   color: #666;
 }
@@ -172,23 +169,24 @@ th {
 }
 
 .collapsible--expanded {
+  max-height: 100vh;
   opacity: 100;
   position: fixed;
   top: 0;
-  left: -76%;
+  right: -76%;
   width: 76%;
-  height: 100vh;
+  height: 100%;
   background-color: white;
-  transition: left 0.3s ease-in;
+  transition: right 0.3s ease-in;
   z-index: 9999;
   display: flex;
   flex-direction: column;
-  padding-top: 4rem;
-  padding-left: 1.5rem;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 .collapsible--collapsed {
-  left: 0%;
+  right: 0%;
 }
 
 @media screen and (min-width: 768px) {
