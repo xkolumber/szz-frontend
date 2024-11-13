@@ -420,6 +420,8 @@ th {
   background: white;
   border-radius: 8px !important;
   color: #47261c;
+  padding-top: 2px;
+  padding-bottom: 0px;
 }
 
 .btn--green {

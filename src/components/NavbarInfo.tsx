@@ -18,19 +18,19 @@ const NavbarInfo = () => {
         <div className="hidden md:flex flex-row gap-[32px]">
           <Skeleton
             width={90}
-            height={50}
+            height={30}
             borderRadius={8}
             baseColor="#ffffff"
           />
           <Skeleton
             width={120}
-            height={50}
+            height={30}
             borderRadius={8}
             baseColor="#ffffff"
           />
           <Skeleton
             width={80}
-            height={50}
+            height={30}
             borderRadius={8}
             baseColor="#ffffff"
           />

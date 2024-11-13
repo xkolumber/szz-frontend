@@ -10,6 +10,8 @@ import HomePageSwiperJobs from "./HomePageSwiperJobs";
 import Modal from "../Modal";
 import PDFViewer from "../PdfViewer";
 import { useEffect, useState } from "react";
+import IconBgBroownTop from "../Icons/IconBgBroownTop";
+import IconBgBroownBottom from "../Icons/IconBgBroownBottom";
 
 const HomePageActualJobs = () => {
   const [selectedDocumentLink, setSelectedDocumentLink] = useState<
@@ -44,23 +46,16 @@ const HomePageActualJobs = () => {
 
   return (
     <>
-      {" "}
-      <div className="relative h-auto">
-        {" "}
-        <img
-          src="/bgbroown.svg"
-          alt="Background"
-          className="absolute inset-0 w-full h-[400px] md:h-[579px] object-cover -z-10"
-        />
-        <div className="relative own_edge">
-          <div className="main_section z-10">
-            <h2 className="uppercase">Aktuálne práce v záhrade</h2>
-            {data && (
-              <HomePageSwiperJobs data={data} clickedLink={handleClickedLink} />
-            )}
-          </div>
+      <IconBgBroownTop />
+      <div className="relative own_edge bg-[#FFF2EC]">
+        <div className="main_section !pt-0 !pb-0 z-10">
+          <h2 className="uppercase">Aktuálne práce v záhrade</h2>
+          {data && (
+            <HomePageSwiperJobs data={data} clickedLink={handleClickedLink} />
+          )}
         </div>
       </div>
+      <IconBgBroownBottom />
       <Modal isOpen={isOpen} onClose={handleClose}>
         <PDFViewer pdfUrl={selectedDocumentLink} />
       </Modal>
