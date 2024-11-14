@@ -7,10 +7,9 @@ import HomePageIntro from "./HomePageIntro";
 const HomePage = () => {
   return (
     <>
-      {/* <HomePagePranostika /> */}
       <HomePageIntro />
 
-      <div className="z-10 relative">
+      <div className="z-[200] relative">
         <HomePageActualJobs />
       </div>
       <HomePageEvents />

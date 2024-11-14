@@ -208,6 +208,10 @@ const EventDetailPage = () => {
         src={"/icons/icon_event_id_left.svg"}
         className="absolute h-[578px] w-[373px] -left-40 top-[40%] hidden 3xl:block"
       />
+      <img
+        src={"/icons/icon_event_id_right.svg"}
+        className="absolute h-[578px] w-[373px] -right-40 top-[10%] hidden 3xl:block"
+      />
     </div>
   );
 };
