@@ -25,7 +25,7 @@ const AboutUs = () => {
   }
 
   return (
-    <div className="own_edge min-h-screen">
+    <div className="own_edge min-h-screen relative overflow-hidden">
       <div className="main_section !pt-0">
         <h2>O nás</h2>
         {data && (
@@ -64,6 +64,23 @@ const AboutUs = () => {
             </div>
           </div>
         )}
+
+        <img
+          src={"/icons/icon_about_us_left.svg"}
+          className="absolute h-[578px] w-[373px] -left-40 top-[15%] hidden 3xl:block"
+        />
+        <img
+          src={"/icons/icon_about_us_left_2.svg"}
+          className="absolute h-[578px] w-[373px] -left-40 top-[45%] hidden 3xl:block"
+        />
+        <img
+          src={"/icons/icon_about_us_right.svg"}
+          className="absolute h-[578px] w-[373px] -right-40 top-[5%] hidden 3xl:block"
+        />
+        <img
+          src={"/icons/icon_about_us_right_2.svg"}
+          className="absolute h-[578px] w-[373px] -right-40 top-[35%] hidden 3xl:block"
+        />
       </div>
     </div>
   );

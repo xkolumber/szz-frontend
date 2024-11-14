@@ -86,7 +86,7 @@ const GalleryPageId = () => {
   };
 
   return (
-    <div className="own_edge">
+    <div className="own_edge relative overflow-hidden">
       <div className="main_section ">
         {data ? (
           <>
@@ -146,6 +146,14 @@ const GalleryPageId = () => {
             index={initialSlide}
           />
         )}
+        <img
+          src={"/icons/icon_gallery_id_left.svg"}
+          className="absolute h-[578px] w-[373px] -left-40 top-[40%] hidden 3xl:block"
+        />
+        <img
+          src={"/icons/icon_gallery_id_right.svg"}
+          className="absolute h-[578px] w-[373px] -right-40 top-[20%] hidden 3xl:block"
+        />
       </div>
     </div>
   );

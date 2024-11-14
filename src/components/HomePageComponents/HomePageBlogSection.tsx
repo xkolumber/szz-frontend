@@ -41,7 +41,7 @@ const HomePageBlogSection = () => {
   }
 
   return (
-    <div className="own_edge relative h-auto">
+    <div className="own_edge relative h-auto  overflow-hidden">
       <img
         src="/bgblog.svg"
         alt="Background"
@@ -97,6 +97,14 @@ const HomePageBlogSection = () => {
             </div>
           </div>
         )}
+        <img
+          src={"/icons/icon_blog.svg"}
+          className="absolute h-[578px] w-[373px] -right-40 top-1/4 hidden 3xl:block"
+        />
+        <img
+          src={"/icons/icon_gloves.svg"}
+          className="absolute h-[248px] w-[248px] -top-16 left-[18%] hidden 2xl:block"
+        />
       </div>
     </div>
   );

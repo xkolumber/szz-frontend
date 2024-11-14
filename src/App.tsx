@@ -52,6 +52,7 @@ import AdminSponsorId from "./components/AdminComponents/Sponsors/AdminSponsorId
 import AdminDocs from "./components/AdminComponents/Docs/AdminDocs";
 import AdminDocsNew from "./components/AdminComponents/Docs/AdminDocsNew";
 import AdminDocsId from "./components/AdminComponents/Docs/AdminDocsId";
+import ContactPage from "./components/ContactPage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -240,6 +241,14 @@ function App() {
           element={
             <Layout>
               <PoradnaPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/kontakt"
+          element={
+            <Layout>
+              <ContactPage />
             </Layout>
           }
         />

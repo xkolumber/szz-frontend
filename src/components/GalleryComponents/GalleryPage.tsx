@@ -97,7 +97,7 @@ const GalleryPage = () => {
   };
 
   return (
-    <div className="own_edge min-h-screen">
+    <div className="own_edge min-h-screen relative overflow-hidden">
       <div className="main_section">
         <div className="flex flex-row justify-between">
           <h2 className="uppercase ">Galéria</h2>
@@ -137,6 +137,14 @@ const GalleryPage = () => {
         {data.length === 0 && !isLoading && (
           <p>So zadanými kritériami sa bohužiaľ nenašla žiadna galéria.</p>
         )}
+        <img
+          src={"/icons/icon_gallery_left.svg"}
+          className="absolute h-[578px] w-[373px] -left-40 top-[40%] hidden 3xl:block"
+        />
+        <img
+          src={"/icons/icon_gallery_right.svg"}
+          className="absolute h-[578px] w-[373px] -right-40 top-[20%] hidden 3xl:block"
+        />
       </div>
     </div>
   );

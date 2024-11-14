@@ -38,11 +38,16 @@ const BlogsPage = () => {
     });
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="own_edge min-h-screen relative overflow-hidden">
+        <div className="main_section">Loading...</div>
+      </div>
+    );
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="own_edge min-h-screen">
+    <div className="own_edge min-h-screen relative overflow-hidden">
       <div className="main_section">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/blog`} />
         <h2 className="uppercase text-center">Záhradkársky blog</h2>
@@ -56,7 +61,7 @@ const BlogsPage = () => {
               >
                 <img
                   src={object.titulna_foto}
-                  className="rounded-[16px] max-h-[280px] object-cover"
+                  className="rounded-[16px] max-h-[280px] h-full object-cover"
                 />
                 <h5 className="pt-[8px]">{object.nazov_blog}</h5>
                 <p className="opacity-80 line-clamp-4">{object.popis1}</p>
@@ -68,6 +73,14 @@ const BlogsPage = () => {
         )}
         <button onClick={handleLoadMore}>Load More Blogs</button>
       </div>
+      <img
+        src={"/icons/icon_blogpage_left.svg"}
+        className="absolute h-[578px] w-[373px] -left-40 top-[60%] hidden 3xl:block"
+      />
+      <img
+        src={"/icons/icon_blogpage.svg"}
+        className="absolute h-[578px] w-[373px] -right-40 top-[10%] hidden 3xl:block"
+      />
     </div>
   );
 };

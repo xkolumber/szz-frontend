@@ -137,7 +137,7 @@ const EventsPage = () => {
   }, [selectedMonth, selectedYear, country]);
 
   return (
-    <div className="own_edge min-h-screen">
+    <div className="own_edge min-h-screen overflow-hidden relative">
       <div className="main_section">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/blog`} />
         <h2 className="uppercase text-center pt-4">výstavy a podujatia</h2>
@@ -211,6 +211,14 @@ const EventsPage = () => {
         {data.length === 0 && !isLoading && (
           <p>So zadanými kritériami sa bohužiaľ nevyskutuje žiadna udalosť.</p>
         )}
+        <img
+          src={"/icons/icon_event_left.svg"}
+          className="absolute h-[578px] w-[373px] -left-40 top-[60%] hidden 3xl:block"
+        />
+        <img
+          src={"/icons/icon_event_right.svg"}
+          className="absolute h-[578px] w-[373px] -right-40 top-[10%] hidden 3xl:block"
+        />
       </div>
     </div>
   );

@@ -126,132 +126,146 @@ const UnionPageElements = ({ data }: Props) => {
   }, [data]);
 
   return (
-    <div className="own_edge">
-      <div className="main_section !pt-0">
-        <h2 className="uppercase ">
-          Sekcia pre <span className="text-[#6B9156]">zväz</span>
-        </h2>
-        <div className="flex flex-row mt-[40px]">
-          <div className="max-w-[400px] flex flex-col w-full">
-            {data
-              .filter((object) => object.rodic === "null")
-              .map((object) => (
-                <div className="flex flex-col" key={object.id}>
-                  <div
-                    className="flex flex-row justify-between items-center pt-[12px] pb-[12px] cursor-pointer"
-                    onClick={() => handleClickedCategory(object.slug)}
-                  >
-                    <h6 className="cursor-pointer uppercase">{object.nazov}</h6>
-                    <IconArrowUp choosen={object.slug === category} />
-                  </div>
+    <div className="overflow-hidden relative ">
+      <div className="own_edge ">
+        <div className="main_section !pt-0 ">
+          <h2 className="uppercase ">
+            Sekcia pre <span className="text-[#6B9156]">zväz</span>
+          </h2>
+          <div className="flex flex-col lg:flex-row mt-[40px]">
+            <div className="max-w-[400px] flex flex-col w-full">
+              {data
+                .filter((object) => object.rodic === "null")
+                .map((object) => (
+                  <div className="flex flex-col" key={object.id}>
+                    <div
+                      className="flex flex-row justify-between items-center pt-[12px] pb-[12px] cursor-pointer"
+                      onClick={() => handleClickedCategory(object.slug)}
+                    >
+                      <h6 className="cursor-pointer uppercase">
+                        {object.nazov}
+                      </h6>
+                      <IconArrowUp choosen={object.slug === category} />
+                    </div>
 
-                  {data.map(
-                    (object2) =>
-                      object2.rodic === object.id &&
-                      category === object.slug && (
-                        <div className="flex flex-col">
-                          <div className=" light_green rounded-[8px] pl-[24px] pr-[24px] pt-[16px] pb-[16px] ">
-                            <div
-                              className="flex flex-row justify-between items-center cursor-pointer"
-                              onClick={() =>
-                                handleClickedSubCategory(object2.slug)
-                              }
-                            >
-                              <h6 className="cursor-pointer uppercase">
-                                {object2.nazov}
-                              </h6>
-                              <IconArrowUp
-                                choosen={object2.slug === subCategory}
-                              />
-                            </div>
-                            {data.map(
-                              (object3) =>
-                                object3.rodic === object2.id &&
-                                subCategory === object2.slug && (
-                                  <div
-                                    className={`flex flex-row justify-between items-center light_green rounded-[8px] pl-[24px] pr-[24px] pt-[16px] pb-[16px] mb-4 mt-4 cursor-pointer ${
-                                      subSubCategory === object3.slug &&
-                                      "!bg-[#298040]"
-                                    } `}
-                                    onClick={() =>
-                                      handleClickedSubSubCategory(object3.slug)
-                                    }
-                                  >
-                                    <p
-                                      className={`cursor-pointer uppercase line-clamp-1 ${
+                    {data.map(
+                      (object2) =>
+                        object2.rodic === object.id &&
+                        category === object.slug && (
+                          <div className="flex flex-col">
+                            <div className=" light_green rounded-[8px] pl-[24px] pr-[24px] pt-[16px] pb-[16px] ">
+                              <div
+                                className="flex flex-row justify-between items-center cursor-pointer"
+                                onClick={() =>
+                                  handleClickedSubCategory(object2.slug)
+                                }
+                              >
+                                <h6 className="cursor-pointer uppercase">
+                                  {object2.nazov}
+                                </h6>
+                                <IconArrowUp
+                                  choosen={object2.slug === subCategory}
+                                />
+                              </div>
+                              {data.map(
+                                (object3) =>
+                                  object3.rodic === object2.id &&
+                                  subCategory === object2.slug && (
+                                    <div
+                                      className={`flex flex-row justify-between items-center light_green rounded-[8px] pl-[24px] pr-[24px] pt-[16px] pb-[16px] mb-4 mt-4 cursor-pointer ${
                                         subSubCategory === object3.slug &&
-                                        "text-white"
+                                        "!bg-[#298040]"
                                       } `}
+                                      onClick={() =>
+                                        handleClickedSubSubCategory(
+                                          object3.slug
+                                        )
+                                      }
                                     >
-                                      {object3.nazov}
-                                    </p>
-                                  </div>
-                                )
-                            )}
+                                      <p
+                                        className={`cursor-pointer uppercase line-clamp-1 ${
+                                          subSubCategory === object3.slug &&
+                                          "text-white"
+                                        } `}
+                                      >
+                                        {object3.nazov}
+                                      </p>
+                                    </div>
+                                  )
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      )
-                  )}
-                </div>
-              ))}
-          </div>
-          {choosenUnionData ? (
-            <div className="pl-[80px]">
-              <h3>{choosenUnionData?.nazov}</h3>
-              <p className="mt-[40px]">{choosenUnionData?.text}</p>
-              {choosenUnionData.pdf.length > 0 && (
-                <>
-                  <h5 className="mt-[40px] uppercase">
-                    Dokumenty na stiahnutie
-                  </h5>
-                  <div className="flex flex-wrap gap-4">
-                    {" "}
-                    {choosenUnionData?.pdf.map((object, index) => (
-                      <Link to={object.link} target="_blank" key={index}>
-                        <ButtonWithElement
-                          text={object.nazov}
-                          element={<IconDownload />}
-                        />
-                      </Link>
-                    ))}
-                  </div>
-                </>
-              )}
-              {choosenUnionData.fotky.length > 0 && (
-                <>
-                  <h5 className="mt-[40px]">Súvisiace fotogragie</h5>
-                  <div className="flex flex-row gap-4">
-                    {" "}
-                    {choosenUnionData?.fotky.map(
-                      (object, index) =>
-                        object != "" && (
-                          <img
-                            src={object}
-                            key={index}
-                            className="max-w-[150px] max-h-[150px] rounded-[16px] w-full h-full object-cover cursor-pointer hover:scale-[1.02] duration-200"
-                            onClick={() =>
-                              handleOpenGallery(choosenUnionData, index)
-                            }
-                          />
                         )
                     )}
                   </div>
-                </>
-              )}
+                ))}
             </div>
-          ) : (
-            <p>Loading...</p>
+            {choosenUnionData ? (
+              <div className="lg:pl-[80px]">
+                <h3>{choosenUnionData?.nazov}</h3>
+                <p className="mt-[40px]">{choosenUnionData?.text}</p>
+                {choosenUnionData.pdf.length > 0 && (
+                  <>
+                    <h5 className="mt-[40px] uppercase">
+                      Dokumenty na stiahnutie
+                    </h5>
+                    <div className="flex flex-wrap gap-4">
+                      {" "}
+                      {choosenUnionData?.pdf.map((object, index) => (
+                        <Link to={object.link} target="_blank" key={index}>
+                          <ButtonWithElement
+                            text={object.nazov}
+                            element={<IconDownload />}
+                          />
+                        </Link>
+                      ))}
+                    </div>
+                  </>
+                )}
+                {choosenUnionData.fotky.length > 0 && (
+                  <>
+                    <h5 className="mt-[40px]">Súvisiace fotogragie</h5>
+                    <div className="flex flex-row gap-4">
+                      {" "}
+                      {choosenUnionData?.fotky.map(
+                        (object, index) =>
+                          object != "" && (
+                            <img
+                              src={object}
+                              key={index}
+                              className="max-w-[150px] max-h-[150px] rounded-[16px] w-full h-full object-cover cursor-pointer hover:scale-[1.02] duration-200"
+                              onClick={() =>
+                                handleOpenGallery(choosenUnionData, index)
+                              }
+                            />
+                          )
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
+            ) : (
+              <p>Loading...</p>
+            )}
+          </div>
+          {open && (
+            <Lightbox
+              open={open}
+              slides={choosenAlbum}
+              close={() => setOpen(false)}
+              index={initialSlide}
+            />
           )}
         </div>
-        {open && (
-          <Lightbox
-            open={open}
-            slides={choosenAlbum}
-            close={() => setOpen(false)}
-            index={initialSlide}
-          />
-        )}
       </div>
+      <img
+        src={"/icons/icon_union_right.svg"}
+        className="absolute h-[578px] w-[373px] -right-40 top-[10%] hidden 3xl:block"
+      />
+      <img
+        src={"/icons/icon_union_left.svg"}
+        className="absolute h-[578px] w-[373px] -left-40 top-[10%] hidden 3xl:block"
+      />
     </div>
   );
 };

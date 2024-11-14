@@ -23,6 +23,10 @@ export const navbar_data = [
     title: "Galéria",
     slug: "/galeria",
   },
+  {
+    title: "Kontakt",
+    slug: "/kontakt",
+  },
 ];
 
 export const navbar_admin_data = [

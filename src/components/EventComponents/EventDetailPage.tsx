@@ -87,7 +87,7 @@ const EventDetailPage = () => {
   }, [slug]);
 
   return (
-    <div className="own_edge">
+    <div className="own_edge relative overflow-hidden">
       <div className="main_section ">
         {data ? (
           <>
@@ -204,6 +204,10 @@ const EventDetailPage = () => {
           index={initialSlide}
         />
       )}
+      <img
+        src={"/icons/icon_event_id_left.svg"}
+        className="absolute h-[578px] w-[373px] -left-40 top-[40%] hidden 3xl:block"
+      />
     </div>
   );
 };

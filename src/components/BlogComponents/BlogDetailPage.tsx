@@ -135,7 +135,10 @@ const BlogDetailPage = () => {
               key={index}
               to={`/blog/${object.slug}`}
             >
-              <img src={object.titulna_foto} className="rounded-[16px]" />
+              <img
+                src={object.titulna_foto}
+                className="rounded-[16px] max-h-[280px] h-full"
+              />
 
               <h5 className="pt-[8px]">{object.nazov_blog}</h5>
               <p className="opacity-80 line-clamp-4">{object.popis1}</p>

@@ -34,14 +34,16 @@ const HomePageFaq = () => {
         <div className="flex flex-col lg:flex-row  ">
           <div className="flex flex-col lg:w-1/2">
             {" "}
-            <h2 className="uppercase">Máte nejaké otázky?</h2>
+            <h2 className="uppercase max-w-[400px]">
+              Najčastejšie kladené otázky
+            </h2>
             <p>
               Lorem ipsum dolor sit amet consectetur. Elit morbi leo leo eu non
               blandit quis interdum. Sed arcu posuere lectus facilisis iaculis
               mattis. Id.
             </p>
           </div>
-          <div className="lg:w-1/2  mt-4 md:mt-16">
+          <div className="lg:w-1/2  mt-4 md:mt-0">
             <FaqElements homepage={true} data={dataFaqs} />
             <div className="flex flex-row justify-between items-center mt-16 md:mt-8 mb-16">
               <h5 className="uppercase">Viac nájdete v poradni</h5>
