@@ -1,18 +1,20 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo_white.svg";
 import { navbar_data } from "../lib/functionsClient";
+import IconBgFooter from "./Icons/IconBgFooter";
 
 const Footer = () => {
   return (
     <>
       {" "}
-      <div className="bg-[#47261C] own_edge mt-32">
-        <footer className="main_section m-auto">
+      <IconBgFooter />
+      <div className="bg-[#47261C] own_edge flex flex-col ">
+        <div className="main_section w-full m-auto !pb-0">
           <img
             src={"/footer_veg.svg"}
             width={1920}
             height={50}
-            className="w-full object-contain -mt-[220px] 2xl:-mt-[280px] hidden lg:block"
+            className="w-full object-contain  2xl:-mt-[280px] hidden lg:block"
           />
           <img
             src={"/footer_veg_m.svg"}
@@ -20,10 +22,12 @@ const Footer = () => {
             height={50}
             className="w-full object-contain -mt-[120px] md:-mt-[160px] lg:hidden md:h-[150px]"
           />
-          <div className="flex flex-col md:flex-row justify-between items-start">
+        </div>
+        <footer className="main_section m-auto overflow-hidden">
+          <div className="flex flex-col lg:flex-row justify-between items-start">
             <img src={logo} width={150} height={150} className="" />
 
-            <div className=" flex flex-col md:flex-row gap-4 md:gap-24 xl:gap-52 mt-12 md:mt-0">
+            <div className=" flex flex-col md:flex-row gap-4 md:gap-24 xl:gap-52 mt-12 md:mt-24 lg:mt-0 justify-between w-full lg:justify-end">
               <div className="flex flex-col ">
                 {navbar_data.map((object, index) => (
                   <Link

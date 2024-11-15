@@ -53,6 +53,7 @@ import AdminDocs from "./components/AdminComponents/Docs/AdminDocs";
 import AdminDocsNew from "./components/AdminComponents/Docs/AdminDocsNew";
 import AdminDocsId from "./components/AdminComponents/Docs/AdminDocsId";
 import ContactPage from "./components/ContactPage";
+import { NavbarProvider } from "./components/Provider";
 
 interface LayoutProps {
   children: ReactNode;
@@ -61,12 +62,14 @@ interface LayoutProps {
 function Layout({ children }: LayoutProps) {
   return (
     <>
-      <div className="bg-[#3F8124] own_edge !hidden md:!flex">
-        <NavbarInfo />
-      </div>
-      <Navbar />
-      <main>{children}</main>
-      <Footer />
+      <NavbarProvider>
+        <div className="bg-[#3F8124] own_edge !hidden md:!flex">
+          <NavbarInfo />
+        </div>
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
+      </NavbarProvider>
     </>
   );
 }

@@ -15,11 +15,11 @@ const IconBgBroownBottom = () => {
 
       <img
         src={"/krtko.svg"}
-        className="absolute h-[135px] w-[221px] right-[42px] bottom-12 hidden xl:block"
+        className="absolute h-[135px] w-[221px] right-[42px] bottom-12 hidden xl:block z-20"
       />
       <img
         src={"/zem.svg"}
-        className="absolute h-[95px] w-[191px] right-20 -bottom-0 hidden xl:block "
+        className="absolute h-[95px] w-[191px] right-20 -bottom-0 hidden xl:block z-20"
       />
     </>
   );

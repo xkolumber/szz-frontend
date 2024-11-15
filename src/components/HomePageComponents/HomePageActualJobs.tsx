@@ -12,8 +12,10 @@ import PDFViewer from "../PdfViewer";
 import { useEffect, useState } from "react";
 import IconBgBroownTop from "../Icons/IconBgBroownTop";
 import IconBgBroownBottom from "../Icons/IconBgBroownBottom";
+import { useNavbar } from "../Provider";
 
 const HomePageActualJobs = () => {
+  const { setNavbarZIndex } = useNavbar();
   const [selectedDocumentLink, setSelectedDocumentLink] = useState<
     string | null
   >(null);
@@ -26,11 +28,13 @@ const HomePageActualJobs = () => {
   });
 
   const handleClose = () => {
+    setNavbarZIndex(400);
     setIsOpen(false);
     setSelectedDocumentLink(null);
   };
 
   const handleClickedLink = (link: string | null) => {
+    setNavbarZIndex(100);
     setSelectedDocumentLink(link);
     setIsOpen(true);
   };

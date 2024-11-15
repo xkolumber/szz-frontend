@@ -6,8 +6,11 @@ import { navbar_data } from "../lib/functionsClient";
 import IconCloseNavbarButton from "./Icons/IconCloseNavbarButton";
 import IconHamburger from "./Icons/IconHamburger";
 import SearchInput from "./SearchInput";
+import { useNavbar } from "./Provider";
 
 const Navbar = () => {
+  const { navbarZIndex } = useNavbar();
+
   let location = useLocation();
   const [closeClicked, setCloseClicked] = useState(false);
 
@@ -16,7 +19,10 @@ const Navbar = () => {
   };
 
   return (
-    <div className="own_edge navbar_stroke bg-white sticky top-0 z-20">
+    <div
+      className="own_edge navbar_stroke bg-white sticky top-0 "
+      style={{ zIndex: navbarZIndex }}
+    >
       <div className="flex flex-row items-center main_section justify-between !pt-0 !pb-0 ">
         <Link to={"/"}>
           {" "}
