@@ -57,41 +57,34 @@ const HomePageActualJobs = () => {
           {data && (
             <HomePageSwiperJobs data={data} clickedLink={handleClickedLink} />
           )}
+          {isLoading && (
+            <div className="hidden md:grid grid-cols-3 gap-[20px]  mt-[40px]  mb-8">
+              <Skeleton
+                width="100%"
+                height={150}
+                borderRadius={16}
+                baseColor="#7188A1"
+              />
+              <Skeleton
+                width="100%"
+                height={150}
+                borderRadius={16}
+                baseColor="#8BAFBD"
+              />
+              <Skeleton
+                width="100%"
+                height={150}
+                borderRadius={16}
+                baseColor="#A79ABA"
+              />
+            </div>
+          )}
         </div>
       </div>
       <IconBgBroownBottom />
       <Modal isOpen={isOpen} onClose={handleClose}>
         <PDFViewer pdfUrl={selectedDocumentLink} />
       </Modal>
-      {isLoading && (
-        <>
-          <div className="bg-[#EDF3DD] own_edge">
-            <div className="main_section">
-              <h2 className="uppercase">Aktuálne práce v záhrade</h2>
-              <div className="hidden md:grid grid-cols-3 gap-[20px]  mt-[40px]  mb-8">
-                <Skeleton
-                  width="100%"
-                  height={130}
-                  borderRadius={16}
-                  baseColor="#7188A1"
-                />
-                <Skeleton
-                  width="100%"
-                  height={130}
-                  borderRadius={16}
-                  baseColor="#8BAFBD"
-                />
-                <Skeleton
-                  width="100%"
-                  height={130}
-                  borderRadius={16}
-                  baseColor="#A79ABA"
-                />
-              </div>
-            </div>
-          </div>
-        </>
-      )}
       {error && <p>Error: {error.message}</p>}
     </>
   );

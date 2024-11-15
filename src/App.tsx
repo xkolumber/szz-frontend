@@ -54,6 +54,7 @@ import AdminDocsNew from "./components/AdminComponents/Docs/AdminDocsNew";
 import AdminDocsId from "./components/AdminComponents/Docs/AdminDocsId";
 import ContactPage from "./components/ContactPage";
 import { NavbarProvider } from "./components/Provider";
+import DocumentsPage from "./components/DocumentsPage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -252,6 +253,14 @@ function App() {
           element={
             <Layout>
               <ContactPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/tlaciva"
+          element={
+            <Layout>
+              <DocumentsPage />
             </Layout>
           }
         />

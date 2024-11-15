@@ -888,3 +888,25 @@ export async function fetchDocIdToken(
     return null;
   }
 }
+
+export async function fetchDocsClient() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/docs/getdocsclient`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const responseData = await response.json();
+    return responseData.Items;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
