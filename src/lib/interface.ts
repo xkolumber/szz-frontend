@@ -1,6 +1,7 @@
 export interface ActualJob {
   id: string;
   mesiac: string;
+  mesiac_cislo: number;
   pdf: Pdf;
   text: string;
   farba: string;

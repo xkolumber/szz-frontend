@@ -1,3 +1,5 @@
+import { ActualJob } from "./interface";
+
 export async function fetchNavbarData() {
   try {
     const response = await fetch(
@@ -39,9 +41,15 @@ export async function getActualJobs() {
     }
 
     const responseData = await response.json();
-    return responseData.Items;
+
+    const final_data = responseData.Items.sort(
+      (a: ActualJob, b: ActualJob) => a.mesiac_cislo - b.mesiac_cislo
+    );
+
+    return final_data;
   } catch (error) {
     console.error("Error fetching data:", error);
+    return [];
   }
 }
 

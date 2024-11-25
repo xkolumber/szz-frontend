@@ -24,6 +24,7 @@ const AdminActualJobNewMonth = () => {
   const [actualizeData, setActualizeData] = useState<ActualJob>({
     id: "",
     mesiac: "",
+    mesiac_cislo: 0,
     pdf: { nazov: "", link: "" },
     text: "",
     farba: "",
@@ -72,6 +73,7 @@ const AdminActualJobNewMonth = () => {
           },
           body: JSON.stringify({
             mesiac: actualizeData.mesiac,
+            mesiac_cislo: actualizeData.mesiac_cislo,
             pdf: actualizeData.pdf,
             text: actualizeData.text,
             farba: actualizeData.farba,
@@ -156,6 +158,18 @@ const AdminActualJobNewMonth = () => {
                 className="w-[70%]"
                 maxLength={50}
                 value={actualizeData?.mesiac}
+                required
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>Mesiac v číselnom formáte:</p>
+              <input
+                type="number"
+                name="mesiac_cislo"
+                onChange={handleChange}
+                className="w-[70%]"
+                maxLength={50}
+                value={actualizeData?.mesiac_cislo}
                 required
               />
             </div>

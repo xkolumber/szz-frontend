@@ -72,6 +72,7 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
           body: JSON.stringify({
             id: data?.id,
             mesiac: actualizeData.mesiac,
+            mesiac_cislo: actualizeData.mesiac_cislo,
             pdf: actualizeData.pdf,
             text: actualizeData.text,
             farba: actualizeData.farba,
@@ -193,6 +194,18 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
                 className="w-[70%]"
                 maxLength={50}
                 value={actualizeData?.mesiac}
+                required
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>Mesiac v číselnom formáte:</p>
+              <input
+                type="number"
+                name="mesiac_cislo"
+                onChange={handleChange}
+                className="w-[70%]"
+                maxLength={50}
+                value={actualizeData?.mesiac_cislo}
                 required
               />
             </div>
