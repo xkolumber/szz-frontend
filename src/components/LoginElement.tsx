@@ -38,6 +38,7 @@ const LoginElement = () => {
 
       const responseData = await response.json();
       localStorage.setItem("token", responseData.token);
+      window.location.reload();
     } catch (err) {
       toast.error("Meno alebo heslo sú nesprávne");
       console.log(err);
