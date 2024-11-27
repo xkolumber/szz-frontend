@@ -63,7 +63,7 @@ export const navbar_admin_data = [
     slug: "/admin/vystavy-a-podujatia",
   },
   {
-    title: "Sponzori",
+    title: "Odporúčané",
     slug: "/admin/sponzori",
   },
   {

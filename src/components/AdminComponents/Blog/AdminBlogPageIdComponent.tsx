@@ -152,12 +152,12 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
   };
 
   const onDrop = useCallback((acceptedFiles: File[], key: string) => {
-    setDataLoading(true);
     const file = acceptedFiles[0];
     if (!file || !["image/jpeg", "image/png"].includes(file.type)) {
       toast.error("Please upload only image files (JPEG or PNG).");
       return;
     }
+    setDataLoading(true);
 
     const formData = new FormData();
     formData.append("file", file);
@@ -318,6 +318,12 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
     };
   }, [openPopUp]);
 
+  const deletePhoto = (title: string) => {
+    setActualizeData((prevData) => {
+      const updatedData = { ...prevData, [title]: "" };
+      return updatedData;
+    });
+  };
   return (
     <div>
       {data && (
@@ -391,14 +397,23 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
               <p>Foto1:</p>
               <div className="flex flex-col w-[75%]">
                 {actualizeData.foto1 && (
-                  <img
-                    width={120}
-                    height={120}
-                    src={actualizeData.foto1}
-                    className="mt-4 mb-4 cursor-pointer"
-                    onClick={() => handleShowBiggerIamge(actualizeData.foto1)}
-                  />
+                  <div className="flex flex-row justify-between items-center">
+                    <img
+                      width={120}
+                      height={120}
+                      src={actualizeData.foto1}
+                      className="mt-4 mb-4 cursor-pointer"
+                      onClick={() => handleShowBiggerIamge(actualizeData.foto1)}
+                    />
+                    <p
+                      className="!text-red-800 cursor-pointer"
+                      onClick={() => deletePhoto("foto1")}
+                    >
+                      Odstrániť
+                    </p>
+                  </div>
                 )}
+
                 <div className={dragAreaClasses} {...getPhoto1RootProps()}>
                   <input
                     {...getPhoto1InputProps()}
@@ -426,14 +441,23 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
               <p>Foto2:</p>
               <div className="flex flex-col w-[75%]">
                 {actualizeData.foto2 && (
-                  <img
-                    width={120}
-                    height={120}
-                    src={actualizeData.foto2}
-                    className="mt-4 mb-4 cursor-pointer"
-                    onClick={() => handleShowBiggerIamge(actualizeData.foto2)}
-                  />
+                  <div className="flex flex-row justify-between items-center">
+                    <img
+                      width={120}
+                      height={120}
+                      src={actualizeData.foto2}
+                      className="mt-4 mb-4 cursor-pointer"
+                      onClick={() => handleShowBiggerIamge(actualizeData.foto2)}
+                    />
+                    <p
+                      className="!text-red-800 cursor-pointer"
+                      onClick={() => deletePhoto("foto2")}
+                    >
+                      Odstrániť
+                    </p>
+                  </div>
                 )}
+
                 <div className={dragAreaClasses} {...getPhoto2RootProps()}>
                   <input
                     {...getPhoto2InputProps()}
@@ -461,13 +485,21 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
               <p>Foto3:</p>
               <div className="flex flex-col w-[75%]">
                 {actualizeData.foto3 && (
-                  <img
-                    width={120}
-                    height={120}
-                    src={actualizeData.foto3}
-                    className="mt-4 mb-4 cursor-pointer"
-                    onClick={() => handleShowBiggerIamge(actualizeData.foto3)}
-                  />
+                  <div className="flex flex-row justify-between items-center">
+                    <img
+                      width={120}
+                      height={120}
+                      src={actualizeData.foto3}
+                      className="mt-4 mb-4 cursor-pointer"
+                      onClick={() => handleShowBiggerIamge(actualizeData.foto3)}
+                    />
+                    <p
+                      className="!text-red-800 cursor-pointer"
+                      onClick={() => deletePhoto("foto3")}
+                    >
+                      Odstrániť
+                    </p>
+                  </div>
                 )}
                 <div className={dragAreaClasses} {...getPhoto3RootProps()}>
                   <input

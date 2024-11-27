@@ -42,9 +42,15 @@ export async function getActualJobs() {
 
     const responseData = await response.json();
 
-    const final_data = responseData.Items.sort(
-      (a: ActualJob, b: ActualJob) => a.mesiac_cislo - b.mesiac_cislo
-    );
+    const currentMonth = new Date().getMonth() + 1;
+
+    // Sort so that the current month appears first while maintaining order
+    const final_data = responseData.Items.sort((a: ActualJob, b: ActualJob) => {
+      // Adjust sorting to prioritize current month and keep original order
+      const aOffset = (a.mesiac_cislo - currentMonth + 12) % 12;
+      const bOffset = (b.mesiac_cislo - currentMonth + 12) % 12;
+      return aOffset - bOffset;
+    });
 
     return final_data;
   } catch (error) {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
@@ -8,6 +8,9 @@ import { ActualEvent } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import StepBack from "../../StepBack";
 import { useQueryClient } from "@tanstack/react-query";
+import { useDropzone } from "react-dropzone";
+import classNames from "classnames";
+import IconUpload from "../../Icons/IconUpload";
 
 interface Props {
   data: ActualEvent;
@@ -273,6 +276,62 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
     }));
   };
 
+  const onDrop = useCallback((acceptedFiles: File[], key: string) => {
+    const file = acceptedFiles[0];
+    if (!file || !["image/jpeg", "image/png"].includes(file.type)) {
+      toast.error("Please upload only image files (JPEG or PNG).");
+      return;
+    }
+    setDataLoading(true);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    axios
+      .post(
+        `${import.meta.env.VITE_API_URL}/admin/upload/blogphoto`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((response) => {
+        const { message, uploadUrl } = response.data;
+
+        if (message === "done") {
+          setActualizeData((prevData) => ({
+            ...prevData,
+            [key]: uploadUrl,
+          }));
+        }
+        setDataLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error uploading file:", error);
+      });
+  }, []);
+
+  const createDropHandler = (key: string) => (acceptedFiles: File[]) =>
+    onDrop(acceptedFiles, key);
+
+  const handleTitulnaPhotoDrop = createDropHandler("titulna_foto");
+
+  const {
+    getRootProps: getTitulnaRootProps,
+    getInputProps: getTitulnaInputProps,
+  } = useDropzone({
+    onDrop: handleTitulnaPhotoDrop,
+  });
+
+  const dragAreaClasses = classNames({
+    "p-10 border-gray-400 border-2 border-dashed rounded-lg cursor-pointer":
+      true,
+    "bg-gray-200": false,
+  });
+
   return (
     <div>
       {data && (
@@ -361,17 +420,30 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
                 value={actualizeData?.hostia}
               />
             </div>
-
             <div className="product_admin_row">
               <p>Titulná foto:</p>
-              <input
-                type="text"
-                name="titulna_foto"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.titulna_foto}
-                required
-              />
+              <div className="flex flex-col w-[75%]">
+                {actualizeData.titulna_foto && (
+                  <div className="flex flex-row justify-between items-center">
+                    <img
+                      width={120}
+                      height={120}
+                      src={actualizeData.titulna_foto}
+                      className="mt-4 mb-4 cursor-pointer"
+                    />
+                  </div>
+                )}
+                <div className={dragAreaClasses} {...getTitulnaRootProps()}>
+                  <input
+                    {...getTitulnaInputProps()}
+                    className="border border-red-500"
+                  />
+                  <div className="flex flex-col items-center justify-center gap-4">
+                    <IconUpload />
+                    <p className="text-center">Drop files here</p>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="product_admin_row">
               <p>Text 1:</p>
