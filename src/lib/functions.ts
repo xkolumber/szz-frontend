@@ -1,4 +1,5 @@
 import { ActualJob } from "./interface";
+import imageCompression from "browser-image-compression";
 
 export async function fetchNavbarData() {
   try {
@@ -949,5 +950,20 @@ export async function fetchSponsorsClient() {
   } catch (error) {
     console.error("Error fetching data:", error);
     return [];
+  }
+}
+
+export async function CompressImage(file: File) {
+  try {
+    const options = {
+      maxSizeMB: 2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+
+    const compressedFile = await imageCompression(file, options);
+    return compressedFile;
+  } catch (error) {
+    return null;
   }
 }

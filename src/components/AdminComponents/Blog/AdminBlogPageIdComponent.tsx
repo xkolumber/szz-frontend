@@ -11,6 +11,7 @@ import { Blog } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
+import { CompressImage } from "../../../lib/functions";
 
 interface Props {
   data: Blog;
@@ -151,7 +152,7 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
     }
   };
 
-  const onDrop = useCallback((acceptedFiles: File[], key: string) => {
+  const onDrop = useCallback(async (acceptedFiles: File[], key: string) => {
     const file = acceptedFiles[0];
     if (!file || !["image/jpeg", "image/png"].includes(file.type)) {
       toast.error("Please upload only image files (JPEG or PNG).");
@@ -159,9 +160,10 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
     }
     setDataLoading(true);
 
-    const formData = new FormData();
-    formData.append("file", file);
+    const compressedFile = await CompressImage(file);
 
+    const formData = new FormData();
+    formData.append("file", compressedFile!);
     axios
       .post(
         `${import.meta.env.VITE_API_URL}/admin/upload/blogphoto`,

@@ -12,6 +12,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useDropzone } from "react-dropzone";
 import classNames from "classnames";
 import IconUpload from "../../Icons/IconUpload";
+import { CompressImage } from "../../../lib/functions";
 
 const AdminEventPageNew = () => {
   const queryClient = useQueryClient();
@@ -153,83 +154,6 @@ const AdminEventPageNew = () => {
     }
   };
 
-  // const onDrop = useCallback((acceptedFiles: File[], key: string) => {
-  //   setDataLoading(true);
-  //   const file = acceptedFiles[0];
-  //   if (!file || !["image/jpeg", "image/png"].includes(file.type)) {
-  //     toast.error("Please upload only image files (JPEG or PNG).");
-  //     return;
-  //   }
-
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-
-  //   axios
-  //     .post(
-  //       `${import.meta.env.VITE_API_URL}/admin/upload/blogphoto`,
-  //       formData,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           "Content-Type": "multipart/form-data",
-  //         },
-  //       }
-  //     )
-  //     .then((response) => {
-  //       const { message, uploadUrl } = response.data;
-
-  //       if (message === "done") {
-  //         setActualizeData((prevData) => ({
-  //           ...prevData,
-  //           [key]: uploadUrl,
-  //         }));
-  //       }
-  //       setDataLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error uploading file:", error);
-  //     });
-  // }, []);
-
-  // const createDropHandler = (key: string) => (acceptedFiles: File[]) =>
-  //   onDrop(acceptedFiles, key);
-
-  // const handleTitulnaPhotoDrop = createDropHandler("titulna_foto");
-  // const handlePhoto1Drop = createDropHandler("foto1");
-  // const handlePhoto2Drop = createDropHandler("foto2");
-  // const handlePhoto3Drop = createDropHandler("foto3");
-
-  // const {
-  //   getRootProps: getTitulnaRootProps,
-  //   getInputProps: getTitulnaInputProps,
-  // } = useDropzone({
-  //   onDrop: handleTitulnaPhotoDrop,
-  // });
-  // const {
-  //   getRootProps: getPhoto1RootProps,
-  //   getInputProps: getPhoto1InputProps,
-  // } = useDropzone({
-  //   onDrop: handlePhoto1Drop,
-  // });
-  // const {
-  //   getRootProps: getPhoto2RootProps,
-  //   getInputProps: getPhoto2InputProps,
-  // } = useDropzone({
-  //   onDrop: handlePhoto2Drop,
-  // });
-  // const {
-  //   getRootProps: getPhoto3RootProps,
-  //   getInputProps: getPhoto3InputProps,
-  // } = useDropzone({
-  //   onDrop: handlePhoto3Drop,
-  // });
-
-  // const dragAreaClasses = classNames({
-  //   "p-10 border-gray-400 border-2 border-dashed rounded-lg cursor-pointer":
-  //     true,
-  //   "bg-gray-200": false,
-  // });
-
   const handleAddInputPdf = () => {
     setActualizeData((prevData) => ({
       ...prevData,
@@ -342,7 +266,7 @@ const AdminEventPageNew = () => {
     }));
   };
 
-  const onDrop = useCallback((acceptedFiles: File[], key: string) => {
+  const onDrop = useCallback(async (acceptedFiles: File[], key: string) => {
     const file = acceptedFiles[0];
     if (!file || !["image/jpeg", "image/png"].includes(file.type)) {
       toast.error("Please upload only image files (JPEG or PNG).");
@@ -350,8 +274,10 @@ const AdminEventPageNew = () => {
     }
     setDataLoading(true);
 
+    const compressedFile = await CompressImage(file);
+
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", compressedFile!);
 
     axios
       .post(

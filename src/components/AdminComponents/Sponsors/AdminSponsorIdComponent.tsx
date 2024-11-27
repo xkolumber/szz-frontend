@@ -9,6 +9,7 @@ import IconUpload from "../../Icons/IconUpload";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import classNames from "classnames";
+import { CompressImage } from "../../../lib/functions";
 
 interface Props {
   data: Sponsor;
@@ -118,16 +119,19 @@ const AdminSponsorIdComponent = ({ data, onDataUpdated }: Props) => {
     }
   };
 
-  const onDrop = useCallback((acceptedFiles: File[], key: string) => {
-    setDataLoading(true);
+  const onDrop = useCallback(async (acceptedFiles: File[], key: string) => {
     const file = acceptedFiles[0];
     if (!file || !["image/jpeg", "image/png"].includes(file.type)) {
       toast.error("Please upload only image files (JPEG or PNG).");
       return;
     }
 
+    setDataLoading(true);
+
+    const compressedFile = await CompressImage(file);
+
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", compressedFile!);
 
     axios
       .post(

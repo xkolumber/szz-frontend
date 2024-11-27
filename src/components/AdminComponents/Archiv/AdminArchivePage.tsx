@@ -20,7 +20,10 @@ const AdminArchivePage = () => {
             <p className="underline">Pridať nový dokument</p>
           </Link>
 
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 pt-16">
+            <Link to={`/admin/archiv/pred-2019`} className="underline">
+              Pred 2019
+            </Link>
             {years.map(
               (object, index) =>
                 object <= actual_year && (

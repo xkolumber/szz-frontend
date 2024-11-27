@@ -203,7 +203,7 @@ const AdminArchivePageId = () => {
           <Toaster />
           <h2>Úprava dokumentu: {data.pdf_nazov}</h2>
 
-          <form className=" products_admin " onSubmit={handleSaveProduct}>
+          <form className="products_admin" onSubmit={handleSaveProduct}>
             <div className="product_admin_row">
               <p>Názov:</p>
               <input

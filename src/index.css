@@ -726,6 +726,7 @@ textarea:focus {
 }
 .item_navbar:hover {
   background-color: rgba(41, 128, 64, 0.1);
+  color: black;
 }
 
 .light_green {

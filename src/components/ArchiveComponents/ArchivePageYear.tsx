@@ -22,7 +22,8 @@ const ArchivePageYear = () => {
       <div className="own_edge">
         <div className="main_section !pt-8 min-h-screen ">
           {" "}
-          <h2>Dokumenty</h2>
+          <ButtonWithArrowLeft title="Späť do archívu" link={`/archiv`} />
+          <h2 className="text-center uppercase">Dokumenty</h2>
           <p>Loading...</p>
         </div>
       </div>
@@ -39,18 +40,28 @@ const ArchivePageYear = () => {
   return (
     <div className="own_edge">
       <div className="main_section !pt-8 min-h-screen ">
-        <ButtonWithArrowLeft title="Späť do archívu" link={`/`} />
+        <ButtonWithArrowLeft title="Späť do archívu" link={`/archiv`} />
         <h2 className="text-center uppercase">Dokumenty</h2>
+        {year === "pred-2019" ? (
+          <h6>Archívne dokumenty z pred roka 2019</h6>
+        ) : (
+          <h6>Archívne dokumenty z roku {year}</h6>
+        )}
+
         <div className="flex flex-col gap-4">
           {data?.map((object, index) => (
-            <Link
-              to={object.pdf_link}
-              target="_blank"
-              key={index}
-              className="underline"
-            >
-              {object.pdf_nazov}
-            </Link>
+            <div className="flex flex-row items-center pt-4">
+              <Link
+                to={object.pdf_link}
+                target="_blank"
+                key={index}
+                className="underline"
+              >
+                {" "}
+                {object.pdf_nazov}
+              </Link>
+              <p className="uppercase">, ({object.typ})</p>
+            </div>
           ))}
         </div>
         {data?.length === 0 && (

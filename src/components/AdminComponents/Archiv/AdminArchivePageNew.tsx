@@ -54,6 +54,7 @@ const AdminArchivePageNew = () => {
             pdf_link: actualizeData.pdf_link,
             pdf_nazov: actualizeData.pdf_nazov,
             rok: actualizeData.rok,
+            typ: actualizeData.typ,
           }),
         }
       );
@@ -201,7 +202,7 @@ const AdminArchivePageNew = () => {
                     className="ml-16 mr-16"
                   />
                 ) : (
-                  "Aktualizovať"
+                  "Pridať"
                 )}
               </button>
             </div>

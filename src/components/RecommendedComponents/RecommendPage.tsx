@@ -3,6 +3,7 @@ import "yet-another-react-lightbox/styles.css";
 import { Sponsor } from "../../lib/interface";
 import RecommendPageElements from "./RecommendPageElements";
 import { fetchSponsorsClient } from "../../lib/functions";
+import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 
 const RecommendPage = () => {
   const { data, status, error, isLoading } = useQuery<Sponsor[]>({
@@ -26,7 +27,8 @@ const RecommendPage = () => {
     return (
       <div className="own_edge">
         <div className="main_section !pt-8 min-h-[600px]">
-          {" "}
+          <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
+          <h2 className="text-center">Odporúčané</h2>
           <p>Loading...</p>
         </div>
       </div>
