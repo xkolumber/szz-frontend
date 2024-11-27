@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { TextareaHTMLAttributes, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
@@ -26,6 +26,7 @@ const AdminFaqPageIdComponent = ({ data, onDataUpdated }: Props) => {
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setActualizeData((prevData) => {
@@ -130,11 +131,10 @@ const AdminFaqPageIdComponent = ({ data, onDataUpdated }: Props) => {
             </div>
             <div className="product_admin_row">
               <p>Odpoved:</p>
-              <input
-                type="text"
+              <textarea
                 name="odpoved"
                 onChange={handleChange}
-                className="w-[70%]"
+                className="w-[70%] !h-[24rem]"
                 value={actualizeData?.odpoved}
                 required
               />

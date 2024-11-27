@@ -35,6 +35,7 @@ const AdminUnionPageNew = () => {
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setActualizeData((prevData) => {
@@ -329,11 +330,10 @@ const AdminUnionPageNew = () => {
             </div>
             <div className="product_admin_row">
               <p>Text:</p>
-              <input
-                type="text"
+              <textarea
                 name="text"
                 onChange={handleChange}
-                className="w-[70%]"
+                className="w-[70%] !h-[24rem]"
                 value={actualizeData?.text}
                 maxLength={250}
                 required

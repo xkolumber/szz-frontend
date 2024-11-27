@@ -47,6 +47,7 @@ const AdminEventPageNew = () => {
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setActualizeData((prevData) => {
@@ -439,22 +440,20 @@ const AdminEventPageNew = () => {
             </div>
             <div className="product_admin_row">
               <p>Text 1:</p>
-              <input
-                type="text"
+              <textarea
                 name="text1"
                 onChange={handleChange}
-                className="w-[70%]"
+                className="w-[70%] !h-[24rem]"
                 value={actualizeData?.text1}
                 required
               />
             </div>
             <div className="product_admin_row">
               <p>Text 2:</p>
-              <input
-                type="text"
+              <textarea
                 name="text2"
                 onChange={handleChange}
-                className="w-[70%]"
+                className="w-[70%] !h-[24rem]"
                 value={actualizeData?.text2}
               />
             </div>

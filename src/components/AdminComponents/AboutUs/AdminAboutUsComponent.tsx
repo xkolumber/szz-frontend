@@ -29,6 +29,7 @@ const AdminAboutUsComponent = ({ data, refetch }: Props) => {
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setActualizeData((prevData) => {
@@ -199,11 +200,10 @@ const AdminAboutUsComponent = ({ data, refetch }: Props) => {
       <form className=" products_admin " onSubmit={handleSaveData}>
         <div className="product_admin_row">
           <p>Text1:</p>
-          <input
-            type="text"
+          <textarea
             name="text1"
             onChange={handleChange}
-            className="w-[70%]"
+            className="w-[70%] !h-[24rem]"
             value={actualizeData?.text1}
             required
           />
@@ -246,11 +246,10 @@ const AdminAboutUsComponent = ({ data, refetch }: Props) => {
 
         <div className="product_admin_row">
           <p>text2:</p>
-          <input
-            type="text"
+          <textarea
             name="text2"
             onChange={handleChange}
-            className="w-[70%]"
+            className="w-[70%] !h-[24rem]"
             value={actualizeData?.text2}
             required
           />
@@ -282,11 +281,10 @@ const AdminAboutUsComponent = ({ data, refetch }: Props) => {
 
         <div className="product_admin_row">
           <p>text3:</p>
-          <input
-            type="text"
+          <textarea
             name="text3"
             onChange={handleChange}
-            className="w-[70%]"
+            className="w-[70%] !h-[24rem]"
             value={actualizeData?.text3}
           />
         </div>

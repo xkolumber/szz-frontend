@@ -43,6 +43,7 @@ const AdminBlogNew = () => {
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setActualizeData((prevData) => {
@@ -328,11 +329,10 @@ const AdminBlogNew = () => {
             </div>
             <div className="product_admin_row">
               <p>Popis1:</p>
-              <input
-                type="text"
+              <textarea
                 name="popis1"
                 onChange={handleChange}
-                className="w-[70%]"
+                className="w-[70%] !h-[24rem]"
                 value={actualizeData?.popis1}
                 required
               />
@@ -363,11 +363,10 @@ const AdminBlogNew = () => {
 
             <div className="product_admin_row">
               <p>Popis2:</p>
-              <input
-                type="text"
+              <textarea
                 name="popis2"
                 onChange={handleChange}
-                className="w-[70%]"
+                className="w-[70%] !h-[24rem]"
                 value={actualizeData?.popis2}
               />
             </div>
@@ -396,11 +395,10 @@ const AdminBlogNew = () => {
             </div>
             <div className="product_admin_row">
               <p>Popis 3:</p>
-              <input
-                type="text"
+              <textarea
                 name="popis3"
                 onChange={handleChange}
-                className="w-[70%]"
+                className="w-[70%] !h-[24rem]"
                 value={actualizeData?.popis3}
               />
             </div>
