@@ -139,7 +139,10 @@ const HomePageIntro = () => {
               </div>
             </div>
             <div className="flex flex-row mt-16">
-              <div className="flex flex-row gap-[16px]">
+              <Link
+                className="flex flex-row gap-[16px]"
+                to={"https://regina.rtvs.sk"}
+              >
                 <div className="">
                   <div className="bg-[#739C65] w-24 h-24 flex items-center justify-center rounded-[8px]">
                     <IconRadio />
@@ -149,7 +152,7 @@ const HomePageIntro = () => {
                   <h6 className="uppercase">Rádio Regina</h6>
                   <p>Záhradkári</p>
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
