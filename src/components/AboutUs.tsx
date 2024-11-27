@@ -26,7 +26,7 @@ const AboutUs = () => {
 
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
-      <div className="main_section !pt-0">
+      <div className="main_section">
         <h2>O nás</h2>
         {data && (
           <div>

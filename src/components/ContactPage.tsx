@@ -1,7 +1,7 @@
 const ContactPage = () => {
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
-      <div className="main_section !pt-0">
+      <div className="main_section">
         <h2>Kontakt</h2>
         <p>
           Bratislava - vidiek, Malacky - Pomoravie, Dunajská Streda, Galanta,

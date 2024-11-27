@@ -55,6 +55,7 @@ import AdminDocsId from "./components/AdminComponents/Docs/AdminDocsId";
 import ContactPage from "./components/ContactPage";
 import { NavbarProvider } from "./components/Provider";
 import DocumentsPage from "./components/DocumentsPage";
+import RecommendPage from "./components/RecommendedComponents/RecommendPage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -178,6 +179,7 @@ function App() {
             element={<AdminNavbarDataNewId />}
           />
           <Route path="o-nas" element={<AdminAboutUs />} />
+
           <Route path="galeria" element={<AdminGalleryPage />} />
           <Route path="galeria/novy-album" element={<AdminGalleryPageNew />} />
           <Route path="galeria/:id" element={<AdminGalleryPageId />} />
@@ -240,6 +242,15 @@ function App() {
             </Layout>
           }
         />
+        <Route
+          path="/odporucame"
+          element={
+            <Layout>
+              <RecommendPage />
+            </Layout>
+          }
+        />
+
         <Route
           path="/poradna"
           element={

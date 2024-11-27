@@ -924,3 +924,30 @@ export async function fetchDocsClient() {
     console.error("Error fetching data:", error);
   }
 }
+
+export async function fetchSponsorsClient() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/sponsors/getsponsorsclient`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.log("error");
+      return null;
+    }
+
+    const responseData = await response.json();
+
+    return responseData.Items;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+}

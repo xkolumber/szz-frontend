@@ -5,7 +5,7 @@ const ArchivePage = () => {
   const actual_year = new Date().getFullYear();
   return (
     <div className="own_edge min-h-screen">
-      <div className="main_section !pt-0">
+      <div className="main_section">
         <h2>Archív</h2>
 
         <div className="flex flex-col gap-8">
