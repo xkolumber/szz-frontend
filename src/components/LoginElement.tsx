@@ -54,7 +54,7 @@ const LoginElement = () => {
         <form onSubmit={handleLogin} className="">
           <div className="mb-3">
             <label className="block font-medium leading-6 text-gray-900">
-              Prihlasovacie meno
+              Prihlasovací email
             </label>
 
             <input

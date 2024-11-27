@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Sponsor } from "../../lib/interface";
+import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 
 interface Props {
   data: Sponsor[];
@@ -8,8 +9,9 @@ interface Props {
 const RecommendPageElements = ({ data }: Props) => {
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
-      <div className="main_section">
-        <h2>Odporúčané</h2>
+      <div className="main_section !pt-8">
+        <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
+        <h2 className="text-center">Odporúčané</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {data.map((object, index) => (
             <Link className="" key={index} to={object.link} target="_blank">

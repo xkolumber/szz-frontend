@@ -712,6 +712,19 @@ textarea:focus {
 }
 
 .active_navbar {
+  background-color: #77a75d;
+  border-radius: 16px;
+  padding: 24px;
+  color: white;
+  text-transform: uppercase;
+}
+
+.item_navbar {
+  padding: 24px;
+  border-radius: 16px;
+  text-align: center;
+}
+.item_navbar:hover {
   background-color: rgba(41, 128, 64, 0.1);
 }
 
@@ -880,4 +893,8 @@ textarea:focus {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+}
+
+.bg_green_opacity {
+  background: rgba(119, 167, 93, 0.25);
 }

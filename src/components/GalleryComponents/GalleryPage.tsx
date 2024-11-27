@@ -4,6 +4,7 @@ import Select from "react-select";
 import { Gallery } from "../../lib/interface";
 import { options_years } from "../../lib/functionsClient";
 import EventPagesSkeleton from "../EventComponents/EventPagesSkeleton";
+import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 
 const GalleryPage = () => {
   const [data, setData] = useState<Gallery[]>([]);
@@ -98,9 +99,10 @@ const GalleryPage = () => {
 
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
-      <div className="main_section">
-        <div className="flex flex-row justify-between">
-          <h2 className="uppercase ">Galéria</h2>
+      <div className="main_section !pt-8">
+        <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
+        <div className="flex flex-row justify-between pt-8">
+          <h2 className="uppercase text-center ">Galéria</h2>
           <div className="flex flex-row items-center gap-6">
             <p className="uppercase font-medium">Rok fotogalérie</p>
             <Select

@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { fetchArchiveByYear } from "../../lib/functions";
 import { Archive } from "../../lib/interface";
+import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 
 const ArchivePageYear = () => {
   const queryClient = useQueryClient();
@@ -19,7 +20,7 @@ const ArchivePageYear = () => {
   if (isLoading)
     return (
       <div className="own_edge">
-        <div className="main_section !pt-0 min-h-screen ">
+        <div className="main_section !pt-8 min-h-screen ">
           {" "}
           <h2>Dokumenty</h2>
           <p>Loading...</p>
@@ -29,7 +30,7 @@ const ArchivePageYear = () => {
   if (error)
     return (
       <div className="own_edge">
-        <div className="main_section !pt-0 min-h-screen ">
+        <div className="main_section !pt-8 min-h-screen ">
           Error: {error.message}
         </div>
       </div>
@@ -37,8 +38,9 @@ const ArchivePageYear = () => {
 
   return (
     <div className="own_edge">
-      <div className="main_section !pt-0 min-h-screen ">
-        <h2>Dokumenty</h2>
+      <div className="main_section !pt-8 min-h-screen ">
+        <ButtonWithArrowLeft title="Späť do archívu" link={`/`} />
+        <h2 className="text-center uppercase">Dokumenty</h2>
         <div className="flex flex-col gap-4">
           {data?.map((object, index) => (
             <Link

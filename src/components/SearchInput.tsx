@@ -21,7 +21,7 @@ const SearchInput = () => {
   //     replace(`${pathname}?${params.toString()}`);
   //   }, 300);
   return (
-    <label className="relative text-gray-400 focus-within:text-gray-600 block ask  md:max-w-none   max-h-[50px]">
+    <label className="relative text-gray-400 focus-within:text-gray-600 block ask  md:max-w-none   ">
       <input
         type="text"
         name="email"

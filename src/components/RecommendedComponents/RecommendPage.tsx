@@ -15,7 +15,7 @@ const RecommendPage = () => {
   if (error) {
     return (
       <div className="own_edge">
-        <div className="main_section !pt-0 min-h-[600px]">
+        <div className="main_section !pt-8 min-h-[600px]">
           {" "}
           <p>Chyba pri načítaní dát...</p>;
         </div>
@@ -25,7 +25,7 @@ const RecommendPage = () => {
   if (isLoading) {
     return (
       <div className="own_edge">
-        <div className="main_section !pt-0 min-h-[600px]">
+        <div className="main_section !pt-8 min-h-[600px]">
           {" "}
           <p>Loading...</p>
         </div>

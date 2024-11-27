@@ -29,14 +29,20 @@ const Navbar = () => {
           <img src={logo} width={90} height={90} />
         </Link>
 
-        <div className="flex-row gap-[32px] xl:gap-[64px] hidden lg:flex items-center">
+        <div className="flex-row gap-[8px] xl:gap-[16px] justify-between hidden xl:flex items-center">
           {navbar_data.map((object, index) => (
             <Link
               to={object.slug === "/domov" ? "/" : object.slug}
               key={index}
-              className={`${
-                location.pathname.includes(object.slug) ? "active_navbar" : ""
-              }`}
+              className={`  ${
+                location.pathname.includes(object.slug)
+                  ? "active_navbar"
+                  : "item_navbar"
+              } ${
+                object.slug === "/domov" &&
+                location.pathname === "/" &&
+                "active_navbar"
+              } `}
             >
               {object.title}
             </Link>
@@ -48,7 +54,7 @@ const Navbar = () => {
           </div>
 
           <div
-            className={`lg:hidden cursor-pointer ${closeClicked && "hidden"} `}
+            className={`xl:hidden cursor-pointer ${closeClicked && "hidden"} `}
             onClick={() => clickedButtonClose()}
           >
             <IconHamburger />

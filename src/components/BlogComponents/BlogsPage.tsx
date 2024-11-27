@@ -48,8 +48,8 @@ const BlogsPage = () => {
 
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
-      <div className="main_section">
-        <ButtonWithArrowLeft title="Domovská stránka" link={`/blog`} />
+      <div className="main_section !pt-8">
+        <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
         <h2 className="uppercase text-center">Záhradkársky blog</h2>
         {existingBlogs && existingBlogs.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]">

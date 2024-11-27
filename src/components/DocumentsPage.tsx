@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { fetchDocsClient } from "../lib/functions";
 import { Tlacivo } from "../lib/interface";
+import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
 
 const DocumentsPage = () => {
   const queryClient = useQueryClient();
@@ -18,7 +19,7 @@ const DocumentsPage = () => {
   if (isLoading)
     return (
       <div className="own_edge">
-        <div className="main_section !pt-0 min-h-screen ">
+        <div className="main_section !pt-8 min-h-screen ">
           {" "}
           <h2>Tlačivá na stiahnutie</h2>
           <p>Loading...</p>
@@ -28,7 +29,7 @@ const DocumentsPage = () => {
   if (error)
     return (
       <div className="own_edge">
-        <div className="main_section !pt-0 min-h-screen ">
+        <div className="main_section !pt-8 min-h-screen ">
           Error: {error.message}
         </div>
       </div>
@@ -36,11 +37,12 @@ const DocumentsPage = () => {
 
   return (
     <div className="own_edge">
-      <div className="main_section !pt-0 min-h-screen ">
-        <h2>Tlačivá na stiahnutie</h2>
+      <div className="main_section !pt-8 min-h-screen ">
+        <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
+        <h2 className="text-center uppercase">Tlačivá na stiahnutie</h2>
         <div className="flex flex-col gap-4">
           {data?.map((object, index) => (
-            <div className="flex flex-row items-center">
+            <div className="flex flex-row items-center pt-4">
               <Link
                 to={object.link}
                 target="_blank"

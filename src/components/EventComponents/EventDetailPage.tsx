@@ -7,6 +7,7 @@ import IconLocation from "../Icons/IconLocation";
 import ButtonWithElement from "../ButtonWithElement";
 import IconDownload from "../Icons/IconDownload";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
+import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 
 const EventDetailPage = () => {
   const [open, setOpen] = useState(false);
@@ -88,7 +89,11 @@ const EventDetailPage = () => {
 
   return (
     <div className="own_edge relative overflow-hidden">
-      <div className="main_section ">
+      <div className="main_section !pt-8">
+        <ButtonWithArrowLeft
+          title="Späť ná všetky výstavy"
+          link={`/vystavy-a-podujatia`}
+        />
         {data ? (
           <>
             <div className="flex items-center flex-col">
@@ -153,7 +158,11 @@ const EventDetailPage = () => {
             </div>
           </>
         ) : (
-          <div className="min-h-screen">
+          <div className="main_section !pt-8 min-h-screen">
+            <ButtonWithArrowLeft
+              title="Späť ná všetky výstavy"
+              link={`/vystavy-a-podujatia`}
+            />
             <p>Loading...</p>
           </div>
         )}

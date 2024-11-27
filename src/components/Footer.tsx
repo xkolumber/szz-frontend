@@ -14,7 +14,7 @@ const Footer = () => {
             src={"/footer_veg.svg"}
             width={1920}
             height={50}
-            className="w-full object-contain  2xl:-mt-[280px] hidden lg:block"
+            className="w-full object-contain  -mt-[250px]  2xl:-mt-[280px] hidden lg:block"
           />
           <img
             src={"/footer_veg_m.svg"}

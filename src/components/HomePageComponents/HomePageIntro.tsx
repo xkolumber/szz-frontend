@@ -142,6 +142,7 @@ const HomePageIntro = () => {
               <Link
                 className="flex flex-row gap-[16px]"
                 to={"https://regina.rtvs.sk"}
+                target="_blank"
               >
                 <div className="">
                   <div className="bg-[#739C65] w-24 h-24 flex items-center justify-center rounded-[8px]">

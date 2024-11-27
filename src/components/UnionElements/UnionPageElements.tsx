@@ -258,14 +258,14 @@ const UnionPageElements = ({ data }: Props) => {
           )}
         </div>
       </div>
-      <img
+      {/* <img
         src={"/icons/icon_union_right.svg"}
-        className="absolute h-[578px] w-[373px] -right-40 top-[10%] hidden 3xl:block"
+        className="absolute h-[578px] w-[373px] -right-40 top-[10%] hidden 3xl:block "
       />
       <img
         src={"/icons/icon_union_left.svg"}
         className="absolute h-[578px] w-[373px] -left-40 top-[10%] hidden 3xl:block"
-      />
+      /> */}
     </div>
   );
 };

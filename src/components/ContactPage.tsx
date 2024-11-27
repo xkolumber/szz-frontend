@@ -1,8 +1,11 @@
+import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
+
 const ContactPage = () => {
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
-      <div className="main_section">
-        <h2>Kontakt</h2>
+      <div className="main_section !pt-8">
+        <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
+        <h2 className="uppercase text-center">Kontakt</h2>
         <p>
           Bratislava - vidiek, Malacky - Pomoravie, Dunajská Streda, Galanta,
           Komárno, Levice, Nitra, Nové Zámky, Senica, Topoľčany, Trenčín, Nové

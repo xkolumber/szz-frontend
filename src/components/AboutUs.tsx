@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAboutUsData } from "../lib/functions";
 import { AboutUsPage } from "../lib/interface";
+import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
 
 const AboutUs = () => {
   const { data, status, error, isLoading } = useQuery<AboutUsPage>({
@@ -26,11 +27,12 @@ const AboutUs = () => {
 
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
-      <div className="main_section">
-        <h2>O nás</h2>
+      <div className="main_section !pt-8">
+        <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
+        <h2 className="text-center">O nás</h2>
         {data && (
           <div>
-            <p>{data.text1}</p>
+            <p className="pt-8">{data.text1}</p>
             <img
               width={120}
               height={120}
