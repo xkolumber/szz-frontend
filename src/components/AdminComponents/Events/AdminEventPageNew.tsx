@@ -94,11 +94,6 @@ const AdminEventPageNew = () => {
 
   const handleSaveProduct = async (event: any) => {
     event.preventDefault();
-
-    // if (!isValidDate(actualizeData.datum)) {
-    //   toast.error("Dátum musí byť v tvare DD.MM.YYYY.");
-    //   return;
-    // }
     if (!isValidTime(actualizeData.cas)) {
       toast.error("Čas musí byť v tvare HH:MM.");
       return;
@@ -410,7 +405,6 @@ const AdminEventPageNew = () => {
                 onChange={handleChange}
                 className="w-[70%]"
                 value={actualizeData?.cas}
-                required
               />
             </div>
             <div className="product_admin_row">
@@ -445,7 +439,6 @@ const AdminEventPageNew = () => {
                 onChange={handleChange}
                 className="w-[70%] !h-[24rem]"
                 value={actualizeData?.text1}
-                required
               />
             </div>
             <div className="product_admin_row">

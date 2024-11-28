@@ -400,7 +400,6 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
                 onChange={handleChange}
                 className="w-[70%]"
                 value={actualizeData?.cas}
-                required
               />
             </div>
             <div className="product_admin_row">
@@ -456,7 +455,6 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
                 onChange={handleChange}
                 className="w-[70%] !h-[24rem]"
                 value={actualizeData?.text1}
-                required
               />
             </div>
             <div className="product_admin_row">

@@ -47,7 +47,7 @@ const HomePageEvents = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
           {data &&
-            data.map((object, index) => (
+            data.slice(0, 3).map((object, index) => (
               <Link
                 className={`flex flex-col  rounded-[24px] max-w-[464px]  w-full hover:scale-[1.02] duration-200 `}
                 key={index}
