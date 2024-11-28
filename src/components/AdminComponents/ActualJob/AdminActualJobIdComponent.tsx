@@ -21,6 +21,7 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
+  const [dataLoading, setDataLoading] = useState(false);
   const [fileUpload, setFileUpload] = useState<any>(null);
 
   const token = localStorage.getItem("token");
@@ -140,6 +141,7 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
       toast.error("V tejto sekcii sa môžu nahrávať iba PDF súbory!");
       return;
     }
+    setDataLoading(true);
 
     const formData = new FormData();
     formData.append("file", files[0]);
@@ -167,6 +169,7 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
       .catch((error) => {
         console.error("Error uploading file:", error);
       });
+    setDataLoading(false);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -317,6 +320,22 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
             </div>
           </form>
         </div>
+      )}
+
+      {dataLoading && (
+        <>
+          {" "}
+          <div className="behind_card_background"></div>
+          <div className="popup_message">
+            <h5 className="text-center">Objekt sa nahráva do cloudu...</h5>
+            <ClipLoader
+              size={20}
+              color={"#00000"}
+              loading={true}
+              className="ml-16 mr-16"
+            />
+          </div>
+        </>
       )}
     </div>
   );
