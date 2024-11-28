@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ButtonWithArrow from "../ButtonWithArrow";
 import IconApples from "../Icons/IconApples";
-import IconProtection from "../Icons/IconProtection";
-import IconRadio from "../Icons/IconRadio";
-import IconScissors from "../Icons/IconScissors";
 import IconBird from "../Icons/IconBird";
 import IconBirdWithoutEye from "../Icons/IconBirdWithoutEye";
+import IconProtection from "../Icons/IconProtection";
+import IconRadio from "../Icons/IconRadio";
 
 const texts = [
   {
@@ -80,22 +79,21 @@ const HomePageIntro = () => {
           />
 
           <p className="max-w-[400px] opacity-80 text-center lg:text-left pt-4">
-            Lorem ipsum dolor sit amet consectetur.Convallis purus vehicula nisi
-            rutrum.
+            Vitajte na stránkach Slovenského zväzu záhradkárov.
           </p>
           <div className="flex flex-row gap-24 md:gap-16 mt-4 md:justify-center lg:justify-start">
             <ButtonWithArrow
-              link="zvaz"
+              link="o-nas"
               title="Kto sme"
               bg="#6B9156"
               color="#ffffff"
             />
-            <div className="flex flex-row items-center gap-4">
+            {/* <div className="flex flex-row items-center gap-4">
               <p className="uppercase font-bold hover:underline cursor-pointer">
                 Čo robíme
               </p>
               <IconScissors />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="flex flex-col lg:w-[50%]">

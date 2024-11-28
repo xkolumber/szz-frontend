@@ -5,7 +5,7 @@ import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 const ArchivePage = () => {
   const actual_year = new Date().getFullYear();
   return (
-    <div className="own_edge min-h-screen">
+    <div className="own_edge min-h-[600px]">
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
         <h2 className="uppercase text-center">Archív</h2>

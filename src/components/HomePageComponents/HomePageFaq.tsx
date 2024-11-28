@@ -37,11 +37,7 @@ const HomePageFaq = () => {
             <h2 className="uppercase max-w-[400px]">
               Najčastejšie kladené otázky
             </h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur. Elit morbi leo leo eu non
-              blandit quis interdum. Sed arcu posuere lectus facilisis iaculis
-              mattis. Id.
-            </p>
+            <p>Tu nájdete odpovede na najčastejšie kladené otázky.</p>
           </div>
           <div className="lg:w-1/2  mt-4 md:mt-0">
             <FaqElements homepage={true} data={dataFaqs} />

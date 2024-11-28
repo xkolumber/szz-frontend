@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo_white.svg";
-import { navbar_data } from "../lib/functionsClient";
+import { footer_data, navbar_data } from "../lib/functionsClient";
 import IconBgFooter from "./Icons/IconBgFooter";
 
 const Footer = () => {
@@ -32,7 +32,7 @@ const Footer = () => {
                 {navbar_data.map((object, index) => (
                   <Link
                     className="text-white hover:text-secondary duration-300 ease-in-out mb-[24px] opacity-80"
-                    to={`/slug`}
+                    to={`${object.slug}`}
                     key={index}
                   >
                     {object.title}
@@ -40,10 +40,10 @@ const Footer = () => {
                 ))}
               </div>
               <div className="flex flex-col ">
-                {navbar_data.map((object, index) => (
+                {footer_data.map((object, index) => (
                   <Link
                     className="text-white hover:text-secondary duration-300 ease-in-out mb-[24px] opacity-80"
-                    to={`/slug`}
+                    to={`${object.slug}`}
                     key={index}
                   >
                     {object.title}
@@ -61,8 +61,8 @@ const Footer = () => {
                 <a href="tel:++421910211001">
                   <p className="text-white underline  mb-1">+421 910 211 001</p>
                 </a>
-                <a href="mailto:info@zz.sk?subject=Otázka">
-                  <p className="text-white underline  mb-1">info@szz.sk</p>
+                <a href="mailto:info@szz.eu.sk?subject=Otázka">
+                  <p className="text-white underline  mb-1">info@szz.eu.sk</p>
                 </a>
               </div>
             </div>

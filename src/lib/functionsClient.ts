@@ -76,6 +76,25 @@ export const navbar_admin_data = [
   },
 ];
 
+export const footer_data = [
+  {
+    title: "Register",
+    slug: "/zvaz",
+  },
+  {
+    title: "Tlačivá",
+    slug: "/tlaciva",
+  },
+  {
+    title: "Poradňa",
+    slug: "/poradna",
+  },
+  {
+    title: "Odporúčame",
+    slug: "/odporucame",
+  },
+];
+
 export const options_years = [
   { value: "2025", label: "2025" },
   { value: "2024", label: "2024" },
