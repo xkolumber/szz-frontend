@@ -128,8 +128,8 @@ const GalleryPage = () => {
                     className="rounded-[16px] object-cover h-[280px]"
                   />
 
-                  <h5 className="pt-[8px]">{object.nazov}</h5>
-                  <p className="opacity-60">{object.datum}</p>
+                  <h5 className=" line-clamp-1 mt-4 mb-2">{object.nazov}</h5>
+                  <p className="opacity-60 ">{object.datum}</p>
                 </Link>
               ))}
           </div>

@@ -22,7 +22,7 @@ const ButtonWithArrow = ({
 
   return (
     <Link
-      className={`flex flex-row gap-6 items-center  cursor-pointer p-8 rounded-[16px] ${
+      className={`flex flex-row gap-6 items-center  cursor-pointer md:p-8 rounded-[16px] ${
         justifyCenterMobile && "justify-center md:justify-start"
       }`}
       onMouseEnter={() => setHoverButton(true)}

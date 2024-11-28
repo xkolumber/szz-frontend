@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import "react-loading-skeleton/dist/skeleton.css";
 import { Link, useParams } from "react-router-dom";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { Gallery } from "../../lib/interface";
 import ButtonWithArrow from "../ButtonWithArrow";
+import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 
 const GalleryPageId = () => {
   const [data, setData] = useState<Gallery>();
@@ -88,19 +90,23 @@ const GalleryPageId = () => {
   return (
     <div className="own_edge relative overflow-hidden">
       <div className="main_section ">
+        <ButtonWithArrowLeft title="Späť do galérie" link={`/galeria`} />
         {data ? (
           <>
             <div className="flex items-center flex-col">
-              <h1>{data?.nazov}</h1>
+              <h1 className="text-center">{data?.nazov}</h1>
               <p className="opacity-60">{data.datum}</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-24 mt-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8">
                 {data.fotky.map((object, index) => (
-                  <img
-                    src={object}
-                    key={index}
-                    className="rounded-[16px] w-full h-full object-cover cursor-pointer hover:scale-[1.02] duration-200"
-                    onClick={() => handleOpenGallery(index)}
-                  />
+                  <div key={index} className="relative w-full h-[280px]">
+                    <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-[16px]"></div>
+                    <img
+                      src={object}
+                      alt={`Gallery item ${index}`}
+                      className="rounded-[16px] w-full h-full object-cover relative z-10 cursor-pointer hover:scale-[1.02] duration-200"
+                      onClick={() => handleOpenGallery(index)}
+                    />
+                  </div>
                 ))}
               </div>
             </div>

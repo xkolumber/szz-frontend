@@ -155,6 +155,16 @@ export function isValidTime(time: string): boolean {
   return timePattern.test(time);
 }
 
+export function isValidMonth(month: string): boolean {
+  if (!/^\d+$/.test(month)) {
+    return false;
+  }
+  const numericMonth = parseInt(month, 10);
+  return (
+    numericMonth >= 1 && numericMonth <= 12 && numericMonth.toString() === month
+  );
+}
+
 export function isValidYear(year: string): boolean {
   return year.length === 4 && /^\d{4}$/.test(year);
 }

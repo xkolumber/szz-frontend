@@ -62,22 +62,27 @@ const AboutUs = () => {
               <p className="uppercase font-semibold ">
                 Publikované {data.datum}
               </p>
-              <p className="uppercase font-semibold">Späť na začiatok </p>
+              <p
+                className="uppercase font-semibold cursor-pointer"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              >
+                Späť na začiatok{" "}
+              </p>
             </div>
           </div>
         )}
 
         <img
           src={"/icons/icon_about_us_left.svg"}
-          className="absolute h-[578px] w-[373px] -left-40 top-[15%] hidden 3xl:block"
+          className="absolute h-[578px] w-[373px] -left-80 top-[15%] hidden 3xl:block"
         />
         <img
           src={"/icons/icon_about_us_left_2.svg"}
-          className="absolute h-[578px] w-[373px] -left-40 top-[45%] hidden 3xl:block"
+          className="absolute h-[578px] w-[373px] -left-72 top-[45%] hidden 3xl:block"
         />
         <img
           src={"/icons/icon_about_us_right.svg"}
-          className="absolute h-[578px] w-[373px] -right-40 top-[5%] hidden 3xl:block"
+          className="absolute h-[578px] w-[373px] -right-60 top-[5%] hidden 3xl:block"
         />
         <img
           src={"/icons/icon_about_us_right_2.svg"}

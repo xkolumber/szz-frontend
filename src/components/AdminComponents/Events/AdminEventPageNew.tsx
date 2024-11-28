@@ -3,7 +3,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { createSlug, isValidTime } from "../../../lib/functionsClient";
+import {
+  createSlug,
+  isValidMonth,
+  isValidTime,
+} from "../../../lib/functionsClient";
 import { ActualEvent } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import StepBack from "../../StepBack";
@@ -100,6 +104,10 @@ const AdminEventPageNew = () => {
     }
     if (actualizeData.typ != "sk" && actualizeData.typ != "zah") {
       toast.error("Udalosť musí mať tvar sk alebo zah!");
+      return;
+    }
+    if (!isValidMonth(actualizeData.datum_mesiac)) {
+      toast.error("Mesiac musí byť číslo od 1 po 12");
       return;
     }
 
@@ -349,7 +357,7 @@ const AdminEventPageNew = () => {
                 className="w-[70%]"
                 value={actualizeData?.datum_den}
                 required
-                placeholder="12"
+                placeholder="2"
               />
             </div>
             <div className="product_admin_row">
@@ -361,7 +369,7 @@ const AdminEventPageNew = () => {
                 className="w-[70%]"
                 value={actualizeData?.datum_mesiac}
                 required
-                placeholder="08"
+                placeholder="8"
               />
             </div>
             <div className="product_admin_row">

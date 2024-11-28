@@ -44,12 +44,12 @@ const BlogDetailPage = () => {
 
   return (
     <div className="own_edge relative overflow-hidden">
-      <div className="main_section !pt-0 ">
+      <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Späť na blog" link={`/blog`} />
         {blogData && (
           <>
             <div className="flex items-center flex-col">
-              <h1>{blogData?.nazov_blog}</h1>
+              <h1 className="pt-8 pb-4">{blogData?.nazov_blog}</h1>
               <div className="flex flex-row gap-6  ">
                 <p className="font-medium">{blogData.datum}</p>
               </div>
@@ -62,7 +62,7 @@ const BlogDetailPage = () => {
               />
             </div>
 
-            <div className="max-w-[900px] m-auto mt-[80px]">
+            <div className="max-w-[900px] m-auto mt-8 xl:mt-[80px]">
               {blogData.popis1 && <p>{blogData.popis1}</p>}
 
               {blogData.foto1 && (
@@ -73,7 +73,9 @@ const BlogDetailPage = () => {
                   className="rounded-[16px] w-full max-w-[622px] max-h-[459px] object-cover mt-8 m-auto"
                 />
               )}
-              {blogData.popis2 && <p className="mt-40">{blogData.popis2}</p>}
+              {blogData.popis2 && (
+                <p className="mt-8 xl:mt-40">{blogData.popis2}</p>
+              )}
 
               {blogData.foto2 && (
                 <img
@@ -83,7 +85,9 @@ const BlogDetailPage = () => {
                   className="rounded-[16px] w-full max-w-[622px] max-h-[459px] object-cover mt-8 m-auto"
                 />
               )}
-              {blogData.popis3 && <p className="mt-40">{blogData.popis3}</p>}
+              {blogData.popis3 && (
+                <p className="mt-8 xl:mt-40">{blogData.popis3}</p>
+              )}
 
               {blogData.foto2 && (
                 <img
@@ -94,7 +98,7 @@ const BlogDetailPage = () => {
                 />
               )}
 
-              {blogData.pdf.length > 0 && (
+              {blogData.pdf.length > 0 && blogData.pdf[0].link != "" && (
                 <>
                   <h5 className="mt-[40px] uppercase">
                     Dokumenty na stiahnutie
@@ -114,17 +118,24 @@ const BlogDetailPage = () => {
                   </div>
                 </>
               )}
-              <div className="flex flex-row justify-between opacity-60 mt-16">
+              <div className="flex flex-row justify-between opacity-60 mt-4 xl:mt-16">
                 <p className="uppercase font-semibold ">
                   Publikované {blogData.datum}
                 </p>
-                <p className="uppercase font-semibold">Späť na začiatok </p>
+                <p
+                  className="uppercase font-semibold cursor-pointer"
+                  onClick={() =>
+                    window.scrollTo({ top: 0, behavior: "smooth" })
+                  }
+                >
+                  Späť na začiatok{" "}
+                </p>
               </div>
             </div>
           </>
         )}
 
-        <div className="flex flex-row justify-between mt-[80px] items-center mb-[32px]">
+        <div className="flex flex-col md:flex-row justify-between mt-[80px] md:items-center mb-8 md:mb-[32px]">
           <h2 className="uppercase ">Ďalšie články</h2>
           <ButtonWithArrow title="Zobraziť všetky" link={`/blog`} />
         </div>

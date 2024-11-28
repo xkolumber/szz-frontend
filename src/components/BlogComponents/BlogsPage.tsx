@@ -50,7 +50,7 @@ const BlogsPage = () => {
     <div className="own_edge min-h-screen relative overflow-hidden">
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
-        <h2 className="uppercase text-center">Záhradkársky blog</h2>
+        <h2 className="uppercase text-center pt-8 pb-4">Záhradkársky blog</h2>
         {existingBlogs && existingBlogs.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]">
             {existingBlogs.map((object, index) => (
@@ -63,15 +63,19 @@ const BlogsPage = () => {
                   src={object.titulna_foto}
                   className="rounded-[16px] max-h-[280px] h-full object-cover"
                 />
-                <h5 className="pt-[8px]">{object.nazov_blog}</h5>
-                <p className="opacity-80 line-clamp-4">{object.popis1}</p>
+                <h5 className="pt-[8px] line-clamp-1 uppercase">
+                  {object.nazov_blog}
+                </h5>
+                <p className="opacity-80 pt-4 line-clamp-2">{object.popis1}</p>
               </Link>
             ))}
           </div>
         ) : (
           <p>No blogs available.</p>
         )}
-        <button onClick={handleLoadMore}>Load More Blogs</button>
+        <button onClick={handleLoadMore} className="mt-8">
+          Load More Blogs
+        </button>
       </div>
       <img
         src={"/icons/icon_blogpage_left.svg"}

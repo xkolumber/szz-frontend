@@ -141,7 +141,7 @@ const EventsPage = () => {
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
         <h2 className="uppercase text-center pt-4">výstavy a podujatia</h2>
-        <div className="flex flex-col md:flex-row justify-center mb-[40px] mt-[20px]">
+        <div className="flex flex-col md:flex-row justify-center mb-[40px] mt-[20px] z-50 relative">
           <div className="flex flex-row items-center gap-6 mr-[40px]">
             <p className="uppercase font-medium w-[60px]">Mesiac</p>
             <Select
@@ -189,10 +189,13 @@ const EventsPage = () => {
                   key={index}
                   to={`/vystavy-a-podujatia/${object.slug}`}
                 >
-                  <img
-                    src={object.titulna_foto}
-                    className="rounded-[16px] object-cover h-[280px]"
-                  />
+                  <div key={index} className="relative w-full h-[280px]">
+                    <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-[16px]"></div>
+                    <img
+                      src={object.titulna_foto}
+                      className="rounded-[16px] w-full h-full object-cover relative z-10 cursor-pointer hover:scale-[1.02] duration-200"
+                    />
+                  </div>
                   <div className="flex flex-row gap-6 pt-[8px] lg:pt-[24px] opacity-60">
                     <IconCalendar />
                     <p className="font-medium">
@@ -201,7 +204,9 @@ const EventsPage = () => {
                     </p>
                   </div>
 
-                  <h5 className="pt-[8px]">{object.nazov_vystavy}</h5>
+                  <h5 className="pt-[8px] line-clamp-1">
+                    {object.nazov_vystavy}
+                  </h5>
                 </Link>
               ))}
           </div>

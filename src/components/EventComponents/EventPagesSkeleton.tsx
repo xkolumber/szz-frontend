@@ -22,6 +22,24 @@ const EventPagesSkeleton = () => {
         borderRadius={16}
         baseColor="#dedede"
       />
+      <Skeleton
+        width="100%"
+        height={280}
+        borderRadius={16}
+        baseColor="#dedede"
+      />
+      <Skeleton
+        width="100%"
+        height={280}
+        borderRadius={16}
+        baseColor="#dedede"
+      />
+      <Skeleton
+        width="100%"
+        height={280}
+        borderRadius={16}
+        baseColor="#dedede"
+      />
     </div>
   );
 };
