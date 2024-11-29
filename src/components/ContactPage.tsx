@@ -1,15 +1,4 @@
 import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
-// import { GoogleMap, LoadScript } from "@react-google-maps/api";
-
-// const containerStyle = {
-//   width: "100%",
-//   height: "400px",
-// };
-
-// const center = {
-//   lat: 48.8584, // Example: Latitude for Paris
-//   lng: 2.2945, // Example: Longitude for Paris
-// };
 
 const ContactPage = () => {
   return (
@@ -25,6 +14,14 @@ const ContactPage = () => {
             className="mt-4 mb-4 cursor-pointer w-full h-full object-cover rounded-[16px] max-h-[369px]"
           />
           <h5 className="upperecase">Ako sa k nám dostanete</h5>
+
+          <iframe
+            title="Bratislava Map"
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10706.218176607592!2d17.0986359!3d48.1566009!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476c8bfdb8b3c737%3A0xca68190e08a57721!2sSlovensk%C3%BD%20zv%C3%A4z%20z%C3%A1hradk%C3%A1rov%20%E2%80%93%20Republikov%C3%BD%20v%C3%BDbor!5e0!3m2!1ssk!2ssk!4v1699213019176!5m2!1ssk!2ssk"
+            allowFullScreen={true}
+            loading="lazy"
+            className="rounded-[16px] w-full h-[400px]"
+          ></iframe>
 
           <h5 className="upperecase">Organizačná štruktúra</h5>
           <p>
@@ -80,14 +77,3 @@ const ContactPage = () => {
 };
 
 export default ContactPage;
-
-{
-  /* <LoadScript googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY">
-<GoogleMap
-  mapContainerStyle={containerStyle}
-  center={center}
-  zoom={10}
->
-</GoogleMap>
-</LoadScript> */
-}
