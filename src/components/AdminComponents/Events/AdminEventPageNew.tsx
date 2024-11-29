@@ -35,6 +35,7 @@ const AdminEventPageNew = () => {
     datum_den: "",
     datum_mesiac: "",
     datum_rok: "",
+    datum_koniec: "",
     miesto_podujatia: "",
     cas: "",
     hostia: "",
@@ -111,6 +112,10 @@ const AdminEventPageNew = () => {
       return;
     }
 
+    if (actualizeData.titulna_foto === "") {
+      toast.error("Chýba titulná foto.");
+      return;
+    }
     try {
       setIsLoading(true);
       const response = await fetch(
@@ -127,6 +132,7 @@ const AdminEventPageNew = () => {
             datum_den: actualizeData.datum_den,
             datum_mesiac: actualizeData.datum_mesiac,
             datum_rok: actualizeData.datum_rok,
+            datum_koniec: actualizeData.datum_koniec,
             miesto_podujatia: actualizeData.miesto_podujatia,
             cas: actualizeData.cas,
             hostia: actualizeData.hostia,
@@ -382,6 +388,17 @@ const AdminEventPageNew = () => {
                 value={actualizeData?.datum_rok}
                 required
                 placeholder="2024"
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>Dátum koniec udalosti (nepovinné):</p>
+              <input
+                type="text"
+                name="datum_koniec"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.datum_koniec}
+                placeholder="12.2.2024"
               />
             </div>
             <div className="product_admin_row">

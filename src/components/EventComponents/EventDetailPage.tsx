@@ -8,6 +8,7 @@ import ButtonWithElement from "../ButtonWithElement";
 import IconDownload from "../Icons/IconDownload";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
+import IconGuests from "../Icons/IconGuests";
 
 const EventDetailPage = () => {
   const [open, setOpen] = useState(false);
@@ -96,19 +97,43 @@ const EventDetailPage = () => {
         />
         {data ? (
           <>
-            <div className="flex items-center flex-col">
+            <div className="flex items-center flex-col gap-4">
               <h1>{data?.nazov_vystavy}</h1>
               <div className="flex flex-row gap-6  ">
                 <IconCalendar />
-                <p className="font-medium">
-                  {data.datum_den}.{data.datum_mesiac}.{data.datum_rok}{" "}
+                <p className="font-semibold uppercase">Dátum podujatia:</p>
+                <p className="font-medium text-[#351A28] opacity-80 uppercase">
+                  {data.datum_den}.{data.datum_mesiac}.{data.datum_rok} -{" "}
                   {data.cas}
                 </p>
               </div>
+              {data.datum_koniec && (
+                <div className="flex flex-row gap-6  ">
+                  <IconCalendar />
+                  <p className="font-semibold uppercase">Koniec podujatia:</p>
+                  <p className="font-medium text-[#351A28] opacity-80 uppercase">
+                    {data.datum_koniec}
+                  </p>
+                </div>
+              )}
+
               <div className="flex flex-row gap-6  ">
                 <IconLocation />
-                <p className="font-medium">{data.miesto_podujatia}</p>
+                <p className="font-semibold uppercase">Miesto podujatia:</p>
+                <p className="font-medium text-[#351A28] opacity-80 uppercase">
+                  {data.miesto_podujatia}
+                </p>
               </div>
+              {data.hostia && (
+                <div className="flex flex-row gap-6  ">
+                  <IconGuests />
+                  <p className="font-semibold uppercase">Hostia:</p>
+                  <p className="font-medium text-[#351A28] opacity-80 uppercase">
+                    {data.hostia}
+                  </p>
+                </div>
+              )}
+
               <img
                 src={data.titulna_foto}
                 width={900}

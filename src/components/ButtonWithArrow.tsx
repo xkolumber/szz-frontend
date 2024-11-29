@@ -30,7 +30,7 @@ const ButtonWithArrow = ({
         padding && "p-8"
       } md:p-8 rounded-[16px] ${
         justifyCenterMobile && "justify-center md:justify-start"
-      } ${widthFull && "w-full"}`}
+      } ${widthFull && "w-full md:w-fit"}`}
       onMouseEnter={() => setHoverButton(true)}
       onMouseLeave={() => setHoverButton(false)}
       to={link}

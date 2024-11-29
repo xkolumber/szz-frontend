@@ -13,6 +13,7 @@ export interface ActualEvent {
   datum_den: string;
   datum_mesiac: string;
   datum_rok: string;
+  datum_koniec: string;
   miesto_podujatia: string;
   cas: string;
   hostia: string;

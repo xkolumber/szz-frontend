@@ -114,6 +114,7 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
             datum_den: actualizeData.datum_den,
             datum_mesiac: actualizeData.datum_mesiac,
             datum_rok: actualizeData.datum_rok,
+            datum_koniec: actualizeData.datum_koniec,
             miesto_podujatia: actualizeData.miesto_podujatia,
             cas: actualizeData.cas,
             hostia: actualizeData.hostia,
@@ -395,6 +396,17 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
                 value={actualizeData?.datum_rok}
                 required
                 placeholder="2024"
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>Dátum koniec udalosti (nepovinné):</p>
+              <input
+                type="text"
+                name="datum_koniec"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.datum_koniec}
+                placeholder="12.2.2024"
               />
             </div>
             <div className="product_admin_row">
