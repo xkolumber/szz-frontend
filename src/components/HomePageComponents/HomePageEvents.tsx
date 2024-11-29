@@ -38,11 +38,15 @@ const HomePageEvents = () => {
     <div className="own_edge  relative">
       <div className="main_section">
         <div className="flex flex-col md:flex-row  justify-between  md:items-center mb-[32px]">
-          <h2 className="uppercase">Aktuálne výstavy a podujatia</h2>
-          <ButtonWithArrow
-            title="Zobraziť všetky"
-            link={`/vystavy-a-podujatia`}
-          />
+          <h2 className="uppercase text-center md:text-left">
+            Aktuálne výstavy a podujatia
+          </h2>
+          <div className="hidden md:block">
+            <ButtonWithArrow
+              title="Zobraziť všetky"
+              link={`/vystavy-a-podujatia`}
+            />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
@@ -68,6 +72,12 @@ const HomePageEvents = () => {
                 <h5 className="pt-[8px]">{object.nazov_vystavy}</h5>
               </Link>
             ))}
+        </div>
+        <div className="flex justify-center items-center md:hidden pt-8">
+          <ButtonWithArrow
+            title="Zobraziť všetky"
+            link={`/vystavy-a-podujatia`}
+          />
         </div>
         <img
           src={"/icons/icon_event.svg"}

@@ -50,7 +50,7 @@ const HomePageSwiperJobs = ({ data, clickedLink }: Props) => {
             modules={[Navigation]}
             navigation={{ nextEl: ".arrow-left", prevEl: ".arrow-right" }}
             speed={1000}
-            className="mt-[40px] !z-10 relative mb-8"
+            className="mt-8 md:mt-[40px] !z-10 relative mb-8"
           >
             {data.map((object) => (
               <SwiperSlide key={object.id}>
@@ -78,6 +78,25 @@ const HomePageSwiperJobs = ({ data, clickedLink }: Props) => {
               </SwiperSlide>
             ))}
           </Swiper>
+          <div className="flex flex-row justify-between md:hidden pt-12">
+            <div className="arrow-right   cursor-pointer">
+              <IconSwiperArrowLeft />
+            </div>
+            <div className="relative w-full justify-center mt-40">
+              <img
+                src={"/krtko.svg"}
+                className={`absolute h-[135px]  w-[221px] right-[22px] bottom-0 z-20 ease-in duration-100`}
+              />
+              <img
+                src={"/zem.svg"}
+                className="absolute h-[95px] w-[191px] right-[28px] -bottom-12  z-20"
+              />
+            </div>
+
+            <div className="arrow-left   cursor-pointer ">
+              <IconSwiperArrowRight />
+            </div>
+          </div>
         </div>
       )}
     </div>

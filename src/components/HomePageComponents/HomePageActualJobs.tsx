@@ -53,7 +53,9 @@ const HomePageActualJobs = () => {
       <IconBgBroownTop />
       <div className="relative own_edge bg-[#FFF2EC] overflow-hidden">
         <div className="main_section !pt-0 !pb-0 z-10">
-          <h2 className="uppercase">Aktuálne práce v záhrade</h2>
+          <h2 className="uppercase text-center md:text-left">
+            Aktuálne práce v záhrade
+          </h2>
           {data && (
             <HomePageSwiperJobs data={data} clickedLink={handleClickedLink} />
           )}

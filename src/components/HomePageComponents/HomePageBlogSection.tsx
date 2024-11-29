@@ -45,12 +45,14 @@ const HomePageBlogSection = () => {
       <img
         src="/bgblog.svg"
         alt="Background"
-        className="absolute inset-0 w-full h-[470px] md:h-[530px] lg:h-[979px] object-cover -z-10"
+        className="absolute inset-0 w-full h-[520px] md:h-[530px] lg:h-[979px] object-cover -z-10"
       />
       <div className="main_section">
-        <div className="flex flex-row justify-between  items-center mb-[32px]">
-          <h2 className="uppercase">Blog</h2>
-          <ButtonWithArrow title="Zobraziť celý blog" link={`/blog`} />
+        <div className="flex flex-row justify-center md:justify-between  items-center mb-8 md:mb-[32px]">
+          <h2 className="uppercase text-center md:text-left">Blog</h2>
+          <div className="hidden md:block">
+            <ButtonWithArrow title="Zobraziť celý blog" link={`/blog`} />
+          </div>
         </div>
         {existingBlogs && existingBlogs.length > 0 && (
           <div className="">
@@ -99,6 +101,9 @@ const HomePageBlogSection = () => {
             </div>
           </div>
         )}
+        <div className="flex justify-center items-center md:hidden pt-8 mb-8">
+          <ButtonWithArrow title="Zobraziť celý blog" link={`/blog`} />
+        </div>
         <img
           src={"/icons/icon_blog.svg"}
           className="absolute h-[578px] w-[373px] -right-40 top-1/4 hidden 3xl:block"

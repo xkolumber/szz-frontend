@@ -87,6 +87,7 @@ const HomePageIntro = () => {
               title="Kto sme"
               bg="#6B9156"
               color="#ffffff"
+              padding={true}
             />
             {/* <div className="flex flex-row items-center gap-4">
               <p className="uppercase font-bold hover:underline cursor-pointer">
@@ -110,6 +111,7 @@ const HomePageIntro = () => {
                 bg="#ffffff"
                 color="#47261C"
                 justifyCenterMobile={true}
+                padding={true}
               />
             </div>
           </Link>
@@ -136,7 +138,7 @@ const HomePageIntro = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-row mt-16">
+            <div className="flex flex-row mt-16 mb-12 md:mb-0">
               <Link
                 className="flex flex-row gap-[16px]"
                 to={"https://regina.rtvs.sk"}

@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 const IconBgBroownBottom = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <>
       <svg
@@ -15,7 +19,11 @@ const IconBgBroownBottom = () => {
 
       <img
         src={"/krtko.svg"}
-        className="absolute h-[135px] w-[221px] right-[42px] bottom-12 hidden xl:block z-20"
+        className={`absolute ${
+          isHovered ? "h-[120px]" : "h-[135px]"
+        }  w-[221px] right-[42px] bottom-12 hidden xl:block z-20 ease-in duration-100`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       />
       <img
         src={"/zem.svg"}

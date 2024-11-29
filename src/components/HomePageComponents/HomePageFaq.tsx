@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
-import FaqElements from "../FaqElements";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Faq } from "../../lib/interface";
 import { fetchFaqDataClient } from "../../lib/functions";
+import { Faq } from "../../lib/interface";
+import ButtonWithArrow from "../ButtonWithArrow";
+import FaqElements from "../FaqElements";
 
 const HomePageFaq = () => {
   const queryClient = useQueryClient();
@@ -34,18 +34,27 @@ const HomePageFaq = () => {
         <div className="flex flex-col lg:flex-row  ">
           <div className="flex flex-col lg:w-1/2">
             {" "}
-            <h2 className="uppercase max-w-[400px]">
+            <h2 className="uppercase max-w-[400px] text-center md:text-left">
               Najčastejšie kladené otázky
             </h2>
-            <p>Tu nájdete odpovede na najčastejšie kladené otázky.</p>
+            <p className="">
+              Tu nájdete odpovede na najčastejšie kladené otázky.
+            </p>
           </div>
           <div className="lg:w-1/2  mt-4 md:mt-0">
             <FaqElements homepage={true} data={dataFaqs} />
-            <div className="flex flex-row justify-between items-center mt-16 md:mt-8 mb-16">
-              <h5 className="uppercase">Viac nájdete v poradni</h5>
-              <Link className="btn btn--tertiary" to={"/poradna"}>
-                Otvoriť poradňu
-              </Link>
+            <div className="flex flex-col md:flex-row justify-between items-center mt-16 md:mt-8 mb-16">
+              <h5 className="uppercase pb-2 md:pb-0">Viac nájdete v poradni</h5>
+
+              <ButtonWithArrow
+                link="poradna"
+                title="Otvoriť poradňu"
+                bg="#6B9156"
+                color="#ffffff"
+                justifyCenterMobile={true}
+                padding={true}
+                widthFull={true}
+              />
             </div>
           </div>
         </div>
