@@ -151,8 +151,10 @@ const BlogDetailPage = () => {
                 className="rounded-[16px] max-h-[280px] h-full"
               />
 
-              <h5 className="pt-[8px]">{object.nazov_blog}</h5>
-              <p className="opacity-80 line-clamp-4">{object.popis1}</p>
+              <h5 className="pt-[8px] line-clamp-1 uppercase">
+                {object.nazov_blog}
+              </h5>
+              <p className="opacity-80 line-clamp-2">{object.popis1}</p>
             </Link>
           ))}
         </div>

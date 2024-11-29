@@ -899,3 +899,8 @@ textarea:focus {
 .bg_green_opacity {
   background: rgba(119, 167, 93, 0.25);
 }
+
+.contact_page h5 {
+  padding-top: 16px;
+  text-transform: uppercase;
+}
