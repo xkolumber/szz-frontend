@@ -9,6 +9,7 @@ import IconDownload from "../Icons/IconDownload";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import IconGuests from "../Icons/IconGuests";
+import { ClipLoader } from "react-spinners";
 
 const EventDetailPage = () => {
   const [open, setOpen] = useState(false);
@@ -183,12 +184,13 @@ const EventDetailPage = () => {
             </div>
           </>
         ) : (
-          <div className="main_section !pt-8 min-h-screen">
-            <ButtonWithArrowLeft
-              title="Späť ná všetky výstavy"
-              link={`/vystavy-a-podujatia`}
+          <div className="min-h-[600px]">
+            <ClipLoader
+              size={20}
+              color={"#000000"}
+              loading={true}
+              className="mt-4 mb-4"
             />
-            <p>Loading...</p>
           </div>
         )}
 

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAboutUsData } from "../lib/functions";
 import { AboutUsPage } from "../lib/interface";
 import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
+import { ClipLoader } from "react-spinners";
 
 const AboutUs = () => {
   const { data, status, error, isLoading } = useQuery<AboutUsPage>({
@@ -14,8 +15,8 @@ const AboutUs = () => {
   if (isLoading) {
     return (
       <div className="own_edge min-h-screen">
-        <div className="main_section !pt-0">
-          <p>Loading...</p>
+        <div className="main_section !pt-8">
+          <ClipLoader size={20} color={"#000000"} loading={true} />
         </div>
       </div>
     );

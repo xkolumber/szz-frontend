@@ -6,6 +6,7 @@ import "yet-another-react-lightbox/styles.css";
 import { Gallery } from "../../lib/interface";
 import ButtonWithArrow from "../ButtonWithArrow";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
+import { ClipLoader } from "react-spinners";
 
 const GalleryPageId = () => {
   const [data, setData] = useState<Gallery>();
@@ -89,7 +90,7 @@ const GalleryPageId = () => {
 
   return (
     <div className="own_edge relative overflow-hidden">
-      <div className="main_section ">
+      <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Späť do galérie" link={`/galeria`} />
         {data ? (
           <>
@@ -113,7 +114,7 @@ const GalleryPageId = () => {
           </>
         ) : (
           <div className="min-h-screen">
-            <p>Loading...</p>
+            <ClipLoader size={20} color={"#000000"} loading={true} />
           </div>
         )}
 

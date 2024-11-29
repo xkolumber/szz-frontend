@@ -5,6 +5,7 @@ import { LIMIT_BLOG } from "../../lib/functionsClient";
 import { Blog } from "../../lib/interface";
 import ButtonWithArrow from "../ButtonWithArrow";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
+import { ClipLoader } from "react-spinners";
 
 const BlogDetailPage = () => {
   const queryClient = useQueryClient();
@@ -39,7 +40,14 @@ const BlogDetailPage = () => {
         .slice(0, 3),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="own_edge min-h-screen relative overflow-hidden">
+        <div className="main_section !pt-8">
+          <ClipLoader size={20} color={"#000000"} loading={true} />
+        </div>
+      </div>
+    );
   if (error) return <div>Error: {error.message}</div>;
 
   return (

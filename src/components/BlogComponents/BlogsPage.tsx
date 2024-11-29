@@ -5,6 +5,7 @@ import { LIMIT_BLOG } from "../../lib/functionsClient";
 import { Blog } from "../../lib/interface";
 import { Link } from "react-router-dom";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
+import { ClipLoader } from "react-spinners";
 
 const BlogsPage = () => {
   const queryClient = useQueryClient();
@@ -41,7 +42,11 @@ const BlogsPage = () => {
   if (isLoading)
     return (
       <div className="own_edge min-h-screen relative overflow-hidden">
-        <div className="main_section">Loading...</div>
+        <div className="main_section !pt-8">
+          <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
+          <h2 className="uppercase text-center pt-8 pb-4">Záhradkársky blog</h2>
+          <ClipLoader size={20} color={"#000000"} loading={true} />
+        </div>
       </div>
     );
   if (error) return <div>Error: {error.message}</div>;
