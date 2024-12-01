@@ -14,6 +14,7 @@ const GalleryPage = () => {
   const [selectedYear, setSelectedYear] = useState({ value: "", label: "" });
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -25,6 +26,7 @@ const GalleryPage = () => {
           navigate(`?strana=${strana}&rok=${rok}`);
           setSelectedYear(options_years[0]);
         }
+
         if (searchParams.get("rok")) {
           const findlabel = options_years.find(
             (object) => object.value === searchParams.get("rok")
@@ -50,19 +52,23 @@ const GalleryPage = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
+        setIsChecked(false);
 
         const responseData = await response.json();
 
         setData(responseData);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setData([]);
       } finally {
         setIsLoading(false);
       }
     };
 
-    getData();
-  }, []);
+    if (searchParams && isChecked) {
+      getData();
+    }
+  }, [searchParams, isChecked]);
 
   const handleChangeYear = async (selectedOption: any) => {
     let strana = searchParams.get("strana") || "1";

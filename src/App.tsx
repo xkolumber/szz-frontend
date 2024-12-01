@@ -56,6 +56,7 @@ import ContactPage from "./components/ContactPage";
 import { NavbarProvider } from "./components/Provider";
 import DocumentsPage from "./components/DocumentsPage";
 import RecommendPage from "./components/RecommendedComponents/RecommendPage";
+import AdminGalleryPageYear from "./components/AdminComponents/Gallery/AdminGalleryPageYear";
 
 interface LayoutProps {
   children: ReactNode;
@@ -182,7 +183,8 @@ function App() {
 
           <Route path="galeria" element={<AdminGalleryPage />} />
           <Route path="galeria/novy-album" element={<AdminGalleryPageNew />} />
-          <Route path="galeria/:id" element={<AdminGalleryPageId />} />
+          <Route path="galeria/:rok/:id" element={<AdminGalleryPageId />} />
+          <Route path="galeria/:rok" element={<AdminGalleryPageYear />} />
           <Route path="blog" element={<AdminBlogsPage />} />
           <Route path="blog/:id" element={<AdminBlogPageId />} />
           <Route path="blog/novy-blog" element={<AdminBlogPageNew />} />

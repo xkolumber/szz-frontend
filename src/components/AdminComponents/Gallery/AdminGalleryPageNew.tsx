@@ -70,6 +70,10 @@ const AdminGalleryPageNew = () => {
       toast.error("Rok je v nesprávnom tvare");
       return;
     }
+    if (actualizeData.fotky.length === 0) {
+      toast.error("Treba nahrať aspoň 1 fotografiu.");
+      return;
+    }
 
     try {
       setIsLoading(true);
@@ -98,8 +102,10 @@ const AdminGalleryPageNew = () => {
 
       if (responseData.$metadata.httpStatusCode === 200) {
         toast.success("Album bol úspešne vytvorený");
-        await queryClient.refetchQueries({ queryKey: ["admin_galleries"] });
-        navigate("/admin/galeria");
+        await queryClient.refetchQueries({
+          queryKey: ["admin_galleries", actualizeData.rok],
+        });
+        navigate(`/admin/galeria/${actualizeData.rok}`);
       }
     } catch (error) {
       toast.error("niekde nastala chyba");

@@ -44,10 +44,7 @@ export async function getActualJobs() {
     const responseData = await response.json();
 
     const currentMonth = new Date().getMonth() + 1;
-
-    // Sort so that the current month appears first while maintaining order
     const final_data = responseData.Items.sort((a: ActualJob, b: ActualJob) => {
-      // Adjust sorting to prioritize current month and keep original order
       const aOffset = (a.mesiac_cislo - currentMonth + 12) % 12;
       const bOffset = (b.mesiac_cislo - currentMonth + 12) % 12;
       return aOffset - bOffset;
@@ -964,6 +961,43 @@ export async function CompressImage(file: File) {
     const compressedFile = await imageCompression(file, options);
     return compressedFile;
   } catch (error) {
+    return null;
+  }
+}
+
+export async function fetchGalleriesYearToken(
+  token: string | null,
+  year: string | undefined
+) {
+  if (token && year) {
+    try {
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_API_URL
+        }/admin/gallery/getgallerysortedtoken/${year}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
     return null;
   }
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { isValidDate, isValidYear } from "../../../lib/functionsClient";
 import { Gallery } from "../../../lib/interface";
@@ -15,6 +15,7 @@ interface Props {
 }
 
 const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
+  const { rok } = useParams<{ rok: string }>();
   const queryClient = useQueryClient();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -95,7 +96,9 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
         toast.success("Blog bol aktualizovaný");
-        await queryClient.refetchQueries({ queryKey: ["admin_galleries"] });
+        await queryClient.refetchQueries({
+          queryKey: ["admin_galleries", rok],
+        });
         onDataUpdated();
       }
     } catch (error) {
@@ -133,8 +136,10 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
         toast.success("Album bol odstránený");
-        await queryClient.refetchQueries({ queryKey: ["admin_events"] });
-        navigate("/admin/galeria");
+        await queryClient.refetchQueries({
+          queryKey: ["admin_galleries", rok],
+        });
+        navigate(`/admin/galeria/${rok}`);
       }
     } catch (error) {
       toast.error("niekde nastala chyba");
@@ -281,6 +286,7 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
                         height={70}
                         src={object}
                         className="h-[70px] object-cover rounded-[16px] cursor-pointer"
+                        style={{ imageRendering: "pixelated" }}
                         onClick={() => handleShowBiggerIamge(object)}
                       />
                     )}

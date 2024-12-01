@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import {
-  fetchGalleriesToken,
+  fetchGalleriesYearToken,
   fetchGalleryIdToken,
 } from "../../../lib/functions";
 import { Gallery } from "../../../lib/interface";
@@ -11,10 +11,11 @@ import AdminGalleryPageIdComponent from "./AdminGalleryPageIdComponent";
 const AdminGalleryPageId = () => {
   const token = localStorage.getItem("token");
   const queryClient = useQueryClient();
+  const { rok } = useParams<{ rok: string }>();
   const { id } = useParams<{ id: string }>();
 
   const cachedElements =
-    queryClient.getQueryData<Gallery[]>(["admin_galleries"]) || [];
+    queryClient.getQueryData<Gallery[]>(["admin_galleries", rok]) || [];
 
   const cachedElement = cachedElements.find((object) => object.id === id);
   const directCachedElement = queryClient.getQueryData<Gallery>([
@@ -54,9 +55,11 @@ const AdminGalleryPageId = () => {
     );
   }
 
+  console.log(data);
+
   const revalidateFunction = async () => {
     const cachedElements =
-      queryClient.getQueryData<Gallery[]>(["admin_galleries"]) || [];
+      queryClient.getQueryData<Gallery[]>(["admin_galleries", rok]) || [];
 
     if (cachedElements.length > 0) {
       const cachedElement = cachedElements.find((object) => object.id === id);
@@ -68,8 +71,8 @@ const AdminGalleryPageId = () => {
       );
     } else {
       const data2: Gallery[] = await queryClient.fetchQuery({
-        queryKey: ["admin_galleries"],
-        queryFn: () => fetchGalleriesToken(token),
+        queryKey: ["admin_galleries", rok],
+        queryFn: () => fetchGalleriesYearToken(token, rok),
       });
 
       const cachedElement = data2.find((object) => object.id === id);
@@ -92,6 +95,8 @@ const AdminGalleryPageId = () => {
       )}
 
       {data == null && <AdminNotAuthorized />}
+
+      {data === undefined && <p>Neexistuje album</p>}
     </div>
   );
 };

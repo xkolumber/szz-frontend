@@ -87,17 +87,17 @@ const GalleryPageId = () => {
     setOpen(true);
     setInitialSlide(index);
   };
-
   return (
     <div className="own_edge relative overflow-hidden">
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Späť do galérie" link={`/galeria`} />
+        {data === undefined && <p>Album neexsituje</p>}
         {data ? (
           <>
             <div className="flex items-center flex-col">
               <h1 className="text-center">{data?.nazov}</h1>
               <p className="opacity-60">{data.datum}</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8 w-full">
                 {data.fotky.map((object, index) => (
                   <div key={index} className="relative w-full h-[280px]">
                     <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-[16px]"></div>
