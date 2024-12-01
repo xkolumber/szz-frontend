@@ -34,14 +34,22 @@ const AboutUs = () => {
           <h2 className="text-center">O nás</h2>
           {data && (
             <div>
-              <p className="pt-8">{data.text1}</p>
+              <div
+                className="content"
+                dangerouslySetInnerHTML={{ __html: data.text1 }}
+              />
               <img
                 width={120}
                 height={120}
                 src={data.foto1}
                 className="mt-4 mb-4 cursor-pointer object-cover w-full h-full rounded-[16px]"
               />
-              {data.text2 && <p className="mt-[40px]">{data.text2}</p>}
+              {data.text2 && (
+                <div
+                  className="content mt-[40px] "
+                  dangerouslySetInnerHTML={{ __html: data.text2 }}
+                />
+              )}
 
               {data.foto2 && (
                 <img
@@ -51,7 +59,12 @@ const AboutUs = () => {
                   className="mt-4 mb-4 cursor-pointer object-cover w-full h-full rounded-[16px]"
                 />
               )}
-              {data.text3 && <p className="mt-[40px]">{data.text2}</p>}
+              {data.text3 && (
+                <div
+                  className="content mt-[40px] "
+                  dangerouslySetInnerHTML={{ __html: data.text3 }}
+                />
+              )}
               {data.foto3 && (
                 <img
                   width={600}

@@ -4,10 +4,11 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
+import { CompressImage } from "../../../lib/functions";
 import { isValidDate } from "../../../lib/functionsClient";
 import { AboutUsPage } from "../../../lib/interface";
 import IconUpload from "../../Icons/IconUpload";
-import { CompressImage } from "../../../lib/functions";
+import Tiptap from "../../TipTapEditor/TipTap";
 
 interface Props {
   data: AboutUsPage;
@@ -195,19 +196,23 @@ const AdminAboutUsComponent = ({ data, refetch }: Props) => {
     };
   }, [openPopUp]);
 
+  const handleTextChange = (field: string, value: string) => {
+    setActualizeData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
   return (
     <div>
       <form className=" products_admin " onSubmit={handleSaveData}>
-        <div className="product_admin_row">
-          <p>Text1:</p>
-          <textarea
-            name="text1"
-            onChange={handleChange}
-            className="w-[70%] !h-[24rem]"
-            value={actualizeData?.text1}
-            required
+        <div className="product_admin_row !flex-col">
+          <Tiptap
+            content={actualizeData.text1}
+            onChange={(value) => handleTextChange("text1", value)}
           />
         </div>
+
         <div className="product_admin_row">
           <p>Dátum:</p>
           <input
@@ -244,14 +249,10 @@ const AdminAboutUsComponent = ({ data, refetch }: Props) => {
           </div>
         </div>
 
-        <div className="product_admin_row">
-          <p>text2:</p>
-          <textarea
-            name="text2"
-            onChange={handleChange}
-            className="w-[70%] !h-[24rem]"
-            value={actualizeData?.text2}
-            required
+        <div className="product_admin_row !flex-col">
+          <Tiptap
+            content={actualizeData.text2}
+            onChange={(value) => handleTextChange("text2", value)}
           />
         </div>
         <div className="product_admin_row">
@@ -279,13 +280,10 @@ const AdminAboutUsComponent = ({ data, refetch }: Props) => {
           </div>
         </div>
 
-        <div className="product_admin_row">
-          <p>text3:</p>
-          <textarea
-            name="text3"
-            onChange={handleChange}
-            className="w-[70%] !h-[24rem]"
-            value={actualizeData?.text3}
+        <div className="product_admin_row !flex-col">
+          <Tiptap
+            content={actualizeData.text3}
+            onChange={(value) => handleTextChange("text3", value)}
           />
         </div>
         <div className="product_admin_row">
