@@ -98,10 +98,10 @@ const AdminEventPageNew = () => {
 
   const handleSaveProduct = async (event: any) => {
     event.preventDefault();
-    if (!isValidTime(actualizeData.cas)) {
-      toast.error("Čas musí byť v tvare HH:MM.");
-      return;
-    }
+    // if (!isValidTime(actualizeData.cas)) {
+    //   toast.error("Čas musí byť v tvare HH:MM.");
+    //   return;
+    // }
     if (actualizeData.typ != "sk" && actualizeData.typ != "zah") {
       toast.error("Udalosť musí mať tvar sk alebo zah!");
       return;

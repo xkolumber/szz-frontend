@@ -88,10 +88,10 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
       return;
     }
 
-    if (!isValidTime(actualizeData.cas)) {
-      toast.error("Čas musí byť v tvare HH:MM.");
-      return;
-    }
+    // if (!isValidTime(actualizeData.cas)) {
+    //   toast.error("Čas musí byť v tvare HH:MM.");
+    //   return;
+    // }
 
     if (!isValidMonth(actualizeData.datum_mesiac)) {
       toast.error("Mesiac musí byť číslo od 1 po 12");

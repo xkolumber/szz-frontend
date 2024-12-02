@@ -140,7 +140,9 @@ const EventsPage = () => {
     <div className="own_edge min-h-screen overflow-hidden relative">
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
-        <h2 className="uppercase text-center pt-4">výstavy a podujatia</h2>
+        <h2 className="uppercase text-center pt-4">
+          Tipy na výstavy a aktivity zväzu
+        </h2>
         <div className="flex flex-col md:flex-row justify-center mb-[40px] mt-[20px] z-50 relative">
           <div className="flex flex-row items-center gap-6 mr-[40px]">
             <p className="uppercase font-medium w-[60px]">Mesiac</p>

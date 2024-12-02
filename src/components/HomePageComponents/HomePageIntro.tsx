@@ -107,7 +107,7 @@ const HomePageIntro = () => {
               {" "}
               <ButtonWithArrow
                 link="zvaz"
-                title="Otvoriť"
+                title="Klikni sem"
                 bg="#ffffff"
                 color="#47261C"
                 justifyCenterMobile={true}
