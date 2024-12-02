@@ -323,8 +323,6 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
     }));
   };
 
-  console.log(actualizeData);
-
   return (
     <div>
       {data && (

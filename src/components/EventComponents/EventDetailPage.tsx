@@ -144,8 +144,12 @@ const EventDetailPage = () => {
             </div>
 
             <div className="max-w-[900px] m-auto mt-[80px]">
-              <p>{data.text1}</p>
-              <p className=" mt-[80px]">{data.text2}</p>
+              {data.text1 && (
+                <div
+                  className="content mt-[40px] "
+                  dangerouslySetInnerHTML={{ __html: data.text1 }}
+                />
+              )}
               {data.pdf.length > 0 && (
                 <>
                   <h5 className="uppercase mt-[80px]">Dokumenty k podujatiu</h5>

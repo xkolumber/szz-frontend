@@ -69,9 +69,10 @@ const HomePageBlogSection = () => {
                 <h5 className="uppercase mt-[24px]">
                   {existingBlogs[0].nazov_blog}
                 </h5>
-                <p className="opacity-80 line-clamp-2 ">
-                  {existingBlogs[0].popis1}
-                </p>
+                <div
+                  className="content opacity-80 line-clamp-2 "
+                  dangerouslySetInnerHTML={{ __html: existingBlogs[0].popis1 }}
+                />
               </Link>
               <div className="hidden lg:flex flex-col md:w-1/2 gap-[24px]">
                 {existingBlogs &&
@@ -91,9 +92,10 @@ const HomePageBlogSection = () => {
                         <h6 className="pt-[8px] uppercase line-clamp-2">
                           {object.nazov_blog}
                         </h6>
-                        <p className="line-clamp-4 opacity-80 pt-[8px]">
-                          {object.popis1}
-                        </p>
+                        <div
+                          className="content line-clamp-4 opacity-80 pt-[8px] "
+                          dangerouslySetInnerHTML={{ __html: object.popis1 }}
+                        />
                       </div>
                     </Link>
                   ))}

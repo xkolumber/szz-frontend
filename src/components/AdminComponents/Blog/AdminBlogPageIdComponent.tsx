@@ -12,6 +12,7 @@ import IconTrash from "../../Icons/IconTrash";
 import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
 import { CompressImage } from "../../../lib/functions";
+import Tiptap from "../../TipTapEditor/TipTap";
 
 interface Props {
   data: Blog;
@@ -327,6 +328,14 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
       return updatedData;
     });
   };
+
+  const handleTextChange = (field: string, value: string) => {
+    setActualizeData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
   return (
     <div>
       {data && (
@@ -385,14 +394,11 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
               </div>
             </div>
 
-            <div className="product_admin_row">
-              <p>Popis1:</p>
-              <textarea
-                name="popis1"
-                onChange={handleChange}
-                className="w-[70%] !h-[24rem]"
-                value={actualizeData?.popis1}
-                required
+            <div className="product_admin_row !flex-col">
+              <p>Popis 1:</p>
+              <Tiptap
+                content={actualizeData.popis1}
+                onChange={(value) => handleTextChange("popis1", value)}
               />
             </div>
             <div className="product_admin_row">
@@ -429,15 +435,14 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
               </div>
             </div>
 
-            <div className="product_admin_row">
-              <p>Popis2:</p>
-              <textarea
-                name="popis2"
-                onChange={handleChange}
-                className="w-[70%] !h-[24rem]"
-                value={actualizeData?.popis2}
+            <div className="product_admin_row !flex-col">
+              <p>Popis 2:</p>
+              <Tiptap
+                content={actualizeData.popis2}
+                onChange={(value) => handleTextChange("popis2", value)}
               />
             </div>
+
             <div className="product_admin_row">
               <p>Foto2:</p>
               <div className="flex flex-col w-[75%]">
@@ -472,15 +477,14 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
               </div>
             </div>
 
-            <div className="product_admin_row">
+            <div className="product_admin_row !flex-col">
               <p>Popis 3:</p>
-              <textarea
-                name="popis3"
-                onChange={handleChange}
-                className="w-[70%] !h-[24rem]"
-                value={actualizeData?.popis3}
+              <Tiptap
+                content={actualizeData.popis3}
+                onChange={(value) => handleTextChange("popis3", value)}
               />
             </div>
+
             <div className="product_admin_row">
               <p>Foto3:</p>
               <div className="flex flex-col w-[75%]">

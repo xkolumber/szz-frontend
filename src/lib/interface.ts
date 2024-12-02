@@ -19,7 +19,6 @@ export interface ActualEvent {
   hostia: string;
   titulna_foto: string;
   text1: string;
-  text2: string;
   slug: string;
   typ: "sk" | "zah";
   pdf: Pdf[];
@@ -124,4 +123,11 @@ export interface Tlacivo {
   link: string;
   nazov: string;
   typ: string;
+}
+
+export interface Oznamy {
+  id: string;
+  viditelnost: boolean;
+  text: string;
+  datum: string;
 }

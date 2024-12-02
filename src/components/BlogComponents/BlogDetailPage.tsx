@@ -71,7 +71,12 @@ const BlogDetailPage = () => {
             </div>
 
             <div className="max-w-[900px] m-auto mt-8 xl:mt-[80px]">
-              {blogData.popis1 && <p>{blogData.popis1}</p>}
+              {blogData.popis1 && (
+                <div
+                  className="content  "
+                  dangerouslySetInnerHTML={{ __html: blogData.popis1 }}
+                />
+              )}
 
               {blogData.foto1 && (
                 <img
@@ -81,8 +86,12 @@ const BlogDetailPage = () => {
                   className="rounded-[16px] w-full max-w-[622px] max-h-[459px] object-cover mt-8 m-auto"
                 />
               )}
+
               {blogData.popis2 && (
-                <p className="mt-8 xl:mt-40">{blogData.popis2}</p>
+                <div
+                  className="content mt-8 xl:mt-40 "
+                  dangerouslySetInnerHTML={{ __html: blogData.popis2 }}
+                />
               )}
 
               {blogData.foto2 && (
@@ -94,7 +103,10 @@ const BlogDetailPage = () => {
                 />
               )}
               {blogData.popis3 && (
-                <p className="mt-8 xl:mt-40">{blogData.popis3}</p>
+                <div
+                  className="content mt-8 xl:mt-40 "
+                  dangerouslySetInnerHTML={{ __html: blogData.popis3 }}
+                />
               )}
 
               {blogData.foto2 && (
@@ -162,7 +174,10 @@ const BlogDetailPage = () => {
               <h5 className="pt-[8px] line-clamp-1 uppercase">
                 {object.nazov_blog}
               </h5>
-              <p className="opacity-80 line-clamp-2">{object.popis1}</p>
+              <div
+                className="content opacity-80 line-clamp-2 "
+                dangerouslySetInnerHTML={{ __html: object.popis1 }}
+              />
             </Link>
           ))}
         </div>

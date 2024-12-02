@@ -12,6 +12,7 @@ import { useDropzone } from "react-dropzone";
 import classNames from "classnames";
 import IconUpload from "../../Icons/IconUpload";
 import { CompressImage } from "../../../lib/functions";
+import Tiptap from "../../TipTapEditor/TipTap";
 
 interface Props {
   data: ActualEvent;
@@ -120,7 +121,6 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
             hostia: actualizeData.hostia,
             titulna_foto: actualizeData.titulna_foto,
             text1: actualizeData.text1,
-            text2: actualizeData.text2,
             slug: actualizeData.slug,
             typ: actualizeData.typ,
             pdf: actualizeData.pdf,
@@ -342,6 +342,13 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
     "bg-gray-200": false,
   });
 
+  const handleTextChange = (field: string, value: string) => {
+    setActualizeData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
   return (
     <div>
       {data && (
@@ -465,24 +472,13 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
                 </div>
               </div>
             </div>
-            <div className="product_admin_row">
-              <p>Text 1:</p>
-              <textarea
-                name="text1"
-                onChange={handleChange}
-                className="w-[70%] !h-[24rem]"
-                value={actualizeData?.text1}
+            <div className="product_admin_row !flex-col">
+              <Tiptap
+                content={actualizeData.text1}
+                onChange={(value) => handleTextChange("text1", value)}
               />
             </div>
-            <div className="product_admin_row">
-              <p>Text 2:</p>
-              <textarea
-                name="text2"
-                onChange={handleChange}
-                className="w-[70%] !h-[24rem]"
-                value={actualizeData?.text2}
-              />
-            </div>
+
             <div className="product_admin_row">
               <p>Typ: sk | zah </p>
               <input
