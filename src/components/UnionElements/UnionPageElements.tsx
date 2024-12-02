@@ -203,7 +203,10 @@ const UnionPageElements = ({ data }: Props) => {
             {choosenUnionData ? (
               <div className="lg:pl-[80px]">
                 <h3>{choosenUnionData?.nazov}</h3>
-                <p className="mt-[40px]">{choosenUnionData?.text}</p>
+                <div
+                  className="content mt-[40px]"
+                  dangerouslySetInnerHTML={{ __html: choosenUnionData.text }}
+                />
                 {choosenUnionData.pdf.length > 0 && (
                   <>
                     <h5 className="mt-[40px] uppercase">

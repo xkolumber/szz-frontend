@@ -9,6 +9,7 @@ import { createSlug } from "../../../lib/functionsClient";
 import { SelectOption, UnionData } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import StepBack from "../../StepBack";
+import Tiptap from "../../TipTapEditor/TipTap";
 
 interface Props {
   data: UnionData;
@@ -315,6 +316,15 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
     }
   }, [dataLoading]);
 
+  const handleTextChange = (field: string, value: string) => {
+    setActualizeData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  console.log(actualizeData);
+
   return (
     <div>
       {data && (
@@ -356,15 +366,11 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
                 required
               />
             </div>
-            <div className="product_admin_row">
-              <p>Text:</p>
-              <textarea
-                name="text"
-                onChange={handleChange}
-                className="w-[70%] !h-[24rem]"
-                value={actualizeData?.text}
-                maxLength={250}
-                required
+            <div className="product_admin_row !flex-col items-start">
+              <p className="text-left">Text:</p>
+              <Tiptap
+                content={actualizeData.text}
+                onChange={(value) => handleTextChange("text", value)}
               />
             </div>
             <div className="product_admin_row">
