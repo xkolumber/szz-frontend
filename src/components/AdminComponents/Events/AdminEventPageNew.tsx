@@ -1,22 +1,18 @@
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import classNames from "classnames";
 import React, { useCallback, useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import {
-  createSlug,
-  isValidMonth,
-  isValidTime,
-} from "../../../lib/functionsClient";
+import { CompressImage } from "../../../lib/functions";
+import { createSlug, isValidMonth } from "../../../lib/functionsClient";
 import { ActualEvent } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
+import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
-import { useQueryClient } from "@tanstack/react-query";
-import { useDropzone } from "react-dropzone";
-import classNames from "classnames";
-import IconUpload from "../../Icons/IconUpload";
-import { CompressImage } from "../../../lib/functions";
 
 const AdminEventPageNew = () => {
   const queryClient = useQueryClient();
@@ -98,10 +94,6 @@ const AdminEventPageNew = () => {
 
   const handleSaveProduct = async (event: any) => {
     event.preventDefault();
-    // if (!isValidTime(actualizeData.cas)) {
-    //   toast.error("Čas musí byť v tvare HH:MM.");
-    //   return;
-    // }
     if (actualizeData.typ != "sk" && actualizeData.typ != "zah") {
       toast.error("Udalosť musí mať tvar sk alebo zah!");
       return;

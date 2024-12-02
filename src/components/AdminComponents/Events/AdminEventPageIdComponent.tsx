@@ -1,17 +1,17 @@
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import classNames from "classnames";
 import React, { useCallback, useState } from "react";
+import { useDropzone } from "react-dropzone";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { isValidMonth, isValidTime } from "../../../lib/functionsClient";
+import { CompressImage } from "../../../lib/functions";
+import { isValidMonth } from "../../../lib/functionsClient";
 import { ActualEvent } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
-import StepBack from "../../StepBack";
-import { useQueryClient } from "@tanstack/react-query";
-import { useDropzone } from "react-dropzone";
-import classNames from "classnames";
 import IconUpload from "../../Icons/IconUpload";
-import { CompressImage } from "../../../lib/functions";
+import StepBack from "../../StepBack";
 import Tiptap from "../../TipTapEditor/TipTap";
 
 interface Props {
@@ -87,11 +87,6 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
       toast.error("Udalosť musí mať tvar sk alebo zah!");
       return;
     }
-
-    // if (!isValidTime(actualizeData.cas)) {
-    //   toast.error("Čas musí byť v tvare HH:MM.");
-    //   return;
-    // }
 
     if (!isValidMonth(actualizeData.datum_mesiac)) {
       toast.error("Mesiac musí byť číslo od 1 po 12");
