@@ -58,6 +58,9 @@ import DocumentsPage from "./components/DocumentsPage";
 import RecommendPage from "./components/RecommendedComponents/RecommendPage";
 import AdminGalleryPageYear from "./components/AdminComponents/Gallery/AdminGalleryPageYear";
 import AdminContactPage from "./components/AdminComponents/ContactPage/AdminContactPage";
+import AdminAnnouncementsPage from "./components/AdminComponents/Announcements/AdminAnnouncementsPage";
+import AdminAnnPageId from "./components/AdminComponents/Announcements/AdminAnnPageId";
+import AdminAnnPageNew from "./components/AdminComponents/Announcements/AdminAnnPageNew";
 
 interface LayoutProps {
   children: ReactNode;
@@ -201,6 +204,10 @@ function App() {
           />
           <Route path="aktualne-prace" element={<AdminActualJobs />} />
           <Route path="aktualne-prace/:id" element={<AdminActualJobId />} />
+
+          <Route path="oznamy" element={<AdminAnnouncementsPage />} />
+          <Route path="oznamy/:id" element={<AdminAnnPageId />} />
+          <Route path="oznamy/novy-oznam" element={<AdminAnnPageNew />} />
 
           <Route path="zvaz" element={<AdminUnionPage />} />
           <Route path="zvaz/:id" element={<AdminUnionPageId />} />

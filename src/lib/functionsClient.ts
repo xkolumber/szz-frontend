@@ -63,6 +63,10 @@ export const navbar_admin_data = [
     slug: "/admin/otazky-a-odpovede",
   },
   {
+    title: "Oznamy",
+    slug: "/admin/oznamy",
+  },
+  {
     title: "Výstavy a podujatia",
     slug: "/admin/vystavy-a-podujatia",
   },

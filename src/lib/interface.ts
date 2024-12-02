@@ -130,4 +130,6 @@ export interface Oznamy {
   viditelnost: boolean;
   text: string;
   datum: string;
+  nazov: string;
+  foto: string;
 }

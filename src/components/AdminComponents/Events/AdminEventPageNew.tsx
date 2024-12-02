@@ -41,7 +41,6 @@ const AdminEventPageNew = () => {
     hostia: "",
     titulna_foto: "",
     text1: "",
-    text2: "",
     slug: "",
     typ: "sk",
     pdf: [],
@@ -138,7 +137,6 @@ const AdminEventPageNew = () => {
             hostia: actualizeData.hostia,
             titulna_foto: actualizeData.titulna_foto,
             text1: actualizeData.text1,
-            text2: actualizeData.text2,
             slug: createSlug(actualizeData.nazov_vystavy),
             typ: actualizeData.typ,
             pdf: actualizeData.pdf,
@@ -464,15 +462,6 @@ const AdminEventPageNew = () => {
                 onChange={handleChange}
                 className="w-[70%] !h-[24rem]"
                 value={actualizeData?.text1}
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Text 2:</p>
-              <textarea
-                name="text2"
-                onChange={handleChange}
-                className="w-[70%] !h-[24rem]"
-                value={actualizeData?.text2}
               />
             </div>
             <div className="product_admin_row">
