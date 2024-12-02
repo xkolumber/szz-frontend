@@ -98,6 +98,12 @@ export interface AboutUsPage {
   datum: string;
 }
 
+export interface ContactPageInterface {
+  id: string;
+  foto1: string;
+  text1: string;
+}
+
 export interface Archive {
   id: string;
   pdf_link: string;

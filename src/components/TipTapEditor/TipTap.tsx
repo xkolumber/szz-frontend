@@ -1,9 +1,4 @@
-import {
-  BubbleMenu,
-  EditorContent,
-  FloatingMenu,
-  useEditor,
-} from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect } from "react";
 import { MenuBar } from "./MenuBar";
@@ -31,23 +26,12 @@ const Tiptap = ({ content, onChange }: Props) => {
       <MenuBar editor={editor} />
       <EditorContent
         editor={editor}
-        style={{ border: "1px solid #ddd", padding: "10px" }}
+        style={{
+          border: "1px solid #ddd",
+          padding: "10px",
+          width: "100%",
+        }}
       />
-
-      {editor && (
-        <FloatingMenu editor={editor} tippyOptions={{ duration: 100 }}>
-          <button onClick={() => editor.chain().focus().toggleBold().run()}>
-            Bold
-          </button>
-        </FloatingMenu>
-      )}
-      {editor && (
-        <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
-          <button onClick={() => editor.chain().focus().toggleItalic().run()}>
-            Italic
-          </button>
-        </BubbleMenu>
-      )}
     </>
   );
 };

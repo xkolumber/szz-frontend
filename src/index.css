@@ -960,11 +960,14 @@ textarea:focus {
   h3 {
     font-size: 4rem;
   }
-
-  h4,
-  h5,
+  h4 {
+    font-size: 3.5rem;
+  }
+  h5 {
+    font-size: 3rem;
+  }
   h6 {
-    font-size: 1rem;
+    font-size: 2.5rem;
   }
 
   /* Code and preformatted text styles */
@@ -1040,6 +1043,7 @@ textarea.is-active {
   border: 1px solid black;
   border-radius: 8px;
   padding: 8px;
+  min-height: 600px;
 }
 
 p:empty {

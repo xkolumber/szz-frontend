@@ -42,7 +42,7 @@ const AboutUs = () => {
                 width={120}
                 height={120}
                 src={data.foto1}
-                className="mt-4 mb-4 cursor-pointer object-cover w-full h-full rounded-[16px]"
+                className="mt-4 mb-4 object-cover w-full h-full rounded-[16px]"
               />
               {data.text2 && (
                 <div

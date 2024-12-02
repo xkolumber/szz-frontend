@@ -1001,3 +1001,66 @@ export async function fetchGalleriesYearToken(
     return null;
   }
 }
+
+export async function getContactPageToken(token: string | null) {
+  if (token) {
+    try {
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_API_URL
+        }/admin/contact/getcontactpage/285cea37-e56b-4eb1-ba34-7b4e8cf1ea4e`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
+export async function getContactPageClient() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/contact/getcontactpageopen/285cea37-e56b-4eb1-ba34-7b4e8cf1ea4e`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.log("error");
+      return null;
+    }
+
+    const responseData = await response.json();
+
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}

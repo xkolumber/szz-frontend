@@ -57,6 +57,7 @@ import { NavbarProvider } from "./components/Provider";
 import DocumentsPage from "./components/DocumentsPage";
 import RecommendPage from "./components/RecommendedComponents/RecommendPage";
 import AdminGalleryPageYear from "./components/AdminComponents/Gallery/AdminGalleryPageYear";
+import AdminContactPage from "./components/AdminComponents/ContactPage/AdminContactPage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -180,6 +181,7 @@ function App() {
             element={<AdminNavbarDataNewId />}
           />
           <Route path="o-nas" element={<AdminAboutUs />} />
+          <Route path="kontakt" element={<AdminContactPage />} />
 
           <Route path="galeria" element={<AdminGalleryPage />} />
           <Route path="galeria/novy-album" element={<AdminGalleryPageNew />} />

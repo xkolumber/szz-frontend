@@ -51,6 +51,10 @@ export const navbar_admin_data = [
     slug: "/admin/hlavicka-odkazy",
   },
   {
+    title: "Kontakt",
+    slug: "/admin/kontakt",
+  },
+  {
     title: "O nás",
     slug: "/admin/o-nas",
   },
