@@ -62,9 +62,10 @@ import RecommendPage from "./components/RecommendedComponents/RecommendPage";
 import ScrollToTop from "./components/ScrollToTop";
 import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
-import PoradnaPage from "./PoradnaPage";
+import FaqPage from "./components/FaqPage";
 import DiscountPage from "./components/DiscountPage";
 import LecturesPage from "./components/LecturesPage";
+import PoradnaPage from "./components/PoradnaPage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -291,6 +292,14 @@ function App() {
           }
         />
 
+        <Route
+          path="/faq"
+          element={
+            <Layout>
+              <FaqPage />
+            </Layout>
+          }
+        />
         <Route
           path="/poradna"
           element={

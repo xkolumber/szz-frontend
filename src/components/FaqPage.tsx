@@ -1,9 +1,9 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import FaqElements from "./components/FaqElements";
-import { Faq } from "./lib/interface";
-import { fetchFaqDataClient } from "./lib/functions";
+import FaqElements from "./FaqElements";
+import { Faq } from "../lib/interface";
+import { fetchFaqDataClient } from "../lib/functions";
 
-const PoradnaPage = () => {
+const FaqPage = () => {
   const queryClient = useQueryClient();
 
   const cachedFaqs = queryClient.getQueryData<Faq[]>(["faq"]);
@@ -27,7 +27,7 @@ const PoradnaPage = () => {
           <div className="flex flex-col  ">
             <div className="flex flex-col lg:w-1/2">
               {" "}
-              <h2 className="uppercase max-w-[400px]">Poradňa</h2>
+              <h2 className="uppercase">Najčastejšie kladené otázky</h2>
               <p>Tu nájdete odpovede na najčastejšie kladené otázky.</p>
             </div>
             <p className="mt-4 md:mt-12">Loading...</p>
@@ -50,7 +50,7 @@ const PoradnaPage = () => {
         <div className="flex flex-col  ">
           <div className="flex flex-col lg:w-1/2">
             {" "}
-            <h2 className="uppercase max-w-[400px]">Poradňa</h2>
+            <h2 className="uppercase">Najčastejšie kladené otázky</h2>
             <p>Tu nájdete odpovede na najčastejšie kladené otázky.</p>
           </div>
           <div className="mt-4 md:mt-12">
@@ -62,4 +62,4 @@ const PoradnaPage = () => {
   );
 };
 
-export default PoradnaPage;
+export default FaqPage;

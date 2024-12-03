@@ -44,11 +44,11 @@ const HomePageFaq = () => {
           <div className="lg:w-1/2  mt-4 md:mt-0">
             <FaqElements homepage={true} data={dataFaqs} />
             <div className="flex flex-col md:flex-row justify-between items-center mt-16 md:mt-8 mb-16">
-              <h5 className="uppercase pb-2 md:pb-0">Viac nájdete v poradni</h5>
+              <h5 className="uppercase pb-2 md:pb-0">Viac nájdete tu</h5>
 
               <ButtonWithArrow
-                link="poradna"
-                title="Otvoriť poradňu"
+                link="faq"
+                title="Klik sem"
                 bg="#6B9156"
                 color="#ffffff"
                 justifyCenterMobile={true}
