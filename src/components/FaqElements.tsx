@@ -38,14 +38,12 @@ const FaqElements = ({ homepage, data }: Props) => {
               )}
             </div>
             {showText[index] && (
-              <p
-                className={`toggle_text_service opacity-80 ${
+              <div
+                className={`content toggle_text_service opacity-80 ${
                   homepage && "line-clamp-2"
                 }`}
-              >
-                {" "}
-                {question.odpoved}
-              </p>
+                dangerouslySetInnerHTML={{ __html: question.odpoved }}
+              />
             )}
           </div>
         ))}

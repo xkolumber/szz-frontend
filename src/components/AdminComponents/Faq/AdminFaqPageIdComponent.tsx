@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { Faq } from "../../../lib/interface";
 import StepBack from "../../StepBack";
+import Tiptap from "../../TipTapEditor/TipTap";
 
 interface Props {
   data: Faq;
@@ -109,6 +110,13 @@ const AdminFaqPageIdComponent = ({ data, onDataUpdated }: Props) => {
     }
   };
 
+  const handleTextChange = (field: string, value: string) => {
+    setActualizeData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
   return (
     <div>
       {data && (
@@ -129,14 +137,11 @@ const AdminFaqPageIdComponent = ({ data, onDataUpdated }: Props) => {
                 required
               />
             </div>
-            <div className="product_admin_row">
-              <p>Odpoved:</p>
-              <textarea
-                name="odpoved"
-                onChange={handleChange}
-                className="w-[70%] !h-[24rem]"
-                value={actualizeData?.odpoved}
-                required
+            <div className="product_admin_row !flex-col items-start">
+              <p className="text-left">Odpoveď:</p>
+              <Tiptap
+                content={actualizeData.odpoved}
+                onChange={(value) => handleTextChange("odpoved", value)}
               />
             </div>
 

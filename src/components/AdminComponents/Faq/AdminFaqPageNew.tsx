@@ -6,6 +6,7 @@ import { Faq } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
 import { useQueryClient } from "@tanstack/react-query";
+import Tiptap from "../../TipTapEditor/TipTap";
 
 const AdminFaqPageNew = () => {
   const queryClient = useQueryClient();
@@ -74,6 +75,13 @@ const AdminFaqPageNew = () => {
     }
   };
 
+  const handleTextChange = (field: string, value: string) => {
+    setActualizeData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
   return (
     <div>
       {authorized === "ano" && (
@@ -94,14 +102,11 @@ const AdminFaqPageNew = () => {
                 required
               />
             </div>
-            <div className="product_admin_row">
-              <p>Odpoved:</p>
-              <textarea
-                name="odpoved"
-                onChange={handleChange}
-                className="w-[70%] !h-[24rem]"
-                value={actualizeData?.odpoved}
-                required
+            <div className="product_admin_row !flex-col items-start">
+              <p className="text-left">Odpoveď:</p>
+              <Tiptap
+                content={actualizeData.odpoved}
+                onChange={(value) => handleTextChange("odpoved", value)}
               />
             </div>
 
