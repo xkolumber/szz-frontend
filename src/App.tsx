@@ -63,6 +63,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
 import PoradnaPage from "./PoradnaPage";
+import DiscountPage from "./components/DiscountPage";
+import LecturesPage from "./components/LecturesPage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -174,6 +176,22 @@ function App() {
           element={
             <Layout>
               <UnionPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/zlavy"
+          element={
+            <Layout>
+              <DiscountPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/prednasky"
+          element={
+            <Layout>
+              <LecturesPage />
             </Layout>
           }
         />
