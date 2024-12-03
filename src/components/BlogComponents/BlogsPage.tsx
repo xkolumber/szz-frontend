@@ -71,7 +71,10 @@ const BlogsPage = () => {
                 <h5 className="pt-[8px] line-clamp-1 uppercase">
                   {object.nazov_blog}
                 </h5>
-                <p className="opacity-80 pt-4 line-clamp-2">{object.popis1}</p>
+                <div
+                  className="content opacity-80 pt-4 line-clamp-2 "
+                  dangerouslySetInnerHTML={{ __html: object.popis1 }}
+                />
               </Link>
             ))}
           </div>
