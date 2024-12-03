@@ -1,5 +1,3 @@
-import React from "react";
-
 const PoradnaPage = () => {
   return (
     <div className="own_edge ">
