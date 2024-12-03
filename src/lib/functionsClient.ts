@@ -31,6 +31,10 @@ export const navbar_data = [
 
 export const navbar_admin_data = [
   {
+    title: "Aktuality",
+    slug: "/admin/aktuality",
+  },
+  {
     title: "Aktuálne práce",
     slug: "/admin/aktualne-prace",
   },

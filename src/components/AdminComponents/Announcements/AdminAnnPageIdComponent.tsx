@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import classNames from "classnames";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -11,27 +11,27 @@ import { isValidDate } from "../../../lib/functionsClient";
 import { Oznamy } from "../../../lib/interface";
 import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import Tiptap from "../../TipTapEditor/TipTap";
 
-const AdminAnnPageNew = () => {
-  const queryClient = useQueryClient();
+interface Props {
+  data: Oznamy;
+  onEventUpdated: () => void;
+}
 
+const AdminAnnPageIdComponent = ({ data, onEventUpdated }: Props) => {
+  const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
 
-  const [authorized] = useState("ano");
+  const [openPopUp, setOpenPopUp] = useState(false);
+
   const token = localStorage.getItem("token");
-  const navigate = useNavigate();
 
-  const [actualizeData, setActualizeData] = useState<Oznamy>({
-    id: "",
-    viditelnost: true,
-    text1: "",
-    datum: "",
-    nazov: "",
-    foto: "",
-  });
+  const navigate = useNavigate();
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  const [actualizeData, setActualizeData] = useState<Oznamy>(data);
 
   const handleChange = (
     e:
@@ -57,15 +57,16 @@ const AdminAnnPageNew = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/ann/addann`,
+        `${import.meta.env.VITE_API_URL}/admin/ann/updateann`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
+            id: data?.id,
             viditelnost: actualizeData.viditelnost,
             text1: actualizeData.text1,
             datum: actualizeData.datum,
@@ -79,11 +80,10 @@ const AdminAnnPageNew = () => {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
       const responseData = await response.json();
-
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Oznam bol úspešne vytvorený");
+        toast.success("Oznam bol aktualizovaný");
         await queryClient.refetchQueries({ queryKey: ["admin_announcements"] });
-        navigate("/admin/oznamy");
+        onEventUpdated();
       }
     } catch (error) {
       toast.error("niekde nastala chyba");
@@ -93,20 +93,53 @@ const AdminAnnPageNew = () => {
     }
   };
 
+  const handleDeleteItem = async () => {
+    try {
+      setIsLoadingDelete(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/ann/deleteann/${data!.id}`,
+        {
+          method: "delete",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            id: data?.id,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const responseData = await response.json();
+      if (responseData.$metadata.httpStatusCode === 200) {
+        toast.success("Oznam bol odstránený");
+        await queryClient.refetchQueries({ queryKey: ["admin_announcements"] });
+        navigate("/admin/oznamy");
+      }
+    } catch (error) {
+      toast.error("niekde nastala chyba");
+    } finally {
+      setIsLoadingDelete(false);
+    }
+  };
+
   const onDrop = useCallback(async (acceptedFiles: File[], key: string) => {
     const file = acceptedFiles[0];
     if (!file || !["image/jpeg", "image/png"].includes(file.type)) {
       toast.error("Please upload only image files (JPEG or PNG).");
       return;
     }
-
     setDataLoading(true);
 
     const compressedFile = await CompressImage(file);
 
     const formData = new FormData();
     formData.append("file", compressedFile!);
-
     axios
       .post(
         `${import.meta.env.VITE_API_URL}/admin/upload/blogphoto`,
@@ -137,7 +170,7 @@ const AdminAnnPageNew = () => {
   const createDropHandler = (key: string) => (acceptedFiles: File[]) =>
     onDrop(acceptedFiles, key);
 
-  const handleTitulnaPhotoDrop = createDropHandler("foto");
+  const handleTitulnaPhotoDrop = createDropHandler("titulna_foto");
 
   const {
     getRootProps: getTitulnaRootProps,
@@ -153,13 +186,34 @@ const AdminAnnPageNew = () => {
   });
 
   useEffect(() => {
-    if (dataLoading) {
+    if (dataLoading || openPopUp) {
       document.body.style.overflow = "hidden";
       return () => {
         document.body.style.overflow = "scroll";
       };
     }
-  }, [dataLoading]);
+  }, [dataLoading, openPopUp]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(event.target as Node)
+      ) {
+        setOpenPopUp(false);
+      }
+    };
+
+    if (openPopUp) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [openPopUp]);
 
   const handleTextChange = (field: string, value: string) => {
     setActualizeData((prev) => ({
@@ -170,11 +224,11 @@ const AdminAnnPageNew = () => {
 
   return (
     <div>
-      {authorized === "ano" && (
+      {data && (
         <div className=" w-full">
           <StepBack />
           <Toaster />
-          <h2>Nový oznam: </h2>
+          <h2>Úprava oznamu: {data.nazov}</h2>
 
           <form className=" products_admin " onSubmit={handleSaveProduct}>
             <div className="product_admin_row">
@@ -196,7 +250,6 @@ const AdminAnnPageNew = () => {
                 onChange={handleChange}
                 className="w-[70%]"
                 value={actualizeData?.datum}
-                placeholder="DD.MM.YYYY"
                 required
               />
             </div>
@@ -249,10 +302,10 @@ const AdminAnnPageNew = () => {
             <div className="flex flex-row justify-between mt-8">
               <button
                 className={`btn btn--tertiary ${
-                  isLoading && "disabledPrimaryBtn"
+                  (isLoading || dataLoading) && "disabledPrimaryBtn"
                 }`}
                 type="submit"
-                disabled={isLoading}
+                disabled={isLoading || dataLoading}
               >
                 {isLoading ? (
                   <ClipLoader
@@ -262,15 +315,30 @@ const AdminAnnPageNew = () => {
                     className="ml-16 mr-16"
                   />
                 ) : (
-                  "Pridať"
+                  "Aktualizovať"
+                )}
+              </button>
+              <button
+                className="btn btn--primary !bg-red-500 "
+                onClick={handleDeleteItem}
+                type="button"
+                disabled={isLoadingDelete}
+              >
+                {isLoadingDelete ? (
+                  <ClipLoader
+                    size={20}
+                    color={"#00000"}
+                    loading={true}
+                    className="ml-16 mr-16"
+                  />
+                ) : (
+                  "Odstrániť"
                 )}
               </button>
             </div>
           </form>
         </div>
       )}
-
-      {authorized === "nie" && <AdminNotAuthorized />}
 
       {dataLoading && (
         <>
@@ -291,4 +359,4 @@ const AdminAnnPageNew = () => {
   );
 };
 
-export default AdminAnnPageNew;
+export default AdminAnnPageIdComponent;

@@ -83,8 +83,8 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
   const handleSaveProduct = async (event: any) => {
     event.preventDefault();
 
-    if (actualizeData.typ != "sk" && actualizeData.typ != "zah") {
-      toast.error("Udalosť musí mať tvar sk alebo zah!");
+    if (actualizeData.typ != "vsetky" && actualizeData.typ != "zvaz") {
+      toast.error("Udalosť musí mať tvar vsetky alebo zvaz!");
       return;
     }
 
@@ -475,7 +475,7 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
             </div>
 
             <div className="product_admin_row">
-              <p>Typ: sk | zah </p>
+              <p>Typ: vsetky | zvaz </p>
               <input
                 type="text"
                 name="typ"

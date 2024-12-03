@@ -125,7 +125,7 @@ const HomePageIntro = () => {
             </div>
           </div>
           <div className="flex flex-col md:flex-row md:gap-32">
-            <div className="flex flex-row mt-16">
+            <Link className="flex flex-row mt-16" to={"/aktuality"}>
               <div className="flex flex-row gap-[16px]">
                 <div className="">
                   <div className="bg-[#739C65] w-24 h-24 flex items-center justify-center rounded-[8px]">
@@ -134,10 +134,10 @@ const HomePageIntro = () => {
                 </div>
                 <div className="flex flex-col justify-center">
                   <h6 className="uppercase">Ochrana rastlín</h6>
-                  <p>Ing. Matlák</p>
+                  <p>Aktuality</p>
                 </div>
               </div>
-            </div>
+            </Link>
             <div className="flex flex-row mt-16 mb-12 md:mb-0">
               <Link
                 className="flex flex-row gap-[16px]"

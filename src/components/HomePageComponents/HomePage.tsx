@@ -10,9 +10,12 @@ const HomePage = () => {
       <HomePageIntro />
 
       <div className="z-[200] relative">
+        <HomePageEvents />
+      </div>
+      <div className="z-[200] relative">
         <HomePageActualJobs />
       </div>
-      <HomePageEvents />
+
       <HomePageBlogSection />
       <HomePageFaq />
     </>

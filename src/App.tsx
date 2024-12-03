@@ -1,12 +1,17 @@
 import { ReactNode } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AboutUs from "./components/AboutUs";
+import ActualityPage from "./components/ActualityPage";
+import AdminAboutUs from "./components/AdminComponents/AboutUs/AdminAboutUs";
+import AdminActualityPage from "./components/AdminComponents/Actuality/AdminActualityPage";
 import AdminActualJobId from "./components/AdminComponents/ActualJob/AdminActualJobId";
 import AdminActualJobNewMonth from "./components/AdminComponents/ActualJob/AdminActualJobNewMonth";
 import AdminActualJobs from "./components/AdminComponents/ActualJob/AdminActualJobs";
-import AdminAboutUs from "./components/AdminComponents/AboutUs/AdminAboutUs";
 import AdminLayout from "./components/AdminComponents/AdminLayout";
 import AdminPage from "./components/AdminComponents/AdminPage";
+import AdminAnnouncementsPage from "./components/AdminComponents/Announcements/AdminAnnouncementsPage";
+import AdminAnnPageId from "./components/AdminComponents/Announcements/AdminAnnPageId";
+import AdminAnnPageNew from "./components/AdminComponents/Announcements/AdminAnnPageNew";
 import AdminArchivePage from "./components/AdminComponents/Archiv/AdminArchivePage";
 import AdminArchivePageId from "./components/AdminComponents/Archiv/AdminArchivePageId";
 import AdminArchivePageNew from "./components/AdminComponents/Archiv/AdminArchivePageNew";
@@ -14,6 +19,10 @@ import AdminArchivePageYear from "./components/AdminComponents/Archiv/AdminArchi
 import AdminBlogPageId from "./components/AdminComponents/Blog/AdminBlogPageId";
 import AdminBlogPageNew from "./components/AdminComponents/Blog/AdminBlogPageNew";
 import AdminBlogsPage from "./components/AdminComponents/Blog/AdminBlogsPage";
+import AdminContactPage from "./components/AdminComponents/ContactPage/AdminContactPage";
+import AdminDocs from "./components/AdminComponents/Docs/AdminDocs";
+import AdminDocsId from "./components/AdminComponents/Docs/AdminDocsId";
+import AdminDocsNew from "./components/AdminComponents/Docs/AdminDocsNew";
 import AdminEventPageId from "./components/AdminComponents/Events/AdminEventPageId";
 import AdminEventPageNew from "./components/AdminComponents/Events/AdminEventPageNew";
 import AdminEventsPage from "./components/AdminComponents/Events/AdminEventsPage";
@@ -23,15 +32,22 @@ import AdminFaqPageNew from "./components/AdminComponents/Faq/AdminFaqPageNew";
 import AdminGalleryPage from "./components/AdminComponents/Gallery/AdminGalleryPage";
 import AdminGalleryPageId from "./components/AdminComponents/Gallery/AdminGalleryPageId";
 import AdminGalleryPageNew from "./components/AdminComponents/Gallery/AdminGalleryPageNew";
+import AdminGalleryPageYear from "./components/AdminComponents/Gallery/AdminGalleryPageYear";
 import AdminNavbarData from "./components/AdminComponents/NavbarData/AdminNavbarData";
 import AdminNavbarDataId from "./components/AdminComponents/NavbarData/AdminNavbarDataId";
 import AdminNavbarDataNewId from "./components/AdminComponents/NavbarData/AdminNavbarDataNewId";
+import AdminSponsorId from "./components/AdminComponents/Sponsors/AdminSponsorId";
+import AdminSponsorNew from "./components/AdminComponents/Sponsors/AdminSponsorNew";
+import AdminSponsors from "./components/AdminComponents/Sponsors/AdminSponsors";
 import AdminUnionPage from "./components/AdminComponents/Union/AdminUnionPage";
 import AdminUnionPageId from "./components/AdminComponents/Union/AdminUnionPageId";
 import AdminUnionPageNew from "./components/AdminComponents/Union/AdminUnionPageNew";
 import ArchivePage from "./components/ArchiveComponents/ArchivePage";
+import ArchivePageYear from "./components/ArchiveComponents/ArchivePageYear";
 import BlogDetailPage from "./components/BlogComponents/BlogDetailPage";
 import BlogsPage from "./components/BlogComponents/BlogsPage";
+import ContactPage from "./components/ContactPage";
+import DocumentsPage from "./components/DocumentsPage";
 import EventDetailPage from "./components/EventComponents/EventDetailPage";
 import EventsPage from "./components/EventComponents/EventsPage";
 import Footer from "./components/Footer";
@@ -41,26 +57,12 @@ import HomePage from "./components/HomePageComponents/HomePage";
 import Navbar from "./components/Navbar";
 import NavbarInfo from "./components/NavbarInfo";
 import NotFound from "./components/NotFound";
+import { NavbarProvider } from "./components/Provider";
+import RecommendPage from "./components/RecommendedComponents/RecommendPage";
 import ScrollToTop from "./components/ScrollToTop";
 import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
 import PoradnaPage from "./PoradnaPage";
-import ArchivePageYear from "./components/ArchiveComponents/ArchivePageYear";
-import AdminSponsors from "./components/AdminComponents/Sponsors/AdminSponsors";
-import AdminSponsorNew from "./components/AdminComponents/Sponsors/AdminSponsorNew";
-import AdminSponsorId from "./components/AdminComponents/Sponsors/AdminSponsorId";
-import AdminDocs from "./components/AdminComponents/Docs/AdminDocs";
-import AdminDocsNew from "./components/AdminComponents/Docs/AdminDocsNew";
-import AdminDocsId from "./components/AdminComponents/Docs/AdminDocsId";
-import ContactPage from "./components/ContactPage";
-import { NavbarProvider } from "./components/Provider";
-import DocumentsPage from "./components/DocumentsPage";
-import RecommendPage from "./components/RecommendedComponents/RecommendPage";
-import AdminGalleryPageYear from "./components/AdminComponents/Gallery/AdminGalleryPageYear";
-import AdminContactPage from "./components/AdminComponents/ContactPage/AdminContactPage";
-import AdminAnnouncementsPage from "./components/AdminComponents/Announcements/AdminAnnouncementsPage";
-import AdminAnnPageId from "./components/AdminComponents/Announcements/AdminAnnPageId";
-import AdminAnnPageNew from "./components/AdminComponents/Announcements/AdminAnnPageNew";
 
 interface LayoutProps {
   children: ReactNode;
@@ -175,6 +177,14 @@ function App() {
             </Layout>
           }
         />
+        <Route
+          path="/aktuality"
+          element={
+            <Layout>
+              <ActualityPage />
+            </Layout>
+          }
+        />
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminPage />} />
           <Route path="hlavicka-odkazy" element={<AdminNavbarData />} />
@@ -184,6 +194,7 @@ function App() {
             element={<AdminNavbarDataNewId />}
           />
           <Route path="o-nas" element={<AdminAboutUs />} />
+          <Route path="aktuality" element={<AdminActualityPage />} />
           <Route path="kontakt" element={<AdminContactPage />} />
 
           <Route path="galeria" element={<AdminGalleryPage />} />

@@ -13,6 +13,7 @@ import axios from "axios";
 import IconTrash from "../../Icons/IconTrash";
 import { useQueryClient } from "@tanstack/react-query";
 import { CompressImage } from "../../../lib/functions";
+import Tiptap from "../../TipTapEditor/TipTap";
 
 const AdminBlogNew = () => {
   const queryClient = useQueryClient();
@@ -272,6 +273,13 @@ const AdminBlogNew = () => {
     }
   }, [dataLoading]);
 
+  const handleTextChange = (field: string, value: string) => {
+    setActualizeData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
   return (
     <div>
       {authorized === "ano" && (
@@ -327,14 +335,12 @@ const AdminBlogNew = () => {
                 </div>
               </div>
             </div>
-            <div className="product_admin_row">
-              <p>Popis1:</p>
-              <textarea
-                name="popis1"
-                onChange={handleChange}
-                className="w-[70%] !h-[24rem]"
-                value={actualizeData?.popis1}
-                required
+
+            <div className="product_admin_row !flex-col">
+              <p>Popis 1:</p>
+              <Tiptap
+                content={actualizeData.popis1}
+                onChange={(value) => handleTextChange("popis1", value)}
               />
             </div>
             <div className="product_admin_row">
@@ -361,13 +367,11 @@ const AdminBlogNew = () => {
               </div>
             </div>
 
-            <div className="product_admin_row">
-              <p>Popis2:</p>
-              <textarea
-                name="popis2"
-                onChange={handleChange}
-                className="w-[70%] !h-[24rem]"
-                value={actualizeData?.popis2}
+            <div className="product_admin_row !flex-col">
+              <p>Popis 2:</p>
+              <Tiptap
+                content={actualizeData.popis2}
+                onChange={(value) => handleTextChange("popis2", value)}
               />
             </div>
             <div className="product_admin_row">
@@ -393,13 +397,11 @@ const AdminBlogNew = () => {
                 </div>
               </div>
             </div>
-            <div className="product_admin_row">
+            <div className="product_admin_row !flex-col">
               <p>Popis 3:</p>
-              <textarea
-                name="popis3"
-                onChange={handleChange}
-                className="w-[70%] !h-[24rem]"
-                value={actualizeData?.popis3}
+              <Tiptap
+                content={actualizeData.popis3}
+                onChange={(value) => handleTextChange("popis3", value)}
               />
             </div>
             <div className="product_admin_row">

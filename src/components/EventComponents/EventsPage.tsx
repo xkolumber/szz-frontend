@@ -50,7 +50,7 @@ const EventsPage = () => {
         setSelectedMonth(defaultMonth);
       }
 
-      if (stat === "sk" || stat === "zah") {
+      if (stat === "vsetky" || stat === "zvaz") {
         setCountry(stat);
       } else {
         setCountry("vsetky");
@@ -165,19 +165,19 @@ const EventsPage = () => {
           <div className="flex flex-row items-center gap-[40px] pt-8 md:pt-0">
             <h6
               className={`uppercase cursor-pointer ${
-                country === "sk" && "text-[#6B9156]"
+                country === "vsetky" && "text-[#6B9156]"
               }`}
-              onClick={() => handleChangeCountry("sk")}
+              onClick={() => handleChangeCountry("vsetky")}
             >
-              Slovenské
+              Všetky
             </h6>
             <h6
               className={`uppercase cursor-pointer  ${
-                country === "zah" && "text-[#6B9156]"
+                country === "zvaz" && "text-[#6B9156]"
               }`}
-              onClick={() => handleChangeCountry("zah")}
+              onClick={() => handleChangeCountry("zvaz")}
             >
-              Zahraničné
+              AKTIVITY SZZ OV/MV/ZO,o.j.z.
             </h6>
           </div>
         </div>

@@ -7,14 +7,13 @@ import { getActualJobs } from "../../lib/functions";
 import { ActualJob } from "../../lib/interface";
 import HomePageSwiperJobs from "./HomePageSwiperJobs";
 
+import { useEffect, useState } from "react";
 import Modal from "../Modal";
 import PDFViewer from "../PdfViewer";
-import { useEffect, useState } from "react";
-import IconBgBroownTop from "../Icons/IconBgBroownTop";
-import IconBgBroownBottom from "../Icons/IconBgBroownBottom";
 import { useNavbar } from "../Provider";
 
 const HomePageActualJobs = () => {
+  const [isHovered, setIsHovered] = useState(false);
   const { setNavbarZIndex } = useNavbar();
   const [selectedDocumentLink, setSelectedDocumentLink] = useState<
     string | null
@@ -50,9 +49,8 @@ const HomePageActualJobs = () => {
 
   return (
     <>
-      <IconBgBroownTop />
-      <div className="relative own_edge bg-[#FFF2EC] overflow-hidden">
-        <div className="main_section !pt-0 !pb-0 z-10">
+      <div className="relative own_edge  overflow-hidden">
+        <div className="main_section  z-10">
           <h2 className="uppercase text-center md:text-left">
             Aktuálne práce v záhrade
           </h2>
@@ -83,10 +81,23 @@ const HomePageActualJobs = () => {
           )}
         </div>
       </div>
-      <IconBgBroownBottom />
       <Modal isOpen={isOpen} onClose={handleClose}>
         <PDFViewer pdfUrl={selectedDocumentLink} />
       </Modal>
+
+      <img
+        src={"/krtko.svg"}
+        className={`absolute ${
+          isHovered ? "h-[120px]" : "h-[135px]"
+        }  w-[221px] right-[42px] bottom-12 hidden xl:block z-20 ease-in duration-100`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      />
+      <img
+        src={"/zem.svg"}
+        className="absolute h-[95px] w-[191px] right-20 -bottom-0 hidden xl:block z-20"
+      />
+
       {error && <p>Error: {error.message}</p>}
     </>
   );

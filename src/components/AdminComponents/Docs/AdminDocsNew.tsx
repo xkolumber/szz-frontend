@@ -76,13 +76,9 @@ const AdminDocsNew = () => {
   };
 
   const handleUploadPdf = async (e: any) => {
-    setDataLoading(true);
     const file = e.target.files[0];
-    if (!file || file.type !== "application/pdf") {
-      alert("Please upload only PDF files.");
-      return;
-    }
 
+    setDataLoading(true);
     const formData = new FormData();
     formData.append("file", file);
 
@@ -144,7 +140,7 @@ const AdminDocsNew = () => {
               />
               <input
                 type="file"
-                accept="application/pdf"
+                accept=".pdf, .doc, .docx"
                 onChange={(e) => handleUploadPdf(e)}
                 className="mt-2"
               />

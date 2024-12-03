@@ -20,7 +20,7 @@ export interface ActualEvent {
   titulna_foto: string;
   text1: string;
   slug: string;
-  typ: "sk" | "zah";
+  typ: "vsetky" | "zvaz";
   pdf: Pdf[];
   fotky: string[];
 }
@@ -128,8 +128,14 @@ export interface Tlacivo {
 export interface Oznamy {
   id: string;
   viditelnost: boolean;
-  text: string;
+  text1: string;
   datum: string;
   nazov: string;
   foto: string;
+}
+
+export interface ActualityPageInterface {
+  id: string;
+  text1: string;
+  pdf: Pdf[];
 }
