@@ -1,15 +1,30 @@
 import { Editor } from "@tiptap/react";
+import { useCallback } from "react";
 
 interface MenuBarProps {
   editor: Editor | null;
 }
 
 export const MenuBar = ({ editor }: MenuBarProps) => {
-  //   const { editor } = useCurrentEditor();
-
   if (!editor) {
     return null;
   }
+
+  const setLink = useCallback(() => {
+    const previousUrl = editor.getAttributes("link").href;
+    const url = window.prompt("URL", previousUrl);
+
+    if (url === null) {
+      return;
+    }
+    if (url === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+
+      return;
+    }
+
+    editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
+  }, [editor]);
 
   return (
     <div className="control-group">
@@ -35,24 +50,12 @@ export const MenuBar = ({ editor }: MenuBarProps) => {
         >
           Strike
         </button>
-        <button
-          onClick={() => editor.chain().focus().toggleCode().run()}
-          disabled={!editor.can().chain().focus().toggleCode().run()}
-          className={editor.isActive("code") ? "is-active" : ""}
-        >
-          Code
-        </button>
-        <button onClick={() => editor.chain().focus().unsetAllMarks().run()}>
-          Clear marks
-        </button>
-        <button onClick={() => editor.chain().focus().clearNodes().run()}>
-          Clear nodes
-        </button>
+
         <button
           onClick={() => editor.chain().focus().setParagraph().run()}
           className={editor.isActive("paragraph") ? "is-active" : ""}
         >
-          Paragraph
+          p
         </button>
         <button
           onClick={() =>
@@ -118,45 +121,35 @@ export const MenuBar = ({ editor }: MenuBarProps) => {
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={editor.isActive("bulletList") ? "is-active" : ""}
         >
-          Bullet list
+          list
         </button>
-        <button
-          onClick={() => editor.chain().focus().toggleOrderedList().run()}
-          className={editor.isActive("orderedList") ? "is-active" : ""}
-        >
-          Ordered list
-        </button>
-        <button
-          onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-          className={editor.isActive("codeBlock") ? "is-active" : ""}
-        >
-          Code block
-        </button>
-        <button
-          onClick={() => editor.chain().focus().toggleBlockquote().run()}
-          className={editor.isActive("blockquote") ? "is-active" : ""}
-        >
-          Blockquote
-        </button>
-        <button
-          onClick={() => editor.chain().focus().setHorizontalRule().run()}
-        >
-          Horizontal rule
-        </button>
+
         <button onClick={() => editor.chain().focus().setHardBreak().run()}>
-          Hard break
+          Zalomenie riadku
         </button>
         <button
           onClick={() => editor.chain().focus().undo().run()}
           disabled={!editor.can().chain().focus().undo().run()}
         >
-          Undo
+          Krok späť
         </button>
         <button
           onClick={() => editor.chain().focus().redo().run()}
           disabled={!editor.can().chain().focus().redo().run()}
         >
-          Redo
+          Krok dopredu
+        </button>
+        <button
+          onClick={setLink}
+          className={editor.isActive("link") ? "is-active" : ""}
+        >
+          Pridať link
+        </button>
+        <button
+          onClick={() => editor.chain().focus().unsetLink().run()}
+          disabled={!editor.isActive("link")}
+        >
+          Zrušiť link
         </button>
         {/* <button
           onClick={() => editor.chain().focus().setColor("#958DF1").run()}

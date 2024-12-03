@@ -1018,7 +1018,7 @@ textarea.is-active {
 
 .button-group {
   display: flex;
-  gap: 4px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 
@@ -1046,7 +1046,26 @@ textarea.is-active {
   min-height: 600px;
 }
 
+button.is-active,
+input.is-active,
+select.is-active,
+textarea.is-active {
+  background: #433f8f !important;
+  color: #ffffff !important;
+}
 p:empty {
   display: block;
   min-height: 1em;
+}
+
+.content a {
+  text-decoration: underline;
+}
+
+ol,
+ul,
+menu {
+  list-style: disc;
+  margin: auto;
+  padding: revert;
 }

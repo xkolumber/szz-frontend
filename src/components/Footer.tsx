@@ -55,11 +55,11 @@ const Footer = () => {
                   Kontakt
                 </h5>
 
-                <a href="tel:+421903243393">
-                  <p className="text-white underline  mb-1">+421903243393</p>
+                <a href="tel:+02/20707176">
+                  <p className="text-white underline  mb-1">+02/20707176</p>
                 </a>
-                <a href="tel:++421910211001">
-                  <p className="text-white underline  mb-1">+421 910 211 001</p>
+                <a href="tel:+02/20707177">
+                  <p className="text-white underline  mb-1">+02/20707177</p>
                 </a>
                 <a href="mailto:info@szz.eu.sk?subject=Otázka">
                   <p className="text-white underline  mb-1">info@szz.eu.sk</p>
