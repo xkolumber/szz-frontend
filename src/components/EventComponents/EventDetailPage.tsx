@@ -10,6 +10,8 @@ import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import IconGuests from "../Icons/IconGuests";
 import { ClipLoader } from "react-spinners";
+import IconTime from "../Icons/IconTime";
+import IconLink from "../Icons/IconLink";
 
 const EventDetailPage = () => {
   const [open, setOpen] = useState(false);
@@ -104,19 +106,10 @@ const EventDetailPage = () => {
                 <IconCalendar />
                 <p className="font-semibold uppercase">Dátum podujatia:</p>
                 <p className="font-medium text-[#351A28] opacity-80 uppercase">
-                  {data.datum_den}.{data.datum_mesiac}.{data.datum_rok} -{" "}
-                  {data.cas}
+                  {data.datum_den}.{data.datum_mesiac}.{data.datum_rok}{" "}
+                  {data.datum_koniec && `- ${data.datum_koniec}`}
                 </p>
               </div>
-              {data.datum_koniec && (
-                <div className="flex flex-row gap-6  ">
-                  <IconCalendar />
-                  <p className="font-semibold uppercase">Koniec podujatia:</p>
-                  <p className="font-medium text-[#351A28] opacity-80 uppercase">
-                    {data.datum_koniec}
-                  </p>
-                </div>
-              )}
 
               <div className="flex flex-row gap-6  ">
                 <IconLocation />
@@ -125,6 +118,16 @@ const EventDetailPage = () => {
                   {data.miesto_podujatia}
                 </p>
               </div>
+              {data.cas && (
+                <div className="flex flex-row gap-6  ">
+                  <IconTime />
+                  <p className="font-semibold uppercase">Začiatok podujatia:</p>
+                  <p className="font-medium text-[#351A28] opacity-80 uppercase">
+                    {data.cas}
+                  </p>
+                </div>
+              )}
+
               {data.hostia && (
                 <div className="flex flex-row gap-6  ">
                   <IconGuests />
@@ -133,6 +136,16 @@ const EventDetailPage = () => {
                     {data.hostia}
                   </p>
                 </div>
+              )}
+              {data.link_podujatie && (
+                <Link
+                  className="flex flex-row gap-6  "
+                  to={data.link_podujatie}
+                  target="_blank"
+                >
+                  <IconLink />
+                  <p className="font-semibold uppercase">Link podujatia</p>
+                </Link>
               )}
 
               <img
@@ -224,7 +237,7 @@ const EventDetailPage = () => {
                   <IconCalendar />
                   <p className="font-medium">
                     {object.datum_den}.{object.datum_mesiac}.{object.datum_rok}{" "}
-                    {object.cas}
+                    {object.datum_koniec && `- ${object.datum_koniec}`}
                   </p>
                 </div>
 

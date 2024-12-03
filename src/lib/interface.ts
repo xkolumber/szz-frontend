@@ -9,6 +9,7 @@ export interface ActualJob {
 
 export interface ActualEvent {
   id: string;
+  link_podujatie: string;
   nazov_vystavy: string;
   datum_den: string;
   datum_mesiac: string;
@@ -134,7 +135,7 @@ export interface Oznamy {
   foto: string;
 }
 
-export interface ActualityPageInterface {
+export interface GeneralPageInterface {
   id: string;
   text1: string;
   pdf: Pdf[];

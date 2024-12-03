@@ -1,8 +1,7 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
-
-import axios from "axios";
 import { GeneralPageInterface } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import Tiptap from "../../TipTapEditor/TipTap";
@@ -12,7 +11,7 @@ interface Props {
   refetch: () => void;
 }
 
-const AdminActualityPageComponent = ({ data, refetch }: Props) => {
+const AdminPoradnaComponent = ({ data, refetch }: Props) => {
   const token = localStorage.getItem("token");
 
   const [isLoading, setIsLoading] = useState(false);
@@ -30,9 +29,7 @@ const AdminActualityPageComponent = ({ data, refetch }: Props) => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL
-        }/admin/actualitypage/updateactualitypage`,
+        `${import.meta.env.VITE_API_URL}/admin/poradnapage/updateporadnapage`,
         {
           method: "PUT",
           headers: {
@@ -274,4 +271,4 @@ const AdminActualityPageComponent = ({ data, refetch }: Props) => {
   );
 };
 
-export default AdminActualityPageComponent;
+export default AdminPoradnaComponent;

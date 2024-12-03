@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { ClipLoader } from "react-spinners";
 import { getActualityPageData } from "../lib/functions";
-import { ActualityPageInterface } from "../lib/interface";
 
 import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
 import { Link } from "react-router-dom";
+import { GeneralPageInterface } from "../lib/interface";
 
 const ActualityPage = () => {
-  const { data, status, error, isLoading } = useQuery<ActualityPageInterface>({
+  const { data, status, error, isLoading } = useQuery<GeneralPageInterface>({
     queryKey: ["actuality_page"],
     queryFn: getActualityPageData,
     staleTime: 1000 * 60 * 5,

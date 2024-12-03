@@ -66,6 +66,11 @@ import FaqPage from "./components/FaqPage";
 import DiscountPage from "./components/DiscountPage";
 import LecturesPage from "./components/LecturesPage";
 import PoradnaPage from "./components/PoradnaPage";
+import AdminPoradna from "./components/AdminComponents/PoradnaPage/AdminPoradna";
+import AdminZlavyPage from "./components/AdminComponents/ZlavyPage/AdminZlavyPage";
+import AdminPrednasky from "./components/AdminComponents/PrednaskyPage/AdminPrednasky";
+import AdminUzitocne from "./components/AdminComponents/UzitocneLinky/AdminUzitocne";
+import UsefullLinksPage from "./components/UsefullLinksPage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -213,6 +218,9 @@ function App() {
             element={<AdminNavbarDataNewId />}
           />
           <Route path="o-nas" element={<AdminAboutUs />} />
+          <Route path="zlavy" element={<AdminZlavyPage />} />
+          <Route path="prednasky" element={<AdminPrednasky />} />
+          <Route path="uzitocne-linky" element={<AdminUzitocne />} />
           <Route path="aktuality" element={<AdminActualityPage />} />
           <Route path="kontakt" element={<AdminContactPage />} />
 
@@ -269,6 +277,8 @@ function App() {
           <Route path="tlaciva/nove-tlacivo" element={<AdminDocsNew />} />
           <Route path="tlaciva/:id" element={<AdminDocsId />} />
 
+          <Route path="poradna" element={<AdminPoradna />} />
+
           <Route
             path="archiv/novy-dokument"
             element={<AdminArchivePageNew />}
@@ -280,6 +290,14 @@ function App() {
           element={
             <Layout>
               <TaskPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/uzitocne-linky"
+          element={
+            <Layout>
+              <UsefullLinksPage />
             </Layout>
           }
         />

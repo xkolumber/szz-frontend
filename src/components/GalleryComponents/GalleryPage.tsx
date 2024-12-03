@@ -143,7 +143,7 @@ const GalleryPage = () => {
           <EventPagesSkeleton />
         )}
         {data.length === 0 && !isLoading && (
-          <p>So zadanými kritériami sa bohužiaľ nenašla žiadna galéria.</p>
+          <p>So zadanými kritériami sa zatiaľ nenašla žiadna galéria.</p>
         )}
         <img
           src={"/icons/icon_gallery_left.svg"}

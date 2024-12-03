@@ -106,11 +106,18 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
           },
           body: JSON.stringify({
             id: data?.id,
+            link_podujatie:
+              actualizeData.link_podujatie === undefined
+                ? ""
+                : actualizeData.link_podujatie,
             nazov_vystavy: actualizeData.nazov_vystavy,
             datum_den: actualizeData.datum_den,
             datum_mesiac: actualizeData.datum_mesiac,
             datum_rok: actualizeData.datum_rok,
-            datum_koniec: actualizeData.datum_koniec,
+            datum_koniec:
+              actualizeData.datum_koniec === undefined
+                ? ""
+                : actualizeData.datum_koniec,
             miesto_podujatia: actualizeData.miesto_podujatia,
             cas: actualizeData.cas,
             hostia: actualizeData.hostia,
@@ -130,7 +137,7 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Oznam bol aktualizovaný");
+        toast.success("Udalosť bola aktualizovaná");
         await queryClient.refetchQueries({ queryKey: ["admin_events"] });
         onDataUpdated();
       }
@@ -430,6 +437,17 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
                 className="w-[70%]"
                 value={actualizeData?.miesto_podujatia}
                 required
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>Link podujatia:</p>
+              <input
+                type="text"
+                name="link_podujatie"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.link_podujatie}
+                placeholder="https://www.google.sk"
               />
             </div>
             <div className="product_admin_row">

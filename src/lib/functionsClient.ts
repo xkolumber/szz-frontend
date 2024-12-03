@@ -71,6 +71,14 @@ export const navbar_admin_data = [
     slug: "/admin/oznamy",
   },
   {
+    title: "Poradňa",
+    slug: "/admin/poradna",
+  },
+  {
+    title: "Prednášky",
+    slug: "/admin/prednasky",
+  },
+  {
     title: "Výstavy a podujatia",
     slug: "/admin/vystavy-a-podujatia",
   },
@@ -81,6 +89,14 @@ export const navbar_admin_data = [
   {
     title: "Tlačivá",
     slug: "/admin/tlaciva",
+  },
+  {
+    title: "Užitočné linky",
+    slug: "/admin/uzitocne-linky",
+  },
+  {
+    title: "Zľavy",
+    slug: "/admin/zlavy",
   },
   {
     title: "Zväz",

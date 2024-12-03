@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { ClipLoader } from "react-spinners";
-import { getZlavyPage } from "../lib/functions";
+import { getUzitocneLinkyPage } from "../lib/functions";
 
 import { Link } from "react-router-dom";
 import { GeneralPageInterface } from "../lib/interface";
 import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
 
-const DiscountPage = () => {
+const UsefullLinksPage = () => {
   const { data, status, error, isLoading } = useQuery<GeneralPageInterface>({
-    queryKey: ["discount_page"],
-    queryFn: getZlavyPage,
+    queryKey: ["usefull_links"],
+    queryFn: getUzitocneLinkyPage,
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -33,7 +33,7 @@ const DiscountPage = () => {
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
         <div className="max-w-[900px] m-auto mt-8">
-          <h2 className="text-center">Zľavy pre členov</h2>
+          <h2 className="text-center">Užitočné linky</h2>
           {data && (
             <div>
               <div
@@ -64,4 +64,4 @@ const DiscountPage = () => {
   );
 };
 
-export default DiscountPage;
+export default UsefullLinksPage;

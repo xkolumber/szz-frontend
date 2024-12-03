@@ -1,17 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
-import { getActualityPageDataToken } from "../../../lib/functions";
+import { getUzitocneLinkyPageToken } from "../../../lib/functions";
 import { GeneralPageInterface } from "../../../lib/interface";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
-import AdminActualityPageComponent from "./AdminActualityPageComponent";
 
-const AdminActualityPage = () => {
+import AdminNotAuthorized from "../AdminNotAuthorized";
+import AdminUzitocneComponent from "./AdminUzitocneComponent";
+
+const AdminUzitocne = () => {
   const token = localStorage.getItem("token");
 
   const { data, status, isLoading, refetch } = useQuery<GeneralPageInterface>({
-    queryKey: ["admin_actuality_page"],
-    queryFn: () => getActualityPageDataToken(token),
+    queryKey: ["admin_uzitocne"],
+    queryFn: () => getUzitocneLinkyPageToken(token),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -22,7 +23,7 @@ const AdminActualityPage = () => {
         <div className="main_section !pt-0">
           <StepBack />
           <Toaster />
-          <h2>Aktuality sekcia</h2>
+          <h2>Užitocné linky sekcia</h2>
           <p>Loading...</p>
         </div>
       </div>
@@ -45,9 +46,9 @@ const AdminActualityPage = () => {
         <div className=" w-full">
           <StepBack />
           <Toaster />
-          <h2>Aktuality sekcia</h2>
+          <h2>Užitocné linky sekcia</h2>
 
-          <AdminActualityPageComponent data={data} refetch={refetch} />
+          <AdminUzitocneComponent data={data} refetch={refetch} />
         </div>
       )}
       {data === null && <AdminNotAuthorized />}
@@ -55,4 +56,4 @@ const AdminActualityPage = () => {
   );
 };
 
-export default AdminActualityPage;
+export default AdminUzitocne;

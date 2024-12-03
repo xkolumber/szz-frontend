@@ -12,7 +12,7 @@ const RecommendPageElements = ({ data }: Props) => {
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
         <h2 className="text-center">Odporúčané</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {data.map((object, index) => (
             <Link className="" key={index} to={object.link} target="_blank">
               <img

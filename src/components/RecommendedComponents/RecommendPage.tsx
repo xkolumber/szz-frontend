@@ -28,7 +28,7 @@ const RecommendPage = () => {
       <div className="own_edge">
         <div className="main_section !pt-8 min-h-[600px]">
           <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
-          <h2 className="text-center">Odporúčané</h2>
+          <h2 className="text-center">Odporúčme</h2>
           <p>Loading...</p>
         </div>
       </div>

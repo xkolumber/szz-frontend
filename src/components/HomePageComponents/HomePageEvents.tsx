@@ -70,7 +70,8 @@ const HomePageEvents = () => {
                     <IconCalendar />
                     <p className="font-medium">
                       {object.datum_den}.{object.datum_mesiac}.
-                      {object.datum_rok} {object.cas}
+                      {object.datum_rok} {object.cas}{" "}
+                      {object.datum_koniec && `- ${object.datum_koniec}`}
                     </p>
                   </div>
                   <h5 className="pt-[8px] uppercase">{object.nazov_vystavy}</h5>

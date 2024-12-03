@@ -202,7 +202,8 @@ const EventsPage = () => {
                     <IconCalendar />
                     <p className="font-medium">
                       {object.datum_den}.{object.datum_mesiac}.
-                      {object.datum_rok} {object.cas}
+                      {object.datum_rok}{" "}
+                      {object.datum_koniec && `- ${object.datum_koniec}`}
                     </p>
                   </div>
 
@@ -216,7 +217,7 @@ const EventsPage = () => {
           <EventPagesSkeleton />
         )}
         {data.length === 0 && !isLoading && (
-          <p>So zadanými kritériami sa bohužiaľ nevyskutuje žiadna udalosť.</p>
+          <p>So zadanými kritériami sa zatiaľ nevyskutuje žiadna udalosť.</p>
         )}
         <img
           src={"/icons/icon_event_left.svg"}

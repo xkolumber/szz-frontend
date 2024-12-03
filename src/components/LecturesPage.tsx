@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { ClipLoader } from "react-spinners";
-import { getActualityPageData } from "../lib/functions";
-import { ActualityPageInterface } from "../lib/interface";
+import { getPrednaskyPage } from "../lib/functions";
 
-import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
 import { Link } from "react-router-dom";
+import { GeneralPageInterface } from "../lib/interface";
+import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
 
 const DiscountPage = () => {
-  const { data, status, error, isLoading } = useQuery<ActualityPageInterface>({
-    queryKey: ["actuality_page"],
-    queryFn: getActualityPageData,
+  const { data, status, error, isLoading } = useQuery<GeneralPageInterface>({
+    queryKey: ["lectures_page"],
+    queryFn: getPrednaskyPage,
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -43,7 +43,7 @@ const DiscountPage = () => {
 
               <div className="flex flex-col gap-1 pt-4">
                 {data.pdf?.map((object, index) => (
-                  <div className="flex flex-row items-center">
+                  <div className="flex flex-row items-center" key={index}>
                     <Link
                       to={object.link}
                       target="_blank"

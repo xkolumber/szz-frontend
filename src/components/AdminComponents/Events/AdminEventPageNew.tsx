@@ -27,6 +27,7 @@ const AdminEventPageNew = () => {
 
   const [actualizeData, setActualizeData] = useState<ActualEvent>({
     id: "",
+    link_podujatie: "",
     nazov_vystavy: "",
     datum_den: "",
     datum_mesiac: "",
@@ -119,6 +120,7 @@ const AdminEventPageNew = () => {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
+            link_podujatie: actualizeData.link_podujatie,
             nazov_vystavy: actualizeData.nazov_vystavy,
             datum_den: actualizeData.datum_den,
             datum_mesiac: actualizeData.datum_mesiac,
@@ -400,6 +402,17 @@ const AdminEventPageNew = () => {
                 className="w-[70%]"
                 value={actualizeData?.miesto_podujatia}
                 required
+              />
+            </div>
+            <div className="product_admin_row">
+              <p>Link podujatia:</p>
+              <input
+                type="text"
+                name="link_podujatie"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.link_podujatie}
+                placeholder="https://www.google.sk"
               />
             </div>
             <div className="product_admin_row">
