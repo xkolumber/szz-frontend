@@ -6,6 +6,7 @@ import IconBird from "../Icons/IconBird";
 import IconBirdWithoutEye from "../Icons/IconBirdWithoutEye";
 import IconProtection from "../Icons/IconProtection";
 import IconRadio from "../Icons/IconRadio";
+import IconChildren from "../Icons/IconChildren";
 
 const texts = [
   {
@@ -124,8 +125,8 @@ const HomePageIntro = () => {
               <p className="font-bold text-[#47261C]">Tešíme sa na Vás!</p>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row md:gap-32">
-            <Link className="flex flex-row mt-16" to={"/aktuality"}>
+          <div className="flex flex-col md:flex-row md:gap-32  mt-16">
+            <Link className="flex flex-row" to={"/aktuality"}>
               <div className="flex flex-row gap-[16px]">
                 <div className="">
                   <div className="bg-[#739C65] w-24 h-24 flex items-center justify-center rounded-[8px]">
@@ -138,7 +139,18 @@ const HomePageIntro = () => {
                 </div>
               </div>
             </Link>
-            <div className="flex flex-row mt-16 mb-12 md:mb-0">
+            <Link className="flex flex-row gap-[16px]" to={"/mladez"}>
+              <div className="">
+                <div className="bg-[#739C65] w-24 h-24 flex items-center justify-center rounded-[8px]">
+                  <IconChildren />
+                </div>
+              </div>
+              <div className="flex flex-col justify-center">
+                <h6 className="uppercase">Deti a mládež</h6>
+                <p>Aktivity</p>
+              </div>
+            </Link>
+            <div className="flex flex-row  mb-12 md:mb-0">
               <Link
                 className="flex flex-row gap-[16px]"
                 to={"https://regina.rtvs.sk"}

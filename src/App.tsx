@@ -72,6 +72,7 @@ import AdminPrednasky from "./components/AdminComponents/PrednaskyPage/AdminPred
 import AdminUzitocne from "./components/AdminComponents/UzitocneLinky/AdminUzitocne";
 import UsefullLinksPage from "./components/UsefullLinksPage";
 import AdminNewFile from "./components/AdminComponents/AdminNewFile";
+import ChildrenPage from "./components/ChildrenPage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -207,6 +208,14 @@ function App() {
           element={
             <Layout>
               <ActualityPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/mladez"
+          element={
+            <Layout>
+              <ChildrenPage />
             </Layout>
           }
         />
