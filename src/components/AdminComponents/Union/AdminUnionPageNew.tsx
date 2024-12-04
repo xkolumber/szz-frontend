@@ -10,6 +10,7 @@ import { SelectOption, UnionData } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
+import Tiptap from "../../TipTapEditor/TipTap";
 
 const AdminUnionPageNew = () => {
   const queryClient = useQueryClient();
@@ -286,6 +287,13 @@ const AdminUnionPageNew = () => {
     }
   };
 
+  const handleTextChange = (field: string, value: string) => {
+    setActualizeData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
   return (
     <div>
       {authorized === "ano" && (
@@ -326,15 +334,11 @@ const AdminUnionPageNew = () => {
                 required
               />
             </div>
-            <div className="product_admin_row">
-              <p>Text:</p>
-              <textarea
-                name="text"
-                onChange={handleChange}
-                className="w-[70%] !h-[24rem]"
-                value={actualizeData?.text}
-                maxLength={250}
-                required
+            <div className="product_admin_row !flex-col items-start">
+              <p className="text-left">Text:</p>
+              <Tiptap
+                content={actualizeData.text}
+                onChange={(value) => handleTextChange("text", value)}
               />
             </div>
             <div className="product_admin_row">
