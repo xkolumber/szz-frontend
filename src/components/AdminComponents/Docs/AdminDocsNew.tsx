@@ -64,7 +64,7 @@ const AdminDocsNew = () => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Mesiac bol pridaný");
+        toast.success("Tlačivo bolo pridané");
         await queryClient.refetchQueries({ queryKey: ["admin_docs"] });
         navigate("/admin/tlaciva");
       }
@@ -101,7 +101,9 @@ const AdminDocsNew = () => {
       });
     } catch (error) {
       console.error("Error uploading PDF:", error);
-      alert("Failed to upload PDF. Please try again.");
+      alert(
+        "Chyba pri nahrávaní súboru, povolené súbory sú pdf, doc, docx, xls, xlsx"
+      );
     } finally {
       setDataLoading(false);
     }
@@ -140,7 +142,7 @@ const AdminDocsNew = () => {
               />
               <input
                 type="file"
-                accept=".pdf, .doc, .docx"
+                accept=".pdf, .doc, .docx, .xls, .xlsx"
                 onChange={(e) => handleUploadPdf(e)}
                 className="mt-2"
               />

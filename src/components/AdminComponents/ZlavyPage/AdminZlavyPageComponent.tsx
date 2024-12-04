@@ -215,7 +215,7 @@ const AdminZlavyPageComponent = ({ data, refetch }: Props) => {
                 </div>
                 <input
                   type="file"
-                  accept=".pdf, .doc, .docx"
+                  accept=".pdf, .doc, .docx, .xls, .xlsx"
                   onChange={(e) => handleUploadPdf(e, index)}
                   className="mt-2"
                 />

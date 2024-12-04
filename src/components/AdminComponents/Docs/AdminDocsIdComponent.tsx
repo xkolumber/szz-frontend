@@ -66,7 +66,7 @@ const AdminDocsIdComponent = ({ data, onDataUpdated }: Props) => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Mesiac bol aktualizovaný");
+        toast.success("Tlačivo bolo aktualizované");
         await queryClient.refetchQueries({ queryKey: ["admin_docs"] });
         onDataUpdated();
       }
@@ -137,8 +137,10 @@ const AdminDocsIdComponent = ({ data, onDataUpdated }: Props) => {
         return { ...prevData, link: uploadUrl };
       });
     } catch (error) {
-      console.error("Error uploading PDF:", error);
-      alert("Failed to upload PDF. Please try again.");
+      console.error("Error uploading file:", error);
+      alert(
+        "Chyba pri nahrávaní súboru, povolené súbory sú pdf, doc, docx, xls, xlsx"
+      );
     } finally {
       setDataLoading(false);
     }
@@ -177,7 +179,7 @@ const AdminDocsIdComponent = ({ data, onDataUpdated }: Props) => {
               />
               <input
                 type="file"
-                accept=".pdf, .doc, .docx"
+                accept=".pdf, .doc, .docx, .xls, .xlsx"
                 onChange={(e) => handleUploadPdf(e)}
                 className="mt-2"
               />

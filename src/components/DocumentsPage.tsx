@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { fetchDocsClient } from "../lib/functions";
 import { Tlacivo } from "../lib/interface";
 import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
+import { ClipLoader } from "react-spinners";
 
 const DocumentsPage = () => {
   const queryClient = useQueryClient();
@@ -20,9 +21,9 @@ const DocumentsPage = () => {
     return (
       <div className="own_edge">
         <div className="main_section !pt-8 min-h-screen ">
-          {" "}
-          <h2>Tlačivá na stiahnutie</h2>
-          <p>Loading...</p>
+          <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
+          <h2 className="text-center uppercase pt-8">Tlačivá na stiahnutie</h2>
+          <ClipLoader size={20} color={"#000000"} loading={true} />
         </div>
       </div>
     );
@@ -39,7 +40,7 @@ const DocumentsPage = () => {
     <div className="own_edge">
       <div className="main_section !pt-8 min-h-screen ">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
-        <h2 className="text-center uppercase">Tlačivá na stiahnutie</h2>
+        <h2 className="text-center uppercase pt-8">Tlačivá na stiahnutie</h2>
         <div className="flex flex-col gap-4">
           {data?.map((object, index) => (
             <div className="flex flex-row items-center pt-4">

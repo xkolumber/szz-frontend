@@ -18,7 +18,11 @@ const ActualityPage = () => {
     return (
       <div className="own_edge min-h-screen">
         <div className="main_section !pt-8">
-          <ClipLoader size={20} color={"#000000"} loading={true} />
+          <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
+          <div className="max-w-[900px] m-auto mt-8">
+            <h2 className="text-center">Aktuality</h2>
+            <ClipLoader size={20} color={"#000000"} loading={true} />
+          </div>
         </div>
       </div>
     );

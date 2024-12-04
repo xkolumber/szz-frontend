@@ -235,7 +235,7 @@ const AdminArchivePageId = () => {
               />
               <input
                 type="file"
-                accept=".pdf, .doc, .docx"
+                accept=".pdf, .doc, .docx, .xls, .xlsx"
                 onChange={(e) => handleUploadPdf(e)}
                 className="mt-2"
               />

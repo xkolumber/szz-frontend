@@ -35,7 +35,7 @@ const AboutUs = () => {
           {data && (
             <div>
               <div
-                className="content"
+                className="content pt-4"
                 dangerouslySetInnerHTML={{ __html: data.text1 }}
               />
               <img
