@@ -148,8 +148,10 @@ const AdminZlavyPageComponent = ({ data, refetch }: Props) => {
         return { ...prevData, pdf: updatedPdf };
       });
     } catch (error) {
-      console.error("Error uploading PDF:", error);
-      alert("Failed to upload PDF. Please try again.");
+      console.error("Error uploading document:", error);
+      alert(
+        "Súbor má nepovolenú príponu. Povolené sú pdf, doc, docx, xls, xlsx"
+      );
     } finally {
       setDataLoading(false);
     }

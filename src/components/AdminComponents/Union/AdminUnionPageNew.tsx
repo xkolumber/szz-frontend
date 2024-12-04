@@ -234,7 +234,7 @@ const AdminUnionPageNew = () => {
       });
     } catch (error) {
       console.error("Error uploading PDF:", error);
-      alert("Failed to upload PDF. Please try again.");
+      alert("Failed to photo. Please try again.");
     } finally {
       setDataLoading(false);
     }
@@ -253,10 +253,6 @@ const AdminUnionPageNew = () => {
   const handleUploadPdf = async (e: any, index: number) => {
     setDataLoading(true);
     const file = e.target.files[0];
-    if (!file || file.type !== "application/pdf") {
-      alert("Please upload only PDF files.");
-      return;
-    }
 
     const formData = new FormData();
     formData.append("file", file);
@@ -282,7 +278,9 @@ const AdminUnionPageNew = () => {
       });
     } catch (error) {
       console.error("Error uploading PDF:", error);
-      alert("Failed to upload PDF. Please try again.");
+      alert(
+        "Súbor má nepovolenú príponu. Povolené sú pdf, doc, docx, xls, xlsx"
+      );
     } finally {
       setDataLoading(false);
     }
@@ -372,7 +370,7 @@ const AdminUnionPageNew = () => {
                     </div>
                     <input
                       type="file"
-                      accept="application/pdf"
+                      accept=".pdf, .doc, .docx, .xls, .xlsx"
                       onChange={(e) => handleUploadPdf(e, index)}
                       className="mt-2"
                     />

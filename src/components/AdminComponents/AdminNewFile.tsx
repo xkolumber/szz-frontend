@@ -42,7 +42,9 @@ const AdminNewFile = () => {
       setPdfLink(uploadUrl);
     } catch (error) {
       console.error("Error uploading PDF:", error);
-      alert("Failed to upload PDF. Please try again.");
+      alert(
+        "Súbor má nepovolenú príponu. Povolené sú pdf, doc, docx, xls, xlsx"
+      );
     } finally {
       setDataLoading(false);
     }

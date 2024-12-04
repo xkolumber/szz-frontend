@@ -196,10 +196,6 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
   const handleUploadPdf = async (e: any, index: number) => {
     setDataLoading(true);
     const file = e.target.files[0];
-    if (!file || file.type !== "application/pdf") {
-      alert("Please upload only PDF files.");
-      return;
-    }
 
     const formData = new FormData();
     formData.append("file", file);
@@ -225,7 +221,9 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
       });
     } catch (error) {
       console.error("Error uploading PDF:", error);
-      alert("Failed to upload PDF. Please try again.");
+      alert(
+        "Súbor má nepovolenú príponu. Povolené sú pdf, doc, docx, xls, xlsx"
+      );
     } finally {
       setDataLoading(false);
     }
@@ -504,7 +502,7 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
               />
             </div>
             <div className="product_admin_row">
-              <p>Pdf:</p>
+              <p>Dokument:</p>
               <div className="flex flex-col">
                 {actualizeData.pdf.map((object, index) => (
                   <div key={index} className="flex flex-row gap-4 items-center">
@@ -536,7 +534,7 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
                     </div>
                     <input
                       type="file"
-                      accept="application/pdf"
+                      accept=".pdf, .doc, .docx, .xls, .xlsx"
                       onChange={(e) => handleUploadPdf(e, index)}
                       className="mt-2"
                     />

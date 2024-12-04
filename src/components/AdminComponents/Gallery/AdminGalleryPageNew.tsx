@@ -172,7 +172,7 @@ const AdminGalleryPageNew = () => {
       });
     } catch (error) {
       console.error("Error uploading PDF:", error);
-      alert("Failed to upload PDF. Please try again.");
+      alert("Failed to upload photo. Please try again.");
     } finally {
       setDataLoading(false);
     }

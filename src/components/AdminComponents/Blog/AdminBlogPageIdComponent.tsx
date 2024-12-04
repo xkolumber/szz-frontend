@@ -252,11 +252,6 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
   const handleUploadPdf = async (e: any, index: number) => {
     setDataLoading(true);
     const file = e.target.files[0];
-    if (!file || file.type !== "application/pdf") {
-      alert("Please upload only PDF files.");
-      return;
-    }
-
     const formData = new FormData();
     formData.append("file", file);
 
@@ -550,7 +545,7 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
                     </div>
                     <input
                       type="file"
-                      accept="application/pdf"
+                      accept=".pdf, .doc, .docx, .xls, .xlsx"
                       onChange={(e) => handleUploadPdf(e, index)}
                       className="mt-2"
                     />
