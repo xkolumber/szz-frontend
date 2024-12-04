@@ -1,13 +1,14 @@
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import { CompressImage } from "../../../lib/functions";
 import { isValidDate, isValidYear } from "../../../lib/functionsClient";
 import { Gallery } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import StepBack from "../../StepBack";
-import { useQueryClient } from "@tanstack/react-query";
 
 interface Props {
   data: Gallery;
@@ -186,42 +187,48 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
     }));
   };
 
-  const handleAddInputPhoto = () => {
-    setActualizeData((prevData) => ({
-      ...prevData,
-      fotky: [...prevData.fotky, ""],
-    }));
-  };
+  const handleUploadPhotos = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
 
-  const handleUploadPhoto = async (e: any, index: number) => {
     setDataLoading(true);
-    const file = e.target.files[0];
 
-    const formData = new FormData();
-    formData.append("file", file);
+    const compressedFiles = [];
+    for (const file of files) {
+      const compressedFile = await CompressImage(file);
+      if (compressedFile) {
+        compressedFiles.push(compressedFile);
+      }
+    }
 
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/admin/upload/photoUnion`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
+      const uploadedUrls = await Promise.all(
+        compressedFiles.map(async (compressedFile) => {
+          const formData = new FormData();
+          formData.append("file", compressedFile);
+
+          const response = await axios.post(
+            `${import.meta.env.VITE_API_URL}/admin/upload/photoUnion`,
+            formData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+
+          return response.data.uploadUrl;
+        })
       );
 
-      const { uploadUrl } = response.data;
-
       setActualizeData((prevData) => {
-        const updatedPhoto = [...prevData.fotky];
-        updatedPhoto[index] = uploadUrl;
-        return { ...prevData, fotky: updatedPhoto };
+        const updatedPhotos = [...prevData.fotky, ...uploadedUrls];
+        return { ...prevData, fotky: updatedPhotos };
       });
     } catch (error) {
-      console.error("Error uploading PDF:", error);
-      alert("Failed to upload PDF. Please try again.");
+      console.error("Error uploading photos:", error);
+      alert("Failed to upload one or more photos. Please try again.");
     } finally {
       setDataLoading(false);
     }
@@ -302,20 +309,15 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
                     <div className="" onClick={() => handleDeletePhoto(object)}>
                       <IconTrash />
                     </div>
-                    <input
-                      type="file"
-                      accept=".png, .jpg, .jpeg"
-                      onChange={(e) => handleUploadPhoto(e, index)}
-                      className="mt-2"
-                    />
                   </div>
                 ))}
-                <p
-                  className="underline cursor-pointer mt-4"
-                  onClick={handleAddInputPhoto}
-                >
-                  Pridať foto
-                </p>
+                <input
+                  type="file"
+                  accept=".png, .jpg, .jpeg"
+                  onChange={(e) => handleUploadPhotos(e)}
+                  className="mt-6"
+                  multiple
+                />
               </div>
             </div>
 
@@ -365,7 +367,7 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
           {" "}
           <div className="behind_card_background"></div>
           <div className="popup_message">
-            <h5 className="text-center">Objekt sa nahráva do cloudu...</h5>
+            <h5 className="text-center">Objekty sa nahrávajú do cloudu...</h5>
             <ClipLoader
               size={20}
               color={"#00000"}

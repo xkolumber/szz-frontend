@@ -142,9 +142,14 @@ const UnionPageElements = ({ data }: Props) => {
                       className="flex flex-row justify-between items-center pt-[12px] pb-[12px] cursor-pointer"
                       onClick={() => handleClickedCategory(object.slug)}
                     >
-                      <h6 className="cursor-pointer uppercase">
+                      <h6
+                        className={`cursor-pointer uppercase ${
+                          object.slug === category && "underline"
+                        }`}
+                      >
                         {object.nazov}
                       </h6>
+
                       <IconArrowUp choosen={object.slug === category} />
                     </div>
 
@@ -160,7 +165,11 @@ const UnionPageElements = ({ data }: Props) => {
                                   handleClickedSubCategory(object2.slug)
                                 }
                               >
-                                <h6 className="cursor-pointer uppercase">
+                                <h6
+                                  className={`cursor-pointer uppercase ${
+                                    object2.slug === subCategory && "underline"
+                                  }`}
+                                >
                                   {object2.nazov}
                                 </h6>
                                 <IconArrowUp

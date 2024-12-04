@@ -226,44 +226,51 @@ const AdminEventPageNew = () => {
     }));
   };
 
-  const handleUploadPhoto = async (e: any, index: number) => {
-    setDataLoading(true);
-    const file = e.target.files[0];
+  const handleUploadPhotos = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
+    setDataLoading(true);
+
+    const compressedFiles = [];
+    for (const file of files) {
+      const compressedFile = await CompressImage(file);
+      if (compressedFile) {
+        compressedFiles.push(compressedFile);
+      }
+    }
 
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/admin/upload/photoUnion`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
+      const uploadedUrls = await Promise.all(
+        compressedFiles.map(async (compressedFile) => {
+          const formData = new FormData();
+          formData.append("file", compressedFile);
+
+          const response = await axios.post(
+            `${import.meta.env.VITE_API_URL}/admin/upload/photoUnion`,
+            formData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+
+          return response.data.uploadUrl;
+        })
       );
 
-      const { uploadUrl } = response.data;
-
       setActualizeData((prevData) => {
-        const updatedPhoto = [...prevData.fotky];
-        updatedPhoto[index] = uploadUrl;
-        return { ...prevData, fotky: updatedPhoto };
+        const updatedPhotos = [...prevData.fotky, ...uploadedUrls];
+        return { ...prevData, fotky: updatedPhotos };
       });
     } catch (error) {
-      console.error("Error uploading PDF:", error);
-      alert("Failed to upload PDF. Please try again.");
+      console.error("Error uploading photos:", error);
+      alert("Failed to upload one or more photos. Please try again.");
     } finally {
       setDataLoading(false);
     }
-  };
-  const handleAddInputPhoto = () => {
-    setActualizeData((prevData) => ({
-      ...prevData,
-      fotky: [...prevData.fotky, ""],
-    }));
   };
 
   const onDrop = useCallback(async (acceptedFiles: File[], key: string) => {
@@ -528,34 +535,38 @@ const AdminEventPageNew = () => {
 
             <div className="product_admin_row">
               <p>Prislúchajúce fotky:</p>
-              <div className="flex flex-col">
+              <div className="flex flex-col w-[75%]">
                 {actualizeData.fotky.map((object, index) => (
-                  <div className="flex flex-row gap-4 items-center" key={index}>
+                  <div
+                    className="flex flex-row gap-4 items-center justify-end"
+                    key={index}
+                  >
+                    <img
+                      src={object}
+                      alt=""
+                      className="w-48 h-48 object-cover"
+                    />
                     <input
                       key={index}
                       type="text"
                       name={`fotky${index}`}
                       value={object}
                       onChange={(e) => handleChangeItemArray("fotky", index, e)}
-                      className="md:!w-[450px] mt-2"
+                      className="w-[450px] mt-2"
                     />
                     <div className="" onClick={() => handleDeletePhoto(object)}>
                       <IconTrash />
                     </div>
-                    <input
-                      type="file"
-                      accept=".png, .jpg, .jpeg"
-                      onChange={(e) => handleUploadPhoto(e, index)}
-                      className="mt-2"
-                    />
                   </div>
                 ))}
-                <p
-                  className="underline cursor-pointer mt-4"
-                  onClick={handleAddInputPhoto}
-                >
-                  Pridať foto
-                </p>
+
+                <input
+                  type="file"
+                  accept=".png, .jpg, .jpeg"
+                  onChange={(e) => handleUploadPhotos(e)}
+                  className="mt-6"
+                  multiple
+                />
               </div>
             </div>
 

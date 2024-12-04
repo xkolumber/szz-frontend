@@ -46,7 +46,7 @@ const DocumentsPage = () => {
           <h2 className="text-center uppercase">Tlačivá na stiahnutie</h2>
           <div className="flex flex-col gap-4">
             {data?.map((object, index) => (
-              <div className="flex flex-row items-center pt-4">
+              <div className="flex flex-row items-center pt-4" key={index}>
                 <Link
                   to={object.link}
                   target="_blank"

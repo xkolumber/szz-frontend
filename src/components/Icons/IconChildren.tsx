@@ -7,7 +7,7 @@ const IconChildren = () => {
       stroke="#ffffff"
       className="w-16 h-16"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         strokeLinecap="round"
