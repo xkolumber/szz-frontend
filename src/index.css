@@ -1074,3 +1074,7 @@ menu {
   opacity: 0.7;
   cursor: not-allowed;
 }
+
+.homepage h6 {
+  font-size: 2rem;
+}

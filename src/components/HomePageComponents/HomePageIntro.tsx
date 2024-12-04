@@ -36,7 +36,7 @@ const HomePageIntro = () => {
   }, []);
 
   return (
-    <div className="own_edge relative">
+    <div className="own_edge relative homepage">
       <div className="main_section  flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col items-center lg:items-start">
           <h1 className="uppercase max-w-[680px] text-center lg:text-left">
@@ -125,7 +125,7 @@ const HomePageIntro = () => {
               <p className="font-bold text-[#47261C]">Tešíme sa na Vás!</p>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row md:gap-32  mt-16">
+          <div className="flex flex-col md:flex-row  mt-16 justify-between">
             <Link className="flex flex-row" to={"/aktuality"}>
               <div className="flex flex-row gap-[16px]">
                 <div className="">
