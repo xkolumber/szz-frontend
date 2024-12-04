@@ -17,7 +17,13 @@ const NavbarInfo = () => {
       <div className="flex flex-row gap-6 main_section !pt-0 !pb-0 justify-between">
         <div className="hidden md:flex flex-row gap-[32px]">
           <Skeleton
-            width={90}
+            width={180}
+            height={30}
+            borderRadius={8}
+            baseColor="#ffffff"
+          />
+          <Skeleton
+            width={230}
             height={30}
             borderRadius={8}
             baseColor="#ffffff"
@@ -29,7 +35,25 @@ const NavbarInfo = () => {
             baseColor="#ffffff"
           />
           <Skeleton
-            width={80}
+            width={140}
+            height={30}
+            borderRadius={8}
+            baseColor="#ffffff"
+          />
+          <Skeleton
+            width={190}
+            height={30}
+            borderRadius={8}
+            baseColor="#ffffff"
+          />
+          <Skeleton
+            width={150}
+            height={30}
+            borderRadius={8}
+            baseColor="#ffffff"
+          />
+          <Skeleton
+            width={180}
             height={30}
             borderRadius={8}
             baseColor="#ffffff"

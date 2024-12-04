@@ -22,8 +22,10 @@ const DocumentsPage = () => {
       <div className="own_edge">
         <div className="main_section !pt-8 min-h-screen ">
           <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
-          <h2 className="text-center uppercase pt-8">Tlačivá na stiahnutie</h2>
-          <ClipLoader size={20} color={"#000000"} loading={true} />
+          <div className="max-w-[900px] m-auto mt-8">
+            <h2 className="text-center uppercase">Tlačivá na stiahnutie</h2>
+            <ClipLoader size={20} color={"#000000"} loading={true} />
+          </div>
         </div>
       </div>
     );
@@ -40,26 +42,28 @@ const DocumentsPage = () => {
     <div className="own_edge">
       <div className="main_section !pt-8 min-h-screen ">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
-        <h2 className="text-center uppercase pt-8">Tlačivá na stiahnutie</h2>
-        <div className="flex flex-col gap-4">
-          {data?.map((object, index) => (
-            <div className="flex flex-row items-center pt-4">
-              <Link
-                to={object.link}
-                target="_blank"
-                key={index}
-                className="underline"
-              >
-                {" "}
-                {object.nazov}
-              </Link>
-              <p className="uppercase">, ({object.typ})</p>
-            </div>
-          ))}
+        <div className="max-w-[900px] m-auto mt-8">
+          <h2 className="text-center uppercase">Tlačivá na stiahnutie</h2>
+          <div className="flex flex-col gap-4">
+            {data?.map((object, index) => (
+              <div className="flex flex-row items-center pt-4">
+                <Link
+                  to={object.link}
+                  target="_blank"
+                  key={index}
+                  className="underline"
+                >
+                  {" "}
+                  {object.nazov}
+                </Link>
+                <p className="uppercase">, ({object.typ})</p>
+              </div>
+            ))}
+          </div>
+          {data?.length === 0 && (
+            <p>V tejto sekcii zatiaľ nie sú žiadne dokumenty.</p>
+          )}
         </div>
-        {data?.length === 0 && (
-          <p>V tejto sekcii zatiaľ nie sú žiadne dokumenty.</p>
-        )}
       </div>
     </div>
   );
