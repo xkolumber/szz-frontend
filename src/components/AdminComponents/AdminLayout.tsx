@@ -73,6 +73,12 @@ function AdminLayout({ children }: LayoutProps) {
                   </Link>
                 ))}
               </div>
+              <Link
+                className="text-white pt-16 underline"
+                to={"/admin/novy-dokument"}
+              >
+                Pridať nový dokument
+              </Link>
             </div>
             <button
               onClick={handleLogout}

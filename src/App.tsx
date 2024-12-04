@@ -71,6 +71,7 @@ import AdminZlavyPage from "./components/AdminComponents/ZlavyPage/AdminZlavyPag
 import AdminPrednasky from "./components/AdminComponents/PrednaskyPage/AdminPrednasky";
 import AdminUzitocne from "./components/AdminComponents/UzitocneLinky/AdminUzitocne";
 import UsefullLinksPage from "./components/UsefullLinksPage";
+import AdminNewFile from "./components/AdminComponents/AdminNewFile";
 
 interface LayoutProps {
   children: ReactNode;
@@ -278,6 +279,7 @@ function App() {
           <Route path="tlaciva/:id" element={<AdminDocsId />} />
 
           <Route path="poradna" element={<AdminPoradna />} />
+          <Route path="novy-dokument" element={<AdminNewFile />} />
 
           <Route
             path="archiv/novy-dokument"

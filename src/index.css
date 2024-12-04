@@ -1069,3 +1069,8 @@ menu {
   margin: auto;
   padding: revert;
 }
+
+.disabledbtn {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
