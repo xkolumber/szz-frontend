@@ -47,6 +47,10 @@ export const navbar_admin_data = [
     slug: "/admin/blog",
   },
   {
+    title: "Deti a mládež",
+    slug: "/admin/deti-a-mladez",
+  },
+  {
     title: "Galéria",
     slug: "/admin/galeria",
   },

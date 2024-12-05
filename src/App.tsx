@@ -73,6 +73,7 @@ import AdminUzitocne from "./components/AdminComponents/UzitocneLinky/AdminUzito
 import UsefullLinksPage from "./components/UsefullLinksPage";
 import AdminNewFile from "./components/AdminComponents/AdminNewFile";
 import ChildrenPage from "./components/ChildrenPage";
+import AdminChildren from "./components/AdminComponents/ChildrenPage/AdminChildren";
 
 interface LayoutProps {
   children: ReactNode;
@@ -227,6 +228,7 @@ function App() {
             path="hlavicka-odkazy/novy-odkaz"
             element={<AdminNavbarDataNewId />}
           />
+          <Route path="deti-a-mladez" element={<AdminChildren />} />
           <Route path="o-nas" element={<AdminAboutUs />} />
           <Route path="zlavy" element={<AdminZlavyPage />} />
           <Route path="prednasky" element={<AdminPrednasky />} />

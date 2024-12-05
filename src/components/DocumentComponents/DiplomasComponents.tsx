@@ -26,7 +26,7 @@ const DiplomasComponents = ({ data }: Props) => {
       <div className="flex flex-wrap gap-4">
         {data.fotky.map((object, index) => (
           <img
-            className="w-60 h-60 object-cover hover:scale-[1.02] duration-200 cursor-pointer"
+            className="w-60 h-60 object-cover hover:scale-[1.02] duration-200 cursor-pointer rounded-[8px]"
             src={object}
             key={index}
             onClick={() => handleOpenGallery(index)}

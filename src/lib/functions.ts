@@ -1509,3 +1509,66 @@ export async function fetchDiplomas() {
     return null;
   }
 }
+
+export async function getChildrenPageToken(token: string | null) {
+  if (token) {
+    try {
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_API_URL
+        }/admin/childrenpage/getchildrenpage/7ae8a22a-3acc-4a47-ba7f-997e69eacb8e`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
+export async function getChildrenPageClient() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/childrenpage/getchildrenpageopen/7ae8a22a-3acc-4a47-ba7f-997e69eacb8e`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.log("error");
+      return null;
+    }
+
+    const responseData = await response.json();
+
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
