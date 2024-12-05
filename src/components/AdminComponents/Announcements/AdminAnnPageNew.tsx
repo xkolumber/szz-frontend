@@ -95,8 +95,8 @@ const AdminAnnPageNew = () => {
 
   const onDrop = useCallback(async (acceptedFiles: File[], key: string) => {
     const file = acceptedFiles[0];
-    if (!file || !["image/jpeg", "image/png"].includes(file.type)) {
-      toast.error("Please upload only image files (JPEG or PNG).");
+    if (!file.type.startsWith("image/")) {
+      toast.error("Iba obrázky sú povolené");
       return;
     }
 

@@ -88,7 +88,7 @@ const AdminDocs = () => {
 
       {data2 && (
         <>
-          <h2 className="pt-8">Diplomy</h2>
+          <h2 className="pt-24">Diplomy</h2>
           <AdminDiplomas data={data2} refetch={refetch} />
         </>
       )}
