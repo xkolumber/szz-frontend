@@ -1446,3 +1446,66 @@ export async function getPrednaskyPage() {
     return null;
   }
 }
+
+export async function fetchDiplomasToken(token: string | null) {
+  if (token) {
+    try {
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_API_URL
+        }/admin/docs/getdiplomas/c5db7e39-2b24-4276-acfd-317506e3f515`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
+export async function fetchDiplomas() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/docs/getdiplomasclient/c5db7e39-2b24-4276-acfd-317506e3f515`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.log("error");
+      return null;
+    }
+
+    const responseData = await response.json();
+
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}

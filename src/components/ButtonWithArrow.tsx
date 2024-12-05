@@ -15,8 +15,8 @@ interface Props {
 const ButtonWithArrow = ({
   title,
   link,
-  bg = "#FFFFFF",
-  color = "#47261C",
+  bg,
+  color,
   justifyCenterMobile = false,
   padding = false,
   widthFull = false,

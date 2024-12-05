@@ -140,3 +140,8 @@ export interface GeneralPageInterface {
   text1: string;
   pdf: Pdf[];
 }
+
+export interface Diplomas {
+  id: string;
+  fotky: string[];
+}

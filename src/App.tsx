@@ -47,7 +47,7 @@ import ArchivePageYear from "./components/ArchiveComponents/ArchivePageYear";
 import BlogDetailPage from "./components/BlogComponents/BlogDetailPage";
 import BlogsPage from "./components/BlogComponents/BlogsPage";
 import ContactPage from "./components/ContactPage";
-import DocumentsPage from "./components/DocumentsPage";
+import DocumentsPage from "./components/DocumentComponents/DocumentsPage";
 import EventDetailPage from "./components/EventComponents/EventDetailPage";
 import EventsPage from "./components/EventComponents/EventsPage";
 import Footer from "./components/Footer";

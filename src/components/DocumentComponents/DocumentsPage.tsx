@@ -1,9 +1,10 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { fetchDocsClient } from "../lib/functions";
-import { Tlacivo } from "../lib/interface";
-import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
+import { fetchDiplomas, fetchDocsClient } from "../../lib/functions";
+import { Diplomas, Tlacivo } from "../../lib/interface";
+import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import { ClipLoader } from "react-spinners";
+import DiplomasComponents from "./DiplomasComponents";
 
 const DocumentsPage = () => {
   const queryClient = useQueryClient();
@@ -15,6 +16,15 @@ const DocumentsPage = () => {
     queryKey: ["documents"],
     queryFn: () => fetchDocsClient(),
     enabled: cachedArchive.length === 0,
+  });
+
+  const cachedDiplomas =
+    queryClient.getQueryData<Diplomas[]>(["diplomas"]) || [];
+
+  const { data: data2, isLoading: isLoading2 } = useQuery<Diplomas>({
+    queryKey: ["diplomas"],
+    queryFn: () => fetchDiplomas(),
+    enabled: cachedDiplomas.length === 0,
   });
 
   if (isLoading)
@@ -37,6 +47,10 @@ const DocumentsPage = () => {
         </div>
       </div>
     );
+
+  if (isLoading2) {
+    return <p>loading...</p>;
+  }
 
   return (
     <div className="own_edge">
@@ -63,6 +77,8 @@ const DocumentsPage = () => {
           {data?.length === 0 && (
             <p>V tejto sekcii zatiaľ nie sú žiadne dokumenty.</p>
           )}
+
+          {data2 && <DiplomasComponents data={data2} />}
         </div>
       </div>
     </div>

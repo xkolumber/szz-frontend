@@ -1,17 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { Tlacivo } from "../../../lib/interface";
+import { fetchDiplomasToken, fetchDocsToken } from "../../../lib/functions";
+import { Diplomas, Tlacivo } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 import AdminDataSkeleton from "../AdminDataSkeleton";
 import AdminErrorStatus from "../AdminErrorStatus";
 import AdminNotAuthorized from "../AdminNotAuthorized";
-import { fetchDocsToken } from "../../../lib/functions";
+import AdminDiplomas from "./AdminDiplomas";
 
 const AdminDocs = () => {
   const token = localStorage.getItem("token");
   const { data, status, isLoading } = useQuery<Tlacivo[]>({
     queryKey: ["admin_docs"],
     queryFn: () => fetchDocsToken(token),
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+  });
+
+  const {
+    data: data2,
+    isLoading: isLoading2,
+    refetch,
+  } = useQuery<Diplomas>({
+    queryKey: ["admin_diplomas"],
+    queryFn: () => fetchDiplomasToken(token),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -32,6 +44,10 @@ const AdminDocs = () => {
 
   if (status === "error") {
     return <AdminErrorStatus />;
+  }
+
+  if (isLoading2) {
+    return <p>loading...</p>;
   }
 
   return (
@@ -69,6 +85,14 @@ const AdminDocs = () => {
           </table>
         </div>
       )}
+
+      {data2 && (
+        <>
+          <h2 className="pt-8">Diplomy</h2>
+          <AdminDiplomas data={data2} refetch={refetch} />
+        </>
+      )}
+
       {data === null && <AdminNotAuthorized />}
     </div>
   );

@@ -244,6 +244,15 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
     const files = e.target.files;
     if (!files) return;
 
+    const validFiles = Array.from(files).filter((file) =>
+      file.type.startsWith("image/")
+    );
+
+    if (validFiles.length === 0) {
+      toast.error("Iba obrázky sú povolené");
+      return;
+    }
+
     setDataLoading(true);
 
     const compressedFiles = [];
@@ -443,7 +452,7 @@ const AdminUnionPageIdComponent = ({ data, onDataUpdated }: Props) => {
                 ))}
                 <input
                   type="file"
-                  accept=".png, .jpg, .jpeg"
+                  accept="image/*"
                   onChange={(e) => handleUploadPhotos(e)}
                   className="mt-6"
                   multiple
