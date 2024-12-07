@@ -7,7 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { CompressImage } from "../../../lib/functions";
-import { isValidDate } from "../../../lib/functionsClient";
+import { createSlug, isValidDate } from "../../../lib/functionsClient";
 import { Oznamy } from "../../../lib/interface";
 import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
@@ -71,6 +71,7 @@ const AdminAnnPageIdComponent = ({ data, onEventUpdated }: Props) => {
             text1: actualizeData.text1,
             datum: actualizeData.datum,
             nazov: actualizeData.nazov,
+            slug: createSlug(actualizeData.nazov),
             foto: actualizeData.foto,
           }),
         }

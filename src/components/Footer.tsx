@@ -74,7 +74,7 @@ const Footer = () => {
               </p>
               <div className="flex flex-row items-center gap-[24px]">
                 <Link
-                  to={"/"}
+                  to={"/gdpr"}
                   className="text-[12px] 2xl:text-[14px] text-primary font-light  opacity-80 text-white uppercase"
                 >
                   Zásady ochrany osobných údajov

@@ -35,12 +35,15 @@ const ContactPage = () => {
           <h2 className="text-center">Kontakt</h2>
           {data && (
             <div>
-              <img
-                width={120}
-                height={120}
-                src={data.foto1}
-                className="mt-4 mb-4 w-full h-full object-cover rounded-[16px] max-h-[369px]"
-              />
+              <div className="relative w-full h-[369px]">
+                <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-[16px]"></div>
+                <img
+                  width={120}
+                  height={120}
+                  src={data.foto1}
+                  className="mt-4 mb-4 w-full h-full object-cover rounded-[16px] max-h-[369px] z-10 relative"
+                />
+              </div>
               <h5 className="upperecase pt-8">Ako sa k nám dostanete</h5>
 
               <iframe

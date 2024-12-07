@@ -133,6 +133,7 @@ export interface Oznamy {
   datum: string;
   nazov: string;
   foto: string;
+  slug: string;
 }
 
 export interface GeneralPageInterface {
@@ -144,4 +145,12 @@ export interface GeneralPageInterface {
 export interface Diplomas {
   id: string;
   fotky: string[];
+}
+
+export interface ArchiveEvent {
+  id: string;
+  datum: string;
+  dokumenty: string[];
+  nazov: string;
+  rok: string;
 }

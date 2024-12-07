@@ -107,9 +107,9 @@ const GalleryPage = () => {
     <div className="own_edge min-h-screen relative overflow-hidden">
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
-        <div className="flex flex-row justify-between pt-8">
+        <div className="flex flex-col md:flex-row justify-between pt-8">
           <h2 className="uppercase text-center ">Galéria</h2>
-          <div className="flex flex-row items-center gap-6">
+          <div className="flex flex-row items-center gap-6 justify-center">
             <p className="uppercase font-medium">Rok fotogalérie</p>
             <Select
               options={options_years}
@@ -119,7 +119,9 @@ const GalleryPage = () => {
           </div>
         </div>
 
-        <p>Vitajte v galérii Slovenského zväzu záhradkárov!</p>
+        <p className="hidden md:block">
+          Vitajte v galérii Slovenského zväzu záhradkárov!
+        </p>
         {!isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px] mt-8">
             {data &&

@@ -48,7 +48,15 @@ const BlogDetailPage = () => {
         </div>
       </div>
     );
-  if (error) return <div>Error: {error.message}</div>;
+  if (error)
+    return (
+      <div className="own_edge min-h-screen relative overflow-hidden">
+        <div className="main_section !pt-8">
+          <ButtonWithArrowLeft title="Späť na blog" link={`/blog`} />
+          <p className="pt-4">Zadaný blog neexistuje</p>
+        </div>
+      </div>
+    );
 
   return (
     <div className="own_edge relative overflow-hidden">
@@ -57,7 +65,9 @@ const BlogDetailPage = () => {
         {blogData && (
           <>
             <div className="flex items-center flex-col">
-              <h1 className="pt-8 pb-4">{blogData?.nazov_blog}</h1>
+              <h1 className="pt-8 pb-4 text-center md:text-left">
+                {blogData?.nazov_blog}
+              </h1>
               <div className="flex flex-row gap-6  ">
                 <p className="font-medium">{blogData.datum}</p>
               </div>

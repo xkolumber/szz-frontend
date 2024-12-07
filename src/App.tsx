@@ -74,6 +74,9 @@ import UsefullLinksPage from "./components/UsefullLinksPage";
 import AdminNewFile from "./components/AdminComponents/AdminNewFile";
 import ChildrenPage from "./components/ChildrenPage";
 import AdminChildren from "./components/AdminComponents/ChildrenPage/AdminChildren";
+import AnnPage from "./components/AnnComponents/AnnPage";
+import AnnPageSlug from "./components/AnnComponents/AnnPageSlug";
+import GdprPage from "./components/GdprPage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -173,6 +176,14 @@ function App() {
           }
         />
         <Route
+          path="/gdpr"
+          element={
+            <Layout>
+              <GdprPage />
+            </Layout>
+          }
+        />
+        <Route
           path="/archiv/:year"
           element={
             <Layout>
@@ -217,6 +228,22 @@ function App() {
           element={
             <Layout>
               <ChildrenPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/oznamy"
+          element={
+            <Layout>
+              <AnnPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/oznamy/:slug"
+          element={
+            <Layout>
+              <AnnPageSlug />
             </Layout>
           }
         />

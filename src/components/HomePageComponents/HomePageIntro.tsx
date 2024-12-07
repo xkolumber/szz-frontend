@@ -125,7 +125,7 @@ const HomePageIntro = () => {
               <p className="font-bold text-[#47261C]">Tešíme sa na Vás!</p>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row  mt-16 justify-between">
+          <div className="flex flex-col md:flex-row  gap-8 md:gap-0 mt-16 justify-between">
             <Link className="flex flex-row" to={"/aktuality"}>
               <div className="flex flex-row gap-[16px]">
                 <div className="">

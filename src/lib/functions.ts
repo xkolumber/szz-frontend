@@ -1,5 +1,5 @@
-import { ActualJob } from "./interface";
 import imageCompression from "browser-image-compression";
+import { ActualJob, Oznamy } from "./interface";
 
 export async function fetchNavbarData() {
   try {
@@ -1097,6 +1097,44 @@ export async function fetchAnnouncementsToken(token: string | null) {
   }
 }
 
+export async function fetchAnnouncements() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/ann/getallannopen`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.log("error");
+      return null;
+    }
+
+    const responseData = await response.json();
+
+    const sortedItems = responseData.Items.sort((a: Oznamy, b: Oznamy) => {
+      const dateA = convertToDate(a.datum);
+      const dateB = convertToDate(b.datum);
+      return dateB.getTime() - dateA.getTime();
+    });
+
+    return sortedItems;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
+
+function convertToDate(dateString: string): Date {
+  const [day, month, year] = dateString.split(".");
+  return new Date(Number(year), Number(month) - 1, Number(day));
+}
+
 export async function fetchAnnouncementIdToken(
   token: string | null,
   id: string | undefined
@@ -1129,6 +1167,33 @@ export async function fetchAnnouncementIdToken(
     }
   } else {
     return null;
+  }
+}
+
+export async function fetchAnnouncementSlug(slug: string) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/ann/getannslug/${slug}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const responseData = await response.json();
+    if (responseData != null) {
+      return responseData;
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw new Error("Network response was not ok");
   }
 }
 
