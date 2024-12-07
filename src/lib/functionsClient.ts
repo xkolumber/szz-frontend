@@ -126,6 +126,18 @@ export const footer_data = [
     slug: "/poradna",
   },
   {
+    title: "Prednášky",
+    slug: "/prednasky",
+  },
+  {
+    title: "Zľavy pre členov",
+    slug: "/zlavy",
+  },
+  {
+    title: "Užitočné linky",
+    slug: "/uzitocne-linky",
+  },
+  {
     title: "Odporúčame",
     slug: "/odporucame",
   },
