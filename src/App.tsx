@@ -110,7 +110,7 @@ function App() {
         />
         <meta
           name="keywords"
-          content="záhradkárstvo, Slovenský zväz záhradkárov, záhrada, ovocie, zelenina"
+          content="záhradkárstvo, Slovenský zväz záhradkárov, záhrada, ovocie, zelenina, zväz"
         />
         <meta name="author" content="Slovenský zväz záhradkárov" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
