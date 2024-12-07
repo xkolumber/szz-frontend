@@ -103,12 +103,10 @@ function App() {
   return (
     <HelmetProvider>
       <Helmet>
-        <title>
-          Slovenský zväz záhradkárov | Gardening Community and Resources
-        </title>
+        <title>Slovenský zväz záhradkárov</title>
         <meta
           name="description"
-          content="Slovenský zväz záhradkárov provides resources, tips, and community support for gardeners across Slovakia. Join us to learn, grow, and share your gardening passion."
+          content="Slovenský zväz záhradkárov je komunita nadšencov záhradkárstva na Slovensku. Objavte užitočné rady, tipy na pestovanie a zapojte sa do aktivít, ktoré podporujú lásku k prírode a záhradkárstvu."
         />
         <meta
           name="keywords"
@@ -120,7 +118,7 @@ function App() {
         <meta property="og:title" content="Slovenský zväz záhradkárov" />
         <meta
           property="og:description"
-          content="Join Slovenský zväz záhradkárov for the best gardening resources and community support in Slovakia."
+          content="Slovenský zväz záhradkárov je komunita nadšencov záhradkárstva na Slovensku. Objavte užitočné rady, tipy na pestovanie a zapojte sa do aktivít, ktoré podporujú lásku k prírode a záhradkárstvu."
         />
         <meta property="og:url" content="https://www.zvazzahradkarov.sk" />
         <meta property="og:type" content="website" />
