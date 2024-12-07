@@ -1637,3 +1637,66 @@ export async function getChildrenPageClient() {
     return null;
   }
 }
+
+export async function getGdprPageToken(token: string | null) {
+  if (token) {
+    try {
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_API_URL
+        }/admin/gdpr/getgdprpage/e4c653e5-c664-459f-a984-7a9d3b08d978`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
+export async function getGdprPage() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/gdpr/getgdprpageopen/e4c653e5-c664-459f-a984-7a9d3b08d978`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.log("error");
+      return null;
+    }
+
+    const responseData = await response.json();
+
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}

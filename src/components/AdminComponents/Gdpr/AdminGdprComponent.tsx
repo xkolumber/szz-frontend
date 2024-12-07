@@ -11,7 +11,7 @@ interface Props {
   refetch: () => void;
 }
 
-const AdminPoradnaComponent = ({ data, refetch }: Props) => {
+const AdminGdprComponent = ({ data, refetch }: Props) => {
   const token = localStorage.getItem("token");
 
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +29,7 @@ const AdminPoradnaComponent = ({ data, refetch }: Props) => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/poradnapage/updateporadnapage`,
+        `${import.meta.env.VITE_API_URL}/admin/gdpr/updategdprpage`,
         {
           method: "PUT",
           headers: {
@@ -273,4 +273,4 @@ const AdminPoradnaComponent = ({ data, refetch }: Props) => {
   );
 };
 
-export default AdminPoradnaComponent;
+export default AdminGdprComponent;

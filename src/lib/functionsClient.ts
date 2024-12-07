@@ -55,6 +55,10 @@ export const navbar_admin_data = [
     slug: "/admin/galeria",
   },
   {
+    title: "Gdpr",
+    slug: "/admin/gdpr",
+  },
+  {
     title: "Hlavička odkazy",
     slug: "/admin/hlavicka-odkazy",
   },

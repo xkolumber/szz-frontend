@@ -11,24 +11,24 @@ const HomePageAnnouncementComponent = ({ data }: Props) => {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  // useEffect(() => {
-  //   const checkAnn = () => {
-  //     data.map((object) => {
-  //       if (object.viditelnost) {
-  //         setIsVisible(true);
-  //       }
-  //     });
-  //   };
+  useEffect(() => {
+    const checkAnn = () => {
+      data.map((object) => {
+        if (object.viditelnost) {
+          setIsVisible(true);
+        }
+      });
+    };
 
-  //   if (data) {
-  //     checkAnn();
-  //   }
-  // }, [data]);
+    if (data) {
+      checkAnn();
+    }
+  }, [data]);
 
   return (
     <div
       className={`own_edge relative homepage !pt-2 !pb-2 bg-[#d16683] ${
-        !isVisible && ""
+        !isVisible && "!hidden"
       }`}
     >
       <div className="main_section  !pt-0 !pb-0 justify-center flex flex-col">

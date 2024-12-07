@@ -74,7 +74,7 @@ function AdminLayout({ children }: LayoutProps) {
                 ))}
               </div>
               <Link
-                className="text-white pt-16 underline"
+                className="text-white pt-4 pb-4 underline"
                 to={"/admin/novy-dokument"}
               >
                 Pridať nový dokument

@@ -1021,6 +1021,14 @@ textarea.is-active {
   gap: 16px;
   flex-wrap: wrap;
 }
+.control-group {
+  position: sticky;
+  top: 0px;
+  background-color: white;
+  z-index: 10;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
 
 .button-group button,
 .button-group input,

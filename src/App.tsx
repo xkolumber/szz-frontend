@@ -8,6 +8,7 @@ import AdminActualJobId from "./components/AdminComponents/ActualJob/AdminActual
 import AdminActualJobNewMonth from "./components/AdminComponents/ActualJob/AdminActualJobNewMonth";
 import AdminActualJobs from "./components/AdminComponents/ActualJob/AdminActualJobs";
 import AdminLayout from "./components/AdminComponents/AdminLayout";
+import AdminNewFile from "./components/AdminComponents/AdminNewFile";
 import AdminPage from "./components/AdminComponents/AdminPage";
 import AdminAnnouncementsPage from "./components/AdminComponents/Announcements/AdminAnnouncementsPage";
 import AdminAnnPageId from "./components/AdminComponents/Announcements/AdminAnnPageId";
@@ -19,6 +20,7 @@ import AdminArchivePageYear from "./components/AdminComponents/Archiv/AdminArchi
 import AdminBlogPageId from "./components/AdminComponents/Blog/AdminBlogPageId";
 import AdminBlogPageNew from "./components/AdminComponents/Blog/AdminBlogPageNew";
 import AdminBlogsPage from "./components/AdminComponents/Blog/AdminBlogsPage";
+import AdminChildren from "./components/AdminComponents/ChildrenPage/AdminChildren";
 import AdminContactPage from "./components/AdminComponents/ContactPage/AdminContactPage";
 import AdminDocs from "./components/AdminComponents/Docs/AdminDocs";
 import AdminDocsId from "./components/AdminComponents/Docs/AdminDocsId";
@@ -33,50 +35,49 @@ import AdminGalleryPage from "./components/AdminComponents/Gallery/AdminGalleryP
 import AdminGalleryPageId from "./components/AdminComponents/Gallery/AdminGalleryPageId";
 import AdminGalleryPageNew from "./components/AdminComponents/Gallery/AdminGalleryPageNew";
 import AdminGalleryPageYear from "./components/AdminComponents/Gallery/AdminGalleryPageYear";
+import AdminGdpr from "./components/AdminComponents/Gdpr/AdminGdpr";
 import AdminNavbarData from "./components/AdminComponents/NavbarData/AdminNavbarData";
 import AdminNavbarDataId from "./components/AdminComponents/NavbarData/AdminNavbarDataId";
 import AdminNavbarDataNewId from "./components/AdminComponents/NavbarData/AdminNavbarDataNewId";
+import AdminPoradna from "./components/AdminComponents/PoradnaPage/AdminPoradna";
+import AdminPrednasky from "./components/AdminComponents/PrednaskyPage/AdminPrednasky";
 import AdminSponsorId from "./components/AdminComponents/Sponsors/AdminSponsorId";
 import AdminSponsorNew from "./components/AdminComponents/Sponsors/AdminSponsorNew";
 import AdminSponsors from "./components/AdminComponents/Sponsors/AdminSponsors";
 import AdminUnionPage from "./components/AdminComponents/Union/AdminUnionPage";
 import AdminUnionPageId from "./components/AdminComponents/Union/AdminUnionPageId";
 import AdminUnionPageNew from "./components/AdminComponents/Union/AdminUnionPageNew";
+import AdminUzitocne from "./components/AdminComponents/UzitocneLinky/AdminUzitocne";
+import AdminZlavyPage from "./components/AdminComponents/ZlavyPage/AdminZlavyPage";
+import AnnPage from "./components/AnnComponents/AnnPage";
+import AnnPageSlug from "./components/AnnComponents/AnnPageSlug";
 import ArchivePage from "./components/ArchiveComponents/ArchivePage";
 import ArchivePageYear from "./components/ArchiveComponents/ArchivePageYear";
 import BlogDetailPage from "./components/BlogComponents/BlogDetailPage";
 import BlogsPage from "./components/BlogComponents/BlogsPage";
+import ChildrenPage from "./components/ChildrenPage";
 import ContactPage from "./components/ContactPage";
+import DiscountPage from "./components/DiscountPage";
 import DocumentsPage from "./components/DocumentComponents/DocumentsPage";
 import EventDetailPage from "./components/EventComponents/EventDetailPage";
 import EventsPage from "./components/EventComponents/EventsPage";
+import FaqPage from "./components/FaqPage";
 import Footer from "./components/Footer";
 import GalleryPage from "./components/GalleryComponents/GalleryPage";
 import GalleryPageId from "./components/GalleryComponents/GalleryPageId";
+import GdprPage from "./components/GdprPage";
 import HomePage from "./components/HomePageComponents/HomePage";
+import LecturesPage from "./components/LecturesPage";
 import Navbar from "./components/Navbar";
 import NavbarInfo from "./components/NavbarInfo";
 import NotFound from "./components/NotFound";
+import PoradnaPage from "./components/PoradnaPage";
 import { NavbarProvider } from "./components/Provider";
 import RecommendPage from "./components/RecommendedComponents/RecommendPage";
 import ScrollToTop from "./components/ScrollToTop";
 import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
-import FaqPage from "./components/FaqPage";
-import DiscountPage from "./components/DiscountPage";
-import LecturesPage from "./components/LecturesPage";
-import PoradnaPage from "./components/PoradnaPage";
-import AdminPoradna from "./components/AdminComponents/PoradnaPage/AdminPoradna";
-import AdminZlavyPage from "./components/AdminComponents/ZlavyPage/AdminZlavyPage";
-import AdminPrednasky from "./components/AdminComponents/PrednaskyPage/AdminPrednasky";
-import AdminUzitocne from "./components/AdminComponents/UzitocneLinky/AdminUzitocne";
 import UsefullLinksPage from "./components/UsefullLinksPage";
-import AdminNewFile from "./components/AdminComponents/AdminNewFile";
-import ChildrenPage from "./components/ChildrenPage";
-import AdminChildren from "./components/AdminComponents/ChildrenPage/AdminChildren";
-import AnnPage from "./components/AnnComponents/AnnPage";
-import AnnPageSlug from "./components/AnnComponents/AnnPageSlug";
-import GdprPage from "./components/GdprPage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -317,6 +318,7 @@ function App() {
           <Route path="tlaciva/:id" element={<AdminDocsId />} />
 
           <Route path="poradna" element={<AdminPoradna />} />
+          <Route path="gdpr" element={<AdminGdpr />} />
           <Route path="novy-dokument" element={<AdminNewFile />} />
 
           <Route
