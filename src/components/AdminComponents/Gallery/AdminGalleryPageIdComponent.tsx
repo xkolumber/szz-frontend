@@ -96,7 +96,7 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
       }
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Blog bol aktualizovaný");
+        toast.success("Galéria bola aktualizovaná");
         await queryClient.refetchQueries({
           queryKey: ["admin_galleries", rok],
         });

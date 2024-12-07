@@ -101,7 +101,7 @@ const AdminArchivePageId = () => {
       }
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Blog bol aktualizovaný");
+        toast.success("Archív bol aktualizovaný");
         getData();
       }
     } catch (error) {
