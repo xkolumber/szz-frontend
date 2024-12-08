@@ -66,23 +66,27 @@ const BlogsPage = () => {
               >
                 <img
                   src={object.titulna_foto}
-                  className="rounded-[16px] max-h-[280px] h-full object-cover"
+                  width={240}
+                  height={240}
+                  className="rounded-[16px] w-full max-h-[280px] h-full object-cover"
                 />
-                <h5 className="pt-[8px] line-clamp-1 uppercase">
+                <h5 className="pt-4 line-clamp-1 uppercase">
                   {object.nazov_blog}
                 </h5>
-                <div
-                  className="content opacity-80 pt-4 line-clamp-2 "
-                  dangerouslySetInnerHTML={{ __html: object.popis1 }}
-                />
+                <div className="">
+                  <div
+                    className="content opacity-80 pt-4 line-clamp-2"
+                    dangerouslySetInnerHTML={{ __html: object.popis1 }}
+                  />
+                </div>
               </Link>
             ))}
           </div>
         ) : (
           <p>No blogs available.</p>
         )}
-        <button onClick={handleLoadMore} className="mt-8">
-          Load More Blogs
+        <button onClick={handleLoadMore} className="mt-16 underline">
+          Načítať viac blogov
         </button>
       </div>
       <img

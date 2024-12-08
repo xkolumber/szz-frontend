@@ -66,11 +66,11 @@ const HomePageBlogSection = () => {
                   src={existingBlogs[0].titulna_foto}
                   className="rounded-[16px]"
                 />
-                <h5 className="uppercase mt-[24px]">
+                <h5 className="uppercase mt-4">
                   {existingBlogs[0].nazov_blog}
                 </h5>
                 <div
-                  className="content opacity-80 line-clamp-2 "
+                  className="content opacity-80 line-clamp-2 pt-1 "
                   dangerouslySetInnerHTML={{ __html: existingBlogs[0].popis1 }}
                 />
               </Link>

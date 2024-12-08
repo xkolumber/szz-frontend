@@ -100,8 +100,8 @@ const EventDetailPage = () => {
         />
         {data ? (
           <>
-            <div className="flex items-center flex-col gap-4">
-              <h1>{data?.nazov_vystavy}</h1>
+            <div className="flex md:items-center flex-col gap-4">
+              <h1 className="text-center pt-4">{data?.nazov_vystavy}</h1>
               <div className="flex flex-row gap-6  ">
                 <IconCalendar />
                 <p className="font-semibold uppercase">Dátum podujatia:</p>
@@ -211,7 +211,7 @@ const EventDetailPage = () => {
           </div>
         )}
 
-        <div className="flex flex-row justify-between mt-[80px] items-center mb-[32px]">
+        <div className="flex flex-col md:flex-row justify-between mt-[80px] md:items-center mb-8 md:mb-[32px]">
           <h2 className="uppercase ">Ďalšie podujatia</h2>
           <ButtonWithArrow
             title="Zobraziť všetky"
