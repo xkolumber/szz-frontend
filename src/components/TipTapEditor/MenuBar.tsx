@@ -10,6 +10,14 @@ export const MenuBar = ({ editor }: MenuBarProps) => {
     return null;
   }
 
+  const addImage = useCallback(() => {
+    const url = window.prompt("URL");
+
+    if (url) {
+      editor.chain().focus().setImage({ src: url }).run();
+    }
+  }, [editor]);
+
   const setLink = useCallback(() => {
     const previousUrl = editor.getAttributes("link").href;
     const url = window.prompt("URL", previousUrl);
@@ -127,18 +135,7 @@ export const MenuBar = ({ editor }: MenuBarProps) => {
         <button onClick={() => editor.chain().focus().setHardBreak().run()}>
           Zalomenie riadku
         </button>
-        <button
-          onClick={() => editor.chain().focus().undo().run()}
-          disabled={!editor.can().chain().focus().undo().run()}
-        >
-          Krok späť
-        </button>
-        <button
-          onClick={() => editor.chain().focus().redo().run()}
-          disabled={!editor.can().chain().focus().redo().run()}
-        >
-          Krok dopredu
-        </button>
+
         <button
           onClick={setLink}
           className={editor.isActive("link") ? "is-active" : ""}
@@ -151,16 +148,19 @@ export const MenuBar = ({ editor }: MenuBarProps) => {
         >
           Zrušiť link
         </button>
-        {/* <button
-          onClick={() => editor.chain().focus().setColor("#958DF1").run()}
-          className={
-            editor.isActive("textStyle", { color: "#958DF1" })
-              ? "is-active"
-              : ""
+        <button onClick={addImage}>Pridať obrázok</button>
+        <input
+          type="color"
+          onInput={(event) =>
+            editor
+              .chain()
+              .focus()
+              .setColor((event.target as HTMLInputElement).value)
+              .run()
           }
-        >
-          Purple
-        </button> */}
+          value={editor.getAttributes("textStyle").color || "#000000"}
+          data-testid="setColor"
+        />
       </div>
     </div>
   );

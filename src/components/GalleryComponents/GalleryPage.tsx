@@ -71,6 +71,7 @@ const GalleryPage = () => {
   }, [searchParams, isChecked]);
 
   const handleChangeYear = async (selectedOption: any) => {
+    setIsLoading(true);
     let strana = searchParams.get("strana") || "1";
     navigate(`?strana=${strana}&rok=${selectedOption.value}`);
     setSelectedYear(selectedOption);

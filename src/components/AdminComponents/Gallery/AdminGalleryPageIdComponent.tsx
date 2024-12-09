@@ -87,6 +87,10 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
             datum: actualizeData.datum,
             fotky: actualizeData.fotky,
             rok: actualizeData.rok,
+            link_album:
+              actualizeData.link_album === undefined
+                ? ""
+                : actualizeData.link_album,
           }),
         }
       );
@@ -291,6 +295,19 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
                 required
               />
             </div>
+
+            <div className="product_admin_row">
+              <p>Link albumu:</p>
+              <input
+                type="text"
+                name="link_album"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.link_album}
+                placeholder="akýkoľvek link / Youtube alebo link google album"
+              />
+            </div>
+
             <div className="product_admin_row">
               <p>Fotky:</p>
               <div className="flex flex-col">

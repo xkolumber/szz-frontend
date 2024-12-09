@@ -6,22 +6,35 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import copy from "copy-to-clipboard";
 import IconCopy from "../Icons/IconCopy";
+import { CompressImage } from "../../lib/functions";
 
 const AdminNewFile = () => {
   const [pdfLink, setPdfLink] = useState<string | undefined>("");
   const token = localStorage.getItem("token");
   const [dataLoading, setDataLoading] = useState(false);
 
-  const handleUploadPdf = async (e: any) => {
+  const handleUploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setDataLoading(true);
-    const file = e.target.files[0];
 
-    const formData = new FormData();
-    formData.append("file", file);
+    const file = e.target.files?.[0];
+    if (!file) {
+      alert("No file selected.");
+      setDataLoading(false);
+      return;
+    }
 
     try {
+      let formData = new FormData();
+
+      if (file.type.startsWith("image/")) {
+        const compressedFile = await CompressImage(file);
+        formData.append("file", compressedFile!);
+      } else {
+        formData.append("file", file);
+      }
+
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/admin/upload/archivedocs/tlaciva`,
+        `${import.meta.env.VITE_API_URL}/admin/upload/randomfiles`,
         formData,
         {
           headers: {
@@ -41,9 +54,9 @@ const AdminNewFile = () => {
 
       setPdfLink(uploadUrl);
     } catch (error) {
-      console.error("Error uploading PDF:", error);
+      console.error("Error uploading file:", error);
       alert(
-        "Súbor má nepovolenú príponu. Povolené sú pdf, doc, docx, xls, xlsx"
+        "Súbor má nepovolenú príponu. Povolené sú pdf, doc, docx, xls, xlsx, obrázky"
       );
     } finally {
       setDataLoading(false);
@@ -76,14 +89,17 @@ const AdminNewFile = () => {
         <StepBack />
         <Toaster />
         <h2>Pridať nový súbor</h2>
-        <p>povolené prípony: .pdf, .doc, .docx, .xls, .xlsx</p>
+        <p>
+          povolené prípony: .pdf, .doc, .docx, .xls, .xlsx, všetky typy obrázkov
+          okrem svg
+        </p>
         <div className="product_admin_row">
           <p>link:</p>
           <input type="text" className="w-[70%]" value={pdfLink} required />
           <input
             type="file"
-            accept=".pdf, .doc, .docx, .xls, .xlsx"
-            onChange={(e) => handleUploadPdf(e)}
+            accept=".pdf, .doc, .docx, .xls, .xlsx, image/*"
+            onChange={(e) => handleUploadFile(e)}
             className="mt-2"
           />
         </div>

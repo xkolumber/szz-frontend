@@ -16,6 +16,9 @@ import ListItem from "@tiptap/extension-list-item";
 import OrderedList from "@tiptap/extension-ordered-list";
 import Strike from "@tiptap/extension-strike";
 import Heading from "@tiptap/extension-heading";
+import Image from "@tiptap/extension-image";
+import TextStyle from "@tiptap/extension-text-style";
+import { Color } from "@tiptap/extension-color";
 
 interface Props {
   content: string;
@@ -38,6 +41,9 @@ const Tiptap = ({ content, onChange }: Props) => {
       ListItem,
       OrderedList,
       Heading,
+      Image,
+      TextStyle,
+      Color,
 
       Link.configure({
         openOnClick: false,

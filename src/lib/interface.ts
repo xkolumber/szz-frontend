@@ -32,6 +32,7 @@ export interface Gallery {
   datum: string;
   fotky: string[];
   rok: string;
+  link_album: string;
 }
 
 export interface UnionData {

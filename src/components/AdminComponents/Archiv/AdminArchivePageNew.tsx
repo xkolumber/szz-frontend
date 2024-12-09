@@ -156,7 +156,7 @@ const AdminArchivePageNew = () => {
               />
             </div>
             <div className="product_admin_row">
-              <p>pdf_link:</p>
+              <p>link:</p>
               <input
                 type="text"
                 name="pdf_link"
