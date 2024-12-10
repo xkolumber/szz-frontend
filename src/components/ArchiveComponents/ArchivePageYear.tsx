@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { fetchArchiveByYear } from "../../lib/functions";
 import { Archive } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
+import { ClipLoader } from "react-spinners";
 
 const ArchivePageYear = () => {
   const queryClient = useQueryClient();
@@ -24,7 +25,7 @@ const ArchivePageYear = () => {
           {" "}
           <ButtonWithArrowLeft title="Späť do archívu" link={`/archiv`} />
           <h2 className="text-center uppercase">Dokumenty</h2>
-          <p>Loading...</p>
+          <ClipLoader size={20} color={"#000000"} loading={true} />
         </div>
       </div>
     );

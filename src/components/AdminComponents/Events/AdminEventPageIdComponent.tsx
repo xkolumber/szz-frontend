@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import classNames from "classnames";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";

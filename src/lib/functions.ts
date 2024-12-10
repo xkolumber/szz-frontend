@@ -856,7 +856,19 @@ export async function fetchDocsToken(token: string | null) {
 
       const responseData = await response.json();
 
-      return responseData.Items;
+      const sortedData = responseData.Items.sort((a: any, b: any) => {
+        const nameA = a.nazov.toUpperCase();
+        const nameB = b.nazov.toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      });
+
+      return sortedData;
     } catch (error) {
       console.error("Error fetching data:", error);
       return null;
@@ -917,7 +929,20 @@ export async function fetchDocsClient() {
       throw new Error("Network response was not ok");
     }
     const responseData = await response.json();
-    return responseData.Items;
+
+    const sortedData = responseData.Items.sort((a: any, b: any) => {
+      const nameA = a.nazov.toUpperCase();
+      const nameB = b.nazov.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+
+    return sortedData;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
