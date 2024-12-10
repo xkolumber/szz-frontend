@@ -79,8 +79,8 @@ const AdminSpravodajciNew = () => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Tlačivo bolo pridané");
-        await queryClient.refetchQueries({ queryKey: ["admin_docs"] });
+        toast.success("Objekt bolo pridaný");
+        await queryClient.refetchQueries({ queryKey: ["admin_spravodajci"] });
         navigate("/admin/spravodajci");
       }
     } catch (error) {
