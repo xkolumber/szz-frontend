@@ -176,6 +176,7 @@ const AdminDiplomas = ({ data, refetch }: Props) => {
       alert("Failed to upload one or more photos. Please try again.");
     } finally {
       setDataLoading(false);
+      // e.target.value = null;
     }
   };
 

@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import classNames from "classnames";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -216,7 +216,11 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
 
       setActualizeData((prevData) => {
         const updatedPdf = [...prevData.pdf];
-        updatedPdf[index] = { nazov: fileName, link: uploadUrl };
+        updatedPdf[index] = {
+          nazov: fileName,
+          link: uploadUrl,
+          datum: new Date(),
+        };
         return { ...prevData, pdf: updatedPdf };
       });
     } catch (error) {
@@ -226,13 +230,14 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
       );
     } finally {
       setDataLoading(false);
+      e.target.value = null;
     }
   };
 
   const handleAddInputPdf = () => {
     setActualizeData((prevData) => ({
       ...prevData,
-      pdf: [...prevData.pdf, { nazov: "", link: "" }],
+      pdf: [...prevData.pdf, { nazov: "", link: "", datum: new Date() }],
     }));
   };
 
@@ -368,6 +373,23 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
       [field]: value,
     }));
   };
+
+  useEffect(() => {
+    if (actualizeData.pdf.length > 0) {
+      const sortedPdf = [...actualizeData.pdf].sort((a, b) => {
+        const dateA = new Date(a.datum).getTime();
+        const dateB = new Date(b.datum).getTime();
+        return dateB - dateA;
+      });
+
+      if (JSON.stringify(actualizeData.pdf) !== JSON.stringify(sortedPdf)) {
+        setActualizeData((prevState) => ({
+          ...prevState,
+          pdf: sortedPdf,
+        }));
+      }
+    }
+  }, [actualizeData.pdf]);
 
   return (
     <div>

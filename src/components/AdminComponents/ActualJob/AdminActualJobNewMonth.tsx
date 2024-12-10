@@ -25,7 +25,7 @@ const AdminActualJobNewMonth = () => {
     id: "",
     mesiac: "",
     mesiac_cislo: 0,
-    pdf: { nazov: "", link: "" },
+    pdf: { nazov: "", link: "", datum: new Date() },
     text: "",
     farba: "",
   });
@@ -124,7 +124,7 @@ const AdminActualJobNewMonth = () => {
         if (message === "done") {
           setActualizeData((prevData) => ({
             ...prevData,
-            pdf: { nazov: fileName, link: uploadUrl },
+            pdf: { nazov: fileName, link: uploadUrl, datum: new Date() },
           }));
         }
       })

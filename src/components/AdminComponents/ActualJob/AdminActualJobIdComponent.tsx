@@ -162,7 +162,7 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
         if (message === "done") {
           setActualizeData((prevData) => ({
             ...prevData,
-            pdf: { nazov: fileName, link: uploadUrl },
+            pdf: { nazov: fileName, link: uploadUrl, datum: new Date() },
           }));
         }
       })
@@ -178,6 +178,8 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
     "p-10 border-gray-400 border-2 border-dashed rounded-lg w-[300px]": true,
     "bg-gray-200": isDragActive,
   });
+
+  console.log(data);
 
   return (
     <div>

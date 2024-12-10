@@ -86,6 +86,7 @@ export interface Faq {
 export interface Pdf {
   nazov: string;
   link: string;
+  datum: Date;
 }
 
 export interface AboutUsPage {

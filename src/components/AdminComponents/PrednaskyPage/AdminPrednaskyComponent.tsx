@@ -146,7 +146,11 @@ const AdminPrednaskyComponent = ({ data, refetch }: Props) => {
 
       setActualizeData((prevData) => {
         const updatedPdf = [...prevData.pdf];
-        updatedPdf[index] = { nazov: fileName, link: uploadUrl };
+        updatedPdf[index] = {
+          nazov: fileName,
+          link: uploadUrl,
+          datum: new Date(),
+        };
         return { ...prevData, pdf: updatedPdf };
       });
     } catch (error) {
@@ -173,9 +177,26 @@ const AdminPrednaskyComponent = ({ data, refetch }: Props) => {
   const handleAddInputPdf = () => {
     setActualizeData((prevData) => ({
       ...prevData,
-      pdf: [...prevData.pdf, { nazov: "", link: "" }],
+      pdf: [...prevData.pdf, { nazov: "", link: "", datum: new Date() }],
     }));
   };
+
+  useEffect(() => {
+    if (actualizeData.pdf.length > 0) {
+      const sortedPdf = [...actualizeData.pdf].sort((a, b) => {
+        const dateA = new Date(a.datum).getTime();
+        const dateB = new Date(b.datum).getTime();
+        return dateB - dateA;
+      });
+
+      if (JSON.stringify(actualizeData.pdf) !== JSON.stringify(sortedPdf)) {
+        setActualizeData((prevState) => ({
+          ...prevState,
+          pdf: sortedPdf,
+        }));
+      }
+    }
+  }, [actualizeData.pdf]);
 
   return (
     <div>
