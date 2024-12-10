@@ -14,8 +14,10 @@ const GalleryPageId = () => {
   const [open, setOpen] = useState(false);
   const [initialSlide, setInitialSlide] = useState(0);
   const [choosenAlbum, setChoosenAlbum] = useState<SlideImage[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getData = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `${
@@ -41,6 +43,8 @@ const GalleryPageId = () => {
       }
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -56,22 +60,23 @@ const GalleryPageId = () => {
     setOpen(true);
     setInitialSlide(index);
   };
+
   return (
-    <div className="own_edge relative overflow-hidden">
+    <div className="own_edge relative overflow-hidden min-h-screen">
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Späť do galérie" link={`/galeria`} />
-        {data === undefined && <p>Album neexsituje</p>}
-        {data ? (
+
+        {!isLoading && data ? (
           <>
             <div className="flex flex-col">
               <h1 className="text-center">{data?.nazov}</h1>
-              <p className="opacity-60 text-center">{data.datum}</p>
-              {data.link_album && data.link_album.includes("watch?v=") && (
+              <p className="opacity-60 text-center">{data?.datum}</p>
+              {data?.link_album && data.link_album.includes("watch?v=") && (
                 <div className="youtube_video">
                   <YouTubeVideo url={data.link_album} />
                 </div>
               )}
-              {data.link_album && !data.link_album.includes("watch?v=") && (
+              {data?.link_album && !data.link_album.includes("watch?v=") && (
                 <div className="flex flex-row gap-4">
                   {" "}
                   <p>Link galérie:</p>{" "}
@@ -85,7 +90,7 @@ const GalleryPageId = () => {
                 </div>
               )}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8 w-full">
-                {data.fotky.map((object, index) => (
+                {data?.fotky.map((object, index) => (
                   <div key={index} className="relative w-full h-[280px]">
                     <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-[16px]"></div>
                     <img
@@ -98,16 +103,20 @@ const GalleryPageId = () => {
                 ))}
               </div>
 
-              <p
-                className="uppercase font-semibold cursor-pointer  opacity-60 mt-16 text-left"
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              >
-                Späť na začiatok{" "}
-              </p>
+              {data && data.fotky.length > 0 && (
+                <p
+                  className="uppercase font-semibold cursor-pointer  opacity-60 mt-16 text-left"
+                  onClick={() =>
+                    window.scrollTo({ top: 0, behavior: "smooth" })
+                  }
+                >
+                  Späť na začiatok{" "}
+                </p>
+              )}
             </div>
           </>
         ) : (
-          <div className="min-h-screen">
+          <div className="min-h-screen mt-8">
             <ClipLoader size={20} color={"#000000"} loading={true} />
           </div>
         )}
@@ -120,14 +129,20 @@ const GalleryPageId = () => {
             index={initialSlide}
           />
         )}
-        <img
-          src={"/icons/icon_gallery_id_left.svg"}
-          className="absolute h-[578px] w-[373px] -left-40 top-[40%] hidden 3xl:block"
-        />
-        <img
-          src={"/icons/icon_gallery_id_right.svg"}
-          className="absolute h-[578px] w-[373px] -right-40 top-[20%] hidden 3xl:block"
-        />
+
+        {!isLoading && (
+          <img
+            src={"/icons/icon_gallery_id_left.svg"}
+            className="absolute h-[578px] w-[373px] -left-40 top-[40%] hidden 3xl:block"
+          />
+        )}
+
+        {!isLoading && (
+          <img
+            src={"/icons/icon_gallery_id_right.svg"}
+            className="absolute h-[578px] w-[373px] -right-40 top-[20%] hidden 3xl:block"
+          />
+        )}
       </div>
     </div>
   );

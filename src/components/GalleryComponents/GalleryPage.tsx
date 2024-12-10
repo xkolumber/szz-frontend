@@ -110,7 +110,7 @@ const GalleryPage = () => {
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
         <div className="flex flex-col md:flex-row justify-between pt-8">
           <h2 className="uppercase text-center ">Galéria</h2>
-          <div className="flex flex-row items-center gap-6 justify-center">
+          <div className="flex flex-row items-center gap-6 justify-center z-20">
             <p className="uppercase font-medium">Rok fotogalérie</p>
             <Select
               options={options_years}
@@ -133,10 +133,13 @@ const GalleryPage = () => {
                   to={`/galeria/${object.id}`}
                 >
                   {object.fotky.length > 0 ? (
-                    <img
-                      src={object.fotky[0]}
-                      className="rounded-[16px] object-cover h-[280px]"
-                    />
+                    <div key={index} className="relative w-full h-[280px]">
+                      <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-[16px]"></div>
+                      <img
+                        src={object.fotky[0]}
+                        className="rounded-[16px] object-cover h-[280px] z-10 relative w-full"
+                      />
+                    </div>
                   ) : (
                     <img
                       src={"/gray.png"}
@@ -155,14 +158,19 @@ const GalleryPage = () => {
         {data.length === 0 && !isLoading && (
           <p>So zadanými kritériami sa zatiaľ nenašla žiadna galéria.</p>
         )}
-        <img
-          src={"/icons/icon_gallery_left.svg"}
-          className="absolute h-[578px] w-[373px] -left-40 top-[40%] hidden 3xl:block"
-        />
-        <img
-          src={"/icons/icon_gallery_right.svg"}
-          className="absolute h-[578px] w-[373px] -right-40 top-[20%] hidden 3xl:block"
-        />
+        {!isLoading && (
+          <img
+            src={"/icons/icon_gallery_left.svg"}
+            className="absolute h-[578px] w-[373px] -left-40 top-[40%] hidden 3xl:block"
+          />
+        )}
+
+        {!isLoading && (
+          <img
+            src={"/icons/icon_gallery_right.svg"}
+            className="absolute h-[578px] w-[373px] -right-40 top-[20%] hidden 3xl:block"
+          />
+        )}
       </div>
     </div>
   );
