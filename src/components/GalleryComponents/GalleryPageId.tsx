@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { Gallery } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
+import YouTubeVideo from "../YoutubeVideo";
 
 const GalleryPageId = () => {
   const [data, setData] = useState<Gallery>();
@@ -65,6 +66,24 @@ const GalleryPageId = () => {
             <div className="flex flex-col">
               <h1 className="text-center">{data?.nazov}</h1>
               <p className="opacity-60 text-center">{data.datum}</p>
+              {data.link_album && data.link_album.includes("watch?v=") && (
+                <div className="youtube_video">
+                  <YouTubeVideo url={data.link_album} />
+                </div>
+              )}
+              {data.link_album && !data.link_album.includes("watch?v=") && (
+                <div className="flex flex-row gap-4">
+                  {" "}
+                  <p>Link galérie:</p>{" "}
+                  <Link
+                    to={data.link_album}
+                    target="_blank"
+                    className="underline"
+                  >
+                    {data.link_album}
+                  </Link>{" "}
+                </div>
+              )}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8 w-full">
                 {data.fotky.map((object, index) => (
                   <div key={index} className="relative w-full h-[280px]">

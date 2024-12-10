@@ -104,10 +104,18 @@ const AdminAnnPageNew = () => {
 
     setDataLoading(true);
 
+    let formData = new FormData();
+
     const compressedFile = await CompressImage(file);
 
-    const formData = new FormData();
-    formData.append("file", compressedFile!);
+    if (compressedFile) {
+      const newFile = new File([compressedFile], file.name, {
+        type: compressedFile.type,
+        lastModified: file.lastModified,
+      });
+
+      formData.append("file", newFile);
+    }
 
     axios
       .post(

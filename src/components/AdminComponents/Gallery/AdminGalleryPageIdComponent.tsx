@@ -69,6 +69,10 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
       toast.error("Rok je v nesprávnom tvare");
       return;
     }
+    if (actualizeData.fotky.length === 0) {
+      toast.error("Treba nahrať aspoň 1 fotografiu.");
+      return;
+    }
 
     try {
       setIsLoading(true);
@@ -210,7 +214,11 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
     for (const file of files) {
       const compressedFile = await CompressImage(file);
       if (compressedFile) {
-        compressedFiles.push(compressedFile);
+        const newFile = new File([compressedFile], file.name, {
+          type: compressedFile.type,
+          lastModified: file.lastModified,
+        });
+        compressedFiles.push(newFile);
       }
     }
 

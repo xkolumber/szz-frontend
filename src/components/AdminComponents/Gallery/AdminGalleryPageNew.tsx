@@ -159,7 +159,11 @@ const AdminGalleryPageNew = () => {
     for (const file of files) {
       const compressedFile = await CompressImage(file);
       if (compressedFile) {
-        compressedFiles.push(compressedFile);
+        const newFile = new File([compressedFile], file.name, {
+          type: compressedFile.type,
+          lastModified: file.lastModified,
+        });
+        compressedFiles.push(newFile);
       }
     }
 

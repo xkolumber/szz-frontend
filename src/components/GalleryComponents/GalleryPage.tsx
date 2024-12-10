@@ -132,10 +132,17 @@ const GalleryPage = () => {
                   key={index}
                   to={`/galeria/${object.id}`}
                 >
-                  <img
-                    src={object.fotky[0]}
-                    className="rounded-[16px] object-cover h-[280px]"
-                  />
+                  {object.fotky.length > 0 ? (
+                    <img
+                      src={object.fotky[0]}
+                      className="rounded-[16px] object-cover h-[280px]"
+                    />
+                  ) : (
+                    <img
+                      src={"/gray.png"}
+                      className="rounded-[16px] object-cover h-[280px]"
+                    />
+                  )}
 
                   <h5 className=" line-clamp-1 mt-4 mb-2">{object.nazov}</h5>
                   <p className="opacity-60 ">{object.datum}</p>
