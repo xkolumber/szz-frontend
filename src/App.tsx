@@ -79,6 +79,10 @@ import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
 import UsefullLinksPage from "./components/UsefullLinksPage";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import SpravodajcaPage from "./components/SpravodajcaComponents/SpravodajcaPage";
+import AdminSpravodajci from "./components/AdminComponents/Spravodajca/AdminSpravodajci";
+import AdminSpravodajciNew from "./components/AdminComponents/Spravodajca/AdminSpravodajciNew";
+import AdminSpravodajciId from "./components/AdminComponents/Spravodajca/AdminSpravodajciId";
 
 interface LayoutProps {
   children: ReactNode;
@@ -200,6 +204,14 @@ function App() {
             element={
               <Layout>
                 <ArchivePage />
+              </Layout>
+            }
+          />
+          <Route
+            path="/spravodajca"
+            element={
+              <Layout>
+                <SpravodajcaPage />
               </Layout>
             }
           />
@@ -339,6 +351,7 @@ function App() {
             <Route path="archiv" element={<AdminArchivePage />} />
             <Route path="archiv/:rok" element={<AdminArchivePageYear />} />
             <Route path="archiv/:rok/:id" element={<AdminArchivePageId />} />
+
             <Route path="sponzori" element={<AdminSponsors />} />
             <Route path="sponzori/novy-sponzor" element={<AdminSponsorNew />} />
             <Route path="sponzori/:id" element={<AdminSponsorId />} />
@@ -350,6 +363,13 @@ function App() {
             <Route path="poradna" element={<AdminPoradna />} />
             <Route path="gdpr" element={<AdminGdpr />} />
             <Route path="novy-dokument" element={<AdminNewFile />} />
+
+            <Route path="spravodajci" element={<AdminSpravodajci />} />
+            <Route
+              path="spravodajci/novy-objekt"
+              element={<AdminSpravodajciNew />}
+            />
+            <Route path="spravodajci/:id" element={<AdminSpravodajciId />} />
 
             <Route
               path="archiv/novy-dokument"

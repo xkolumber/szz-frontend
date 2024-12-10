@@ -1737,3 +1737,95 @@ export async function getGdprPage() {
     return null;
   }
 }
+
+export async function fetchSpravodajciToken(token: string | null) {
+  if (token) {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/spravodajca/getspravodajci`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData.Items;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
+export async function fetchSpravodajciIdToken(
+  token: string | null,
+  id: string | undefined
+) {
+  if (token && id) {
+    try {
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_API_URL
+        }/admin/spravodajca/getspravodajca/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("error");
+        return null;
+      }
+
+      const responseData = await response.json();
+
+      return responseData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
+export async function fetchSpravodajciClient() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/spravodajca/getspravodajciclient`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const responseData = await response.json();
+
+    return responseData.Items;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}

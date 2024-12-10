@@ -156,3 +156,13 @@ export interface ArchiveEvent {
   nazov: string;
   rok: string;
 }
+
+export interface Spravodajca {
+  id: string;
+  nazov: string;
+  rok: number;
+  mesiac: number;
+  foto: string;
+  text1: string;
+  pdf: Pdf[];
+}

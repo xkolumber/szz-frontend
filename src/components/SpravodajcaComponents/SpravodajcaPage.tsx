@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { ClipLoader } from "react-spinners";
-import { getChildrenPageClient } from "../lib/functions";
 
 import { Link } from "react-router-dom";
-import { GeneralPageInterface } from "../lib/interface";
-import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
+import { GeneralPageInterface } from "../../lib/interface";
+import { getChildrenPageClient } from "../../lib/functions";
+import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 
-const ChildrenPage = () => {
+const SpravodajcaPage = () => {
   const { data, status, error, isLoading } = useQuery<GeneralPageInterface>({
     queryKey: ["children_page"],
     queryFn: getChildrenPageClient,
@@ -20,7 +20,7 @@ const ChildrenPage = () => {
         <div className="main_section !pt-8">
           <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
           <div className="max-w-[900px] m-auto mt-8">
-            <h2 className="text-center">Deti a mládež</h2>
+            <h2 className="text-center">Spravodajca</h2>
             <ClipLoader size={20} color={"#000000"} loading={true} />
           </div>
         </div>
@@ -37,7 +37,7 @@ const ChildrenPage = () => {
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
         <div className="max-w-[900px] m-auto mt-8">
-          <h2 className="text-center">Deti a mládež</h2>
+          <h2 className="text-center">Spravodajca</h2>
           {data && (
             <div>
               <div
@@ -46,25 +46,19 @@ const ChildrenPage = () => {
               />
 
               <div className="flex flex-col gap-1 pt-4">
-                {data.pdf
-                  .slice()
-                  .sort(
-                    (a, b) =>
-                      new Date(b.datum).getTime() - new Date(a.datum).getTime()
-                  )
-                  .map((object, index) => (
-                    <div className="flex flex-row items-center" key={index}>
-                      <Link
-                        to={object.link}
-                        target="_blank"
-                        key={index}
-                        className="underline"
-                      >
-                        {" "}
-                        {object.nazov}
-                      </Link>
-                    </div>
-                  ))}
+                {data.pdf?.map((object, index) => (
+                  <div className="flex flex-row items-center" key={index}>
+                    <Link
+                      to={object.link}
+                      target="_blank"
+                      key={index}
+                      className="underline"
+                    >
+                      {" "}
+                      {object.nazov}
+                    </Link>
+                  </div>
+                ))}
               </div>
             </div>
           )}
@@ -74,4 +68,4 @@ const ChildrenPage = () => {
   );
 };
 
-export default ChildrenPage;
+export default SpravodajcaPage;

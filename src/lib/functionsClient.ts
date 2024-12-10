@@ -71,6 +71,10 @@ export const navbar_admin_data = [
     slug: "/admin/o-nas",
   },
   {
+    title: "Odporúčané",
+    slug: "/admin/sponzori",
+  },
+  {
     title: "Otázky a odpovede",
     slug: "/admin/otazky-a-odpovede",
   },
@@ -87,13 +91,10 @@ export const navbar_admin_data = [
     slug: "/admin/prednasky",
   },
   {
-    title: "Výstavy a podujatia",
-    slug: "/admin/vystavy-a-podujatia",
+    title: "Spravodajci",
+    slug: "/admin/spravodajci",
   },
-  {
-    title: "Odporúčané",
-    slug: "/admin/sponzori",
-  },
+
   {
     title: "Tlačivá",
     slug: "/admin/tlaciva",
@@ -101,6 +102,10 @@ export const navbar_admin_data = [
   {
     title: "Užitočné linky",
     slug: "/admin/uzitocne-linky",
+  },
+  {
+    title: "Výstavy a podujatia",
+    slug: "/admin/vystavy-a-podujatia",
   },
   {
     title: "Zľavy",
