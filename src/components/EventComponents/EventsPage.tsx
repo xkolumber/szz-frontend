@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Select from "react-select";
-import { options_months, options_years } from "../../lib/functionsClient";
+import {
+  options_months,
+  options_years,
+  options_years_plus_one,
+} from "../../lib/functionsClient";
 import { ActualEvent } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import IconCalendar from "../Icons/IconCalendar";
@@ -156,7 +160,7 @@ const EventsPage = () => {
           <div className="flex flex-row items-center gap-6 pt-4 md:pt-0">
             <p className="uppercase font-medium w-[60px] ">Rok: </p>
             <Select
-              options={options_years}
+              options={options_years_plus_one}
               onChange={handleChangeYear}
               value={selectedYear}
             />

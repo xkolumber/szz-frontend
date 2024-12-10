@@ -23,6 +23,7 @@ const AdminAnnPageIdComponent = ({ data, onEventUpdated }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
+  const [clickedPhoto, setClickedPhoto] = useState("");
 
   const [openPopUp, setOpenPopUp] = useState(false);
 
@@ -171,7 +172,7 @@ const AdminAnnPageIdComponent = ({ data, onEventUpdated }: Props) => {
   const createDropHandler = (key: string) => (acceptedFiles: File[]) =>
     onDrop(acceptedFiles, key);
 
-  const handleTitulnaPhotoDrop = createDropHandler("titulna_foto");
+  const handleTitulnaPhotoDrop = createDropHandler("foto");
 
   const {
     getRootProps: getTitulnaRootProps,
@@ -223,6 +224,11 @@ const AdminAnnPageIdComponent = ({ data, onEventUpdated }: Props) => {
     }));
   };
 
+  const handleShowBiggerIamge = (src: string) => {
+    setClickedPhoto(src);
+    setOpenPopUp(true);
+  };
+
   return (
     <div>
       {data && (
@@ -263,6 +269,7 @@ const AdminAnnPageIdComponent = ({ data, onEventUpdated }: Props) => {
                     height={120}
                     src={actualizeData.foto}
                     className="mt-4 mb-4 cursor-pointer"
+                    onClick={() => handleShowBiggerIamge(actualizeData.foto)}
                   />
                 )}
                 <div className={dragAreaClasses} {...getTitulnaRootProps()}>
@@ -352,6 +359,20 @@ const AdminAnnPageIdComponent = ({ data, onEventUpdated }: Props) => {
               color={"#00000"}
               loading={true}
               className="ml-16 mr-16"
+            />
+          </div>
+        </>
+      )}
+
+      {openPopUp && clickedPhoto && (
+        <>
+          <div className="behind_card_background"></div>
+          <div className="popup_message" ref={popupRef}>
+            <img
+              width={420}
+              height={420}
+              src={clickedPhoto}
+              className="max-h-[500px] object-contain"
             />
           </div>
         </>

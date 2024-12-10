@@ -23,7 +23,7 @@ const AdminPoradna = () => {
         <div className="main_section !pt-0">
           <StepBack />
           <Toaster />
-          <h2>Poradňa sekcia</h2>
+          <h2>Poradňe</h2>
           <p>Loading...</p>
         </div>
       </div>
@@ -46,7 +46,7 @@ const AdminPoradna = () => {
         <div className=" w-full">
           <StepBack />
           <Toaster />
-          <h2>Poradňa sekcia</h2>
+          <h2>Poradne</h2>
 
           <AdminPoradnaComponent data={data} refetch={refetch} />
         </div>

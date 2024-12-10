@@ -79,7 +79,7 @@ export const navbar_admin_data = [
     slug: "/admin/oznamy",
   },
   {
-    title: "Poradňa",
+    title: "Poradne",
     slug: "/admin/poradna",
   },
   {
@@ -115,14 +115,14 @@ export const navbar_admin_data = [
 export const footer_data = [
   {
     title: "Register",
-    slug: "/zvaz",
+    slug: "https://www.minv.sk/?obcianske-zdruzenia",
   },
   {
     title: "Tlačivá",
     slug: "/tlaciva",
   },
   {
-    title: "Poradňa",
+    title: "Poradne",
     slug: "/poradna",
   },
   {
@@ -153,7 +153,18 @@ export const generateYearOptions = () => {
   });
 };
 
+export const generateYearPlusOneOptions = () => {
+  const currentYear = new Date().getFullYear() + 1;
+  const baseYear = 2011;
+
+  return Array.from({ length: currentYear - baseYear + 1 }, (_, index) => {
+    const year = currentYear - index;
+    return { value: year.toString(), label: year.toString() };
+  });
+};
+
 export const options_years = generateYearOptions();
+export const options_years_plus_one = generateYearPlusOneOptions();
 
 export const options_months = [
   { value: "-1", label: "Vybrať..." },

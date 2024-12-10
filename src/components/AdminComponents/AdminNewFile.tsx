@@ -13,7 +13,7 @@ const AdminNewFile = () => {
   const token = localStorage.getItem("token");
   const [dataLoading, setDataLoading] = useState(false);
 
-  const handleUploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUploadFile = async (e: any) => {
     setDataLoading(true);
 
     const file = e.target.files?.[0];
@@ -28,7 +28,20 @@ const AdminNewFile = () => {
 
       if (file.type.startsWith("image/")) {
         const compressedFile = await CompressImage(file);
-        formData.append("file", compressedFile!);
+
+        if (compressedFile) {
+          const newFile = new File([compressedFile], file.name, {
+            type: compressedFile.type,
+            lastModified: file.lastModified,
+          });
+
+          formData.append("file", newFile);
+        } else {
+          alert("Image compression failed.");
+          e.target.value = null;
+          setDataLoading(false);
+          return;
+        }
       } else {
         formData.append("file", file);
       }
@@ -58,6 +71,7 @@ const AdminNewFile = () => {
       alert(
         "Súbor má nepovolenú príponu. Povolené sú pdf, doc, docx, xls, xlsx, obrázky"
       );
+      e.target.value = null;
     } finally {
       setDataLoading(false);
     }

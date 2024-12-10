@@ -20,7 +20,7 @@ const PoradnaPage = () => {
         <div className="main_section !pt-8">
           <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
           <div className="max-w-[900px] m-auto mt-8">
-            <h2 className="text-center">Poradňa</h2>
+            <h2 className="text-center">Poradne</h2>
             <ClipLoader size={20} color={"#000000"} loading={true} />
           </div>
         </div>
@@ -37,7 +37,7 @@ const PoradnaPage = () => {
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
         <div className="max-w-[900px] m-auto mt-8">
-          <h2 className="text-center">Poradňa</h2>
+          <h2 className="text-center">Poradne</h2>
           {data && (
             <div>
               <div

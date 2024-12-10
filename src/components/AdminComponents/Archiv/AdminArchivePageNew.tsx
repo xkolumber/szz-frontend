@@ -77,6 +77,7 @@ const AdminArchivePageNew = () => {
 
   const handleUploadPdf = async (e: any) => {
     if (actualizeData.rok === "") {
+      e.target.value = null;
       toast.error("Najskôr zadajte rok");
       return;
     }

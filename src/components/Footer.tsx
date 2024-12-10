@@ -32,7 +32,7 @@ const Footer = () => {
                 {navbar_data.map((object, index) => (
                   <Link
                     className="text-white hover:text-secondary duration-300 ease-in-out mb-[24px] opacity-80"
-                    to={`${object.slug}`}
+                    to={object.slug === "/domov" ? "/" : object.slug}
                     key={index}
                   >
                     {object.title}

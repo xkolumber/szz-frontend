@@ -46,6 +46,8 @@ const AdminGalleryPageYear = () => {
             <p className="underline">Pridať novú galériu</p>
           </Link>
 
+          <h6 className="mt-8 underline">Rok: {rok}</h6>
+
           <table className="admin_section_2fr mt-8">
             <thead>
               <tr className="bg-tertiary">

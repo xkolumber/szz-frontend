@@ -992,7 +992,19 @@ export async function fetchGalleriesYearToken(
 
       const responseData = await response.json();
 
-      return responseData;
+      const sortedData = responseData.sort((a: any, b: any) => {
+        const nameA = a.nazov.toUpperCase();
+        const nameB = b.nazov.toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      });
+
+      return sortedData;
     } catch (error) {
       console.error("Error fetching data:", error);
       return null;

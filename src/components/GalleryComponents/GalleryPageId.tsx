@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import "react-loading-skeleton/dist/skeleton.css";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { Gallery } from "../../lib/interface";
-import ButtonWithArrow from "../ButtonWithArrow";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
-import { ClipLoader } from "react-spinners";
 
 const GalleryPageId = () => {
   const [data, setData] = useState<Gallery>();
-  const [data2, setData2] = useState<Gallery[]>([]);
   const { id } = useParams<{ id: string }>();
   const [open, setOpen] = useState(false);
   const [initialSlide, setInitialSlide] = useState(0);
@@ -45,39 +43,9 @@ const GalleryPageId = () => {
     }
   };
 
-  const getData2 = async () => {
-    try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL
-        }/admin/gallery/getgalleriessexcept/${id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const responseData = await response.json();
-
-      if (responseData != null) {
-        setData2(responseData);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
   useEffect(() => {
     if (id) {
       getData();
-      getData2();
     }
   }, [id]);
 
@@ -94,9 +62,9 @@ const GalleryPageId = () => {
         {data === undefined && <p>Album neexsituje</p>}
         {data ? (
           <>
-            <div className="flex items-center flex-col">
+            <div className="flex flex-col">
               <h1 className="text-center">{data?.nazov}</h1>
-              <p className="opacity-60">{data.datum}</p>
+              <p className="opacity-60 text-center">{data.datum}</p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8 w-full">
                 {data.fotky.map((object, index) => (
                   <div key={index} className="relative w-full h-[280px]">
@@ -110,39 +78,19 @@ const GalleryPageId = () => {
                   </div>
                 ))}
               </div>
+
+              <p
+                className="uppercase font-semibold cursor-pointer  opacity-60 mt-16 text-left"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              >
+                Späť na začiatok{" "}
+              </p>
             </div>
           </>
         ) : (
           <div className="min-h-screen">
             <ClipLoader size={20} color={"#000000"} loading={true} />
           </div>
-        )}
-
-        <div className="flex flex-row justify-between mt-[80px] items-center mb-[32px]">
-          <h2 className="uppercase ">Ďalšie albumy</h2>
-          <ButtonWithArrow title="Zobraziť všetky" link={`/galeria`} />
-        </div>
-
-        {data2 ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-[24px]">
-            {data2.map((object, index) => (
-              <Link
-                className={`flex flex-col  rounded-[24px] w-full max-w-[464px] hover:scale-[1.02] duration-200`}
-                key={index}
-                to={`/galeria/${object.id}`}
-              >
-                <img
-                  src={object.fotky[0]}
-                  className="rounded-[16px]  object-cover h-[280px]"
-                />
-
-                <h5 className="pt-[8px]">{object.nazov}</h5>
-                <p className="opacity-60">{object.datum}</p>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <p>Loading...</p>
         )}
 
         {open && (

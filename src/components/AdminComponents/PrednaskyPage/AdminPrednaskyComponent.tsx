@@ -155,6 +155,7 @@ const AdminPrednaskyComponent = ({ data, refetch }: Props) => {
         "Súbor má nepovolenú príponu. Povolené sú pdf, doc, docx, xls, xlsx"
       );
     } finally {
+      e.target.value = null;
       setDataLoading(false);
     }
   };
@@ -229,7 +230,7 @@ const AdminPrednaskyComponent = ({ data, refetch }: Props) => {
               className="underline cursor-pointer mt-4"
               onClick={handleAddInputPdf}
             >
-              Pridať pdf
+              Pridať súbor
             </p>
           </div>
         </div>

@@ -176,6 +176,7 @@ const AdminArchivePageId = () => {
       });
     } catch (error) {
       console.error("Error uploading PDF:", error);
+      e.target.value = null;
       alert(
         "Súbor má nepovolenú príponu. Povolené sú pdf, doc, docx, xls, xlsx"
       );

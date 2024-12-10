@@ -400,7 +400,7 @@ const AdminUnionPageNew = () => {
                   className="underline cursor-pointer mt-4"
                   onClick={handleAddInputPdf}
                 >
-                  Pridať pdf
+                  Pridať súbor
                 </p>
               </div>
             </div>
