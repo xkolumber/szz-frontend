@@ -19,6 +19,11 @@ import Heading from "@tiptap/extension-heading";
 import Image from "@tiptap/extension-image";
 import TextStyle from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
+import Gapcursor from "@tiptap/extension-gapcursor";
+import Table from "@tiptap/extension-table";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
+import TableRow from "@tiptap/extension-table-row";
 
 interface Props {
   content: string;
@@ -44,6 +49,13 @@ const Tiptap = ({ content, onChange }: Props) => {
       Image,
       TextStyle,
       Color,
+      Gapcursor,
+      Table.configure({
+        resizable: true,
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
 
       Link.configure({
         openOnClick: false,

@@ -161,6 +161,39 @@ export const MenuBar = ({ editor }: MenuBarProps) => {
           value={editor.getAttributes("textStyle").color || "#000000"}
           data-testid="setColor"
         />
+
+        <button
+          onClick={() =>
+            editor
+              .chain()
+              .focus()
+              .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+              .run()
+          }
+        >
+          Pridať tabuľku
+        </button>
+        <button onClick={() => editor.chain().focus().addColumnBefore().run()}>
+          Pridať stĺpec pred
+        </button>
+        <button onClick={() => editor.chain().focus().addColumnAfter().run()}>
+          Pridať stĺpec za
+        </button>
+        <button onClick={() => editor.chain().focus().deleteColumn().run()}>
+          Odstrániť stĺpec
+        </button>
+        <button onClick={() => editor.chain().focus().addRowBefore().run()}>
+          Pridať riadok pred
+        </button>
+        <button onClick={() => editor.chain().focus().addRowAfter().run()}>
+          Pridať riadok za
+        </button>
+        <button onClick={() => editor.chain().focus().deleteRow().run()}>
+          Odstrániť riadok
+        </button>
+        <button onClick={() => editor.chain().focus().deleteTable().run()}>
+          Odstrániť tabuľku
+        </button>
       </div>
     </div>
   );
