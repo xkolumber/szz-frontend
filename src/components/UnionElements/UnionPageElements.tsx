@@ -216,21 +216,27 @@ const UnionPageElements = ({ data }: Props) => {
                   className="content mt-[40px]"
                   dangerouslySetInnerHTML={{ __html: choosenUnionData.text }}
                 />
-                {choosenUnionData.pdf.length > 0 && (
+                {choosenUnionData?.pdf?.length > 0 && (
                   <>
                     <h5 className="mt-[40px] uppercase">
                       Dokumenty na stiahnutie
                     </h5>
                     <div className="flex flex-col gap-4">
-                      {" "}
-                      {choosenUnionData?.pdf.map((object, index) => (
-                        <Link to={object.link} target="_blank" key={index}>
-                          <ButtonWithElement
-                            text={object.nazov}
-                            element={<IconDownload />}
-                          />
-                        </Link>
-                      ))}
+                      {choosenUnionData.pdf
+                        .slice()
+                        .sort(
+                          (a, b) =>
+                            new Date(b.datum).getTime() -
+                            new Date(a.datum).getTime()
+                        )
+                        .map((object, index) => (
+                          <Link to={object.link} target="_blank" key={index}>
+                            <ButtonWithElement
+                              text={object.nazov}
+                              element={<IconDownload />}
+                            />
+                          </Link>
+                        ))}
                     </div>
                   </>
                 )}

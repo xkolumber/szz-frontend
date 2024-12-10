@@ -342,23 +342,6 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
     }));
   };
 
-  useEffect(() => {
-    if (actualizeData.pdf.length > 0) {
-      const sortedPdf = [...actualizeData.pdf].sort((a, b) => {
-        const dateA = new Date(a.datum).getTime();
-        const dateB = new Date(b.datum).getTime();
-        return dateB - dateA;
-      });
-
-      if (JSON.stringify(actualizeData.pdf) !== JSON.stringify(sortedPdf)) {
-        setActualizeData((prevState) => ({
-          ...prevState,
-          pdf: sortedPdf,
-        }));
-      }
-    }
-  }, [actualizeData.pdf]);
-
   return (
     <div>
       {data && (
@@ -543,48 +526,57 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
             <div className="product_admin_row">
               <p>Pdf:</p>
               <div className="flex flex-col">
-                {actualizeData.pdf.map((object, index) => (
-                  <div key={index} className="flex flex-row gap-4 items-center">
-                    <input
-                      type="text"
-                      name={`pdf-nazov${index}`}
-                      value={object.nazov}
-                      onChange={(e) =>
-                        handleChangeItemTwoArray("pdf", index, "nazov", e)
-                      }
-                      className="md:!w-[250px] mt-2"
-                    />
-                    <input
-                      type="text"
-                      name={`pdf-link-${index}`}
-                      value={object.link}
-                      onChange={(e) =>
-                        handleChangeItemTwoArray("pdf", index, "link", e)
-                      }
-                      className="md:!w-[250px] mt-2"
-                    />
-                    <div
-                      className=""
-                      onClick={() =>
-                        handleDeleteObjectPdf(object.nazov, object.link)
-                      }
-                    >
-                      <IconTrash />
-                    </div>
-                    <input
-                      type="file"
-                      accept=".pdf, .doc, .docx, .xls, .xlsx"
-                      onChange={(e) => handleUploadPdf(e, index)}
-                      className="mt-2"
-                    />
-                  </div>
-                ))}
                 <p
-                  className="underline cursor-pointer mt-4"
+                  className="underline cursor-pointer mt-4 mb-16"
                   onClick={handleAddInputPdf}
                 >
                   Pridať súbor
                 </p>
+                {actualizeData.pdf
+                  .slice()
+                  .sort(
+                    (a, b) =>
+                      new Date(b.datum).getTime() - new Date(a.datum).getTime()
+                  )
+                  .map((object, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-row gap-4 items-center"
+                    >
+                      <input
+                        type="text"
+                        name={`pdf-nazov${index}`}
+                        value={object.nazov}
+                        onChange={(e) =>
+                          handleChangeItemTwoArray("pdf", index, "nazov", e)
+                        }
+                        className="md:!w-[250px] mt-2"
+                      />
+                      <input
+                        type="text"
+                        name={`pdf-link-${index}`}
+                        value={object.link}
+                        onChange={(e) =>
+                          handleChangeItemTwoArray("pdf", index, "link", e)
+                        }
+                        className="md:!w-[250px] mt-2"
+                      />
+                      <div
+                        className=""
+                        onClick={() =>
+                          handleDeleteObjectPdf(object.nazov, object.link)
+                        }
+                      >
+                        <IconTrash />
+                      </div>
+                      <input
+                        type="file"
+                        accept=".pdf, .doc, .docx, .xls, .xlsx"
+                        onChange={(e) => handleUploadPdf(e, index)}
+                        className="mt-2"
+                      />
+                    </div>
+                  ))}
               </div>
             </div>
             <div className="flex flex-row justify-between mt-8">

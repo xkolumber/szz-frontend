@@ -179,8 +179,6 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
     "bg-gray-200": isDragActive,
   });
 
-  console.log(data);
-
   return (
     <div>
       {data && (
