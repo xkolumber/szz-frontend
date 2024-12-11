@@ -115,9 +115,9 @@ const AdminSpravodajciIdComponent = ({ data, onDataUpdated }: Props) => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        toast.success("Tlačivo bolo odstránené");
-        await queryClient.refetchQueries({ queryKey: ["admin_docs"] });
-        navigate("/admin/tlaciva");
+        toast.success("Objekt bol odstránený");
+        await queryClient.refetchQueries({ queryKey: ["admin_spravodajci"] });
+        navigate("/admin/spravodajca");
       }
     } catch (error) {
       toast.error("niekde nastala chyba");

@@ -91,8 +91,8 @@ export const navbar_admin_data = [
     slug: "/admin/prednasky",
   },
   {
-    title: "Spravodajci",
-    slug: "/admin/spravodajci",
+    title: "Spravodajca",
+    slug: "/admin/spravodajca",
   },
 
   {

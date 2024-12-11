@@ -20,9 +20,9 @@ const AdminSpravodajci = () => {
     return (
       <div className="">
         <StepBack />
-        <h2>Spravodajci</h2>
+        <h2>Spravodajca</h2>
 
-        <Link to="/admin/spravodajci/novy-objekt">
+        <Link to="/admin/spravodajca/novy-objekt">
           <p className="underline">Pridať nový objekt</p>
         </Link>
         <AdminDataSkeleton />
@@ -39,9 +39,9 @@ const AdminSpravodajci = () => {
       {data && (
         <div className=" w-full">
           <StepBack />
-          <h2>Spravodajci</h2>
+          <h2>Spravodajca</h2>
 
-          <Link to="/admin/spravodajci/novy-objekt">
+          <Link to="/admin/spravodajca/novy-objekt">
             <p className="underline">Pridať nový objekt</p>
           </Link>
 
@@ -59,7 +59,7 @@ const AdminSpravodajci = () => {
                     {object.nazov}
                   </td>
                   <td className="flex justify-end">
-                    <Link to={`/admin/spravodajci/${object.id} `}>
+                    <Link to={`/admin/spravodajca/${object.id} `}>
                       <button className="btn btn--tertiary">Info</button>
                     </Link>
                   </td>

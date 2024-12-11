@@ -364,12 +364,12 @@ function App() {
             <Route path="gdpr" element={<AdminGdpr />} />
             <Route path="novy-dokument" element={<AdminNewFile />} />
 
-            <Route path="spravodajci" element={<AdminSpravodajci />} />
+            <Route path="spravodajca" element={<AdminSpravodajci />} />
             <Route
-              path="spravodajci/novy-objekt"
+              path="spravodajca/novy-objekt"
               element={<AdminSpravodajciNew />}
             />
-            <Route path="spravodajci/:id" element={<AdminSpravodajciId />} />
+            <Route path="spravodajca/:id" element={<AdminSpravodajciId />} />
 
             <Route
               path="archiv/novy-dokument"
