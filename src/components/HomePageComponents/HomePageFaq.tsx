@@ -1,4 +1,6 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { fetchFaqDataClient } from "../../lib/functions";
 import { Faq } from "../../lib/interface";
 import ButtonWithArrow from "../ButtonWithArrow";
@@ -22,7 +24,31 @@ const HomePageFaq = () => {
   });
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="own_edge ">
+        <div className="main_section">
+          <div className="flex flex-col lg:flex-row  ">
+            <div className="flex flex-col lg:w-1/2">
+              {" "}
+              <h2 className="uppercase max-w-[400px] text-center md:text-left">
+                Najčastejšie kladené otázky
+              </h2>
+              <p className="">
+                Tu nájdete odpovede na najčastejšie kladené otázky.
+              </p>
+            </div>
+            <div className="lg:w-1/2  mt-4 md:mt-0">
+              <Skeleton
+                width="100%"
+                borderRadius={16}
+                baseColor="#dedede"
+                count={16}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
   if (status === "error") {
     return <p>Error: {error.message}</p>;

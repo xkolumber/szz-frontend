@@ -47,17 +47,14 @@ const HomePageActualJobs = () => {
     }
   }, [isOpen]);
 
-  return (
-    <>
-      <div className="relative own_edge  overflow-hidden">
-        <div className="main_section  z-10">
-          <h2 className="uppercase text-center md:text-left">
-            Aktuálne práce v záhrade
-          </h2>
-          {data && (
-            <HomePageSwiperJobs data={data} clickedLink={handleClickedLink} />
-          )}
-          {isLoading && (
+  if (isLoading) {
+    return (
+      <>
+        <div className="relative own_edge  overflow-hidden">
+          <div className="main_section  z-10">
+            <h2 className="uppercase text-center md:text-left">
+              Aktuálne práce v záhrade
+            </h2>
             <div className="hidden md:grid grid-cols-3 gap-[20px]  mt-[40px]  mb-8">
               <Skeleton
                 width="100%"
@@ -78,6 +75,29 @@ const HomePageActualJobs = () => {
                 baseColor="#A79ABA"
               />
             </div>
+            <div className="grid md:hidden grid-cols-1 gap-[20px]  mt-[40px]  mb-8">
+              <Skeleton
+                width="100%"
+                height={150}
+                borderRadius={16}
+                baseColor="#7188A1"
+              />
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <div className="relative own_edge  overflow-hidden">
+        <div className="main_section  z-10">
+          <h2 className="uppercase text-center md:text-left">
+            Aktuálne práce v záhrade
+          </h2>
+          {data && (
+            <HomePageSwiperJobs data={data} clickedLink={handleClickedLink} />
           )}
         </div>
       </div>

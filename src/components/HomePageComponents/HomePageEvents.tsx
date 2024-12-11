@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { getActualThreeEvents } from "../../lib/functions";
 import { ActualEvent } from "../../lib/interface";
 import ButtonWithArrow from "../ButtonWithArrow";
-import IconCalendar from "../Icons/IconCalendar";
-import IconBgBroownTop from "../Icons/IconBgBroownTop";
+import EventHomePageSkeleton from "../EventComponents/EventHomePageSkeleton";
 import IconBgBroownBottom from "../Icons/IconBgBroownBottom";
+import IconBgBroownTop from "../Icons/IconBgBroownTop";
+import IconCalendar from "../Icons/IconCalendar";
 
 const HomePageEvents = () => {
   const { data, status, error, isLoading } = useQuery<ActualEvent[]>({
@@ -17,18 +18,26 @@ const HomePageEvents = () => {
 
   if (isLoading) {
     return (
-      <div className="own_edge !mt-48">
-        <div className="main_section ">
-          <div className="flex flex-col md:flex-row justify-between  md:items-center mb-[32px]">
-            <h2 className="uppercase">Tipy na výstavy a podujatia</h2>
-            <ButtonWithArrow
-              title="Zobraziť všetky"
-              link={`/vystavy-a-podujatia`}
-            />
+      <>
+        <IconBgBroownTop />
+        <div className="relative own_edge bg-[#FFF2EC] overflow-hidden">
+          <div className="main_section !pb-0 !pt-0">
+            <div className="flex flex-col md:flex-row  justify-between  md:items-center mb-[32px]">
+              <h2 className="uppercase text-center md:text-left">
+                Tipy na výstavy a podujatia
+              </h2>
+              <div className="hidden md:block">
+                <ButtonWithArrow
+                  title="Zobraziť všetky"
+                  link={`/vystavy-a-podujatia`}
+                />
+              </div>
+            </div>
+            <EventHomePageSkeleton />
           </div>
-          <p>Loading...</p>
         </div>
-      </div>
+        <IconBgBroownBottom />
+      </>
     );
   }
 

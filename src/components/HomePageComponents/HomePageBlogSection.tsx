@@ -1,9 +1,10 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { fetchBlogs } from "../../lib/functions";
+import { LIMIT_BLOG } from "../../lib/functionsClient";
 import { Blog } from "../../lib/interface";
 import ButtonWithArrow from "../ButtonWithArrow";
-import { LIMIT_BLOG } from "../../lib/functionsClient";
+import HomePageBlogSkeleton from "./HomePageBlogSkeleton";
 
 const HomePageBlogSection = () => {
   const queryClient = useQueryClient();
@@ -24,13 +25,18 @@ const HomePageBlogSection = () => {
 
   if (isLoading) {
     return (
-      <div className="bg-[#EDF3DD] own_edge">
+      <div className="own_edge relative h-auto  overflow-hidden">
+        <img
+          src="/bgblog.svg"
+          alt="Background"
+          className="absolute inset-0 w-full h-[520px] md:h-[530px] lg:h-[979px] object-cover -z-10"
+        />
         <div className="main_section">
           <div className="flex flex-row justify-between  items-center mb-[32px]">
             <h2 className="uppercase">Blog</h2>
             <ButtonWithArrow title="Zobraziť celý blog" link={`/blog`} />
           </div>
-          <p>Loading...</p>
+          <HomePageBlogSkeleton />
         </div>
       </div>
     );
