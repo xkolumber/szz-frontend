@@ -194,6 +194,34 @@ export const MenuBar = ({ editor }: MenuBarProps) => {
         <button onClick={() => editor.chain().focus().deleteTable().run()}>
           Odstrániť tabuľku
         </button>
+        <button
+          onClick={() => editor.chain().focus().setFontFamily("Inter").run()}
+          className={
+            editor.isActive("textStyle", { fontFamily: "Inter" })
+              ? "is-active"
+              : ""
+          }
+          data-test-id="inter"
+        >
+          Inter
+        </button>
+        <button
+          onClick={() => editor.chain().focus().setFontFamily("Arial").run()}
+          className={
+            editor.isActive("textStyle", { fontFamily: "Arial" })
+              ? "is-active"
+              : ""
+          }
+          data-test-id="arial"
+        >
+          Arial
+        </button>
+        <button
+          onClick={() => editor.chain().focus().unsetFontFamily().run()}
+          data-test-id="unsetFontFamily"
+        >
+          Zrušiť font
+        </button>
       </div>
     </div>
   );

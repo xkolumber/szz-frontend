@@ -158,6 +158,7 @@ const AdminChildrenComponent = ({ data, refetch }: Props) => {
       );
     } finally {
       setDataLoading(false);
+      e.target.value = null;
     }
   };
 

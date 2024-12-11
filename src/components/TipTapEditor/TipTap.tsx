@@ -24,6 +24,7 @@ import Table from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
+import FontFamily from "@tiptap/extension-font-family";
 
 interface Props {
   content: string;
@@ -56,6 +57,7 @@ const Tiptap = ({ content, onChange }: Props) => {
       TableRow,
       TableHeader,
       TableCell,
+      FontFamily,
 
       Link.configure({
         openOnClick: false,
