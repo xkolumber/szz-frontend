@@ -163,6 +163,7 @@ const AdminSpravodajciIdComponent = ({ data, onDataUpdated }: Props) => {
       );
     } finally {
       setDataLoading(false);
+      e.target.value = null;
     }
   };
 

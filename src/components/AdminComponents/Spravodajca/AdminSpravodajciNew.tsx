@@ -86,7 +86,7 @@ const AdminSpravodajciNew = () => {
       if (responseData.$metadata.httpStatusCode === 200) {
         toast.success("Objekt bolo pridaný");
         await queryClient.refetchQueries({ queryKey: ["admin_spravodajci"] });
-        navigate("/admin/spravodajci");
+        navigate("/admin/spravodajca");
       }
     } catch (error) {
       toast.error("niekde nastala chyba");
@@ -132,6 +132,7 @@ const AdminSpravodajciNew = () => {
       );
     } finally {
       setDataLoading(false);
+      e.target.value = null;
     }
   };
 
@@ -274,7 +275,7 @@ const AdminSpravodajciNew = () => {
         <div className=" w-full">
           <StepBack />
           <Toaster />
-          <h2>Nové tlačivo</h2>
+          <h2>Nový objekt</h2>
 
           <form className=" products_admin " onSubmit={handleAddObject}>
             <div className="product_admin_row">
