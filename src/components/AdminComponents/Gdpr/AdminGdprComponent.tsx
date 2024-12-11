@@ -199,7 +199,6 @@ const AdminGdprComponent = ({ data, refetch }: Props) => {
               Pridať súbor
             </p>
             {actualizeData.pdf
-              .slice()
               .sort(
                 (a, b) =>
                   new Date(b.datum).getTime() - new Date(a.datum).getTime()

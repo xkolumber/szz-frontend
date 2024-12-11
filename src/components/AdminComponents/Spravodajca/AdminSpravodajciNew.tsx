@@ -51,6 +51,11 @@ const AdminSpravodajciNew = () => {
 
   const handleAddObject = async (event: any) => {
     event.preventDefault();
+
+    if (actualizeData.foto === "") {
+      toast.error("Obrázok je povinný!");
+      return;
+    }
     try {
       setIsLoading(true);
       const response = await fetch(
@@ -350,7 +355,6 @@ const AdminSpravodajciNew = () => {
                   Pridať súbor
                 </p>
                 {actualizeData.pdf
-                  .slice()
                   .sort(
                     (a, b) =>
                       new Date(b.datum).getTime() - new Date(a.datum).getTime()

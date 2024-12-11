@@ -223,7 +223,6 @@ const UnionPageElements = ({ data }: Props) => {
                     </h5>
                     <div className="flex flex-col gap-4">
                       {choosenUnionData.pdf
-                        .slice()
                         .sort(
                           (a, b) =>
                             new Date(b.datum).getTime() -

@@ -513,7 +513,6 @@ const AdminEventPageNew = () => {
                   Pridať súbor
                 </p>
                 {actualizeData.pdf
-                  .slice()
                   .sort(
                     (a, b) =>
                       new Date(b.datum).getTime() - new Date(a.datum).getTime()

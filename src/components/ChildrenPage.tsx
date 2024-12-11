@@ -47,7 +47,6 @@ const ChildrenPage = () => {
 
               <div className="flex flex-col gap-1 pt-4">
                 {data.pdf
-                  .slice()
                   .sort(
                     (a, b) =>
                       new Date(b.datum).getTime() - new Date(a.datum).getTime()
