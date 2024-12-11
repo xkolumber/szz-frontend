@@ -147,13 +147,14 @@ const EventDetailPage = () => {
                   <p className="font-semibold uppercase">Link podujatia</p>
                 </Link>
               )}
-
-              <img
-                src={data.titulna_foto}
-                width={900}
-                height={900}
-                className="rounded-[16px] w-full max-w-[1080px] max-h-[459px] object-cover mt-8"
-              />
+              {data.titulna_foto && (
+                <img
+                  src={data.titulna_foto}
+                  width={900}
+                  height={900}
+                  className="rounded-[16px] w-full max-w-[1080px] max-h-[459px] object-cover mt-8"
+                />
+              )}
             </div>
 
             <div className="max-w-[900px] m-auto mt-[80px]">
