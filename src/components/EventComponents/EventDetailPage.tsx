@@ -100,7 +100,7 @@ const EventDetailPage = () => {
         />
         {data ? (
           <>
-            <div className="flex md:items-center flex-col gap-4">
+            <div className="flex md:items-center flex-col gap-4 min-h-[300px]">
               <h1 className="text-center pt-4">{data?.nazov_vystavy}</h1>
               <div className="flex flex-row gap-6  ">
                 <IconCalendar />
@@ -110,14 +110,16 @@ const EventDetailPage = () => {
                   {data.datum_koniec && `- ${data.datum_koniec}`}
                 </p>
               </div>
+              {data.miesto_podujatia && (
+                <div className="flex flex-row gap-6  ">
+                  <IconLocation />
+                  <p className="font-semibold uppercase">Miesto podujatia:</p>
+                  <p className="font-medium text-[#351A28] opacity-80 uppercase">
+                    {data.miesto_podujatia}
+                  </p>
+                </div>
+              )}
 
-              <div className="flex flex-row gap-6  ">
-                <IconLocation />
-                <p className="font-semibold uppercase">Miesto podujatia:</p>
-                <p className="font-medium text-[#351A28] opacity-80 uppercase">
-                  {data.miesto_podujatia}
-                </p>
-              </div>
               {data.cas && (
                 <div className="flex flex-row gap-6  ">
                   <IconTime />
@@ -157,7 +159,7 @@ const EventDetailPage = () => {
               )}
             </div>
 
-            <div className="max-w-[900px] m-auto mt-[80px]">
+            <div className="max-w-[900px] m-auto mt-[80px] ">
               {data.text1 && (
                 <div
                   className="content mt-[40px] "
