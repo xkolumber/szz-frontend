@@ -7,7 +7,7 @@ const CookieComponent = () => {
   const [showCookieSettings, setShowCookieSettings] = useState(false);
 
   useEffect(() => {
-    const hasLocalConsent = Cookies.get("localConsent");
+    const hasLocalConsent = Cookies.get("szzcookie");
     setShowCookieComponent(!hasLocalConsent);
   }, []);
 
@@ -83,7 +83,7 @@ const CookieComponent = () => {
           <p className="!text-[14px] text-center">
             Súbory cookie používame na zlepšenie Vášho zážitku z prehliadania,
             poskytovanie prispôsobených reklám alebo obsahu a analýzu našej
-            návštevnosti. Kliknutím na „Prijať všetko“ súhlasíte s naším
+            návštevnosti. Kliknutím na „Prijať a pokračovať“ súhlasíte s naším
             používaním súborov cookie.
           </p>
           <div className="flex flex-col w-full justify-center items-center gap-4">

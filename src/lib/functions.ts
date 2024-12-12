@@ -1829,3 +1829,30 @@ export async function fetchSpravodajciClient() {
     console.error("Error fetching data:", error);
   }
 }
+
+export async function getArchiveEvents(year: string) {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/events/getactualeventssorted/${year}/-1/vsetky`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
