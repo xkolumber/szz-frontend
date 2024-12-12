@@ -83,23 +83,25 @@ const ArchivePageYear = () => {
               <p>V tejto sekcii zatiaľ nie sú žiadne dokumenty.</p>
             )}
           </div>
-          <div className="flex flex-col md:w-1/2 order-1 md:order-2">
-            <h6>Archívne pozvánky</h6>
-            <div className="flex flex-col gap-4">
-              {data2?.map((object, index) => (
-                <div className="flex flex-row items-center pt-4" key={index}>
-                  <Link
-                    to={`/vystavy-a-podujatia/${object.slug}`}
-                    key={index}
-                    className="underline"
-                  >
-                    {" "}
-                    {object.nazov_vystavy}
-                  </Link>
-                </div>
-              ))}
+          {data2 && data2.length > 0 && (
+            <div className="flex flex-col md:w-1/2 order-1 md:order-2">
+              <h6>Archívne pozvánky</h6>
+              <div className="flex flex-col gap-4">
+                {data2?.map((object, index) => (
+                  <div className="flex flex-row items-center pt-4" key={index}>
+                    <Link
+                      to={`/vystavy-a-podujatia/${object.slug}`}
+                      key={index}
+                      className="underline"
+                    >
+                      {" "}
+                      {object.nazov_vystavy}
+                    </Link>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
