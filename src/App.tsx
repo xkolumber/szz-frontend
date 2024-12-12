@@ -83,6 +83,7 @@ import SpravodajcaPage from "./components/SpravodajcaComponents/SpravodajcaPage"
 import AdminSpravodajci from "./components/AdminComponents/Spravodajca/AdminSpravodajci";
 import AdminSpravodajciNew from "./components/AdminComponents/Spravodajca/AdminSpravodajciNew";
 import AdminSpravodajciId from "./components/AdminComponents/Spravodajca/AdminSpravodajciId";
+import CookieComponent from "./components/CookieComponent";
 
 interface LayoutProps {
   children: ReactNode;
@@ -443,6 +444,7 @@ function App() {
             }
           />
         </Routes>
+        <CookieComponent />
       </BrowserRouter>
     </HelmetProvider>
   );
