@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import ButtonWithArrow from "../ButtonWithArrow";
 import IconApples from "../Icons/IconApples";
@@ -22,6 +22,9 @@ const texts = [
 const HomePageIntro = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
+  const [radioClicked, setRadioClicked] = useState(false);
+
+  const popupRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -34,6 +37,27 @@ const HomePageIntro = () => {
 
     return () => clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(event.target as Node)
+      ) {
+        setRadioClicked(false);
+      }
+    };
+
+    if (radioClicked) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [radioClicked]);
 
   return (
     <div className="own_edge relative homepage">
@@ -150,22 +174,63 @@ const HomePageIntro = () => {
                 <p>Aktivity</p>
               </div>
             </Link>
-            <div className="flex flex-row  mb-12 md:mb-0">
-              <Link
-                className="flex flex-row gap-[16px]"
-                to={"https://regina.rtvs.sk"}
-                target="_blank"
-              >
-                <div className="">
-                  <div className="bg-[#739C65] w-24 h-24 flex items-center justify-center rounded-[8px]">
-                    <IconRadio />
+            <div
+              className="flex flex-row  mb-12 md:mb-0 gap-[16px] cursor-pointer"
+              onClick={() => setRadioClicked(true)}
+            >
+              <div className="">
+                <div className="bg-[#739C65] w-24 h-24 flex items-center justify-center rounded-[8px]">
+                  <IconRadio />
+                </div>
+              </div>
+              <div className="flex flex-col justify-center">
+                <h6 className="uppercase">Rozhlasové relácie</h6>
+                <p>Pre záhradkárov</p>
+              </div>
+
+              {radioClicked && (
+                <>
+                  <div className="behind_card_background"></div>
+
+                  <div
+                    className="absolute  mt-2 flex flex-col bg-white drop-shadow-md rounded-[16px] w-[300px] z-[3100]"
+                    ref={popupRef}
+                  >
+                    <div
+                      className={`flex flex-col gap-[1.7rem] hover:bg-[#EBEBEB] hover:rounded-t-[16px] p-4 cursor-pointer`}
+                    >
+                      <Link
+                        to={"https://www.medzinamizahradkarmi.sk"}
+                        className="font-medium text-[16px] "
+                      >
+                        MEDZI NAMI ZÁHRADKÁRMI
+                      </Link>
+                    </div>
+
+                    <div
+                      className={`flex flex-col gap-[1.7rem] hover:bg-[#EBEBEB]   p-4 cursor-pointer`}
+                    >
+                      <Link
+                        to={"https://regina.rtvs.sk"}
+                        className="font-medium text-[16px]"
+                      >
+                        RÁDIO REGINA
+                      </Link>
+                    </div>
+
+                    <div
+                      className={`flex flex-col gap-[1.7rem] hover:bg-[#EBEBEB] hover:rounded-b-[16px]  p-4 cursor-pointer`}
+                    >
+                      <Link
+                        to={"https://zahradkar.pluska.sk/r/podcast"}
+                        className="font-medium text-[16px]"
+                      >
+                        ZÁHRADKÁR
+                      </Link>
+                    </div>
                   </div>
-                </div>
-                <div className="flex flex-col justify-center">
-                  <h6 className="uppercase">Rádio Regina</h6>
-                  <p>Záhradkári</p>
-                </div>
-              </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
