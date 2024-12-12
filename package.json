@@ -54,6 +54,7 @@
     "react-youtube": "^10.1.0",
     "smooth-corners": "^1.0.8",
     "swiper": "^11.1.14",
+    "use-debounce": "^10.0.4",
     "yet-another-react-lightbox": "^3.21.6"
   },
   "devDependencies": {
