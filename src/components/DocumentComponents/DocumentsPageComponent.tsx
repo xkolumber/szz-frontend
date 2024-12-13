@@ -11,14 +11,21 @@ const DocumentsPageComponent = ({ data }: Props) => {
   const [hashExist, setHashExist] = useState(false);
 
   useEffect(() => {
-    if (hash) {
-      setHashExist(true);
-      const targetElement = document.getElementById(hash.slice(1));
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: "smooth" });
+    const handleHashChange = () => {
+      if (hash) {
+        setHashExist(true);
+        const targetElement = document.getElementById(hash.slice(1));
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
       }
-    }
-  }, [location]);
+    };
+    handleHashChange();
+    window.addEventListener("hashchange", handleHashChange);
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
 
   const normalizeText = (text: string) => {
     return text

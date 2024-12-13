@@ -4,6 +4,7 @@ import { fetchArchiveByYear, getArchiveEvents } from "../../lib/functions";
 import { ActualEvent, Archive } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import { ClipLoader } from "react-spinners";
+import ArchivePageYearElement from "./ArchivePageYearElement";
 
 const ArchivePageYear = () => {
   const queryClient = useQueryClient();
@@ -60,24 +61,7 @@ const ArchivePageYear = () => {
               <h6>Archívne súbory z roku {year}</h6>
             )}
 
-            <div className="flex flex-col gap-4">
-              {data?.map((object, index) => (
-                <span className="flex flex-row items-center pt-4" key={index}>
-                  <Link
-                    to={object.pdf_link}
-                    target="_blank"
-                    className="flex flex-row items-center gap-1 max-w-full overflow-hidden"
-                  >
-                    <p className="underline whitespace-nowrap overflow-hidden text-ellipsis inline">
-                      {object.pdf_nazov}
-                    </p>
-                    <p className="uppercase whitespace-nowrap overflow-hidden text-ellipsis inline">
-                      , ({object.typ})
-                    </p>
-                  </Link>
-                </span>
-              ))}
-            </div>
+            {data && <ArchivePageYearElement data={data} />}
 
             {data?.length === 0 && (
               <p>V tejto sekcii zatiaľ nie sú žiadne dokumenty.</p>

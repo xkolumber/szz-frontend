@@ -348,6 +348,7 @@ const AdminUnionPageNew = () => {
                 value={selectedOptions.find(
                   (option) => option.value === actualizeData.rodic
                 )}
+                className="relative z-[10000]"
               />
               <input
                 type="text"

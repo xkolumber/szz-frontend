@@ -493,7 +493,7 @@ const AdminEventPageNew = () => {
               />
             </div>
             <div className="product_admin_row">
-              <p>Typ: sk | zah </p>
+              <p>Typ: vsetky | zvaz </p>
               <input
                 type="text"
                 name="typ"

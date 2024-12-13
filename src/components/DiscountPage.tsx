@@ -2,10 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { ClipLoader } from "react-spinners";
 import { getZlavyPage } from "../lib/functions";
 
-import { Link } from "react-router-dom";
 import { GeneralPageInterface } from "../lib/interface";
-import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
 import AttachedFiles from "./AttachedFiles";
+import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
 
 const DiscountPage = () => {
   const { data, status, error, isLoading } = useQuery<GeneralPageInterface>({

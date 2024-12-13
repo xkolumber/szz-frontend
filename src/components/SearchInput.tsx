@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
-import IconZoom from "./Icons/IconZoom";
-import { SearchData } from "../lib/interface";
 import { Link } from "react-router-dom";
+import { SyncLoader } from "react-spinners";
+import { useDebouncedCallback } from "use-debounce";
+import { SearchData } from "../lib/interface";
+import IconZoom from "./Icons/IconZoom";
 
 const SearchInput = () => {
   const [searchParams, setSearchParams] = useState(() => {
@@ -14,6 +15,7 @@ const SearchInput = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [check, setCheck] = useState(false);
   const [results, setResults] = useState<SearchData[]>([]);
+  const [fetched, setFetched] = useState(false);
 
   const handleSearch = useDebouncedCallback((term) => {
     const params = new URLSearchParams(window.location.search);
@@ -21,6 +23,7 @@ const SearchInput = () => {
 
     if (term) {
       params.set("query", term);
+      setFetched(false);
       setCheck(true);
     } else {
       params.delete("query");
@@ -42,32 +45,33 @@ const SearchInput = () => {
     const fetchSearchResults = async () => {
       try {
         setIsLoading(true);
-        console.log(query);
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/admin/search/searchdata`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            body: JSON.stringify({
-              query: searchParams.get("query") || "",
-              currentPage: Number(searchParams.get("page") || "1"),
-            }),
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(
-            `Network response was not ok: ${response.statusText}`
+        if (searchParams.get("query")) {
+          const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/admin/search/searchdata`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify({
+                query: searchParams.get("query") || "",
+                currentPage: Number(searchParams.get("page") || "1"),
+              }),
+            }
           );
+
+          if (!response.ok) {
+            throw new Error(
+              `Network response was not ok: ${response.statusText}`
+            );
+          }
+
+          const responseData = await response.json();
+
+          setResults(responseData);
+          setFetched(true);
         }
-
-        const responseData = await response.json();
-
-        console.log("Search results:", responseData);
-        setResults(responseData);
       } catch (error) {
         console.error("Error fetching search results:", error);
       } finally {
@@ -81,6 +85,12 @@ const SearchInput = () => {
     }
   }, [check]);
 
+  const fetchAgain = () => {
+    setCheck(true);
+    setResults([]);
+    setFetched(false);
+  };
+
   return (
     <div className="relative">
       <label className="search relative text-gray-400 focus-within:text-gray-600 block ask md:max-w-none">
@@ -91,14 +101,22 @@ const SearchInput = () => {
           onChange={handleInputChange}
           className="form-input !rounded-[48px] border !border-gray-900 !p-8 !px-4 !bg-white placeholder-gray-400 text-gray-500 appearance-none w-full block !pl-14 focus:outline-none"
         />
-        <div className="">
+        <div
+          className="absolute right-8 top-1/2 transform -translate-y-1/2 z-[2000] cursor-pointer"
+          onClick={fetchAgain}
+        >
           <IconZoom />
         </div>
       </label>
       {query && (
         <div className="absolute  mt-2 flex flex-col bg-white drop-shadow-md rounded-[16px] w-[300px] z-[3100]">
           {" "}
-          {isLoading && <p>Loading...</p>}
+          {isLoading && (
+            <div className="p-4 h-[150px] flex justify-center items-center">
+              {" "}
+              <SyncLoader size={20} color={"#000000"} loading={true} />
+            </div>
+          )}
           {!isLoading && results.length > 0 && (
             <ul className="!m-0">
               {results.map((object, index) => (
@@ -114,7 +132,11 @@ const SearchInput = () => {
               ))}
             </ul>
           )}
-          {/* {results.length === 0 && query && <p>No results found.</p>} */}
+          {fetched === true && results.length === 0 && query && (
+            <div className="p-4 h-[150px] flex justify-center items-center bg-white rounded-[16px]">
+              <p className="text-center">Nenašla sa zhoda.</p>
+            </div>
+          )}
         </div>
       )}
     </div>
