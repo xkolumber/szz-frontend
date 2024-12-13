@@ -20,27 +20,38 @@ const DocumentsPageComponent = ({ data }: Props) => {
     }
   }, [location]);
 
+  const normalizeText = (text: string) => {
+    return text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  };
+
   return (
     <div className="flex flex-col gap-4">
-      {data?.map((object, index) => (
-        <div className="flex flex-row items-center pt-4" key={index}>
-          <Link
-            to={object.link}
-            target="_blank"
-            key={index}
-            className={`underline ${
-              object.nazov.toLowerCase().includes(hash.toLowerCase()) &&
-              hashExist &&
-              "highlight"
-            }`}
-            id={object.nazov}
-          >
-            {" "}
-            {object.nazov}
-          </Link>
-          <p className="uppercase">, ({object.typ})</p>
-        </div>
-      ))}
+      {data?.map((object, index) => {
+        const normalizedNazov = normalizeText(object.nazov);
+        const normalizedHash = normalizeText(hash);
+
+        return (
+          <div className="flex flex-row items-center pt-4" key={index}>
+            <Link
+              to={object.link}
+              target="_blank"
+              key={index}
+              className={`underline ${
+                normalizedNazov.includes(normalizedHash) &&
+                hashExist &&
+                "highlight"
+              }`}
+              id={object.nazov}
+            >
+              {object.nazov}
+            </Link>
+            <p className="uppercase">, ({object.typ})</p>
+          </div>
+        );
+      })}
     </div>
   );
 };

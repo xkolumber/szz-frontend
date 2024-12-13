@@ -25,7 +25,7 @@ const DiplomasComponents = ({ data }: Props) => {
       if (hash) {
         const element = document.getElementById(hash);
         if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
         }
       }
     }
