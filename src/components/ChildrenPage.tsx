@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { ClipLoader } from "react-spinners";
 import { getChildrenPageClient } from "../lib/functions";
 
-import { Link } from "react-router-dom";
 import { GeneralPageInterface } from "../lib/interface";
+import AttachedFiles from "./AttachedFiles";
 import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
 
 const ChildrenPage = () => {
@@ -45,26 +45,7 @@ const ChildrenPage = () => {
                 dangerouslySetInnerHTML={{ __html: data.text1 }}
               />
 
-              <div className="flex flex-col gap-1 pt-4">
-                {data.pdf
-                  .sort(
-                    (a, b) =>
-                      new Date(b.datum).getTime() - new Date(a.datum).getTime()
-                  )
-                  .map((object, index) => (
-                    <div className="flex flex-row items-center" key={index}>
-                      <Link
-                        to={object.link}
-                        target="_blank"
-                        key={index}
-                        className="underline"
-                      >
-                        {" "}
-                        {object.nazov}
-                      </Link>
-                    </div>
-                  ))}
-              </div>
+              <AttachedFiles pdf={data.pdf} />
             </div>
           )}
         </div>

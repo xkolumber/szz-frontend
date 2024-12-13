@@ -104,9 +104,9 @@ const SearchInput = () => {
               {results.map((object, index) => (
                 <Link to={object.link} key={index} reloadDocument>
                   <li key={index} className="hover:underline">
-                    <h6> {object.nazov}</h6>
+                    <h6 className="line-clamp-1"> {object.nazov}</h6>
                     <div
-                      className="content"
+                      className="content line-clamp-1"
                       dangerouslySetInnerHTML={{ __html: object.najdeny_text }}
                     />
                   </li>

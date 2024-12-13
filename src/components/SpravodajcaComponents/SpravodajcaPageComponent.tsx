@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Spravodajca } from "../../lib/interface";
+import AttachedFiles from "../AttachedFiles";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import IconCloseButtonBlack from "../Icons/IconCloseButtonBlack";
-import { Link } from "react-router-dom";
 
 interface Props {
   data: Spravodajca[];
@@ -58,33 +58,12 @@ const SpravodajcaPageComponent = ({ data }: Props) => {
               className="content pt-4 max-h-[250px] overflow-y-auto"
               dangerouslySetInnerHTML={{ __html: clickedObject.text1 }}
             />
-            <h6 className="bold underline pt-4">Dokumenty na stiahnutie</h6>
-            <div className="flex flex-col gap-1 pt-4">
-              {clickedObject.pdf
-                .sort(
-                  (a, b) =>
-                    new Date(b.datum).getTime() - new Date(a.datum).getTime()
-                )
-                .map((object, index) => {
-                  const fileType = object.link.split(".").pop();
-
-                  return (
-                    <div
-                      className="flex flex-row items-center gap-2"
-                      key={index}
-                    >
-                      <Link
-                        to={object.link}
-                        target="_blank"
-                        className="underline"
-                      >
-                        {object.nazov}
-                      </Link>
-                      <span className="uppercase">({fileType})</span>
-                    </div>
-                  );
-                })}
-            </div>
+            {clickedObject.pdf.length > 0 && (
+              <>
+                <h6 className="bold underline pt-4">Dokumenty na stiahnutie</h6>
+                <AttachedFiles pdf={clickedObject.pdf} />
+              </>
+            )}
           </div>
         </>
       )}
