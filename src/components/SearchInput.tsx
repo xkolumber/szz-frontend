@@ -99,7 +99,7 @@ const SearchInput = () => {
           placeholder="Vyhľadávanie..."
           value={query}
           onChange={handleInputChange}
-          className="form-input !rounded-[48px] border !border-gray-900 !p-8 !px-4 !bg-white placeholder-gray-400 text-gray-500 appearance-none w-full block !pl-14 focus:outline-none"
+          className="form-input !rounded-[24px] border !border-gray-900 !p-8 !px-4 !bg-white placeholder-gray-400 text-gray-500 appearance-none w-full block !pl-14 focus:outline-none"
         />
         <div
           className="absolute right-8 top-1/2 transform -translate-y-1/2 z-[2000] cursor-pointer"

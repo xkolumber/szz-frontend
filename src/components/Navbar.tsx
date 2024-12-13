@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 
 import { useState } from "react";
-import logo from "../assets/logo.svg";
+import logo from "../assets/logo_green.svg";
 import { navbar_data } from "../lib/functionsClient";
 import IconCloseNavbarButton from "./Icons/IconCloseNavbarButton";
 import IconHamburger from "./Icons/IconHamburger";
@@ -26,7 +26,12 @@ const Navbar = () => {
       <div className="flex flex-row items-center main_section justify-between !pt-0 !pb-0 ">
         <Link to={"/"}>
           {" "}
-          <img src={logo} width={90} height={90} />
+          <img
+            src={logo}
+            width={90}
+            height={90}
+            className="w-24 h-24 md:w-32 md:h-32"
+          />
         </Link>
 
         <div className="flex-row gap-[8px] xl:gap-[16px] justify-between hidden xl:flex items-center">
@@ -67,25 +72,40 @@ const Navbar = () => {
             closeClicked ? "collapsible--collapsed" : ""
           }  `}
         >
-          <span className="nav__item">
+          <div className="flex flex-row justify-between items-center w-full p-4">
+            <Link to={"/"}>
+              {" "}
+              <img
+                src={logo}
+                width={60}
+                height={60}
+                className="w-24 h-24 md:w-32 md:h-32"
+              />
+            </Link>
+
             <div
-              className={`icon icon--white nav__close-button `}
+              className={`icon icon--white nav__close-button  `}
               onClick={() => clickedButtonClose()}
             >
               <IconCloseNavbarButton />
             </div>
-          </span>
+          </div>
 
-          <div className="flex flex-col justify-end items-end">
+          <div className="w-full p-4 mt-2 mb-4">
+            <SearchInput />
+          </div>
+
+          <div className="flex flex-col justify-end items-start w-full">
             {navbar_data.map((object, index) => (
               <Link
                 to={`${object.slug === "/domov" ? "/" : `${object.slug} `}`}
                 className={`nav__item ${
-                  location.pathname.startsWith(object.slug) && "text-secondary"
+                  location.pathname.startsWith(object.slug) &&
+                  "bg-tertiary !text-white"
                 } ${
                   location.pathname === "/" &&
                   object.slug === "/domov" &&
-                  "text-secondary"
+                  "bg-tertiary !text-white"
                 } `}
                 key={index}
                 onClick={() => clickedButtonClose()}

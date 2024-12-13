@@ -8,7 +8,7 @@ const ArchivePage = () => {
     <div className="own_edge min-h-[600px]">
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
-        <h2 className="uppercase text-center">Archív</h2>
+        <h2 className="uppercase text-center mt-8">Archív</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[24px] pt-8">
           <Link

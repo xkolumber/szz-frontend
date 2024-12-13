@@ -34,7 +34,7 @@ const ArchivePageYear = () => {
         <div className="main_section !pt-8 min-h-screen ">
           {" "}
           <ButtonWithArrowLeft title="Späť do archívu" link={`/archiv`} />
-          <h2 className="text-center uppercase">Dokumenty</h2>
+          <h2 className="text-center uppercase mt-8">Dokumenty</h2>
           <ClipLoader size={20} color={"#000000"} loading={true} />
         </div>
       </div>
@@ -52,7 +52,7 @@ const ArchivePageYear = () => {
     <div className="own_edge">
       <div className="main_section !pt-8 min-h-screen ">
         <ButtonWithArrowLeft title="Späť do archívu" link={`/archiv`} />
-        <h2 className="text-center uppercase">Dokumenty</h2>
+        <h2 className="text-center uppercase mt-8">Dokumenty</h2>
         <div className="flex flex-col md:flex-row pt-8 gap-24 md:gap-8">
           <div className="flex flex-col md:w-1/2 order-2 md:order-1">
             {year === "pred-2019" ? (
