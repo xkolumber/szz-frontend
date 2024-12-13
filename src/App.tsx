@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AboutUs from "./components/AboutUs";
+import AboutUs from "./components/AboutUsComponents/AboutUs";
 import ActualityPage from "./components/ActualityPage";
 import AdminAboutUs from "./components/AdminComponents/AboutUs/AdminAboutUs";
 import AdminActualityPage from "./components/AdminComponents/Actuality/AdminActualityPage";

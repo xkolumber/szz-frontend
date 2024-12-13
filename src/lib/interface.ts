@@ -166,3 +166,9 @@ export interface Spravodajca {
   text1: string;
   pdf: Pdf[];
 }
+
+export interface SearchData {
+  nazov: string;
+  link: string;
+  najdeny_text: string;
+}

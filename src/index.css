@@ -5,7 +5,7 @@
 :root {
   --color-primary: #111111;
   --color-secondary: #a0a0a0;
-  --colot-tertiary: #6b9156;
+  --color-tertiary: #6b9156;
 }
 html {
   font-size: 62.5%;
@@ -352,7 +352,7 @@ th {
   color: white;
 }
 .btn--tertiary {
-  background: var(--colot-tertiary);
+  background: var(--color-tertiary);
   border: 1px solid white;
   color: white;
 }
@@ -1022,8 +1022,6 @@ textarea:focus {
     position: relative;
     vertical-align: top;
   }
-  .resize-cursor {
-  }
 }
 
 button.is-active,
@@ -1145,6 +1143,7 @@ menu {
   gap: 2rem;
   border: 1px solid black;
   border-radius: 20px;
+  font-family: system-ui;
 }
 
 .cookie_settings_all {
@@ -1248,4 +1247,8 @@ menu {
   .description_cookies_text {
     font-size: 1.6rem !important;
   }
+}
+
+.highlight {
+  color: red;
 }
