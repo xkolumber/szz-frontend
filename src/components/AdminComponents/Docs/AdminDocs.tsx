@@ -63,7 +63,7 @@ const AdminDocs = () => {
 
           <table className="admin_section_2fr mt-8">
             <thead>
-              <tr className="bg-tertiary">
+              <tr className="bg_table_admin">
                 <th className="text-left">Názov</th>
                 <th className="text-right md:mr-12">Info</th>
               </tr>

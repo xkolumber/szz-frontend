@@ -1252,3 +1252,7 @@ menu {
 .highlight {
   color: red;
 }
+
+.bg_table_admin {
+  background: #dedede;
+}
