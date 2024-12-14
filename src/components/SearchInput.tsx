@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { SyncLoader } from "react-spinners";
 import { useDebouncedCallback } from "use-debounce";
@@ -17,6 +17,8 @@ const SearchInput = () => {
   const [results, setResults] = useState<SearchData[]>([]);
   const [fetched, setFetched] = useState(false);
 
+  const popupRef = useRef<HTMLDivElement>(null);
+
   const handleSearch = useDebouncedCallback((term) => {
     const params = new URLSearchParams(window.location.search);
     params.set("page", "1");
@@ -27,19 +29,43 @@ const SearchInput = () => {
       setCheck(true);
     } else {
       params.delete("query");
+      setCheck(false);
       setResults([]);
     }
 
     setSearchParams(params);
+
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.history.replaceState(null, "", newUrl);
-  }, 300);
+  }, 500);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
     handleSearch(value);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(event.target as Node)
+      ) {
+        setResults([]);
+        setQuery("");
+      }
+    };
+
+    if (query) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [query]);
 
   useEffect(() => {
     const fetchSearchResults = async () => {
@@ -92,7 +118,7 @@ const SearchInput = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={popupRef}>
       <label className="search relative text-gray-400 focus-within:text-gray-600 block ask md:max-w-none">
         <input
           type="text"
@@ -107,38 +133,48 @@ const SearchInput = () => {
         >
           <IconZoom />
         </div>
+        {query && (
+          <div
+            className="absolute mt-2 flex flex-col bg-white drop-shadow-lg rounded-[16px] z-[3100]"
+            style={{ width: "100%" }}
+          >
+            {isLoading && (
+              <div className="p-4 h-[150px] flex justify-center items-center">
+                <SyncLoader size={20} color={"#000000"} loading={true} />
+              </div>
+            )}
+            {!isLoading && results.length > 0 && (
+              <ul className="!m-0 py-2 !p-4 max-h-[350px] overflow-y-auto sm:max-h-full">
+                {results.map((object, index) => (
+                  <Link
+                    to={`${object.link}`}
+                    key={index}
+                    reloadDocument
+                    className="block px-4 py-3 hover:bg-gray-100 hover:rounded-2xl transition-all duration-200"
+                  >
+                    <li key={index} className="flex flex-col">
+                      <h6 className="font-semibold text-gray-800 line-clamp-1">
+                        {object.nazov}
+                      </h6>
+                      <div
+                        className=" text-gray-600 line-clamp-1"
+                        dangerouslySetInnerHTML={{
+                          __html: object.najdeny_text,
+                        }}
+                      />
+                    </li>
+                  </Link>
+                ))}
+              </ul>
+            )}
+            {fetched === true && results.length === 0 && query && (
+              <div className="p-4 h-[150px] flex justify-center items-center bg-white rounded-[16px]">
+                <p className="text-center text-gray-500">Nenašla sa zhoda.</p>
+              </div>
+            )}
+          </div>
+        )}
       </label>
-      {query && (
-        <div className="absolute  mt-2 flex flex-col bg-white drop-shadow-md rounded-[16px] w-[300px] z-[3100]">
-          {" "}
-          {isLoading && (
-            <div className="p-4 h-[150px] flex justify-center items-center">
-              {" "}
-              <SyncLoader size={20} color={"#000000"} loading={true} />
-            </div>
-          )}
-          {!isLoading && results.length > 0 && (
-            <ul className="!m-0">
-              {results.map((object, index) => (
-                <Link to={object.link} key={index} reloadDocument>
-                  <li key={index} className="hover:underline">
-                    <h6 className="line-clamp-1"> {object.nazov}</h6>
-                    <div
-                      className="content line-clamp-1"
-                      dangerouslySetInnerHTML={{ __html: object.najdeny_text }}
-                    />
-                  </li>
-                </Link>
-              ))}
-            </ul>
-          )}
-          {fetched === true && results.length === 0 && query && (
-            <div className="p-4 h-[150px] flex justify-center items-center bg-white rounded-[16px]">
-              <p className="text-center">Nenašla sa zhoda.</p>
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 };

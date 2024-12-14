@@ -69,10 +69,12 @@ const AdminActualityPageComponent = ({ data, refetch }: Props) => {
   useEffect(() => {
     if (dataLoading || openPopUp) {
       document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = "scroll";
-      };
+    } else {
+      document.body.style.overflow = "";
     }
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [dataLoading, openPopUp]);
 
   useEffect(() => {

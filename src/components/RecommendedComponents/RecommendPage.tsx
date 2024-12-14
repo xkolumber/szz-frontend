@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import "yet-another-react-lightbox/styles.css";
-import { Sponsor } from "../../lib/interface";
-import RecommendPageElements from "./RecommendPageElements";
-import { fetchSponsorsClient } from "../../lib/functions";
-import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import { ClipLoader } from "react-spinners";
+import "yet-another-react-lightbox/styles.css";
+import { fetchSponsorsClient } from "../../lib/functions";
+import { Sponsor } from "../../lib/interface";
+import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
+import RecommendPageElements from "./RecommendPageElements";
 
 const RecommendPage = () => {
   const { data, status, error, isLoading } = useQuery<Sponsor[]>({

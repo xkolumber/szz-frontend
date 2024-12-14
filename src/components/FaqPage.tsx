@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import FaqElements from "./FaqElements";
 import { Faq } from "../lib/interface";
 import { fetchFaqDataClient } from "../lib/functions";
+import { Helmet } from "react-helmet-async";
 
 const FaqPage = () => {
   const queryClient = useQueryClient();
@@ -46,6 +47,30 @@ const FaqPage = () => {
   }
   return (
     <div className="own_edge ">
+      <Helmet>
+        <title>Najčastejšie kladené otázky</title>
+        <meta
+          name="description"
+          content="Tu nájdete odpovede na najčastejšie kladené otázky"
+        />
+        <meta
+          name="keywords"
+          content="záhradkárstvo, Slovenský zväz záhradkárov, záhrada, ovocie, zelenina, zväz"
+        />
+        <meta name="author" content="Slovenský zväz záhradkárov" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="canonical" href="https://www.zvazzahradkarov.sk/faq" />
+        <meta
+          property="og:title"
+          content="Tu nájdete odpovede na najčastejšie kladené otázky"
+        />
+        <meta
+          property="og:description"
+          content="Tu nájdete odpovede na najčastejšie kladené otázky"
+        />
+        <meta property="og:url" content="https://www.zvazzahradkarov.sk/faq" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <div className="main_section">
         <div className="flex flex-col  ">
           <div className="flex flex-col lg:w-1/2">

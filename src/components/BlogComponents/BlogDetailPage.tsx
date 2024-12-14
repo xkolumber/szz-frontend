@@ -1,11 +1,12 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { fetchBlogBySlug, fetchSimiliarBlogBySlug } from "../../lib/functions";
-import { LIMIT_BLOG } from "../../lib/functionsClient";
+import { LIMIT_BLOG, stripHtmlTags } from "../../lib/functionsClient";
 import { Blog } from "../../lib/interface";
 import ButtonWithArrow from "../ButtonWithArrow";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import { ClipLoader } from "react-spinners";
+import { Helmet } from "react-helmet-async";
 
 const BlogDetailPage = () => {
   const queryClient = useQueryClient();
@@ -64,6 +65,35 @@ const BlogDetailPage = () => {
         <ButtonWithArrowLeft title="Späť na blog" link={`/blog`} />
         {blogData && (
           <>
+            <Helmet>
+              <title>{blogData.nazov_blog}</title>
+              <meta
+                name="description"
+                content={stripHtmlTags(blogData.popis1)}
+              />
+              <meta
+                name="keywords"
+                content={`záhradkárstvo, Slovenský zväz záhradkárov, záhrada, ovocie, zelenina, zväz, ${blogData.nazov_blog}`}
+              />
+              <meta name="author" content="Slovenský zväz záhradkárov" />
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+              />
+              <link rel="canonical" href="https://www.zvazzahradkarov.sk" />
+              <meta property="og:title" content={blogData.nazov_blog} />
+              <meta
+                property="og:description"
+                content={stripHtmlTags(blogData.popis1)}
+              />
+              <meta
+                property="og:url"
+                content={`https://www.zvazzahradkarov.sk/${blogData.slug}`}
+              />
+              <meta property="og:type" content="website" />
+              <meta property="og:image" content={blogData.titulna_foto} />
+            </Helmet>
+
             <div className="flex items-center flex-col">
               <h1 className="pt-8 pb-4 text-center md:text-left">
                 {blogData?.nazov_blog}

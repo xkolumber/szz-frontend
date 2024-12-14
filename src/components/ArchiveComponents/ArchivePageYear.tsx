@@ -5,6 +5,7 @@ import { ActualEvent, Archive } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import { ClipLoader } from "react-spinners";
 import ArchivePageYearElement from "./ArchivePageYearElement";
+import { Helmet } from "react-helmet-async";
 
 const ArchivePageYear = () => {
   const queryClient = useQueryClient();
@@ -50,6 +51,27 @@ const ArchivePageYear = () => {
 
   return (
     <div className="own_edge">
+      <Helmet>
+        <title>Archív {year}</title>
+        <meta name="description" content={`Archív dokumentov za rok ${year}`} />
+        <meta
+          name="keywords"
+          content="záhradkárstvo, Slovenský zväz záhradkárov, záhrada, ovocie, zelenina, zväz"
+        />
+        <meta name="author" content="Slovenský zväz záhradkárov" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="canonical" href="https://www.zvazzahradkarov.sk/archiv" />
+        <meta property="og:title" content={`Archív ${year}`} />
+        <meta
+          property="og:description"
+          content={`Archív dokumentov za rok ${year}`}
+        />
+        <meta
+          property="og:url"
+          content="https://www.zvazzahradkarov.sk/archiv"
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <div className="main_section !pt-8 min-h-screen ">
         <ButtonWithArrowLeft title="Späť do archívu" link={`/archiv`} />
         <h2 className="text-center uppercase mt-8">Dokumenty</h2>

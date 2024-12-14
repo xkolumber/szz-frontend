@@ -1,22 +1,47 @@
 import { Link, useLocation } from "react-router-dom";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../assets/logo_green.svg";
 import { navbar_data } from "../lib/functionsClient";
 import IconCloseNavbarButton from "./Icons/IconCloseNavbarButton";
 import IconHamburger from "./Icons/IconHamburger";
 import SearchInput from "./SearchInput";
 import { useNavbar } from "./Provider";
+import { fetchNavbarData } from "../lib/functions";
+import { useQuery } from "@tanstack/react-query";
+import { NavbarInfoData } from "../lib/interface";
 
 const Navbar = () => {
   const { navbarZIndex } = useNavbar();
 
-  let location = useLocation();
+  const location = useLocation();
   const [closeClicked, setCloseClicked] = useState(false);
 
   const clickedButtonClose = () => {
     setCloseClicked(!closeClicked);
   };
+
+  const { data } = useQuery({
+    queryKey: ["navbar_info"],
+    queryFn: fetchNavbarData,
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+  });
+
+  const sortedData: NavbarInfoData[] = data
+    ? data.sort((a: any, b: any) => a.poradie - b.poradie)
+    : [];
+
+  useEffect(() => {
+    if (closeClicked) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [closeClicked]);
 
   return (
     <div
@@ -72,7 +97,7 @@ const Navbar = () => {
             closeClicked ? "collapsible--collapsed" : ""
           }  `}
         >
-          <div className="flex flex-row justify-between items-center w-full p-4">
+          <div className="flex flex-row justify-between items-center w-full pl-8 pr-8 pt-4 pb-4">
             <Link to={"/"}>
               {" "}
               <img
@@ -91,7 +116,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="w-full p-4 mt-2 mb-4">
+          <div className="w-full p-8">
             <SearchInput />
           </div>
 
@@ -113,6 +138,21 @@ const Navbar = () => {
                 {object.title}
               </Link>
             ))}
+          </div>
+          <div className="border-t border-black w-full">
+            <div className="grid grid-cols-2 gap-4 p-8">
+              {sortedData.map((object, index) => (
+                <Link
+                  className="line-clamp-1 underline"
+                  key={index}
+                  to={object.link}
+                  target={object.typ === "link" ? "_self" : "_blank"}
+                  onClick={() => clickedButtonClose()}
+                >
+                  {object.nazov}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>

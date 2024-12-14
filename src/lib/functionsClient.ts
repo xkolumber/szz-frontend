@@ -244,3 +244,7 @@ export const years = Array.from(
   { length: new Date().getFullYear() - 2019 + 1 },
   (_, index) => 2019 + index
 );
+
+export const stripHtmlTags = (html: string): string => {
+  return html.replace(/<\/?[^>]+(>|$)/g, "").trim();
+};

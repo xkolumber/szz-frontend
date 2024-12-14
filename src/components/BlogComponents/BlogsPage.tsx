@@ -6,6 +6,7 @@ import { Blog } from "../../lib/interface";
 import { Link } from "react-router-dom";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import { ClipLoader } from "react-spinners";
+import { Helmet } from "react-helmet-async";
 
 const BlogsPage = () => {
   const queryClient = useQueryClient();
@@ -53,6 +54,27 @@ const BlogsPage = () => {
 
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
+      <Helmet>
+        <title>Záhradkársky blog</title>
+        <meta
+          name="description"
+          content="Vitajte na našom záhradkárskom blogu, kde nájdete tipy, triky a inšpiráciu pre vašu záhradu. Objavte užitočné rady na pestovanie rastlín, starostlivosť o záhradu a mnoho ďalších praktických informácií pre záhradkárov."
+        />
+        <meta
+          name="keywords"
+          content="záhradkárstvo, Slovenský zväz záhradkárov, záhrada, ovocie, zelenina, zväz"
+        />
+        <meta name="author" content="Slovenský zväz záhradkárov" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="canonical" href="https://www.zvazzahradkarov.sk/blog" />
+        <meta property="og:title" content="Záhradkársky blog" />
+        <meta
+          property="og:description"
+          content="Vitajte na našom záhradkárskom blogu, kde nájdete tipy, triky a inšpiráciu pre vašu záhradu. Objavte užitočné rady na pestovanie rastlín, starostlivosť o záhradu a mnoho ďalších praktických informácií pre záhradkárov."
+        />
+        <meta property="og:url" content="https://www.zvazzahradkarov.sk/blog" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
         <h2 className="uppercase text-center pt-8 pb-4">Záhradkársky blog</h2>
