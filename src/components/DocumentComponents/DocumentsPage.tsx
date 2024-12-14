@@ -3,9 +3,9 @@ import { ClipLoader } from "react-spinners";
 import { fetchDiplomas, fetchDocsClient } from "../../lib/functions";
 import { Diplomas, Tlacivo } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
+import SeoElement from "../SeoElement";
 import DiplomasComponents from "./DiplomasComponents";
 import DocumentsPageComponent from "./DocumentsPageComponent";
-import { Helmet } from "react-helmet-async";
 
 const DocumentsPage = () => {
   const queryClient = useQueryClient();
@@ -52,30 +52,11 @@ const DocumentsPage = () => {
   return (
     <div className="own_edge">
       <div className="main_section !pt-8 min-h-screen ">
-        <Helmet>
-          <title>Tlačivá na stiahnutie</title>
-          <meta name="description" content="Dôležité tlačivá na stiahnutie" />
-          <meta
-            name="keywords"
-            content="záhradkárstvo, Slovenský zväz záhradkárov, záhrada, ovocie, zelenina, zväz"
-          />
-          <meta name="author" content="Slovenský zväz záhradkárov" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          />
-          <link rel="canonical" href="https://www.zvazzahradkarov.sk/tlaciva" />
-          <meta property="og:title" content="Tlačivá na stiahnutie" />
-          <meta
-            property="og:description"
-            content="Dôležité tlačivá na stiahnutie"
-          />
-          <meta
-            property="og:url"
-            content="https://www.zvazzahradkarov.sk/tlaciva"
-          />
-          <meta property="og:type" content="website" />
-        </Helmet>
+        <SeoElement
+          title="Tlačivá na stiahnutie"
+          description="Dôležité tlačivá na stiahnutie"
+        />
+
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
         <div className="max-w-[900px] m-auto mt-8">
           <h2 className="text-center uppercase">Tlačivá na stiahnutie</h2>

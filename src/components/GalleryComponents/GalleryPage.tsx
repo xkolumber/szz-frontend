@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Select from "react-select";
-import { Gallery } from "../../lib/interface";
 import { options_years } from "../../lib/functionsClient";
-import EventPagesSkeleton from "../EventComponents/EventPagesSkeleton";
+import { Gallery } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
-import { Helmet } from "react-helmet-async";
+import EventPagesSkeleton from "../EventComponents/EventPagesSkeleton";
+import SeoElement from "../SeoElement";
 
 const GalleryPage = () => {
   const [data, setData] = useState<Gallery[]>([]);
@@ -107,30 +107,11 @@ const GalleryPage = () => {
 
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
-      <Helmet>
-        <title>Galéria</title>
-        <meta
-          name="description"
-          content="Nahliadnite na zoznam našich galérii."
-        />
-        <meta
-          name="keywords"
-          content="záhradkárstvo, Slovenský zväz záhradkárov, záhrada, ovocie, zelenina, zväz"
-        />
-        <meta name="author" content="Slovenský zväz záhradkárov" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://www.zvazzahradkarov.sk/galeria" />
-        <meta property="og:title" content="Galéria" />
-        <meta
-          property="og:description"
-          content="Nahliadnite na zoznam našich galérii."
-        />
-        <meta
-          property="og:url"
-          content="https://www.zvazzahradkarov.sk/galeria"
-        />
-        <meta property="og:type" content="website" />
-      </Helmet>
+      <SeoElement
+        title="Galéria"
+        description="Nahliadnite na zoznam našich galérii."
+      />
+
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
         <div className="flex flex-col md:flex-row justify-between pt-8">

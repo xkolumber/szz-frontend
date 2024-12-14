@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AboutUs from "./components/AboutUsComponents/AboutUs";
 import ActualityPage from "./components/ActualityPage";
@@ -44,6 +45,9 @@ import AdminPrednasky from "./components/AdminComponents/PrednaskyPage/AdminPred
 import AdminSponsorId from "./components/AdminComponents/Sponsors/AdminSponsorId";
 import AdminSponsorNew from "./components/AdminComponents/Sponsors/AdminSponsorNew";
 import AdminSponsors from "./components/AdminComponents/Sponsors/AdminSponsors";
+import AdminSpravodajci from "./components/AdminComponents/Spravodajca/AdminSpravodajci";
+import AdminSpravodajciId from "./components/AdminComponents/Spravodajca/AdminSpravodajciId";
+import AdminSpravodajciNew from "./components/AdminComponents/Spravodajca/AdminSpravodajciNew";
 import AdminUnionPage from "./components/AdminComponents/Union/AdminUnionPage";
 import AdminUnionPageId from "./components/AdminComponents/Union/AdminUnionPageId";
 import AdminUnionPageNew from "./components/AdminComponents/Union/AdminUnionPageNew";
@@ -57,6 +61,7 @@ import BlogDetailPage from "./components/BlogComponents/BlogDetailPage";
 import BlogsPage from "./components/BlogComponents/BlogsPage";
 import ChildrenPage from "./components/ChildrenPage";
 import ContactPage from "./components/ContactPage";
+import CookieComponent from "./components/CookieComponent";
 import DiscountPage from "./components/DiscountPage";
 import DocumentsPage from "./components/DocumentComponents/DocumentsPage";
 import EventDetailPage from "./components/EventComponents/EventDetailPage";
@@ -75,15 +80,11 @@ import PoradnaPage from "./components/PoradnaPage";
 import { NavbarProvider } from "./components/Provider";
 import RecommendPage from "./components/RecommendedComponents/RecommendPage";
 import ScrollToTop from "./components/ScrollToTop";
+import SeoElement from "./components/SeoElement";
+import SpravodajcaPage from "./components/SpravodajcaComponents/SpravodajcaPage";
 import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
 import UsefullLinksPage from "./components/UsefullLinksPage";
-import { Helmet, HelmetProvider } from "react-helmet-async";
-import SpravodajcaPage from "./components/SpravodajcaComponents/SpravodajcaPage";
-import AdminSpravodajci from "./components/AdminComponents/Spravodajca/AdminSpravodajci";
-import AdminSpravodajciNew from "./components/AdminComponents/Spravodajca/AdminSpravodajciNew";
-import AdminSpravodajciId from "./components/AdminComponents/Spravodajca/AdminSpravodajciId";
-import CookieComponent from "./components/CookieComponent";
 
 interface LayoutProps {
   children: ReactNode;
@@ -107,31 +108,12 @@ function Layout({ children }: LayoutProps) {
 function App() {
   return (
     <HelmetProvider>
-      <Helmet>
-        <title>Slovenský zväz záhradkárov</title>
-        <meta
-          name="description"
-          content="Slovenský zväz záhradkárov je komunita nadšencov záhradkárstva na Slovensku. Objavte užitočné rady, tipy na pestovanie a zapojte sa do aktivít, ktoré podporujú lásku k prírode a záhradkárstvu."
-        />
-        <meta
-          name="keywords"
-          content="záhradkárstvo, Slovenský zväz záhradkárov, záhrada, ovocie, zelenina, zväz"
-        />
-        <meta name="author" content="Slovenský zväz záhradkárov" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://www.zvazzahradkarov.sk" />
-        <meta property="og:title" content="Slovenský zväz záhradkárov" />
-        <meta
-          property="og:description"
-          content="Slovenský zväz záhradkárov je komunita nadšencov záhradkárstva na Slovensku. Objavte užitočné rady, tipy na pestovanie a zapojte sa do aktivít, ktoré podporujú lásku k prírode a záhradkárstvu."
-        />
-        <meta property="og:url" content="https://www.zvazzahradkarov.sk" />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:image"
-          content="https://szzimagesalll.s3.eu-north-1.amazonaws.com/2024/a55a601c-dff3-4dc0-8b6b-6063c9ee166d/1.jpg"
-        />
-      </Helmet>
+      <SeoElement
+        title="Slovenský zväz záhradkárov"
+        description="Slovenský zväz záhradkárov je komunita nadšencov záhradkárstva na Slovensku. Objavte užitočné rady, tipy na pestovanie a zapojte sa do aktivít, ktoré podporujú lásku k prírode a záhradkárstvu."
+        image="https://szzimagesalll.s3.eu-north-1.amazonaws.com/2024/a55a601c-dff3-4dc0-8b6b-6063c9ee166d/1.jpg"
+      />
+
       <BrowserRouter>
         <ScrollToTop />
         <Routes>

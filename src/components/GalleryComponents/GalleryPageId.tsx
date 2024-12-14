@@ -6,8 +6,8 @@ import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { Gallery } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
+import SeoElement from "../SeoElement";
 import YouTubeVideo from "../YoutubeVideo";
-import { Helmet } from "react-helmet-async";
 
 const GalleryPageId = () => {
   const [data, setData] = useState<Gallery>();
@@ -69,44 +69,16 @@ const GalleryPageId = () => {
 
         {!isLoading && data ? (
           <>
-            <Helmet>
-              <title>{data.nazov}</title>
-              <meta
-                name="description"
-                content="Prehliadnite si naše spomienkové fotografie z našich udalostí."
-              />
-              <meta
-                name="keywords"
-                content={`záhradkárstvo, Slovenský zväz záhradkárov, záhrada, ovocie, zelenina, zväz`}
-              />
-              <meta name="author" content="Slovenský zväz záhradkárov" />
-              <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1.0"
-              />
-              <link
-                rel="canonical"
-                href={`https://www.zvazzahradkarov.sk/${data.id}`}
-              />
-              <meta property="og:title" content={data.nazov} />
-              <meta
-                name="description"
-                content="Prehliadnite si naše spomienkové fotografie z našich udalostí."
-              />
-              <meta
-                property="og:url"
-                content={`https://www.zvazzahradkarov.sk/${data.id}`}
-              />
-              <meta property="og:type" content="website" />
-              <meta
-                property="og:image"
-                content={
-                  data.fotky.length > 0
-                    ? data.fotky[0]
-                    : "https://szzimagesalll.s3.eu-north-1.amazonaws.com/gray.png"
-                }
-              />
-            </Helmet>
+            <SeoElement
+              title={data.nazov}
+              description="Prehliadnite si naše spomienkové fotografie z našich udalostí."
+              image={
+                data.fotky.length > 0
+                  ? data.fotky[0]
+                  : "https://szzimagesalll.s3.eu-north-1.amazonaws.com/gray.png"
+              }
+            />
+
             <div className="flex flex-col">
               <h1 className="text-center">{data?.nazov}</h1>
               <p className="opacity-60 text-center">{data?.datum}</p>

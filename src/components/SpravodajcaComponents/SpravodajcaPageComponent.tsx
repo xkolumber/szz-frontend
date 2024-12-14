@@ -3,7 +3,7 @@ import { Spravodajca } from "../../lib/interface";
 import AttachedFiles from "../AttachedFiles";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import IconCloseButtonBlack from "../Icons/IconCloseButtonBlack";
-import { Helmet } from "react-helmet-async";
+import SeoElement from "../SeoElement";
 
 interface Props {
   data: Spravodajca[];
@@ -22,30 +22,11 @@ const SpravodajcaPageComponent = ({ data }: Props) => {
 
   return (
     <div className="main_section !pt-8">
-      <Helmet>
-        <title>Spravodajca</title>
-        <meta name="description" content="Zoznam vydaní časopisu Spravodajca" />
-        <meta
-          name="keywords"
-          content="záhradkárstvo, Slovenský zväz záhradkárov, záhrada, ovocie, zelenina, zväz"
-        />
-        <meta name="author" content="Slovenský zväz záhradkárov" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-          rel="canonical"
-          href="https://www.zvazzahradkarov.sk/spravodajca"
-        />
-        <meta property="og:title" content="Záhradkársky blog" />
-        <meta
-          property="og:description"
-          content="Zoznam vydaní časopisu Spravodajca"
-        />
-        <meta
-          property="og:url"
-          content="https://www.zvazzahradkarov.sk/spravodajca"
-        />
-        <meta property="og:type" content="website" />
-      </Helmet>
+      <SeoElement
+        title="Spravodajca"
+        description="Zoznam vydaní časopisu Spravodajca"
+      />
+
       <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
       <div className="max-w-[900px] m-auto mt-8">
         <h2 className="text-center">Spravodajca</h2>

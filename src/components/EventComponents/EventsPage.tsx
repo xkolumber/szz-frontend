@@ -9,8 +9,8 @@ import {
 import { ActualEvent } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import IconCalendar from "../Icons/IconCalendar";
+import SeoElement from "../SeoElement";
 import EventPagesSkeleton from "./EventPagesSkeleton";
-import { Helmet } from "react-helmet-async";
 
 const EventsPage = () => {
   const [data, setData] = useState<ActualEvent[]>([]);
@@ -143,33 +143,11 @@ const EventsPage = () => {
 
   return (
     <div className="own_edge min-h-screen overflow-hidden relative">
-      <Helmet>
-        <title>Tipy na výstavy a aktivity zväzu</title>
-        <meta
-          name="description"
-          content="Zoznam aktivít a výstav na najbližšie mesiace."
-        />
-        <meta
-          name="keywords"
-          content="záhradkárstvo, Slovenský zväz záhradkárov, záhrada, ovocie, zelenina, zväz"
-        />
-        <meta name="author" content="Slovenský zväz záhradkárov" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-          rel="canonical"
-          href="https://www.zvazzahradkarov.sk/vystavy-a-podujatia"
-        />
-        <meta property="og:title" content="Tipy na výstavy a aktivity zväzu" />
-        <meta
-          property="og:description"
-          content="Zoznam aktivít a výstav na najbližšie mesiace."
-        />
-        <meta
-          property="og:url"
-          content="https://www.zvazzahradkarov.sk/vystavy-a-podujatia"
-        />
-        <meta property="og:type" content="website" />
-      </Helmet>
+      <SeoElement
+        title="Tipy na výstavy a aktivity zväzu"
+        description="Zoznam tipov na výstavy a aktivity zväzu."
+      />
+
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
         <h2 className="uppercase text-center pt-4">

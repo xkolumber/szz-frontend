@@ -5,7 +5,7 @@ import { getUzitocneLinkyPage } from "../lib/functions";
 import { Link } from "react-router-dom";
 import { GeneralPageInterface } from "../lib/interface";
 import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
-import { Helmet } from "react-helmet-async";
+import SeoElement from "./SeoElement";
 
 const UsefullLinksPage = () => {
   const { data, status, error, isLoading } = useQuery<GeneralPageInterface>({
@@ -35,27 +35,11 @@ const UsefullLinksPage = () => {
 
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
-      <Helmet>
-        <title>Užitočné linky</title>
-        <meta name="description" content="Zoznam užitočných linkov" />
-        <meta
-          name="keywords"
-          content="záhradkárstvo, Slovenský zväz záhradkárov, záhrada, ovocie, zelenina, zväz, užitočné linky"
-        />
-        <meta name="author" content="Slovenský zväz záhradkárov" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-          rel="canonical"
-          href="https://www.zvazzahradkarov.sk/uzitocne-linky"
-        />
-        <meta property="og:title" content="Zoznam užitočných linkov" />
-        <meta property="og:description" content="Zoznam užitočných linkov" />
-        <meta
-          property="og:url"
-          content="https://www.zvazzahradkarov.sk/uzitocne-linky"
-        />
-        <meta property="og:type" content="website" />
-      </Helmet>
+      <SeoElement
+        title="Užitočné linky"
+        description="Zoznam užitočných linkov"
+      />
+
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
         <div className="max-w-[900px] m-auto mt-8">

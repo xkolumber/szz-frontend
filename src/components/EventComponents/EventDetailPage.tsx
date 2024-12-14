@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import { Link, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
@@ -13,6 +12,7 @@ import IconGuests from "../Icons/IconGuests";
 import IconLink from "../Icons/IconLink";
 import IconLocation from "../Icons/IconLocation";
 import IconTime from "../Icons/IconTime";
+import SeoElement from "../SeoElement";
 
 const EventDetailPage = () => {
   const [open, setOpen] = useState(false);
@@ -101,37 +101,12 @@ const EventDetailPage = () => {
         />
         {data ? (
           <>
-            <Helmet>
-              <title>{data.nazov_vystavy}</title>
-              <meta
-                name="description"
-                content={`"Radi by sme Vás pozvali na zaujímavú udalosť, ktorá sa bude konať dňa ${data.datum_den}.${data.datum_mesiac}.${data.datum_rok}, kde sa môžete tešiť na nezabudnuteľný zážitok a množstvo inšpirácie."`}
-              />
-              <meta
-                name="keywords"
-                content={`záhradkárstvo, Slovenský zväz záhradkárov, záhrada, ovocie, zelenina, zväz, ${data.nazov_vystavy}`}
-              />
-              <meta name="author" content="Slovenský zväz záhradkárov" />
-              <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1.0"
-              />
-              <link
-                rel="canonical"
-                href={`https://www.zvazzahradkarov.sk/${data.slug}`}
-              />
-              <meta property="og:title" content={data.nazov_vystavy} />
-              <meta
-                property="og:description"
-                content={`"Radi by sme Vás pozvali na zaujímavú udalosť, ktorá sa bude konať dňa ${data.datum_den}.${data.datum_mesiac}.${data.datum_rok}, kde sa môžete tešiť na nezabudnuteľný zážitok a množstvo inšpirácie."`}
-              />
-              <meta
-                property="og:url"
-                content={`https://www.zvazzahradkarov.sk/${data.slug}`}
-              />
-              <meta property="og:type" content="website" />
-              <meta property="og:image" content={data.titulna_foto} />
-            </Helmet>
+            <SeoElement
+              title={data.nazov_vystavy}
+              description={`"Radi by sme Vás pozvali na zaujímavú udalosť, ktorá sa bude konať dňa ${data.datum_den}.${data.datum_mesiac}.${data.datum_rok}, kde sa môžete tešiť na nezabudnuteľný zážitok a množstvo inšpirácie."`}
+              image={data.titulna_foto}
+            />
+
             <div className="flex md:items-center flex-col gap-4 min-h-[300px]">
               <h1 className="text-center pt-4">{data?.nazov_vystavy}</h1>
               <div className="flex flex-row gap-6  ">

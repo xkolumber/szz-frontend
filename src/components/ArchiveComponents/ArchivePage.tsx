@@ -1,36 +1,17 @@
 import { Link } from "react-router-dom";
 import { years } from "../../lib/functionsClient";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
-import { Helmet } from "react-helmet-async";
+import SeoElement from "../SeoElement";
 
 const ArchivePage = () => {
   const actual_year = new Date().getFullYear();
   return (
     <div className="own_edge min-h-[600px]">
-      <Helmet>
-        <title>Archív dokumentov</title>
-        <meta
-          name="description"
-          content="Archív dokumentov za posledných 10 rokov."
-        />
-        <meta
-          name="keywords"
-          content="záhradkárstvo, Slovenský zväz záhradkárov, záhrada, ovocie, zelenina, zväz"
-        />
-        <meta name="author" content="Slovenský zväz záhradkárov" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://www.zvazzahradkarov.sk/archiv" />
-        <meta property="og:title" content="Archív dokumentov" />
-        <meta
-          property="og:description"
-          content="Archív dokumentov za posledných 10 rokov."
-        />
-        <meta
-          property="og:url"
-          content="https://www.zvazzahradkarov.sk/archiv"
-        />
-        <meta property="og:type" content="website" />
-      </Helmet>
+      <SeoElement
+        title="Archív dokumentov"
+        description="Archív dokumentov za posledných 10 rokov."
+      />
+
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
         <h2 className="uppercase text-center mt-8">Archív</h2>
