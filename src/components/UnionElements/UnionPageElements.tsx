@@ -133,81 +133,88 @@ const UnionPageElements = ({ data }: Props) => {
             Sekcia pre <span className="text-[#6B9156]">zväz</span>
           </h2>
           <div className="flex flex-col lg:flex-row mt-[40px]">
-            <div className="max-w-[400px] flex flex-col w-full">
-              {data
-                .filter((object) => object.rodic === "null")
-                .map((object) => (
-                  <div className="flex flex-col" key={object.id}>
-                    <div
-                      className="flex flex-row justify-between items-center pt-[12px] pb-[12px] cursor-pointer"
-                      onClick={() => handleClickedCategory(object.slug)}
-                    >
-                      <h6
-                        className={`cursor-pointer uppercase ${
-                          object.slug === category && "underline"
-                        }`}
+            <div className="">
+              <div className="md:w-[400px] flex flex-col">
+                {data
+                  .filter((object) => object.rodic === "null")
+                  .map((object) => (
+                    <div className="flex flex-col" key={object.id}>
+                      <div
+                        className="flex flex-row justify-between items-center pt-[12px] pb-[12px] cursor-pointer"
+                        onClick={() => handleClickedCategory(object.slug)}
                       >
-                        {object.nazov}
-                      </h6>
+                        <h6
+                          className={`cursor-pointer uppercase ${
+                            object.slug === category && "underline"
+                          }`}
+                        >
+                          {object.nazov}
+                        </h6>
 
-                      <IconArrowUp choosen={object.slug === category} />
-                    </div>
-
-                    {data.map(
-                      (object2) =>
-                        object2.rodic === object.id &&
-                        category === object.slug && (
-                          <div className="flex flex-col">
-                            <div className=" light_green rounded-[8px] pl-[24px] pr-[24px] pt-[16px] pb-[16px] ">
-                              <div
-                                className="flex flex-row justify-between items-center cursor-pointer"
-                                onClick={() =>
-                                  handleClickedSubCategory(object2.slug)
-                                }
-                              >
-                                <h6
-                                  className={`cursor-pointer uppercase ${
-                                    object2.slug === subCategory && "underline"
-                                  }`}
-                                >
-                                  {object2.nazov}
-                                </h6>
-                                <IconArrowUp
-                                  choosen={object2.slug === subCategory}
-                                />
-                              </div>
-                              {data.map(
-                                (object3) =>
-                                  object3.rodic === object2.id &&
-                                  subCategory === object2.slug && (
-                                    <div
-                                      className={`flex flex-row justify-between items-center light_green rounded-[8px] pl-[24px] pr-[24px] pt-[16px] pb-[16px] mb-4 mt-4 cursor-pointer ${
-                                        subSubCategory === object3.slug &&
-                                        "!bg-[#298040]"
-                                      } `}
-                                      onClick={() =>
-                                        handleClickedSubSubCategory(
-                                          object3.slug
-                                        )
-                                      }
+                        <IconArrowUp choosen={object.slug === category} />
+                      </div>
+                      <div className="light_green rounded-[8px]">
+                        {data.map(
+                          (object2) =>
+                            object2.rodic === object.id &&
+                            category === object.slug && (
+                              <div className="flex flex-col  ">
+                                <div className="   pl-[24px] pr-[24px] pt-[16px] pb-[16px] ">
+                                  <div
+                                    className="flex flex-row justify-between items-center cursor-pointer"
+                                    onClick={() =>
+                                      handleClickedSubCategory(object2.slug)
+                                    }
+                                  >
+                                    <h6
+                                      className={`cursor-pointer uppercase ${
+                                        object2.slug === subCategory &&
+                                        "underline"
+                                      }`}
                                     >
-                                      <p
-                                        className={`cursor-pointer uppercase line-clamp-1 ${
-                                          subSubCategory === object3.slug &&
-                                          "text-white"
-                                        } `}
-                                      >
-                                        {object3.nazov}
-                                      </p>
+                                      {object2.nazov}
+                                    </h6>
+                                    <div className="">
+                                      {" "}
+                                      <IconArrowUp
+                                        choosen={object2.slug === subCategory}
+                                      />
                                     </div>
-                                  )
-                              )}
-                            </div>
-                          </div>
-                        )
-                    )}
-                  </div>
-                ))}
+                                  </div>
+                                  {data.map(
+                                    (object3) =>
+                                      object3.rodic === object2.id &&
+                                      subCategory === object2.slug && (
+                                        <div
+                                          className={`flex flex-row justify-between items-center light_green rounded-[8px] pl-[24px] pr-[24px] pt-[16px] pb-[16px] mb-4 mt-4 cursor-pointer ${
+                                            subSubCategory === object3.slug &&
+                                            "!bg-[#298040]"
+                                          } `}
+                                          onClick={() =>
+                                            handleClickedSubSubCategory(
+                                              object3.slug
+                                            )
+                                          }
+                                        >
+                                          <p
+                                            className={`cursor-pointer uppercase line-clamp-1 ${
+                                              subSubCategory === object3.slug &&
+                                              "text-white"
+                                            } `}
+                                          >
+                                            {object3.nazov}
+                                          </p>
+                                        </div>
+                                      )
+                                  )}
+                                </div>
+                              </div>
+                            )
+                        )}
+                      </div>
+                    </div>
+                  ))}
+              </div>
             </div>
             {choosenUnionData ? (
               <div className="lg:pl-[80px]">

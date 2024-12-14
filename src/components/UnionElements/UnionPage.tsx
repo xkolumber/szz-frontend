@@ -3,6 +3,7 @@ import "yet-another-react-lightbox/styles.css";
 import { fetchUnionDataClient } from "../../lib/functions";
 import { UnionData } from "../../lib/interface";
 import UnionPageElements from "./UnionPageElements";
+import { ClipLoader } from "react-spinners";
 
 const UnionPage = () => {
   const { data, status, error, isLoading } = useQuery<UnionData[]>({
@@ -27,7 +28,7 @@ const UnionPage = () => {
       <div className="own_edge">
         <div className="main_section !pt-0 min-h-[600px]">
           {" "}
-          <p>Loading...</p>
+          <ClipLoader size={20} color={"#000000"} loading={true} />
         </div>
       </div>
     );
