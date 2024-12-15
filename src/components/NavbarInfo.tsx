@@ -14,47 +14,53 @@ const NavbarInfo = () => {
   });
   if (isLoading) {
     return (
-      <div className="flex flex-row gap-6 main_section !pt-0 !pb-0 justify-between">
-        <div className="hidden md:flex flex-row gap-[32px]">
+      <div className="flex flex-row main_section !pt-0 !pb-0 justify-between">
+        <div className="hidden md:flex flex-row gap-4">
           <Skeleton
-            width={180}
-            height={30}
+            width={160}
+            height={40}
             borderRadius={8}
             baseColor="#ffffff"
           />
           <Skeleton
-            width={230}
-            height={30}
+            width={210}
+            height={40}
             borderRadius={8}
             baseColor="#ffffff"
           />
           <Skeleton
             width={120}
-            height={30}
+            height={40}
             borderRadius={8}
             baseColor="#ffffff"
           />
           <Skeleton
-            width={140}
-            height={30}
-            borderRadius={8}
-            baseColor="#ffffff"
-          />
-          <Skeleton
-            width={190}
-            height={30}
-            borderRadius={8}
-            baseColor="#ffffff"
-          />
-          <Skeleton
-            width={150}
-            height={30}
+            width={120}
+            height={40}
             borderRadius={8}
             baseColor="#ffffff"
           />
           <Skeleton
             width={180}
-            height={30}
+            height={40}
+            borderRadius={8}
+            baseColor="#ffffff"
+          />
+          <Skeleton
+            width={140}
+            height={40}
+            borderRadius={8}
+            baseColor="#ffffff"
+          />
+          <Skeleton
+            width={160}
+            height={40}
+            borderRadius={8}
+            baseColor="#ffffff"
+          />
+          <Skeleton
+            width={140}
+            height={40}
             borderRadius={8}
             baseColor="#ffffff"
           />
@@ -70,8 +76,8 @@ const NavbarInfo = () => {
   );
 
   return (
-    <div className="flex flex-row gap-6 main_section !pt-0 !pb-0 ">
-      <div className="flex flex-wrap gap-4  scroll-container">
+    <div className="flex flex-row  main_section !pt-0 !pb-0 ">
+      <div className="flex flex-wrap gap-4">
         {sortedData.map((object, index) => (
           <Link
             className="btn btn--navbar"

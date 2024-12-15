@@ -101,7 +101,7 @@ const AdminNavbarDataNewId = () => {
               />
             </div>
             <div className="product_admin_row">
-              <p>Link:</p>
+              <p>Link: napr. /spravodajca</p>
               <input
                 type="text"
                 name="link"
