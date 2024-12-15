@@ -58,7 +58,7 @@ const AnnPageSlug = () => {
         {elementData && (
           <>
             <div className="flex items-center flex-col">
-              <h1 className="pt-8 pb-4">{elementData?.nazov}</h1>
+              <h1 className="pt-8 pb-4 text-center">{elementData?.nazov}</h1>
               <div className="flex flex-row gap-6  ">
                 <p className="font-medium">{elementData?.datum}</p>
               </div>
