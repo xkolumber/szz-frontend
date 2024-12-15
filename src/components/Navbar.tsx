@@ -94,7 +94,7 @@ const Navbar = () => {
             closeClicked ? "collapsible--collapsed" : ""
           }  `}
         >
-          <div className="flex flex-row justify-between items-center w-full pl-8 pr-8 pt-4 pb-4">
+          <div className="flex flex-row justify-between items-center w-full pl-8 pr-8 pt-4">
             <Link to={"/"}>
               {" "}
               <img
@@ -113,7 +113,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="w-full p-8">
+          <div className="w-full p-8 !pt-6 !pb-6">
             <SearchInput />
           </div>
 

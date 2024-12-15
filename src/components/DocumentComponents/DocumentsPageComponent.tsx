@@ -41,7 +41,7 @@ const DocumentsPageComponent = ({ data }: Props) => {
         const normalizedHash = normalizeText(hash);
 
         return (
-          <div className="flex flex-row items-center pt-4" key={index}>
+          <div className="flex flex-wrap items-center pt-4" key={index}>
             <Link
               to={object.link}
               target="_blank"
