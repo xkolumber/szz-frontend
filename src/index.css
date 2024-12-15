@@ -1258,3 +1258,7 @@ menu {
 .bg_table_admin {
   background: #dedede;
 }
+
+.content img {
+  margin: auto;
+}
