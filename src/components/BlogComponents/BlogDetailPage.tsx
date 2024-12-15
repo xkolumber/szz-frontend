@@ -72,9 +72,7 @@ const BlogDetailPage = () => {
             />
 
             <div className="flex items-center flex-col">
-              <h1 className="pt-8 pb-4 text-center md:text-left">
-                {blogData?.nazov_blog}
-              </h1>
+              <h1 className="pt-8 pb-4 text-center">{blogData?.nazov_blog}</h1>
               <div className="flex flex-row gap-6  ">
                 <p className="font-medium">{blogData.datum}</p>
               </div>
@@ -141,17 +139,19 @@ const BlogDetailPage = () => {
                     Dokumenty na stiahnutie
                   </h5>
                   <div className="flex flex-wrap gap-4">
-                    {" "}
-                    {blogData?.pdf.map((object, index) => (
-                      <Link
-                        to={object.link}
-                        className="btn btn--tertiary"
-                        target="_blank"
-                        key={index}
-                      >
-                        {object.nazov}
-                      </Link>
-                    ))}
+                    {blogData?.pdf.map((object, index) => {
+                      const fileType = object.link.split(".").pop();
+                      return (
+                        <Link
+                          to={object.link}
+                          className="btn btn--tertiary !normal-case"
+                          target="_blank"
+                          key={index}
+                        >
+                          {object.nazov}.{fileType}
+                        </Link>
+                      );
+                    })}
                   </div>
                 </>
               )}
@@ -185,16 +185,18 @@ const BlogDetailPage = () => {
             >
               <img
                 src={object.titulna_foto}
-                className="rounded-[16px] max-h-[280px] h-full"
+                className="rounded-[16px] max-h-[280px] h-full w-full object-cover"
               />
 
               <h5 className="pt-[8px] line-clamp-1 uppercase">
                 {object.nazov_blog}
               </h5>
-              <div
-                className="content opacity-80 line-clamp-2 "
-                dangerouslySetInnerHTML={{ __html: object.popis1 }}
-              />
+              <div className="">
+                <div
+                  className="content opacity-80 line-clamp-2 "
+                  dangerouslySetInnerHTML={{ __html: object.popis1 }}
+                />
+              </div>
             </Link>
           ))}
         </div>

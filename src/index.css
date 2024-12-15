@@ -346,6 +346,7 @@ th {
 }
 .btn--tertiary {
   background: var(--color-tertiary);
+
   border: 1px solid white;
   color: white;
 }

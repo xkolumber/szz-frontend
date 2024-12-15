@@ -1,5 +1,5 @@
 import imageCompression from "browser-image-compression";
-import { ActualJob, Oznamy } from "./interface";
+import { ActualJob, Oznamy, Spravodajca } from "./interface";
 
 export async function fetchNavbarData() {
   try {
@@ -1768,7 +1768,16 @@ export async function fetchSpravodajciToken(token: string | null) {
 
       const responseData = await response.json();
 
-      return responseData.Items;
+      const final_data = responseData.Items.sort(
+        (a: Spravodajca, b: Spravodajca) => {
+          if (b.rok !== a.rok) {
+            return b.rok - a.rok;
+          }
+          return b.mesiac - a.mesiac;
+        }
+      );
+
+      return final_data;
     } catch (error) {
       console.error("Error fetching data:", error);
       return null;
@@ -1832,7 +1841,16 @@ export async function fetchSpravodajciClient() {
     }
     const responseData = await response.json();
 
-    return responseData.Items;
+    const final_data = responseData.Items.sort(
+      (a: Spravodajca, b: Spravodajca) => {
+        if (b.rok !== a.rok) {
+          return b.rok - a.rok;
+        }
+        return b.mesiac - a.mesiac;
+      }
+    );
+
+    return final_data;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
