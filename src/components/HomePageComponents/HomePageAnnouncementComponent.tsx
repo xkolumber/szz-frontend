@@ -37,16 +37,23 @@ const HomePageAnnouncementComponent = ({ data }: Props) => {
           (object, index) =>
             object.viditelnost && (
               <Link
-                className="flex flex-row gap-4 items-center"
+                className="flex flex-row gap-4 md:items-center"
                 key={index}
                 to={`/oznamy/${object.slug}`}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
-                <p className="text-white"> {object.datum}</p>
-                <p className="text-white">|</p>
+                <div className="flex flex-row md:items-center gap-4 ">
+                  <p className="text-white w-[80px]"> {object.datum}</p>
+                  <p className="text-white">|</p>
+                </div>
                 <p className="text-white">{object.nazov}</p>
-                <IconArrow ishovered={hoveredIndex === index} color="#ffffff" />
+                <div className="hidden md:block">
+                  <IconArrow
+                    ishovered={hoveredIndex === index}
+                    color="#ffffff"
+                  />
+                </div>
               </Link>
             )
         )}

@@ -75,15 +75,15 @@ const Footer = () => {
               <div className="flex flex-row items-center gap-[24px]">
                 <Link
                   to={"/gdpr"}
-                  className="text-[12px] 2xl:text-[14px] text-primary font-light  opacity-80 text-white uppercase"
+                  className="text-center md:text-left text-[12px] 2xl:text-[14px] text-primary font-light  opacity-80 text-white uppercase"
                 >
                   Zásady ochrany osobných údajov
                 </Link>
                 <Link
-                  to={"/"}
-                  className="text-[12px] 2xl:text-[14px] text-primary font-light  opacity-80 text-white uppercase"
+                  to={"https://2va.sk/"}
+                  className="text-center md:text-left text-[12px] 2xl:text-[14px] text-primary font-light  opacity-80 text-white uppercase"
                 >
-                  Nastavenia cookies
+                  Navrhol a vytvoril 2va.sk
                 </Link>
               </div>
             </div>
