@@ -69,8 +69,10 @@ const HomePageBlogSection = () => {
               >
                 {" "}
                 <img
+                  width={400}
+                  height={400}
                   src={existingBlogs[0].titulna_foto}
-                  className="rounded-[16px]"
+                  className="rounded-[16px] w-full h-full max-h-[180px] lg:max-h-[430px] object-cover"
                 />
                 <h5 className="uppercase mt-4">
                   {existingBlogs[0].nazov_blog}
@@ -84,24 +86,26 @@ const HomePageBlogSection = () => {
                 {existingBlogs &&
                   existingBlogs.slice(1, 4).map((object, index) => (
                     <Link
-                      className={`flex flex-row  rounded-[24px]   w-full hover:scale-[1.01] duration-200 `}
+                      className="flex flex-row rounded-[24px] gap-[24px] w-full hover:scale-[1.01] duration-200"
                       key={index}
                       to={`/blog/${object.slug}`}
                     >
-                      {" "}
-                      <img
-                        width={280}
-                        height={140}
-                        src={object.titulna_foto}
-                        className="rounded-[16px] w-[35%] h-[180px]  object-cover"
-                      />
-                      <div className="flex flex-col pl-[24px]">
-                        {" "}
-                        <h6 className="pt-[8px] uppercase line-clamp-2">
-                          {object.nazov_blog}
-                        </h6>
+                      <div className="w-[40%] h-[180px] rounded-[16px] overflow-hidden">
+                        <img
+                          src={object.titulna_foto}
+                          alt={object.nazov_blog}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+
+                      <div className="flex flex-col w-[60%]">
+                        <div className="">
+                          <h6 className="pt-[8px] uppercase line-clamp-2">
+                            {object.nazov_blog}
+                          </h6>
+                        </div>
                         <div
-                          className="content line-clamp-4 opacity-80 pt-[8px] "
+                          className="content line-clamp-4 opacity-80 pt-[8px]"
                           dangerouslySetInnerHTML={{ __html: object.popis1 }}
                         />
                       </div>

@@ -208,12 +208,12 @@ th {
   .navbar_right {
     margin-right: 5rem;
   }
-  .collapsible--expanded {
-    width: 40%;
-    padding-left: 2.5rem;
-  }
 }
 @media screen and (min-width: 1024px) {
+  .collapsible--expanded {
+    width: 40%;
+    /* padding-left: 2.5rem; */
+  }
   .main_section {
     padding-top: 7rem;
     padding-bottom: 7rem;
@@ -234,9 +234,6 @@ th {
   }
   .additional_padding {
     padding-top: 15rem !important;
-  }
-  .collapsible--expanded {
-    width: 30%;
   }
 }
 @media screen and (min-width: 1240px) {
@@ -271,12 +268,6 @@ th {
   }
 }
 @media screen and (min-width: 1836px) {
-  /* .main_section {
-    padding-left: 13.8rem;
-    padding-right: 13.8rem;
-    padding-top: 8rem;
-    padding-bottom: 8rem;
-  } */
   .main_section {
     padding-top: 8rem;
     padding-bottom: 8rem;
@@ -407,6 +398,9 @@ th {
   background: white;
   border-radius: 8px !important;
   color: #47261c;
+}
+.btn--navbar:hover {
+  background: #f5f3f2;
 }
 
 .btn--green {

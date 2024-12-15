@@ -70,8 +70,8 @@ const NavbarInfo = () => {
   );
 
   return (
-    <div className="flex flex-row gap-6 main_section !pt-0 !pb-0">
-      <div className="flex flex-wrap gap-4 lg:gap-[32px]">
+    <div className="flex flex-row gap-6 main_section !pt-0 !pb-0 ">
+      <div className="flex flex-wrap gap-4  scroll-container">
         {sortedData.map((object, index) => (
           <Link
             className="btn btn--navbar"

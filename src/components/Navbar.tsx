@@ -64,22 +64,19 @@ const Navbar = () => {
             <Link
               to={object.slug === "/domov" ? "/" : object.slug}
               key={index}
-              className={`  ${
-                location.pathname.includes(object.slug)
+              className={`${
+                location.pathname.includes(object.slug) ||
+                (object.slug === "/domov" && location.pathname === "/")
                   ? "active_navbar"
                   : "item_navbar"
-              } ${
-                object.slug === "/domov" &&
-                location.pathname === "/" &&
-                "active_navbar"
-              } `}
+              }`}
             >
               {object.title}
             </Link>
           ))}
         </div>
         <div className="flex flex-row gap-6 items-center">
-          <div className="w-full max-w-[300px] hidden md:block">
+          <div className="w-full max-w-[300px] hidden xl:block">
             <SearchInput />
           </div>
 

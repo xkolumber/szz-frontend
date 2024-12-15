@@ -94,7 +94,7 @@ function Layout({ children }: LayoutProps) {
   return (
     <>
       <NavbarProvider>
-        <div className="bg-[#3F8124] own_edge !hidden md:!flex">
+        <div className="bg-[#3F8124] own_edge !hidden xl:!flex">
           <NavbarInfo />
         </div>
         <Navbar />

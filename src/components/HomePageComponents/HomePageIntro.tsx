@@ -122,9 +122,9 @@ const HomePageIntro = () => {
             </div> */}
           </div>
         </div>
-        <div className="flex flex-col lg:w-[50%]">
+        <div className="flex flex-col  lg:w-[50%]">
           <Link
-            className="bg-[#3F8124] mt-8 lg:mt-0 p-8 xl:pl-[64px] xl:pt-[37.5px] xl:pb-[37.5px] xl:pr-[40px] rounded-[24px] flex flex-col md:flex-row gap-4 md:gap-16  items-center justify-between"
+            className="md:w-[75%] m-auto lg:w-full bg-[#3F8124] mt-8 lg:mt-0 p-8 xl:pl-[64px] xl:pt-[37.5px] xl:pb-[37.5px] xl:pr-[40px] rounded-[24px] flex flex-col md:flex-row gap-4 md:gap-16  items-center justify-between"
             to={"/zvaz"}
           >
             <h3 className="uppercase text-white">Sekcia pre zväz</h3>

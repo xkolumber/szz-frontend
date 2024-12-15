@@ -22,7 +22,7 @@ const HomePageSwiperJobs = ({ data, clickedLink }: Props) => {
     <div>
       {data && (
         <div className="relative">
-          <div className=" flex-row gap-8 justify-end -mt-28 hidden md:flex mb-24">
+          <div className=" flex-row gap-8 justify-end -mt-28 hidden lg:flex mb-24">
             <div className="arrow-right w-16 h-16 3xl:w-20 3xl:h-20 scale-90 2xl:scale-100 cursor-pointer">
               <IconSwiperArrowLeft />
             </div>
@@ -36,11 +36,11 @@ const HomePageSwiperJobs = ({ data, clickedLink }: Props) => {
                 slidesPerView: 1,
                 spaceBetween: 20,
               },
-              768: {
+              1024: {
                 slidesPerView: 2,
                 spaceBetween: 20,
               },
-              1024: {
+              1280: {
                 slidesPerView: 3,
                 spaceBetween: 20,
               },
@@ -71,29 +71,34 @@ const HomePageSwiperJobs = ({ data, clickedLink }: Props) => {
                   <p className="uppercase pt-4 text-white font-bold">
                     Pranostika
                   </p>
-                  <p className="text-white line-clamp-2 opacity-80">
+                  <p className="text-white line-clamp-2 opacity-80 h-[45px]">
                     {object.text}
                   </p>
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className="flex flex-row justify-between md:hidden pt-12">
-            <div className="arrow-right   cursor-pointer">
+          <div className="flex flex-row justify-between lg:hidden pt-12 relative">
+            <div className="arrow-right cursor-pointer">
               <IconSwiperArrowLeft />
             </div>
-            <div className="relative w-full justify-center mt-40">
+
+            <div className="relative w-full flex items-center justify-center pt-40">
               <img
-                src={"/krtko.svg"}
-                className={`absolute h-[135px]  w-[221px] right-[22px] bottom-0 z-20 ease-in duration-100`}
+                width={120}
+                height={120}
+                src="/krtko.svg"
+                className="absolute h-[135px] w-[221px] left-1/2 -ml-3 transform -translate-x-1/2 bottom-0 z-10"
               />
               <img
-                src={"/zem.svg"}
-                className="absolute h-[95px] w-[191px] right-[28px] -bottom-12  z-20"
+                width={120}
+                height={120}
+                src="/zem.svg"
+                className="absolute h-[95px] w-[191px] left-1/2 transform -translate-x-1/2 -bottom-12 z-20"
               />
             </div>
 
-            <div className="arrow-left   cursor-pointer ">
+            <div className="arrow-left cursor-pointer">
               <IconSwiperArrowRight />
             </div>
           </div>

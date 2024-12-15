@@ -101,7 +101,15 @@ export async function fetchBlogs(limit: number) {
 
     const responseData = await response.json();
 
-    return responseData.Items;
+    const sortedBlogs = responseData.Items.sort(
+      (a: { datum: string }, b: { datum: string }) => {
+        const dateA = new Date(a.datum.split(".").reverse().join("-"));
+        const dateB = new Date(b.datum.split(".").reverse().join("-"));
+        return dateB.getTime() - dateA.getTime();
+      }
+    );
+
+    return sortedBlogs;
   } catch (error) {
     console.error("Error fetching data:", error);
   }

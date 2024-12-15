@@ -236,7 +236,7 @@ export function isValidYear(year: string): boolean {
   return year.length === 4 && /^\d{4}$/.test(year);
 }
 
-export const LIMIT_BLOG = 4;
+export const LIMIT_BLOG = 10;
 
 export const empty_three_values = ["", "", ""];
 
