@@ -93,7 +93,7 @@ const HomePageBlogSection = () => {
                         width={280}
                         height={140}
                         src={object.titulna_foto}
-                        className="rounded-[16px] w-[35%] max-h-[180px]  object-cover"
+                        className="rounded-[16px] w-[35%] h-[180px]  object-cover"
                       />
                       <div className="flex flex-col pl-[24px]">
                         {" "}
