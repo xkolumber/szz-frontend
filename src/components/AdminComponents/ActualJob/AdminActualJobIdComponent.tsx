@@ -77,6 +77,10 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
             pdf: actualizeData.pdf,
             text: actualizeData.text,
             farba: actualizeData.farba,
+            link_pranostika:
+              actualizeData.link_pranostika === undefined
+                ? ""
+                : actualizeData.link_pranostika,
           }),
         }
       );
@@ -256,6 +260,17 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
                   </div>
                 )}
               </div>
+            </div>
+            <div className="product_admin_row">
+              <p>Link na pranostiku: </p>
+              <input
+                type="text"
+                name="link_pranostika"
+                onChange={handleChange}
+                className="w-[70%]"
+                value={actualizeData?.link_pranostika}
+                required
+              />
             </div>
             <div className="product_admin_row">
               <p>Text:</p>

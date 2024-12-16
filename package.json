@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cyntler/react-doc-viewer": "^1.17.0",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.1.4",
     "@mui/material": "^6.1.4",
@@ -39,6 +40,7 @@
     "copy-to-clipboard": "^3.3.3",
     "js-cookie": "^3.0.5",
     "react": "^18.3.1",
+    "react-doc-viewer": "^0.1.14",
     "react-dom": "^18.3.1",
     "react-draft-wysiwyg": "^1.15.0",
     "react-dropzone": "^14.3.1",

@@ -7,6 +7,7 @@ import { Blog } from "../../lib/interface";
 import ButtonWithArrow from "../ButtonWithArrow";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import SeoElement from "../SeoElement";
+import BlogButtonsPdf from "./BlogButtonsPdf";
 
 const BlogDetailPage = () => {
   const queryClient = useQueryClient();
@@ -138,21 +139,7 @@ const BlogDetailPage = () => {
                   <h5 className="mt-[40px] uppercase">
                     Dokumenty na stiahnutie
                   </h5>
-                  <div className="flex flex-wrap gap-4">
-                    {blogData?.pdf.map((object, index) => {
-                      const fileType = object.link.split(".").pop();
-                      return (
-                        <Link
-                          to={object.link}
-                          className="btn btn--tertiary !normal-case"
-                          target="_blank"
-                          key={index}
-                        >
-                          {object.nazov}.{fileType}
-                        </Link>
-                      );
-                    })}
-                  </div>
+                  <BlogButtonsPdf pdf={blogData.pdf} />
                 </>
               )}
               <div className="flex flex-row justify-between opacity-60 mt-4 xl:mt-16">

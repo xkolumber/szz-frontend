@@ -51,7 +51,7 @@ const SpravodajcaPageComponent = ({ data }: Props) => {
       {clickedObject && (
         <>
           <div className="behind_card_background"></div>
-          <div className="popup_message relative">
+          <div className="popup_message relative !w-[80%] !h-[80%] items-center justify-center">
             <div
               className="absolute right-0 top-0 m-4"
               onClick={() => setClickedObject(null)}
@@ -61,7 +61,7 @@ const SpravodajcaPageComponent = ({ data }: Props) => {
             </div>
 
             <div
-              className="content pt-4 max-h-[250px] overflow-y-auto"
+              className="content pt-4 max-h-[650px] overflow-y-auto"
               dangerouslySetInnerHTML={{ __html: clickedObject.text1 }}
             />
             {clickedObject.pdf.length > 0 && (

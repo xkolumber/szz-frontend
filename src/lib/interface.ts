@@ -5,6 +5,7 @@ export interface ActualJob {
   pdf: Pdf;
   text: string;
   farba: string;
+  link_pranostika: string;
 }
 
 export interface ActualEvent {

@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { ActualJob } from "../../lib/interface";
 import IconSwiperArrowLeft from "../Icons/IconSwiperArrowLeft";
 import IconSwiperArrowRight from "../Icons/IconSwiperArrowRight";
+import { Link } from "react-router-dom";
 
 interface Props {
   data: ActualJob[];
@@ -68,9 +69,14 @@ const HomePageSwiperJobs = ({ data, clickedLink }: Props) => {
                       Pozrieť práce
                     </button>
                   </div>
-                  <p className="uppercase pt-4 text-white font-bold">
+
+                  <Link
+                    className="uppercase pt-4 underline text-white font-bold"
+                    to={object.link_pranostika}
+                  >
                     Pranostika
-                  </p>
+                  </Link>
+
                   <p className="text-white line-clamp-2 opacity-80 h-[45px]">
                     {object.text}
                   </p>

@@ -3,11 +3,10 @@ import { Link, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import { ActualEvent } from "../../lib/interface";
+import BlogButtonsPdf from "../BlogComponents/BlogButtonsPdf";
 import ButtonWithArrow from "../ButtonWithArrow";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
-import ButtonWithElement from "../ButtonWithElement";
 import IconCalendar from "../Icons/IconCalendar";
-import IconDownload from "../Icons/IconDownload";
 import IconGuests from "../Icons/IconGuests";
 import IconLink from "../Icons/IconLink";
 import IconLocation from "../Icons/IconLocation";
@@ -176,19 +175,7 @@ const EventDetailPage = () => {
               {data.pdf.length > 0 && (
                 <>
                   <h5 className="uppercase mt-[80px]">Dokumenty k podujatiu</h5>
-                  <div className="flex flex-wrap gap-4">
-                    {data?.pdf.map((object, index) => {
-                      const fileType = object.link.split(".").pop();
-                      return (
-                        <Link to={object.link} target="_blank" key={index}>
-                          <ButtonWithElement
-                            text={`${object.nazov}.${fileType}`}
-                            element={<IconDownload />}
-                          />
-                        </Link>
-                      );
-                    })}
-                  </div>
+                  <BlogButtonsPdf pdf={data.pdf} />
                 </>
               )}
 

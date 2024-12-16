@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { ClipLoader } from "react-spinners";
 import { getGdprPage } from "../lib/functions";
 
-import { Link } from "react-router-dom";
 import { GeneralPageInterface } from "../lib/interface";
+import AttachedFiles from "./AttachedFiles";
 import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
 
 const GdprPage = () => {
@@ -32,8 +32,6 @@ const GdprPage = () => {
     return <p>Error: {error.message}</p>;
   }
 
-  console.log(data);
-
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
       <div className="main_section !pt-8">
@@ -50,21 +48,7 @@ const GdprPage = () => {
               <h6 className="uppercase pt-8 underline">
                 Dokumnty na stiahnutie
               </h6>
-              <div className="flex flex-col gap-1 pt-4">
-                {data.pdf.map((object, index) => (
-                  <div className="flex flex-row items-center" key={index}>
-                    <Link
-                      to={object.link}
-                      target="_blank"
-                      key={index}
-                      className="underline"
-                    >
-                      {" "}
-                      {object.nazov}
-                    </Link>
-                  </div>
-                ))}
-              </div>
+              <AttachedFiles pdf={data.pdf} />
             </div>
           )}
         </div>
