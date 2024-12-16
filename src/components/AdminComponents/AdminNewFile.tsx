@@ -54,6 +54,7 @@ const AdminNewFile = () => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
+          timeout: 60000,
         }
       );
 
@@ -99,44 +100,47 @@ const AdminNewFile = () => {
 
   return (
     <div className=" min-h-screen">
-      <div className="main_section !pt-0 products_admin">
-        <StepBack />
-        <Toaster />
-        <h2>Pridať nový súbor</h2>
-        <p>
-          povolené prípony: .pdf, .doc, .docx, .xls, .xlsx, všetky typy obrázkov
-          okrem svg
-        </p>
-        <div className="product_admin_row">
-          <p>link:</p>
-          <input type="text" className="w-[70%]" value={pdfLink} required />
-          <input
-            type="file"
-            accept=".pdf, .doc, .docx, .xls, .xlsx, image/*"
-            onChange={(e) => handleUploadFile(e)}
-            className="mt-2"
-          />
+      {token && (
+        <div className="main_section !pt-0 products_admin">
+          <StepBack />
+          <Toaster />
+          <h2>Pridať nový súbor</h2>
+          <p>
+            povolené prípony: .pdf, .doc, .docx, .xls, .xlsx, všetky typy
+            obrázkov okrem svg
+          </p>
+          <div className="product_admin_row">
+            <p>link:</p>
+            <input type="text" className="w-[70%]" value={pdfLink} required />
+            <input
+              type="file"
+              accept=".pdf, .doc, .docx, .xls, .xlsx, image/*"
+              onChange={(e) => handleUploadFile(e)}
+              className="mt-2"
+            />
+          </div>
+          <div className="flex flex-row justify-between pt-4">
+            <button
+              className={`btn btn--tertiary ${pdfLink === "" && "disabledbtn"}`}
+              onClick={() => handleCopy()}
+              disabled={pdfLink === ""}
+            >
+              Kopírovať
+              <IconCopy />
+            </button>
+            <button
+              className={`btn btn--tertiary !bg-red-500 ${
+                pdfLink === "" && "disabledbtn"
+              }`}
+              onClick={() => handleDelete()}
+              disabled={pdfLink === ""}
+            >
+              Vymazať link
+            </button>
+          </div>
         </div>
-        <div className="flex flex-row justify-between pt-4">
-          <button
-            className={`btn btn--tertiary ${pdfLink === "" && "disabledbtn"}`}
-            onClick={() => handleCopy()}
-            disabled={pdfLink === ""}
-          >
-            Kopírovať
-            <IconCopy />
-          </button>
-          <button
-            className={`btn btn--tertiary !bg-red-500 ${
-              pdfLink === "" && "disabledbtn"
-            }`}
-            onClick={() => handleDelete()}
-            disabled={pdfLink === ""}
-          >
-            Vymazať link
-          </button>
-        </div>
-      </div>
+      )}
+
       {dataLoading && (
         <>
           {" "}
