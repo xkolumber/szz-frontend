@@ -10,7 +10,7 @@ const VisitCounter = () => {
     const incrementVisitCount = async () => {
       try {
         const response = await axios.get(
-          `https://api.countapi.xyz/hit/${import.meta.env.VITE_API_URL}/${key}`
+          `https://api.countapi.xyz/hit/${import.meta.env.DEPLOYED_URL}/${key}`
         );
         setVisitCount(response.data.value);
       } catch (error) {
