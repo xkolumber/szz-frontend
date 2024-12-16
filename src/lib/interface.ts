@@ -173,3 +173,7 @@ export interface SearchData {
   link: string;
   najdeny_text: string;
 }
+
+export interface Navstevnost {
+  navstevnost: number;
+}

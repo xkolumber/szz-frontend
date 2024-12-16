@@ -1927,3 +1927,27 @@ export async function getArchiveEvents(year: string) {
     return [];
   }
 }
+
+export async function updateCount() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/add-visit`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching visit count:", error);
+  }
+}
+
+export async function getCount() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/get-visit`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching visit count:", error);
+  }
+}

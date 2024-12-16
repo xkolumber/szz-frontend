@@ -125,7 +125,7 @@ const HomePageIntro = () => {
         </div>
         <div className="flex flex-col  lg:w-[50%]">
           <Link
-            className="md:w-[75%] m-auto lg:w-full bg-[#3F8124] mt-8 lg:mt-0 p-8 xl:pl-[64px] xl:pt-[37.5px] xl:pb-[37.5px] xl:pr-[40px] rounded-[24px] flex flex-col md:flex-row gap-4 md:gap-16  items-center justify-between"
+            className="w-full md:w-[75%] m-auto lg:w-full bg-[#3F8124] mt-8 lg:mt-0 p-8 xl:pl-[64px] xl:pt-[37.5px] xl:pb-[37.5px] xl:pr-[40px] rounded-[24px] flex flex-col md:flex-row gap-4 md:gap-16  items-center justify-between"
             to={"/zvaz"}
           >
             <h3 className="uppercase text-white">Sekcia pre zväz</h3>
@@ -141,6 +141,9 @@ const HomePageIntro = () => {
               />
             </div>
           </Link>
+          <div className="pt-8">
+            <VisitCounter />
+          </div>
           <div className="flex flex-row mt-8 items-center0 gap-8">
             <IconApples />
             <div className="flex flex-col opacity-80 justify-center">
@@ -150,7 +153,7 @@ const HomePageIntro = () => {
               <p className="font-bold text-[#47261C]">Tešíme sa na Vás!</p>
             </div>
           </div>
-          <VisitCounter />
+
           <div className="flex flex-col md:flex-row  gap-8 md:gap-0 mt-16 justify-between">
             <Link className="flex flex-row" to={"/aktuality"}>
               <div className="flex flex-row gap-[16px]">

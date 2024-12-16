@@ -71,9 +71,9 @@ const AdminNewFile = () => {
       alert(
         "Súbor má nepovolenú príponu. Povolené sú pdf, doc, docx, xls, xlsx, obrázky"
       );
-      e.target.value = null;
     } finally {
       setDataLoading(false);
+      e.target.value = null;
     }
   };
 
