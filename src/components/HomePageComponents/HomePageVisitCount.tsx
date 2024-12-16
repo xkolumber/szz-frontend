@@ -1,29 +1,24 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 const VisitCounter = () => {
   const [visitCount, setVisitCount] = useState(null);
 
-  const key = "visits";
-
-  const namespace =
-    import.meta.env.DEPLOYED_URL || "my-unique-namespace12385455564uyhkjk";
-
   useEffect(() => {
-    const incrementVisitCount = async () => {
-      console.log("hello?");
+    const fetchVisitCount = async () => {
       try {
-        const response = await axios.get(
-          `https://api.countapi.xyz/hit/${namespace}/${key}`
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/visit-counter`
         );
         console.log(response);
-        setVisitCount(response.data.value);
+        const data = await response.json();
+
+        setVisitCount(data.value);
       } catch (error) {
         console.error("Error fetching visit count:", error);
       }
     };
 
-    incrementVisitCount();
+    fetchVisitCount();
   }, []);
 
   return (
