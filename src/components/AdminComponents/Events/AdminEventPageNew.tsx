@@ -146,8 +146,10 @@ const AdminEventPageNew = () => {
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
         toast.success("Udalosť bola vytvorená");
-        await queryClient.refetchQueries({ queryKey: ["admin_events"] });
-        navigate("/admin/vystavy-a-podujatia");
+        await queryClient.refetchQueries({
+          queryKey: ["admin_events", actualizeData.datum_rok],
+        });
+        navigate(`/admin/vystavy-a-podujatia/${actualizeData.datum_rok}`);
       }
     } catch (error) {
       toast.error("niekde nastala chyba");

@@ -1,5 +1,5 @@
 import imageCompression from "browser-image-compression";
-import { ActualJob, Oznamy, Spravodajca } from "./interface";
+import { ActualEvent, ActualJob, Oznamy, Spravodajca } from "./interface";
 
 export async function fetchNavbarData() {
   try {
@@ -81,6 +81,51 @@ export async function getActualThreeEvents() {
     console.error("Error fetching data:", error);
   }
 }
+
+export const getActualEventsYearToken = async (
+  token: string | null,
+  rok: string | undefined
+) => {
+  if (token && rok) {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/events/geteventsbyyear/${rok}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const responseData = await response.json();
+      const sortedData = responseData.Items.sort(
+        (a: ActualEvent, b: ActualEvent) => {
+          if (a.nazov_vystavy < b.nazov_vystavy) {
+            return -1;
+          }
+          if (a.nazov_vystavy > b.nazov_vystavy) {
+            return 1;
+          }
+          return 0;
+        }
+      );
+
+      return sortedData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return error;
+    }
+  } else {
+    return null;
+  }
+};
 
 export async function fetchBlogs(limit: number) {
   try {

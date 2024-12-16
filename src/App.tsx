@@ -85,6 +85,7 @@ import SpravodajcaPage from "./components/SpravodajcaComponents/SpravodajcaPage"
 import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
 import UsefullLinksPage from "./components/UsefullLinksPage";
+import AdminEventsPageYear from "./components/AdminComponents/Events/AdminEventsPageYear";
 
 interface LayoutProps {
   children: ReactNode;
@@ -298,7 +299,11 @@ function App() {
             <Route path="blog/novy-blog" element={<AdminBlogPageNew />} />
             <Route path="vystavy-a-podujatia" element={<AdminEventsPage />} />
             <Route
-              path="vystavy-a-podujatia/:id"
+              path="vystavy-a-podujatia/:rok"
+              element={<AdminEventsPageYear />}
+            />
+            <Route
+              path="vystavy-a-podujatia/:rok/:id"
               element={<AdminEventPageId />}
             />
             <Route

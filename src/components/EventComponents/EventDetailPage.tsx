@@ -177,14 +177,17 @@ const EventDetailPage = () => {
                 <>
                   <h5 className="uppercase mt-[80px]">Dokumenty k podujatiu</h5>
                   <div className="flex flex-wrap gap-4">
-                    {data?.pdf.map((object, index) => (
-                      <Link to={object.link} target="_blank" key={index}>
-                        <ButtonWithElement
-                          text={object.nazov}
-                          element={<IconDownload />}
-                        />
-                      </Link>
-                    ))}
+                    {data?.pdf.map((object, index) => {
+                      const fileType = object.link.split(".").pop();
+                      return (
+                        <Link to={object.link} target="_blank" key={index}>
+                          <ButtonWithElement
+                            text={`${object.nazov}.${fileType}`}
+                            element={<IconDownload />}
+                          />
+                        </Link>
+                      );
+                    })}
                   </div>
                 </>
               )}

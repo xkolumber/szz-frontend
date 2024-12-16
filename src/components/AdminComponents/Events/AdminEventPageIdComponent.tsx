@@ -172,9 +172,11 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
 
       const responseData = await response.json();
       if (responseData.$metadata.httpStatusCode === 200) {
-        await queryClient.refetchQueries({ queryKey: ["admin_events"] });
+        await queryClient.refetchQueries({
+          queryKey: ["admin_events", actualizeData.datum_rok],
+        });
         toast.success("Udalosť bola odstránená");
-        navigate("/admin/vystavy-a-podujatia");
+        navigate(`/admin/vystavy-a-podujatia/${actualizeData.datum_rok}`);
       }
     } catch (error) {
       toast.error("niekde nastala chyba");

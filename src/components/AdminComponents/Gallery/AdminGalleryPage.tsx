@@ -19,15 +19,17 @@ const AdminGalleryPage = () => {
       <Link to="/admin/galeria/novy-album">
         <p className="underline">Pridať novú galériu</p>
       </Link>
-      {years.map((year, index) => (
-        <Link
-          key={index}
-          className="btn btn--tertiary"
-          to={`/admin/galeria/${year}`}
-        >
-          {year}
-        </Link>
-      ))}
+      <div className="flex flex-col gap-4 mt-4">
+        {years.map((year, index) => (
+          <Link
+            key={index}
+            className="btn btn--tertiary"
+            to={`/admin/galeria/${year}`}
+          >
+            {year}
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };
