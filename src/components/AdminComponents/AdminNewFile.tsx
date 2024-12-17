@@ -54,7 +54,6 @@ const AdminNewFile = () => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
-          timeout: 60000,
         }
       );
 
@@ -97,6 +96,16 @@ const AdminNewFile = () => {
       setPdfLink(Cookies.get("link"));
     }
   }, [Cookies]);
+
+  // useEffect(() => {
+  //   const checkAdmin = async (token: string) => {
+  //     const result = await verifyAdmin(token);
+  //     console.log(result);
+  //   };
+  //   if (token) {
+  //     checkAdmin(token);
+  //   }
+  // }, [token]);
 
   return (
     <div className=" min-h-screen">
