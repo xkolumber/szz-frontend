@@ -55,6 +55,9 @@ const Footer = () => {
                   Kontakt
                 </h5>
 
+                <a href="tel:+02/54771041">
+                  <p className="text-white underline  mb-1">+02/54771041</p>
+                </a>
                 <a href="tel:+02/20707176">
                   <p className="text-white underline  mb-1">+02/20707176</p>
                 </a>
