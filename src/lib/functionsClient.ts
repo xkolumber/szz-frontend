@@ -248,3 +248,33 @@ export const years = Array.from(
 export const stripHtmlTags = (html: string): string => {
   return html.replace(/<\/?[^>]+(>|$)/g, "").trim();
 };
+
+export function replaceS3UrlsWithCloudFront(url: string, type: string): string {
+  const s3UrlRegex =
+    /https:\/\/[a-zA-Z0-9.-]+\.s3\.[a-zA-Z0-9-]+\.amazonaws\.com/;
+
+  if (type === "blogphoto") {
+    const cloudFrontBaseUrl = import.meta.env.VITE_CLOUDFRONT_URL_IMAGES_BLOG;
+    if (!cloudFrontBaseUrl) {
+      throw new Error("CloudFront URL is not defined in environment variables");
+    }
+    return url.replace(s3UrlRegex, `${cloudFrontBaseUrl}`);
+  }
+
+  if (type === "archivedocs") {
+    const cloudFrontBaseUrl = import.meta.env.VITE_CLOUDFRONT_URL_ARCHIVE_DOCS;
+    if (!cloudFrontBaseUrl) {
+      throw new Error("CloudFront URL is not defined in environment variables");
+    }
+    return url.replace(s3UrlRegex, `${cloudFrontBaseUrl}`);
+  }
+  if (type === "photoUnion") {
+    const cloudFrontBaseUrl = import.meta.env.VITE_CLOUDFRONT_URL_IMAGE_UNION;
+    if (!cloudFrontBaseUrl) {
+      throw new Error("CloudFront URL is not defined in environment variables");
+    }
+    return url.replace(s3UrlRegex, `${cloudFrontBaseUrl}`);
+  }
+
+  return "";
+}

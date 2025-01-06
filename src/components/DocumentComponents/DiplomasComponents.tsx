@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Diplomas } from "../../lib/interface";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { replaceS3UrlsWithCloudFront } from "../../lib/functionsClient";
 
 interface Props {
   data: Diplomas;
@@ -13,7 +14,9 @@ const DiplomasComponents = ({ data }: Props) => {
   const [choosenAlbum, setChoosenAlbum] = useState<SlideImage[]>([]);
 
   const handleOpenGallery = (index: number) => {
-    const transformedAlbum = data!.fotky.map((url) => ({ src: url }));
+    const transformedAlbum = data!.fotky.map((url) => ({
+      src: replaceS3UrlsWithCloudFront(url, "photoUnion"),
+    }));
     setChoosenAlbum(transformedAlbum);
     setOpen(true);
     setInitialSlide(index);
@@ -43,7 +46,7 @@ const DiplomasComponents = ({ data }: Props) => {
         {data.fotky.map((object, index) => (
           <img
             className="w-60 h-60 object-cover hover:scale-[1.02] duration-200 cursor-pointer rounded-[8px]"
-            src={object}
+            src={replaceS3UrlsWithCloudFront(object, "photoUnion")}
             key={index}
             onClick={() => handleOpenGallery(index)}
           />

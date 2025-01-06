@@ -5,6 +5,7 @@ import { ClipLoader } from "react-spinners";
 import { CompressImage } from "../../../lib/functions";
 import { Diplomas } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
+import { replaceS3UrlsWithCloudFront } from "../../../lib/functionsClient";
 
 interface Props {
   data: Diplomas;
@@ -192,10 +193,14 @@ const AdminDiplomas = ({ data, refetch }: Props) => {
                 key={index}
               >
                 <img
-                  src={object}
+                  src={replaceS3UrlsWithCloudFront(object, "photoUnion")}
                   alt=""
                   className="w-48 h-48 object-cover cursor-pointer"
-                  onClick={() => handleShowBiggerIamge(object)}
+                  onClick={() =>
+                    handleShowBiggerIamge(
+                      replaceS3UrlsWithCloudFront(object, "photoUnion")
+                    )
+                  }
                 />
                 <input
                   key={index}

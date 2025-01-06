@@ -210,6 +210,13 @@ const AdminAboutUsComponent = ({ data, refetch }: Props) => {
     }));
   };
 
+  const deletePhoto = (title: string) => {
+    setActualizeData((prevData) => {
+      const updatedData = { ...prevData, [title]: "" };
+      return updatedData;
+    });
+  };
+
   return (
     <div>
       <form className=" products_admin " onSubmit={handleSaveData}>
@@ -235,13 +242,21 @@ const AdminAboutUsComponent = ({ data, refetch }: Props) => {
           <p>foto1:</p>
           <div className="flex flex-col w-[75%]">
             {actualizeData.foto1 && (
-              <img
-                width={120}
-                height={120}
-                src={actualizeData.foto1}
-                className="mt-4 mb-4 cursor-pointer"
-                onClick={() => handleShowBiggerIamge(actualizeData.foto1)}
-              />
+              <div className="flex flex-row justify-between items-center">
+                <img
+                  width={120}
+                  height={120}
+                  src={actualizeData.foto1}
+                  className="mt-4 mb-4 cursor-pointer"
+                  onClick={() => handleShowBiggerIamge(actualizeData.foto1)}
+                />
+                <p
+                  className="!text-red-800 cursor-pointer"
+                  onClick={() => deletePhoto("foto1")}
+                >
+                  Odstrániť
+                </p>
+              </div>
             )}
             <div className={dragAreaClasses} {...getPhoto1RootProps()}>
               <input
@@ -266,13 +281,21 @@ const AdminAboutUsComponent = ({ data, refetch }: Props) => {
           <p>foto2:</p>
           <div className="flex flex-col w-[75%]">
             {actualizeData.foto2 && (
-              <img
-                width={120}
-                height={120}
-                src={actualizeData.foto2}
-                className="mt-4 mb-4 cursor-pointer"
-                onClick={() => handleShowBiggerIamge(actualizeData.foto2)}
-              />
+              <div className="flex flex-row justify-between items-center">
+                <img
+                  width={120}
+                  height={120}
+                  src={actualizeData.foto2}
+                  className="mt-4 mb-4 cursor-pointer"
+                  onClick={() => handleShowBiggerIamge(actualizeData.foto2)}
+                />
+                <p
+                  className="!text-red-800 cursor-pointer"
+                  onClick={() => deletePhoto("foto2")}
+                >
+                  Odstrániť
+                </p>
+              </div>
             )}
             <div className={dragAreaClasses} {...getPhoto2RootProps()}>
               <input
@@ -296,14 +319,22 @@ const AdminAboutUsComponent = ({ data, refetch }: Props) => {
         <div className="product_admin_row">
           <p>foto3:</p>
           <div className="flex flex-col w-[75%]">
-            {actualizeData.foto2 && (
-              <img
-                width={120}
-                height={120}
-                src={actualizeData.foto3}
-                className="mt-4 mb-4 cursor-pointer"
-                onClick={() => handleShowBiggerIamge(actualizeData.foto3)}
-              />
+            {actualizeData.foto3 && (
+              <div className="flex flex-row justify-between items-center">
+                <img
+                  width={120}
+                  height={120}
+                  src={actualizeData.foto3}
+                  className="mt-4 mb-4 cursor-pointer"
+                  onClick={() => handleShowBiggerIamge(actualizeData.foto3)}
+                />
+                <p
+                  className="!text-red-800 cursor-pointer"
+                  onClick={() => deletePhoto("foto3")}
+                >
+                  Odstrániť
+                </p>
+              </div>
             )}
             <div className={dragAreaClasses} {...getPhoto3RootProps()}>
               <input

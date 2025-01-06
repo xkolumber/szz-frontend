@@ -3,7 +3,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { fetchBlogs } from "../../lib/functions";
-import { LIMIT_BLOG } from "../../lib/functionsClient";
+import {
+  LIMIT_BLOG,
+  replaceS3UrlsWithCloudFront,
+} from "../../lib/functionsClient";
 import { Blog } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import SeoElement from "../SeoElement";
@@ -71,7 +74,10 @@ const BlogsPage = () => {
                 to={`/blog/${object.slug}`}
               >
                 <img
-                  src={object.titulna_foto}
+                  src={replaceS3UrlsWithCloudFront(
+                    object.titulna_foto,
+                    "blogphoto"
+                  )}
                   width={240}
                   height={240}
                   className="rounded-[16px] w-full max-h-[280px] h-full object-cover"

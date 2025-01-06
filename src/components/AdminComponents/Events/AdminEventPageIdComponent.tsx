@@ -7,7 +7,10 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { CompressImage } from "../../../lib/functions";
-import { isValidMonth } from "../../../lib/functionsClient";
+import {
+  isValidMonth,
+  replaceS3UrlsWithCloudFront,
+} from "../../../lib/functionsClient";
 import { ActualEvent } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import IconUpload from "../../Icons/IconUpload";
@@ -493,7 +496,10 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
                     <img
                       width={120}
                       height={120}
-                      src={actualizeData.titulna_foto}
+                      src={replaceS3UrlsWithCloudFront(
+                        actualizeData.titulna_foto,
+                        "blogphoto"
+                      )}
                       className="mt-4 mb-4 cursor-pointer"
                     />
                   </div>
@@ -593,7 +599,7 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
                     key={index}
                   >
                     <img
-                      src={object}
+                      src={replaceS3UrlsWithCloudFront(object, "photoUnion")}
                       alt=""
                       className="w-48 h-48 object-cover"
                     />

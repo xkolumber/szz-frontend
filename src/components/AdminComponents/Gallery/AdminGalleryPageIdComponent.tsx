@@ -5,7 +5,11 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { CompressImage } from "../../../lib/functions";
-import { isValidDate, isValidYear } from "../../../lib/functionsClient";
+import {
+  isValidDate,
+  isValidYear,
+  replaceS3UrlsWithCloudFront,
+} from "../../../lib/functionsClient";
 import { Gallery } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import StepBack from "../../StepBack";
@@ -325,10 +329,14 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
                       <img
                         width={70}
                         height={70}
-                        src={object}
+                        src={replaceS3UrlsWithCloudFront(object, "photoUnion")}
                         className="h-[70px] object-cover rounded-[16px] cursor-pointer"
                         style={{ imageRendering: "pixelated" }}
-                        onClick={() => handleShowBiggerIamge(object)}
+                        onClick={() =>
+                          handleShowBiggerIamge(
+                            replaceS3UrlsWithCloudFront(object, "photoUnion")
+                          )
+                        }
                       />
                     )}
 

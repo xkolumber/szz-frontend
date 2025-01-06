@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavbar } from "../Provider";
 import Modal from "../Modal";
 import PDFViewer from "../PdfViewer";
+import { replaceS3UrlsWithCloudFront } from "../../lib/functionsClient";
 
 interface Props {
   data: Archive[];
@@ -85,7 +86,7 @@ const ArchivePageYearElement = ({ data }: Props) => {
         ) : (
           <span className="flex flex-row items-center pt-4" key={index}>
             <Link
-              to={object.pdf_link}
+              to={replaceS3UrlsWithCloudFront(object.pdf_link, "archivedocs")}
               className={`flex flex-row items-center gap-1 max-w-full overflow-hidden `}
               id={object.id}
             >

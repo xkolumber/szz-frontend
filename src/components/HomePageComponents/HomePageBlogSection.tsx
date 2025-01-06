@@ -1,7 +1,10 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { fetchBlogs } from "../../lib/functions";
-import { LIMIT_BLOG } from "../../lib/functionsClient";
+import {
+  LIMIT_BLOG,
+  replaceS3UrlsWithCloudFront,
+} from "../../lib/functionsClient";
 import { Blog } from "../../lib/interface";
 import ButtonWithArrow from "../ButtonWithArrow";
 import HomePageBlogSkeleton from "./HomePageBlogSkeleton";
@@ -71,7 +74,10 @@ const HomePageBlogSection = () => {
                 <img
                   width={400}
                   height={400}
-                  src={existingBlogs[0].titulna_foto}
+                  src={replaceS3UrlsWithCloudFront(
+                    existingBlogs[0].titulna_foto,
+                    "blogphoto"
+                  )}
                   className="rounded-[16px] w-full h-full max-h-[180px] lg:max-h-[430px] object-cover"
                 />
                 <h5 className="uppercase mt-4">
@@ -92,7 +98,10 @@ const HomePageBlogSection = () => {
                     >
                       <div className="w-[40%] h-[180px] rounded-[16px] overflow-hidden">
                         <img
-                          src={object.titulna_foto}
+                          src={replaceS3UrlsWithCloudFront(
+                            object.titulna_foto,
+                            "blogphoto"
+                          )}
                           alt={object.nazov_blog}
                           className="w-full h-full object-cover"
                         />

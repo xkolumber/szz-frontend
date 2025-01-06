@@ -5,6 +5,7 @@ import {
   options_months,
   options_years,
   options_years_plus_one,
+  replaceS3UrlsWithCloudFront,
 } from "../../lib/functionsClient";
 import { ActualEvent } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
@@ -205,7 +206,11 @@ const EventsPage = () => {
                     <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-[16px]"></div>
                     {object.titulna_foto ? (
                       <img
-                        src={object.titulna_foto}
+                        src={replaceS3UrlsWithCloudFront(
+                          object.titulna_foto,
+                          "blogphoto"
+                        )}
+                        // src={object.titulna_foto}
                         className="rounded-[16px] w-full h-full object-cover relative z-10 cursor-pointer hover:scale-[1.02] duration-200"
                       />
                     ) : (

@@ -7,6 +7,7 @@ import EventHomePageSkeleton from "../EventComponents/EventHomePageSkeleton";
 import IconBgBroownBottom from "../Icons/IconBgBroownBottom";
 import IconBgBroownTop from "../Icons/IconBgBroownTop";
 import IconCalendar from "../Icons/IconCalendar";
+import { replaceS3UrlsWithCloudFront } from "../../lib/functionsClient";
 
 const HomePageEvents = () => {
   const { data, status, error, isLoading } = useQuery<ActualEvent[]>({
@@ -72,7 +73,10 @@ const HomePageEvents = () => {
                 >
                   {" "}
                   <img
-                    src={object.titulna_foto}
+                    src={replaceS3UrlsWithCloudFront(
+                      object.titulna_foto,
+                      "blogphoto"
+                    )}
                     className="rounded-[16px] object-cover h-[280px]"
                   />
                   <div className="flex flex-row gap-6 pt-[24px] opacity-60">

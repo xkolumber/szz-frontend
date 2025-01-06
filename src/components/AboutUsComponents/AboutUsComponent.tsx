@@ -56,12 +56,15 @@ const AboutUsComponent = ({ data }: Props) => {
               __html: highlightedText1 || data.text1,
             }}
           />
-          <img
-            width={120}
-            height={120}
-            src={data.foto1}
-            className="mt-4 mb-4 object-cover w-full h-full rounded-[16px]"
-          />
+          {data.foto1 && (
+            <img
+              width={120}
+              height={120}
+              src={data.foto1}
+              className="mt-4 mb-4 object-cover w-full h-full rounded-[16px]"
+            />
+          )}
+
           {data.text2 && (
             <div
               className="content mt-[40px]"

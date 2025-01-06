@@ -2,7 +2,11 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { fetchBlogBySlug, fetchSimiliarBlogBySlug } from "../../lib/functions";
-import { LIMIT_BLOG, stripHtmlTags } from "../../lib/functionsClient";
+import {
+  LIMIT_BLOG,
+  replaceS3UrlsWithCloudFront,
+  stripHtmlTags,
+} from "../../lib/functionsClient";
 import { Blog } from "../../lib/interface";
 import ButtonWithArrow from "../ButtonWithArrow";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
@@ -69,7 +73,10 @@ const BlogDetailPage = () => {
             <SeoElement
               title={blogData.nazov_blog}
               description={stripHtmlTags(blogData.popis1)}
-              image={blogData.titulna_foto}
+              image={replaceS3UrlsWithCloudFront(
+                blogData.titulna_foto,
+                "blogphoto"
+              )}
             />
 
             <div className="flex items-center flex-col">
@@ -79,7 +86,10 @@ const BlogDetailPage = () => {
               </div>
 
               <img
-                src={blogData.titulna_foto}
+                src={replaceS3UrlsWithCloudFront(
+                  blogData.titulna_foto,
+                  "blogphoto"
+                )}
                 width={900}
                 height={900}
                 className="rounded-[16px] w-full max-w-[1080px] max-h-[459px] object-cover mt-8"
@@ -96,7 +106,7 @@ const BlogDetailPage = () => {
 
               {blogData.foto1 && (
                 <img
-                  src={blogData.foto1}
+                  src={replaceS3UrlsWithCloudFront(blogData.foto1, "blogphoto")}
                   width={900}
                   height={900}
                   className="rounded-[16px] w-full max-w-[622px] max-h-[459px] object-cover mt-8 m-auto"
@@ -112,7 +122,7 @@ const BlogDetailPage = () => {
 
               {blogData.foto2 && (
                 <img
-                  src={blogData.foto2}
+                  src={replaceS3UrlsWithCloudFront(blogData.foto2, "blogphoto")}
                   width={900}
                   height={900}
                   className="rounded-[16px] w-full max-w-[622px] max-h-[459px] object-cover mt-8 m-auto"
@@ -125,9 +135,9 @@ const BlogDetailPage = () => {
                 />
               )}
 
-              {blogData.foto2 && (
+              {blogData.foto3 && (
                 <img
-                  src={blogData.foto3}
+                  src={replaceS3UrlsWithCloudFront(blogData.foto3, "blogphoto")}
                   width={900}
                   height={900}
                   className="rounded-[16px] w-full max-w-[622px] max-h-[459px] object-cover mt-8 m-auto"
@@ -171,7 +181,10 @@ const BlogDetailPage = () => {
               to={`/blog/${object.slug}`}
             >
               <img
-                src={object.titulna_foto}
+                src={replaceS3UrlsWithCloudFront(
+                  object.titulna_foto,
+                  "blogphoto"
+                )}
                 className="rounded-[16px] max-h-[280px] h-full w-full object-cover"
               />
 

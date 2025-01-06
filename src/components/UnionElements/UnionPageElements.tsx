@@ -6,6 +6,7 @@ import { UnionData } from "../../lib/interface";
 import IconArrowUp from "../Icons/IconArrowUp";
 import ButtonWithElement from "../ButtonWithElement";
 import IconDownload from "../Icons/IconDownload";
+import { replaceS3UrlsWithCloudFront } from "../../lib/functionsClient";
 
 interface Props {
   data: UnionData[];
@@ -255,7 +256,10 @@ const UnionPageElements = ({ data }: Props) => {
                         (object, index) =>
                           object != "" && (
                             <img
-                              src={object}
+                              src={replaceS3UrlsWithCloudFront(
+                                object,
+                                "photoUnion"
+                              )}
                               key={index}
                               className="max-w-[150px] max-h-[150px] rounded-[16px] w-full h-full object-cover cursor-pointer hover:scale-[1.02] duration-200"
                               onClick={() =>

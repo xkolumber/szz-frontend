@@ -12,6 +12,7 @@ import IconLink from "../Icons/IconLink";
 import IconLocation from "../Icons/IconLocation";
 import IconTime from "../Icons/IconTime";
 import SeoElement from "../SeoElement";
+import { replaceS3UrlsWithCloudFront } from "../../lib/functionsClient";
 
 const EventDetailPage = () => {
   const [open, setOpen] = useState(false);
@@ -22,7 +23,9 @@ const EventDetailPage = () => {
   const [choosenAlbum, setChoosenAlbum] = useState<SlideImage[]>([]);
 
   const handleOpenGallery = (choosenArticel: ActualEvent, index: number) => {
-    const transformedAlbum = choosenArticel.fotky.map((url) => ({ src: url }));
+    const transformedAlbum = choosenArticel.fotky.map((url) => ({
+      src: replaceS3UrlsWithCloudFront(url, "photoUnion"),
+    }));
     setChoosenAlbum(transformedAlbum);
     setOpen(true);
     setInitialSlide(index);
@@ -103,7 +106,10 @@ const EventDetailPage = () => {
             <SeoElement
               title={data.nazov_vystavy}
               description={`"Radi by sme Vás pozvali na zaujímavú udalosť, ktorá sa bude konať dňa ${data.datum_den}.${data.datum_mesiac}.${data.datum_rok}, kde sa môžete tešiť na nezabudnuteľný zážitok a množstvo inšpirácie."`}
-              image={data.titulna_foto}
+              image={replaceS3UrlsWithCloudFront(
+                data.titulna_foto,
+                "blogphoto"
+              )}
             />
 
             <div className="flex md:items-center flex-col gap-4 min-h-[300px]">
@@ -157,7 +163,10 @@ const EventDetailPage = () => {
               )}
               {data.titulna_foto && (
                 <img
-                  src={data.titulna_foto}
+                  src={replaceS3UrlsWithCloudFront(
+                    data.titulna_foto,
+                    "blogphoto"
+                  )}
                   width={900}
                   height={900}
                   className="rounded-[16px] w-full max-w-[1080px] max-h-[459px] object-cover mt-8"
@@ -188,7 +197,10 @@ const EventDetailPage = () => {
                       (object, index) =>
                         object != "" && (
                           <img
-                            src={object}
+                            src={replaceS3UrlsWithCloudFront(
+                              object,
+                              "photoUnion"
+                            )}
                             key={index}
                             className="max-w-[150px] max-h-[150px] rounded-[16px] w-full h-full object-cover cursor-pointer hover:scale-[1.02] duration-200"
                             onClick={() => handleOpenGallery(data, index)}
@@ -230,7 +242,11 @@ const EventDetailPage = () => {
                 <div key={index} className="relative w-full h-[280px]">
                   <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-[16px]"></div>
                   <img
-                    src={object.titulna_foto}
+                    src={replaceS3UrlsWithCloudFront(
+                      object.titulna_foto,
+                      "blogphoto"
+                    )}
+                    // src={object.titulna_foto}
                     className="rounded-[16px] w-full h-full object-cover relative z-10 cursor-pointer hover:scale-[1.02] duration-200"
                   />
                 </div>

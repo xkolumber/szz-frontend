@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { isValidDate, isValidYear } from "../../../lib/functionsClient";
+import {
+  isValidDate,
+  isValidYear,
+  replaceS3UrlsWithCloudFront,
+} from "../../../lib/functionsClient";
 import { Gallery } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import StepBack from "../../StepBack";
@@ -285,7 +289,7 @@ const AdminGalleryPageNew = () => {
                       <img
                         width={70}
                         height={70}
-                        src={object}
+                        src={replaceS3UrlsWithCloudFront(object, "photoUnion")}
                         className="h-[70px] object-cover rounded-[16px] cursor-pointer"
                         onClick={() => handleShowBiggerIamge(object)}
                       />

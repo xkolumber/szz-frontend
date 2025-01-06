@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Tlacivo } from "../../lib/interface";
+import { replaceS3UrlsWithCloudFront } from "../../lib/functionsClient";
 
 interface Props {
   data: Tlacivo[];
@@ -43,7 +44,7 @@ const DocumentsPageComponent = ({ data }: Props) => {
         return (
           <div className="flex flex-wrap items-center pt-4" key={index}>
             <Link
-              to={object.link}
+              to={replaceS3UrlsWithCloudFront(object.link, "archivedocs")}
               target="_blank"
               key={index}
               className={`underline ${
