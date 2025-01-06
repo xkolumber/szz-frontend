@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Select from "react-select";
-import { options_years } from "../../lib/functionsClient";
+import {
+  options_years,
+  replaceS3UrlsWithCloudFront,
+} from "../../lib/functionsClient";
 import { Gallery } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import EventPagesSkeleton from "../EventComponents/EventPagesSkeleton";
@@ -142,7 +145,10 @@ const GalleryPage = () => {
                     <div key={index} className="relative w-full h-[280px]">
                       <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-[16px]"></div>
                       <img
-                        src={object.fotky[0]}
+                        src={replaceS3UrlsWithCloudFront(
+                          object.fotky[0],
+                          "imagesalll"
+                        )}
                         className="rounded-[16px] object-cover h-[280px] z-10 relative w-full"
                       />
                     </div>

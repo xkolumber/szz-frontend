@@ -69,7 +69,11 @@ const ArchivePageYearElement = ({ data }: Props) => {
             <div
               className={`flex flex-row items-center gap-1 max-w-full overflow-hidden cursor-pointer`}
               id={object.id}
-              onClick={() => handleOpen(object.pdf_link)}
+              onClick={() =>
+                handleOpen(
+                  replaceS3UrlsWithCloudFront(object.pdf_link, "archivedocs")
+                )
+              }
             >
               <p
                 className={`underline whitespace-nowrap overflow-hidden text-ellipsis inline ${

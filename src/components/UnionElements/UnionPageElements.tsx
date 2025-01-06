@@ -237,7 +237,11 @@ const UnionPageElements = ({ data }: Props) => {
                             new Date(a.datum).getTime()
                         )
                         .map((object, index) => (
-                          <Link to={object.link} target="_blank" key={index}>
+                          <Link
+                            to={replaceS3UrlsWithCloudFront(object.link, "pdf")}
+                            target="_blank"
+                            key={index}
+                          >
                             <ButtonWithElement
                               text={object.nazov}
                               element={<IconDownload />}

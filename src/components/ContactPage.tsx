@@ -5,6 +5,7 @@ import { getContactPageClient } from "../lib/functions";
 import { ContactPageInterface } from "../lib/interface";
 import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
 import SeoElement from "./SeoElement";
+import { replaceS3UrlsWithCloudFront } from "../lib/functionsClient";
 
 const ContactPage = () => {
   const { data, status, error, isLoading } = useQuery<ContactPageInterface>({
@@ -47,7 +48,7 @@ const ContactPage = () => {
                 <img
                   width={120}
                   height={120}
-                  src={data.foto1}
+                  src={replaceS3UrlsWithCloudFront(data.foto1, "blogphoto")}
                   className="mt-4 mb-4 w-full h-full object-cover rounded-[16px] max-h-[369px] z-10 relative"
                 />
               </div>

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Sponsor } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import SeoElement from "../SeoElement";
+import { replaceS3UrlsWithCloudFront } from "../../lib/functionsClient";
 
 interface Props {
   data: Sponsor[];
@@ -21,7 +22,7 @@ const RecommendPageElements = ({ data }: Props) => {
               <img
                 width={200}
                 height={120}
-                src={object.logo}
+                src={replaceS3UrlsWithCloudFront(object.logo, "imagesalll")}
                 className="mt-4 mb-4 cursor-pointer object-cover w-full h-full rounded-[16px]"
               />
             </Link>

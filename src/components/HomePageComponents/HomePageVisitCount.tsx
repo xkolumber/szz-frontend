@@ -43,8 +43,6 @@ const VisitCounter = () => {
     );
   if (isError || isError2) return <p>Error fetching visit count</p>;
 
-  console.log("first");
-
   return (
     <div>
       {session_value === "x" ? (

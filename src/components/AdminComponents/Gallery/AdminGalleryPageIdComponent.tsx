@@ -233,7 +233,7 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
           formData.append("file", compressedFile);
 
           const response = await axios.post(
-            `${import.meta.env.VITE_API_URL}/admin/upload/photoUnion`,
+            `${import.meta.env.VITE_API_URL}/admin/upload/imagesalll`,
             formData,
             {
               headers: {

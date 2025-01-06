@@ -275,6 +275,20 @@ export function replaceS3UrlsWithCloudFront(url: string, type: string): string {
     }
     return url.replace(s3UrlRegex, `${cloudFrontBaseUrl}`);
   }
+  if (type === "pdf") {
+    const cloudFrontBaseUrl = import.meta.env.VITE_CLOUDFRONT_URL_PDF;
+    if (!cloudFrontBaseUrl) {
+      throw new Error("CloudFront URL is not defined in environment variables");
+    }
+    return url.replace(s3UrlRegex, `${cloudFrontBaseUrl}`);
+  }
+  if (type === "imagesalll") {
+    const cloudFrontBaseUrl = import.meta.env.VITE_CLOUDFRONT_URL_IMAGES_ALL;
+    if (!cloudFrontBaseUrl) {
+      throw new Error("CloudFront URL is not defined in environment variables");
+    }
+    return url.replace(s3UrlRegex, `${cloudFrontBaseUrl}`);
+  }
 
   return "";
 }

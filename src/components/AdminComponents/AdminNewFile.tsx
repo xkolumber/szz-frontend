@@ -46,31 +46,61 @@ const AdminNewFile = () => {
         formData.append("file", file);
       }
 
+      const fileName = file.name.replace(/\s+/g, "_");
+
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/admin/upload/randomfiles`,
-        formData,
+        { fileName },
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
 
-      const { uploadUrl } = response.data;
+      const { url, fields } = response.data;
 
-      Cookies.set("link", uploadUrl, {
-        secure: true,
-        sameSite: "None",
-        path: "/",
+      console.log("Received URL:", url);
+      console.log("Received Fields:", fields);
+
+      const formDataS3 = new FormData();
+      Object.entries(fields).forEach(([key, value]) => {
+        formDataS3.append(key, value as string);
       });
 
-      setPdfLink(uploadUrl);
+      const final_file = formData.get("file");
+      if (final_file instanceof File) {
+        formDataS3.append("file", final_file);
+      } else {
+        console.error("No file found in formData.");
+      }
+
+      try {
+        const uploadResponse = await fetch(url, {
+          method: "POST",
+          body: formDataS3,
+        });
+        console.log(uploadResponse);
+      } catch (error) {
+        console.log(error);
+      }
+
+      setPdfLink(
+        `${import.meta.env.VITE_CLOUDFRONT_URL_RANDOM_FILES}/${fields.key}`
+      );
+      Cookies.set(
+        "link",
+        `${import.meta.env.VITE_CLOUDFRONT_URL_RANDOM_FILES}/${fields.key}`,
+        {
+          secure: true,
+          sameSite: "None",
+          path: "/",
+        }
+      );
     } catch (error) {
       console.error("Error uploading file:", error);
-      alert(
-        "Súbor má nepovolenú príponu. Povolené sú pdf, doc, docx, xls, xlsx, obrázky"
-      );
+      alert("Niekde nastala chyba.");
     } finally {
       setDataLoading(false);
       e.target.value = null;
@@ -120,7 +150,12 @@ const AdminNewFile = () => {
           </p>
           <div className="product_admin_row">
             <p>link:</p>
-            <input type="text" className="w-[70%]" value={pdfLink} required />
+            <input
+              type="text"
+              className="w-[70%]"
+              defaultValue={pdfLink}
+              required
+            />
             <input
               type="file"
               accept=".pdf, .doc, .docx, .xls, .xlsx, image/*"

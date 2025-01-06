@@ -4,6 +4,7 @@ import { useNavbar } from "../Provider";
 import { useEffect, useState } from "react";
 import Modal from "../Modal";
 import PDFViewer from "../PdfViewer";
+import { replaceS3UrlsWithCloudFront } from "../../lib/functionsClient";
 
 interface Props {
   pdf: Pdf[];
@@ -48,13 +49,15 @@ const BlogButtonsPdf = ({ pdf }: Props) => {
             <div
               className="btn btn--tertiary !normal-case"
               key={index}
-              onClick={() => handleOpen(object.link)}
+              onClick={() =>
+                handleOpen(replaceS3UrlsWithCloudFront(object.link, "pdf"))
+              }
             >
               {object.nazov}.{fileType}
             </div>
           ) : (
             <Link
-              to={object.link}
+              to={replaceS3UrlsWithCloudFront(object.link, "pdf")}
               className="btn btn--tertiary !normal-case"
               key={index}
             >

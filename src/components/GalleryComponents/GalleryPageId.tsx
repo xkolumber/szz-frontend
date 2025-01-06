@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import "react-loading-skeleton/dist/skeleton.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { replaceS3UrlsWithCloudFront } from "../../lib/functionsClient";
 import { Gallery } from "../../lib/interface";
-import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
+import IconArrowLeft from "../Icons/IconArrowLeft";
 import SeoElement from "../SeoElement";
 import YouTubeVideo from "../YoutubeVideo";
 
@@ -56,17 +57,30 @@ const GalleryPageId = () => {
   }, [id]);
 
   const handleOpenGallery = (index: number) => {
-    const transformedAlbum = data!.fotky.map((url) => ({ src: url }));
+    const transformedAlbum = data!.fotky.map((url) => ({
+      src: replaceS3UrlsWithCloudFront(url, "imagesalll"),
+    }));
     setChoosenAlbum(transformedAlbum);
     setOpen(true);
     setInitialSlide(index);
   };
+  const navigate = useNavigate();
+
+  const [hoverButton, setHoverButton] = useState(false);
 
   return (
     <div className="own_edge relative overflow-hidden min-h-screen">
       <div className="main_section !pt-8">
-        <ButtonWithArrowLeft title="Späť do galérie" link={`/galeria`} />
-
+        <div
+          className="flex flex-row gap-6 items-center  cursor-pointer"
+          onMouseEnter={() => setHoverButton(true)}
+          onMouseLeave={() => setHoverButton(false)}
+          onClick={() => navigate(-1)}
+        >
+          {" "}
+          <IconArrowLeft ishovered={hoverButton} />
+          <p className="uppercase font-semibold">Späť do galérie</p>
+        </div>
         {!isLoading && data ? (
           <>
             <SeoElement
@@ -75,7 +89,10 @@ const GalleryPageId = () => {
               image={
                 data.fotky.length > 0
                   ? data.fotky[0]
-                  : "https://szzimagesalll.s3.eu-north-1.amazonaws.com/gray.png"
+                  : replaceS3UrlsWithCloudFront(
+                      "https://szzimagesalll.s3.eu-north-1.amazonaws.com/gray.png",
+                      "imagesall"
+                    )
               }
             />
 
@@ -105,7 +122,7 @@ const GalleryPageId = () => {
                   <div key={index} className="relative w-full h-[280px]">
                     <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-[16px]"></div>
                     <img
-                      src={object}
+                      src={replaceS3UrlsWithCloudFront(object, "imagesalll")}
                       alt={`Gallery item ${index}`}
                       className="rounded-[16px] w-full h-full object-cover relative z-10 cursor-pointer hover:scale-[1.02] duration-200"
                       onClick={() => handleOpenGallery(index)}

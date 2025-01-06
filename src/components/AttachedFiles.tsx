@@ -4,6 +4,7 @@ import { Pdf } from "../lib/interface";
 import Modal from "./Modal";
 import PDFViewer from "./PdfViewer";
 import { useNavbar } from "./Provider";
+import { replaceS3UrlsWithCloudFront } from "../lib/functionsClient";
 
 interface Props {
   pdf: Pdf[];
@@ -53,7 +54,11 @@ const AttachedFiles = ({ pdf }: Props) => {
               <div className="flex flex-row items-center" key={index}>
                 <p
                   className="underline cursor-pointer"
-                  onClick={() => handleOpen(object.link)}
+                  onClick={() =>
+                    handleOpen(
+                      replaceS3UrlsWithCloudFront(object.link, "archivedocs")
+                    )
+                  }
                 >
                   {object.nazov}
                 </p>
@@ -62,7 +67,10 @@ const AttachedFiles = ({ pdf }: Props) => {
               </div>
             ) : (
               <div className="flex flex-row items-center" key={index}>
-                <Link to={object.link} className="underline">
+                <Link
+                  to={replaceS3UrlsWithCloudFront(object.link, "archivedocs")}
+                  className="underline"
+                >
                   {object.nazov}
                 </Link>
                 <p>,</p>

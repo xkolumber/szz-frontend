@@ -8,6 +8,7 @@ import { ActualJob } from "../../lib/interface";
 import IconSwiperArrowLeft from "../Icons/IconSwiperArrowLeft";
 import IconSwiperArrowRight from "../Icons/IconSwiperArrowRight";
 import { Link } from "react-router-dom";
+import { replaceS3UrlsWithCloudFront } from "../../lib/functionsClient";
 
 interface Props {
   data: ActualJob[];
@@ -63,7 +64,11 @@ const HomePageSwiperJobs = ({ data, clickedLink }: Props) => {
                     <h3 className="uppercase text-white">{object.mesiac}</h3>
                     <button
                       className="btn btn--white"
-                      onClick={() => showDocument(object.pdf.link)}
+                      onClick={() =>
+                        showDocument(
+                          replaceS3UrlsWithCloudFront(object.pdf.link, "pdf")
+                        )
+                      }
                       style={{ color: object.farba }}
                     >
                       Pozrieť práce
