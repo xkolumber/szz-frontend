@@ -2,21 +2,20 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
+import {
+  replaceS3UrlsWithCloudFront,
+  webimages_link,
+} from "../../lib/functionsClient";
 import { ActualEvent } from "../../lib/interface";
 import BlogButtonsPdf from "../BlogComponents/BlogButtonsPdf";
 import ButtonWithArrow from "../ButtonWithArrow";
-import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
+import IconArrowLeft from "../Icons/IconArrowLeft";
 import IconCalendar from "../Icons/IconCalendar";
 import IconGuests from "../Icons/IconGuests";
 import IconLink from "../Icons/IconLink";
 import IconLocation from "../Icons/IconLocation";
 import IconTime from "../Icons/IconTime";
 import SeoElement from "../SeoElement";
-import {
-  replaceS3UrlsWithCloudFront,
-  webimages_link,
-} from "../../lib/functionsClient";
-import IconArrowLeft from "../Icons/IconArrowLeft";
 
 const EventDetailPage = () => {
   const [open, setOpen] = useState(false);
