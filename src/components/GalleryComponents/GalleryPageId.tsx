@@ -4,7 +4,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import { replaceS3UrlsWithCloudFront } from "../../lib/functionsClient";
+import {
+  replaceS3UrlsWithCloudFront,
+  webimages_link,
+} from "../../lib/functionsClient";
 import { Gallery } from "../../lib/interface";
 import IconArrowLeft from "../Icons/IconArrowLeft";
 import SeoElement from "../SeoElement";
@@ -89,10 +92,7 @@ const GalleryPageId = () => {
               image={
                 data.fotky.length > 0
                   ? data.fotky[0]
-                  : replaceS3UrlsWithCloudFront(
-                      "https://szzimagesalll.s3.eu-north-1.amazonaws.com/gray.png",
-                      "imagesall"
-                    )
+                  : `${webimages_link + "gray.png"}`
               }
             />
 
@@ -160,14 +160,14 @@ const GalleryPageId = () => {
 
         {!isLoading && (
           <img
-            src={"/icons/icon_gallery_id_left.svg"}
+            src={`${webimages_link + "icons/icon_gallery_id_left.svg"}`}
             className="absolute h-[578px] w-[373px] -left-40 top-[40%] hidden 3xl:block"
           />
         )}
 
         {!isLoading && (
           <img
-            src={"/icons/icon_gallery_id_right.svg"}
+            src={`${webimages_link + "icons/icon_gallery_id_right.svg"}`}
             className="absolute h-[578px] w-[373px] -right-40 top-[20%] hidden 3xl:block"
           />
         )}

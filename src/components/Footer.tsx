@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo_white.svg";
-import { footer_data, navbar_data } from "../lib/functionsClient";
+import {
+  footer_data,
+  navbar_data,
+  webimages_link,
+} from "../lib/functionsClient";
 import IconBgFooter from "./Icons/IconBgFooter";
 
 const Footer = () => {
@@ -11,13 +15,14 @@ const Footer = () => {
       <div className="bg-[#47261C] own_edge flex flex-col ">
         <div className="main_section w-full m-auto !pb-0">
           <img
-            src={"/footer_veg.svg"}
+            src={`${webimages_link + "footer_veg.svg"}`}
             width={1920}
             height={50}
             className="w-full object-contain  -mt-[250px]  2xl:-mt-[280px] hidden lg:block"
           />
+
           <img
-            src={"/footer_veg_m.svg"}
+            src={`${webimages_link + "footer_veg_m.svg"}`}
             width={520}
             height={50}
             className="w-full object-contain -mt-[120px] md:-mt-[160px] lg:hidden md:h-[150px]"

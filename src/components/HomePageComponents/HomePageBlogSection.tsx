@@ -4,6 +4,7 @@ import { fetchBlogs } from "../../lib/functions";
 import {
   LIMIT_BLOG,
   replaceS3UrlsWithCloudFront,
+  webimages_link,
 } from "../../lib/functionsClient";
 import { Blog } from "../../lib/interface";
 import ButtonWithArrow from "../ButtonWithArrow";
@@ -30,7 +31,7 @@ const HomePageBlogSection = () => {
     return (
       <div className="own_edge relative h-auto  overflow-hidden">
         <img
-          src="/bgblog.svg"
+          src={`${webimages_link + "bgblog.svg"}`}
           alt="Background"
           className="absolute inset-0 w-full h-[520px] md:h-[530px] lg:h-[979px] object-cover -z-10"
         />
@@ -52,7 +53,7 @@ const HomePageBlogSection = () => {
   return (
     <div className="own_edge relative h-auto  overflow-hidden">
       <img
-        src="/bgblog.svg"
+        src={`${webimages_link + "bgblog.svg"}`}
         alt="Background"
         className="absolute inset-0 w-full h-[520px] md:h-[530px] lg:h-[979px] object-cover -z-10"
       />
@@ -128,11 +129,11 @@ const HomePageBlogSection = () => {
           <ButtonWithArrow title="Zobraziť celý blog" link={`/blog`} />
         </div>
         <img
-          src={"/icons/icon_blog.svg"}
+          src={`${webimages_link + "icons/icon_blog.svg"}`}
           className="absolute h-[578px] w-[373px] -right-40 top-1/4 hidden 3xl:block"
         />
         <img
-          src={"/icons/icon_gloves.svg"}
+          src={`${webimages_link + "icons/icon_gloves.svg"}`}
           className="absolute h-[248px] w-[248px] -top-16 left-[18%] hidden 2xl:block"
         />
       </div>

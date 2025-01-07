@@ -8,15 +8,17 @@ import IconProtection from "../Icons/IconProtection";
 import IconRadio from "../Icons/IconRadio";
 import IconChildren from "../Icons/IconChildren";
 import VisitCounter from "./HomePageVisitCount";
+import { webimages_link } from "../../lib/functionsClient";
 
 const texts = [
   {
     text: "kde príroda ožíva.",
-    obrazok: "/muz_zena.svg",
+    obrazok: `${webimages_link + "muz_zena.svg"}`,
   },
   {
     text: "ktoré milujeme.",
-    obrazok: "muz.svg",
+
+    obrazok: `${webimages_link + "muz.svg"}`,
   },
 ];
 

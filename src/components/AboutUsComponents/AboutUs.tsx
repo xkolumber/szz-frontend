@@ -5,6 +5,7 @@ import { AboutUsPage } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import SeoElement from "../SeoElement";
 import AboutUsComponent from "./AboutUsComponent";
+import { webimages_link } from "../../lib/functionsClient";
 
 const AboutUs = () => {
   const { data, status, error, isLoading } = useQuery<AboutUsPage>({
@@ -47,19 +48,19 @@ const AboutUs = () => {
         </div>
 
         <img
-          src={"/icons/icon_about_us_left.svg"}
+          src={`${webimages_link + "icons/icon_about_us_left.svg"}`}
           className="absolute h-[578px] w-[373px] -left-80 top-[15%] hidden 3xl:block"
         />
         <img
-          src={"/icons/icon_about_us_left_2.svg"}
+          src={`${webimages_link + "icons/icon_about_us_left_2.svg"}`}
           className="absolute h-[578px] w-[373px] -left-72 top-[45%] hidden 3xl:block"
         />
         <img
-          src={"/icons/icon_about_us_right.svg"}
+          src={`${webimages_link + "icons/icon_about_us_right.svg"}`}
           className="absolute h-[578px] w-[373px] -right-60 top-[5%] hidden 3xl:block"
         />
         <img
-          src={"/icons/icon_about_us_right_2.svg"}
+          src={`${webimages_link + "icons/icon_about_us_right_2.svg"}`}
           className="absolute h-[578px] w-[373px] -right-40 top-[35%] hidden 3xl:block"
         />
       </div>

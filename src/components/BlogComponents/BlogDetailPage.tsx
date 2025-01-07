@@ -6,6 +6,7 @@ import {
   LIMIT_BLOG,
   replaceS3UrlsWithCloudFront,
   stripHtmlTags,
+  webimages_link,
 } from "../../lib/functionsClient";
 import { Blog } from "../../lib/interface";
 import ButtonWithArrow from "../ButtonWithArrow";
@@ -202,11 +203,11 @@ const BlogDetailPage = () => {
         </div>
       </div>
       <img
-        src={"/icons/icon_blog_id_left.svg"}
+        src={`${webimages_link + "icons/icon_blog_id_left.svg"}`}
         className="absolute h-[578px] w-[373px] -left-40 top-[60%] hidden 3xl:block"
       />
       <img
-        src={"/icons/icon_blog_id_right.svg"}
+        src={`${webimages_link + "icons/icon_blog_id_right.svg"}`}
         className="absolute h-[578px] w-[373px] -right-40 top-[10%] hidden 3xl:block"
       />
     </div>

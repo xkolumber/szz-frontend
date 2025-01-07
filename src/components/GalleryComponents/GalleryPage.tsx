@@ -4,6 +4,7 @@ import Select from "react-select";
 import {
   options_years,
   replaceS3UrlsWithCloudFront,
+  webimages_link,
 } from "../../lib/functionsClient";
 import { Gallery } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
@@ -154,7 +155,7 @@ const GalleryPage = () => {
                     </div>
                   ) : (
                     <img
-                      src={"/gray.png"}
+                      src={`${webimages_link + "gray.png"}`}
                       className="rounded-[16px] object-cover h-[280px]"
                     />
                   )}
@@ -172,14 +173,14 @@ const GalleryPage = () => {
         )}
         {!isLoading && (
           <img
-            src={"/icons/icon_gallery_left.svg"}
+            src={`${webimages_link + "icons/icon_gallery_left.svg"}`}
             className="absolute h-[578px] w-[373px] -left-40 top-[40%] hidden 3xl:block"
           />
         )}
 
         {!isLoading && (
           <img
-            src={"/icons/icon_gallery_right.svg"}
+            src={`${webimages_link + "icons/icon_gallery_right.svg"}`}
             className="absolute h-[578px] w-[373px] -right-40 top-[20%] hidden 3xl:block"
           />
         )}

@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import Modal from "../Modal";
 import PDFViewer from "../PdfViewer";
 import { useNavbar } from "../Provider";
+import { webimages_link } from "../../lib/functionsClient";
 
 const HomePageActualJobs = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -108,7 +109,7 @@ const HomePageActualJobs = () => {
       </Modal>
 
       <img
-        src={"/krtko.svg"}
+        src={`${webimages_link + "krtko.svg"}`}
         className={`absolute ${
           isHovered ? "h-[120px]" : "h-[135px]"
         }  w-[221px] right-[42px] bottom-12 hidden xl:block z-20 ease-in duration-100`}
@@ -116,7 +117,7 @@ const HomePageActualJobs = () => {
         onMouseLeave={() => setIsHovered(false)}
       />
       <img
-        src={"/zem.svg"}
+        src={`${webimages_link + "zem.svg"}`}
         className="absolute h-[95px] w-[191px] right-20 -bottom-0 hidden xl:block z-20"
       />
 

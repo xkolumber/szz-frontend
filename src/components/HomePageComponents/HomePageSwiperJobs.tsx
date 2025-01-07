@@ -8,7 +8,10 @@ import { ActualJob } from "../../lib/interface";
 import IconSwiperArrowLeft from "../Icons/IconSwiperArrowLeft";
 import IconSwiperArrowRight from "../Icons/IconSwiperArrowRight";
 import { Link } from "react-router-dom";
-import { replaceS3UrlsWithCloudFront } from "../../lib/functionsClient";
+import {
+  replaceS3UrlsWithCloudFront,
+  webimages_link,
+} from "../../lib/functionsClient";
 
 interface Props {
   data: ActualJob[];
@@ -101,13 +104,13 @@ const HomePageSwiperJobs = ({ data, clickedLink }: Props) => {
               <img
                 width={120}
                 height={120}
-                src="/krtko.svg"
+                src={`${webimages_link + "krtko.svg"}`}
                 className="absolute h-[135px] w-[221px] left-1/2 -ml-3 transform -translate-x-1/2 bottom-0 z-10"
               />
               <img
                 width={120}
                 height={120}
-                src="/zem.svg"
+                src={`${webimages_link + "zem.svg"}`}
                 className="absolute h-[95px] w-[191px] left-1/2 transform -translate-x-1/2 -bottom-12 z-20"
               />
             </div>

@@ -6,6 +6,7 @@ import {
   options_years,
   options_years_plus_one,
   replaceS3UrlsWithCloudFront,
+  webimages_link,
 } from "../../lib/functionsClient";
 import { ActualEvent } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
@@ -215,7 +216,7 @@ const EventsPage = () => {
                       />
                     ) : (
                       <img
-                        src={"/gray.png"}
+                        src={`${webimages_link + "gray.png"}`}
                         className="rounded-[16px] w-full h-full object-cover relative z-10 cursor-pointer hover:scale-[1.02] duration-200"
                       />
                     )}
@@ -242,11 +243,11 @@ const EventsPage = () => {
           <p>So zadanými kritériami sa zatiaľ nevyskutuje žiadna udalosť.</p>
         )}
         <img
-          src={"/icons/icon_event_left.svg"}
+          src={`${webimages_link + "icons/icon_event_left.svg"}`}
           className="absolute h-[578px] w-[373px] -left-40 top-[60%] hidden 3xl:block"
         />
         <img
-          src={"/icons/icon_event_right.svg"}
+          src={`${webimages_link + "icons/icon_event_right.svg"}`}
           className="absolute h-[578px] w-[373px] -right-40 top-[10%] hidden 3xl:block"
         />
       </div>

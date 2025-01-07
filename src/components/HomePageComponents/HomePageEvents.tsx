@@ -99,7 +99,7 @@ const HomePageEvents = () => {
           </div>
 
           {/* <img
-              src={"/icons/icon_event.svg"}
+            src={`${webimages_link + "icons/icon_event.svg"}`}
               className="absolute h-[578px] w-[373px] -left-40 top-0 hidden 3xl:block"
             /> */}
         </div>

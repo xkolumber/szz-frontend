@@ -12,7 +12,10 @@ import IconLink from "../Icons/IconLink";
 import IconLocation from "../Icons/IconLocation";
 import IconTime from "../Icons/IconTime";
 import SeoElement from "../SeoElement";
-import { replaceS3UrlsWithCloudFront } from "../../lib/functionsClient";
+import {
+  replaceS3UrlsWithCloudFront,
+  webimages_link,
+} from "../../lib/functionsClient";
 
 const EventDetailPage = () => {
   const [open, setOpen] = useState(false);
@@ -275,11 +278,11 @@ const EventDetailPage = () => {
         />
       )}
       <img
-        src={"/icons/icon_event_id_left.svg"}
+        src={`${webimages_link + "icons/icon_event_id_left.svg"}`}
         className="absolute h-[578px] w-[373px] -left-40 top-[40%] hidden 3xl:block"
       />
       <img
-        src={"/icons/icon_event_id_right.svg"}
+        src={`${webimages_link + "icons/icon_event_id_right.svg"}`}
         className="absolute h-[578px] w-[373px] -right-40 top-[10%] hidden 3xl:block"
       />
     </div>

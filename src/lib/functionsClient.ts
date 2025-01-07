@@ -292,3 +292,5 @@ export function replaceS3UrlsWithCloudFront(url: string, type: string): string {
 
   return "";
 }
+
+export const webimages_link = "https://dnor665xhm8t8.cloudfront.net/webimages/";

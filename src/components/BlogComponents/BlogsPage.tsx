@@ -6,6 +6,7 @@ import { fetchBlogs } from "../../lib/functions";
 import {
   LIMIT_BLOG,
   replaceS3UrlsWithCloudFront,
+  webimages_link,
 } from "../../lib/functionsClient";
 import { Blog } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
@@ -102,11 +103,11 @@ const BlogsPage = () => {
         </button>
       </div>
       <img
-        src={"/icons/icon_blogpage_left.svg"}
+        src={`${webimages_link + "icons/icon_blogpage_left.svg"}`}
         className="absolute h-[578px] w-[373px] -left-40 top-[60%] hidden 3xl:block"
       />
       <img
-        src={"/icons/icon_blogpage.svg"}
+        src={`${webimages_link + "icons/icon_blogpage.svg"}`}
         className="absolute h-[578px] w-[373px] -right-40 top-[10%] hidden 3xl:block"
       />
     </div>

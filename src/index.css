@@ -875,13 +875,6 @@ textarea:focus {
   }
 }
 
-.bg-svg-pattern {
-  background-image: url("/bgbroown.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-}
-
 .bg_green_opacity {
   background: rgba(119, 167, 93, 0.25);
 }
@@ -1256,6 +1249,7 @@ menu {
 
 .content img {
   margin: auto;
+  border-radius: 8px;
 }
 
 #msdoc-renderer {
