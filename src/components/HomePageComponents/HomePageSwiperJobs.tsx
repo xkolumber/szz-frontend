@@ -77,7 +77,10 @@ const HomePageSwiperJobs = ({ data, clickedLink }: Props) => {
 
                   <Link
                     className="uppercase pt-4 underline text-white font-bold"
-                    to={object.link_pranostika}
+                    to={replaceS3UrlsWithCloudFront(
+                      object.link_pranostika,
+                      "photoUnion"
+                    )}
                   >
                     Pranostika
                   </Link>
