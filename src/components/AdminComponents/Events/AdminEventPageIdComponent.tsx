@@ -336,38 +336,50 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
       toast.error("Iba obrázky sú povolené");
       return;
     }
+
     setDataLoading(true);
+    let formData = new FormData();
 
     const compressedFile = await CompressImage(file);
 
-    const formData = new FormData();
-    formData.append("file", compressedFile!);
-
-    axios
-      .post(
-        `${import.meta.env.VITE_API_URL}/admin/upload/blogphoto`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((response) => {
-        const { message, uploadUrl } = response.data;
-
-        if (message === "done") {
-          setActualizeData((prevData) => ({
-            ...prevData,
-            [key]: uploadUrl,
-          }));
-        }
-        setDataLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error uploading file:", error);
+    if (compressedFile) {
+      const newFile = new File([compressedFile], file.name, {
+        type: compressedFile.type,
+        lastModified: file.lastModified,
       });
+
+      formData.append("file", newFile);
+
+      try {
+        const fileName = compressedFile.name.replace(/\s+/g, "_");
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_URL}/admin/upload/blogphoto`,
+          { fileName },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const { url, fields } = response.data;
+
+        await uploadFileS3(url, fields, formData);
+
+        const final_url = `https://${fields.bucket}.s3.eu-north-1.amazonaws.com/${fields.key}`;
+
+        setActualizeData((prevData) => ({
+          ...prevData,
+          [key]: final_url,
+        }));
+      } catch (error) {
+        console.error("Error uploading file:", error);
+        toast.error("Failed to upload the image. Please try again.");
+      } finally {
+        setDataLoading(false);
+      }
+    }
   }, []);
 
   const createDropHandler = (key: string) => (acceptedFiles: File[]) =>
@@ -393,6 +405,13 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
       ...prev,
       [field]: value,
     }));
+  };
+
+  const deletePhoto = (title: string) => {
+    setActualizeData((prevData) => {
+      const updatedData = { ...prevData, [title]: "" };
+      return updatedData;
+    });
   };
 
   return (
@@ -506,20 +525,30 @@ const AdminEventPageIdComponent = ({ data, onDataUpdated }: Props) => {
             </div>
             <div className="product_admin_row">
               <p>Titulná foto:</p>
+
               <div className="flex flex-col w-[75%]">
-                {actualizeData.titulna_foto && (
-                  <div className="flex flex-row justify-between items-center">
-                    <img
-                      width={120}
-                      height={120}
-                      src={replaceS3UrlsWithCloudFront(
-                        actualizeData.titulna_foto,
-                        "blogphoto"
-                      )}
-                      className="mt-4 mb-4 cursor-pointer"
-                    />
-                  </div>
-                )}
+                <div className="flex flex-row justify-between items-center w-full">
+                  {actualizeData.titulna_foto && (
+                    <div className="flex flex-row justify-between items-center">
+                      <img
+                        width={120}
+                        height={120}
+                        src={replaceS3UrlsWithCloudFront(
+                          actualizeData.titulna_foto,
+                          "blogphoto"
+                        )}
+                        className="mt-4 mb-4 cursor-pointer"
+                      />
+                    </div>
+                  )}
+                  <p
+                    className="!text-red-800 cursor-pointer"
+                    onClick={() => deletePhoto("titulna_foto")}
+                  >
+                    Odstrániť
+                  </p>
+                </div>
+
                 <div className={dragAreaClasses} {...getTitulnaRootProps()}>
                   <input
                     {...getTitulnaInputProps()}

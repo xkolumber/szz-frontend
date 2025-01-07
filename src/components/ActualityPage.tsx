@@ -5,6 +5,7 @@ import { getActualityPageData } from "../lib/functions";
 import ButtonWithArrowLeft from "./ButtonWithArrowLeft";
 import { Link } from "react-router-dom";
 import { GeneralPageInterface } from "../lib/interface";
+import { replaceS3UrlsWithCloudFront } from "../lib/functionsClient";
 
 const ActualityPage = () => {
   const { data, status, error, isLoading } = useQuery<GeneralPageInterface>({
@@ -49,7 +50,10 @@ const ActualityPage = () => {
                 {data.pdf?.map((object, index) => (
                   <div className="flex flex-row items-center">
                     <Link
-                      to={object.link}
+                      to={replaceS3UrlsWithCloudFront(
+                        object.link,
+                        "archivedocs"
+                      )}
                       target="_blank"
                       key={index}
                       className="underline"

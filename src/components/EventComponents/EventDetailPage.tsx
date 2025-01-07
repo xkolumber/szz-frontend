@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import { ActualEvent } from "../../lib/interface";
@@ -16,6 +16,7 @@ import {
   replaceS3UrlsWithCloudFront,
   webimages_link,
 } from "../../lib/functionsClient";
+import IconArrowLeft from "../Icons/IconArrowLeft";
 
 const EventDetailPage = () => {
   const [open, setOpen] = useState(false);
@@ -24,6 +25,8 @@ const EventDetailPage = () => {
   const [data2, setData2] = useState<ActualEvent[]>([]);
   const { slug } = useParams<{ slug: string }>();
   const [choosenAlbum, setChoosenAlbum] = useState<SlideImage[]>([]);
+  const navigate = useNavigate();
+  const [hoverButton, setHoverButton] = useState(false);
 
   const handleOpenGallery = (choosenArticel: ActualEvent, index: number) => {
     const transformedAlbum = choosenArticel.fotky.map((url) => ({
@@ -100,10 +103,16 @@ const EventDetailPage = () => {
   return (
     <div className="own_edge relative overflow-hidden">
       <div className="main_section !pt-8">
-        <ButtonWithArrowLeft
-          title="Späť ná všetky výstavy"
-          link={`/vystavy-a-podujatia`}
-        />
+        <div
+          className="flex flex-row gap-6 items-center  cursor-pointer"
+          onMouseEnter={() => setHoverButton(true)}
+          onMouseLeave={() => setHoverButton(false)}
+          onClick={() => navigate(-1)}
+        >
+          {" "}
+          <IconArrowLeft ishovered={hoverButton} />
+          <p className="uppercase font-semibold">Späť ná všetky výstavy</p>
+        </div>
         {data ? (
           <>
             <SeoElement
@@ -205,7 +214,7 @@ const EventDetailPage = () => {
                               "photoUnion"
                             )}
                             key={index}
-                            className="max-w-[150px] max-h-[150px] rounded-[16px] w-full h-full object-cover cursor-pointer hover:scale-[1.02] duration-200"
+                            className="max-w-[150px] h-[150px] rounded-[16px] w-full object-cover cursor-pointer hover:scale-[1.02] duration-200"
                             onClick={() => handleOpenGallery(data, index)}
                           />
                         )
