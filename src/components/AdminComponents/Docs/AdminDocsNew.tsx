@@ -7,6 +7,7 @@ import { ClipLoader } from "react-spinners";
 import { Tlacivo } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
+import { uploadFileS3 } from "../../../lib/functions";
 
 const AdminDocsNew = () => {
   const queryClient = useQueryClient();
@@ -76,36 +77,46 @@ const AdminDocsNew = () => {
   };
 
   const handleUploadPdf = async (e: any) => {
+    setDataLoading(true);
     const file = e.target.files[0];
 
-    setDataLoading(true);
     const formData = new FormData();
     formData.append("file", file);
 
     try {
+      const jsonData = {
+        fileName: file.name,
+        year: "tlaciva",
+      };
+
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/admin/upload/archivedocs/tlaciva`,
-        formData,
+        `${import.meta.env.VITE_API_URL}/admin/upload/archivedocs`,
+        jsonData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
 
-      const { uploadUrl } = response.data;
+      const { url, fields } = response.data;
+
+      await uploadFileS3(url, fields, formData);
+
+      const final_url = `https://${fields.bucket}.s3.eu-north-1.amazonaws.com/${fields.key}`;
 
       setActualizeData((prevData) => {
-        return { ...prevData, link: uploadUrl };
+        return { ...prevData, pdf_link: final_url };
       });
     } catch (error) {
       console.error("Error uploading PDF:", error);
       alert(
-        "Chyba pri nahrávaní súboru, povolené súbory sú pdf, doc, docx, xls, xlsx"
+        "Súbor má nepovolenú príponu. Povolené sú pdf, doc, docx, xls, xlsx"
       );
     } finally {
       setDataLoading(false);
+      e.target.value = null;
     }
   };
 

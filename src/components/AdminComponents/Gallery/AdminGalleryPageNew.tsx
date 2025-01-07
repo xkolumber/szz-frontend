@@ -178,7 +178,7 @@ const AdminGalleryPageNew = () => {
           formData.append("file", compressedFile);
 
           const response = await axios.post(
-            `${import.meta.env.VITE_API_URL}/admin/upload/photoUnion`,
+            `${import.meta.env.VITE_API_URL}/admin/upload/imagesalll`,
             formData,
             {
               headers: {
@@ -289,9 +289,14 @@ const AdminGalleryPageNew = () => {
                       <img
                         width={70}
                         height={70}
-                        src={replaceS3UrlsWithCloudFront(object, "photoUnion")}
+                        src={replaceS3UrlsWithCloudFront(object, "imagesalll")}
                         className="h-[70px] object-cover rounded-[16px] cursor-pointer"
-                        onClick={() => handleShowBiggerIamge(object)}
+                        style={{ imageRendering: "pixelated" }}
+                        onClick={() =>
+                          handleShowBiggerIamge(
+                            replaceS3UrlsWithCloudFront(object, "imagesalll")
+                          )
+                        }
                       />
                     )}
 

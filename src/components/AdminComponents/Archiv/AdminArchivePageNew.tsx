@@ -6,6 +6,7 @@ import { ClipLoader } from "react-spinners";
 import { Archive } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
+import { uploadFileS3 } from "../../../lib/functions";
 
 const AdminArchivePageNew = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -81,6 +82,7 @@ const AdminArchivePageNew = () => {
       toast.error("Najskôr zadajte rok");
       return;
     }
+
     setDataLoading(true);
     const file = e.target.files[0];
 
@@ -88,23 +90,30 @@ const AdminArchivePageNew = () => {
     formData.append("file", file);
 
     try {
+      const jsonData = {
+        fileName: file.name,
+        year: actualizeData.rok,
+      };
+
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/admin/upload/archivedocs/${
-          actualizeData.rok
-        }`,
-        formData,
+        `${import.meta.env.VITE_API_URL}/admin/upload/archivedocs`,
+        jsonData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
 
-      const { uploadUrl } = response.data;
+      const { url, fields } = response.data;
+
+      await uploadFileS3(url, fields, formData);
+
+      const final_url = `https://${fields.bucket}.s3.eu-north-1.amazonaws.com/${fields.key}`;
 
       setActualizeData((prevData) => {
-        return { ...prevData, pdf_link: uploadUrl };
+        return { ...prevData, pdf_link: final_url };
       });
     } catch (error) {
       console.error("Error uploading PDF:", error);
@@ -113,6 +122,7 @@ const AdminArchivePageNew = () => {
       );
     } finally {
       setDataLoading(false);
+      e.target.value = null;
     }
   };
 

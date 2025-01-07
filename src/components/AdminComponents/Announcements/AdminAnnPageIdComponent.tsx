@@ -6,8 +6,12 @@ import { useDropzone } from "react-dropzone";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { CompressImage } from "../../../lib/functions";
-import { createSlug, isValidDate } from "../../../lib/functionsClient";
+import { CompressImage, uploadFileS3 } from "../../../lib/functions";
+import {
+  createSlug,
+  isValidDate,
+  replaceS3UrlsWithCloudFront,
+} from "../../../lib/functionsClient";
 import { Oznamy } from "../../../lib/interface";
 import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
@@ -136,8 +140,8 @@ const AdminAnnPageIdComponent = ({ data, onEventUpdated }: Props) => {
       toast.error("Iba obrázky sú povolené");
       return;
     }
-    setDataLoading(true);
 
+    setDataLoading(true);
     let formData = new FormData();
 
     const compressedFile = await CompressImage(file);
@@ -149,33 +153,38 @@ const AdminAnnPageIdComponent = ({ data, onEventUpdated }: Props) => {
       });
 
       formData.append("file", newFile);
-    }
 
-    axios
-      .post(
-        `${import.meta.env.VITE_API_URL}/admin/upload/blogphoto`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((response) => {
-        const { message, uploadUrl } = response.data;
+      try {
+        const fileName = compressedFile.name.replace(/\s+/g, "_");
+        console.log(fileName);
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_URL}/admin/upload/blogphoto`,
+          { fileName },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-        if (message === "done") {
-          setActualizeData((prevData) => ({
-            ...prevData,
-            [key]: uploadUrl,
-          }));
-        }
-        setDataLoading(false);
-      })
-      .catch((error) => {
+        const { url, fields } = response.data;
+
+        await uploadFileS3(url, fields, formData);
+
+        const final_url = `https://${fields.bucket}.s3.eu-north-1.amazonaws.com/${fields.key}`;
+
+        setActualizeData((prevData) => ({
+          ...prevData,
+          [key]: final_url,
+        }));
+      } catch (error) {
         console.error("Error uploading file:", error);
-      });
+        toast.error("Failed to upload the image. Please try again.");
+      } finally {
+        setDataLoading(false);
+      }
+    }
   }, []);
 
   const createDropHandler = (key: string) => (acceptedFiles: File[]) =>
@@ -276,9 +285,19 @@ const AdminAnnPageIdComponent = ({ data, onEventUpdated }: Props) => {
                   <img
                     width={120}
                     height={120}
-                    src={actualizeData.foto}
+                    src={replaceS3UrlsWithCloudFront(
+                      actualizeData.foto,
+                      "blogphoto"
+                    )}
                     className="mt-4 mb-4 cursor-pointer"
-                    onClick={() => handleShowBiggerIamge(actualizeData.foto)}
+                    onClick={() =>
+                      handleShowBiggerIamge(
+                        replaceS3UrlsWithCloudFront(
+                          actualizeData.foto,
+                          "blogphoto"
+                        )
+                      )
+                    }
                   />
                 )}
                 <div className={dragAreaClasses} {...getTitulnaRootProps()}>

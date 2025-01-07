@@ -6,7 +6,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import copy from "copy-to-clipboard";
 import IconCopy from "../Icons/IconCopy";
-import { CompressImage } from "../../lib/functions";
+import { CompressImage, uploadFileS3 } from "../../lib/functions";
 
 const AdminNewFile = () => {
   const [pdfLink, setPdfLink] = useState<string | undefined>("");
@@ -61,30 +61,7 @@ const AdminNewFile = () => {
 
       const { url, fields } = response.data;
 
-      console.log("Received URL:", url);
-      console.log("Received Fields:", fields);
-
-      const formDataS3 = new FormData();
-      Object.entries(fields).forEach(([key, value]) => {
-        formDataS3.append(key, value as string);
-      });
-
-      const final_file = formData.get("file");
-      if (final_file instanceof File) {
-        formDataS3.append("file", final_file);
-      } else {
-        console.error("No file found in formData.");
-      }
-
-      try {
-        const uploadResponse = await fetch(url, {
-          method: "POST",
-          body: formDataS3,
-        });
-        console.log(uploadResponse);
-      } catch (error) {
-        console.log(error);
-      }
+      await uploadFileS3(url, fields, formData);
 
       setPdfLink(
         `${import.meta.env.VITE_CLOUDFRONT_URL_RANDOM_FILES}/${fields.key}`

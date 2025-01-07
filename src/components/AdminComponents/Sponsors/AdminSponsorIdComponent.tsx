@@ -9,7 +9,8 @@ import IconUpload from "../../Icons/IconUpload";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import classNames from "classnames";
-import { CompressImage } from "../../../lib/functions";
+import { CompressImage, uploadFileS3 } from "../../../lib/functions";
+import { replaceS3UrlsWithCloudFront } from "../../../lib/functionsClient";
 
 interface Props {
   data: Sponsor;
@@ -138,33 +139,38 @@ const AdminSponsorIdComponent = ({ data, onDataUpdated }: Props) => {
       });
 
       formData.append("file", newFile);
-    }
 
-    axios
-      .post(
-        `${import.meta.env.VITE_API_URL}/admin/upload/imagesalll`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((response) => {
-        const { message, uploadUrl } = response.data;
+      try {
+        const fileName = compressedFile.name.replace(/\s+/g, "_");
+        console.log(fileName);
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_URL}/admin/upload/imagesalll`,
+          { fileName },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-        if (message === "done") {
-          setActualizeData((prevData) => ({
-            ...prevData,
-            [key]: uploadUrl,
-          }));
-        }
-        setDataLoading(false);
-      })
-      .catch((error) => {
+        const { url, fields } = response.data;
+
+        await uploadFileS3(url, fields, formData);
+
+        const final_url = `https://${fields.bucket}.s3.eu-north-1.amazonaws.com/${fields.key}`;
+
+        setActualizeData((prevData) => ({
+          ...prevData,
+          [key]: final_url,
+        }));
+      } catch (error) {
         console.error("Error uploading file:", error);
-      });
+        toast.error("Failed to upload the image. Please try again.");
+      } finally {
+        setDataLoading(false);
+      }
+    }
   }, []);
 
   const handleShowBiggerIamge = (src: string) => {
@@ -239,9 +245,19 @@ const AdminSponsorIdComponent = ({ data, onDataUpdated }: Props) => {
                   <img
                     width={120}
                     height={120}
-                    src={actualizeData.logo}
+                    src={replaceS3UrlsWithCloudFront(
+                      actualizeData.logo,
+                      "imagesalll"
+                    )}
                     className="mt-4 mb-4 cursor-pointer"
-                    onClick={() => handleShowBiggerIamge(actualizeData.logo)}
+                    onClick={() =>
+                      handleShowBiggerIamge(
+                        replaceS3UrlsWithCloudFront(
+                          actualizeData.logo,
+                          "imagesalll"
+                        )
+                      )
+                    }
                   />
                 )}
                 <div className={dragAreaClasses} {...getPhoto1RootProps()}>

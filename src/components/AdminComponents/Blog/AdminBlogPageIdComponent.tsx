@@ -6,12 +6,16 @@ import { useDropzone } from "react-dropzone";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { createSlug, isValidDate } from "../../../lib/functionsClient";
+import {
+  createSlug,
+  isValidDate,
+  replaceS3UrlsWithCloudFront,
+} from "../../../lib/functionsClient";
 import { Blog } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
-import { CompressImage } from "../../../lib/functions";
+import { CompressImage, uploadFileS3 } from "../../../lib/functions";
 import Tiptap from "../../TipTapEditor/TipTap";
 
 interface Props {
@@ -160,6 +164,7 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
       toast.error("Iba obrázky sú povolené");
       return;
     }
+
     setDataLoading(true);
     let formData = new FormData();
 
@@ -172,32 +177,38 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
       });
 
       formData.append("file", newFile);
-    }
-    axios
-      .post(
-        `${import.meta.env.VITE_API_URL}/admin/upload/blogphoto`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((response) => {
-        const { message, uploadUrl } = response.data;
 
-        if (message === "done") {
-          setActualizeData((prevData) => ({
-            ...prevData,
-            [key]: uploadUrl,
-          }));
-        }
-        setDataLoading(false);
-      })
-      .catch((error) => {
+      try {
+        const fileName = compressedFile.name.replace(/\s+/g, "_");
+        console.log(fileName);
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_URL}/admin/upload/blogphoto`,
+          { fileName },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const { url, fields } = response.data;
+
+        await uploadFileS3(url, fields, formData);
+
+        const final_url = `https://${fields.bucket}.s3.eu-north-1.amazonaws.com/${fields.key}`;
+
+        setActualizeData((prevData) => ({
+          ...prevData,
+          [key]: final_url,
+        }));
+      } catch (error) {
         console.error("Error uploading file:", error);
-      });
+        toast.error("Failed to upload the image. Please try again.");
+      } finally {
+        setDataLoading(false);
+      }
+    }
   }, []);
 
   const createDropHandler = (key: string) => (acceptedFiles: File[]) =>
@@ -259,37 +270,47 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
   const handleUploadPdf = async (e: any, index: number) => {
     setDataLoading(true);
     const file = e.target.files[0];
+
     const formData = new FormData();
     formData.append("file", file);
 
     try {
+      const fileName = file.name;
+
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/admin/upload/pdf`,
-        formData,
+        { fileName },
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
 
-      const { uploadUrl, fileName } = response.data;
+      const { url, fields } = response.data;
+
+      await uploadFileS3(url, fields, formData);
+
+      const final_url = `https://${fields.bucket}.s3.eu-north-1.amazonaws.com/${fields.key}`;
 
       setActualizeData((prevData) => {
         const updatedPdf = [...prevData.pdf];
         updatedPdf[index] = {
-          nazov: fileName,
-          link: uploadUrl,
+          nazov: file.name,
+          link: final_url,
           datum: new Date(),
         };
         return { ...prevData, pdf: updatedPdf };
       });
     } catch (error) {
       console.error("Error uploading PDF:", error);
-      alert("Failed to upload PDF. Please try again.");
+      alert(
+        "Súbor má nepovolenú príponu. Povolené sú pdf, doc, docx, xls, xlsx"
+      );
     } finally {
       setDataLoading(false);
+      e.target.value = null;
     }
   };
 
@@ -380,10 +401,18 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
                   <img
                     width={120}
                     height={120}
-                    src={actualizeData.titulna_foto}
+                    src={replaceS3UrlsWithCloudFront(
+                      actualizeData.titulna_foto,
+                      "blogphoto"
+                    )}
                     className="mt-4 mb-4 cursor-pointer"
                     onClick={() =>
-                      handleShowBiggerIamge(actualizeData.titulna_foto)
+                      handleShowBiggerIamge(
+                        replaceS3UrlsWithCloudFront(
+                          actualizeData.titulna_foto,
+                          "blogphoto"
+                        )
+                      )
                     }
                   />
                 )}
@@ -415,7 +444,10 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
                     <img
                       width={120}
                       height={120}
-                      src={actualizeData.foto1}
+                      src={replaceS3UrlsWithCloudFront(
+                        actualizeData.foto1,
+                        "blogphoto"
+                      )}
                       className="mt-4 mb-4 cursor-pointer"
                       onClick={() => handleShowBiggerIamge(actualizeData.foto1)}
                     />
@@ -457,7 +489,10 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
                     <img
                       width={120}
                       height={120}
-                      src={actualizeData.foto2}
+                      src={replaceS3UrlsWithCloudFront(
+                        actualizeData.foto2,
+                        "blogphoto"
+                      )}
                       className="mt-4 mb-4 cursor-pointer"
                       onClick={() => handleShowBiggerIamge(actualizeData.foto2)}
                     />
@@ -499,7 +534,10 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
                     <img
                       width={120}
                       height={120}
-                      src={actualizeData.foto3}
+                      src={replaceS3UrlsWithCloudFront(
+                        actualizeData.foto3,
+                        "blogphoto"
+                      )}
                       className="mt-4 mb-4 cursor-pointer"
                       onClick={() => handleShowBiggerIamge(actualizeData.foto3)}
                     />

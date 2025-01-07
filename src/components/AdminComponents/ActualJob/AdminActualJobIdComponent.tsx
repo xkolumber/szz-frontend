@@ -1,7 +1,6 @@
 import { classNames } from "@react-pdf-viewer/core";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import FormData from "form-data";
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast, { Toaster } from "react-hot-toast";
@@ -10,6 +9,7 @@ import { ClipLoader } from "react-spinners";
 import { ActualJob } from "../../../lib/interface";
 import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
+import { uploadFileS3 } from "../../../lib/functions";
 
 interface Props {
   data: ActualJob;
@@ -22,7 +22,6 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
-  const [fileUpload, setFileUpload] = useState<any>(null);
 
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -139,7 +138,7 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
     }
   };
 
-  const onDrop = useCallback((files: any) => {
+  const onDrop = useCallback(async (files: any) => {
     const file = files[0];
     if (file.type !== "application/pdf") {
       toast.error("V tejto sekcii sa môžu nahrávať iba PDF súbory!");
@@ -150,29 +149,29 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
     const formData = new FormData();
     formData.append("file", files[0]);
 
-    axios
-      .post(`${import.meta.env.VITE_API_URL}/admin/upload/pdf`, formData, {
+    const fileName = file.name;
+
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/admin/upload/pdf`,
+      { fileName },
+      {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
-        onUploadProgress: () => {
-          setFileUpload({ fileName: files[0].name });
-        },
-      })
-      .then((response) => {
-        const { message, uploadUrl, fileName } = response.data;
+      }
+    );
 
-        if (message === "done") {
-          setActualizeData((prevData) => ({
-            ...prevData,
-            pdf: { nazov: fileName, link: uploadUrl, datum: new Date() },
-          }));
-        }
-      })
-      .catch((error) => {
-        console.error("Error uploading file:", error);
-      });
+    const { url, fields } = response.data;
+
+    await uploadFileS3(url, fields, formData);
+
+    const final_url = `https://${fields.bucket}.s3.eu-north-1.amazonaws.com/${fields.key}`;
+
+    setActualizeData((prevData) => ({
+      ...prevData,
+      pdf: { nazov: fileName, link: final_url, datum: new Date() },
+    }));
     setDataLoading(false);
   }, []);
 
@@ -248,17 +247,6 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
                     <p className="text-center">Drop files here</p>
                   </div>
                 </div>
-                {fileUpload && (
-                  <div className="mt-10">
-                    <div className="">
-                      <div className="flex">
-                        <div className="w-full">
-                          <p className="mb-4">{fileUpload.fileName}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
             <div className="product_admin_row">

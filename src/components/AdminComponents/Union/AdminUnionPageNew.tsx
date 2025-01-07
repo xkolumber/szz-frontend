@@ -5,13 +5,16 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { ClipLoader } from "react-spinners";
-import { createSlug } from "../../../lib/functionsClient";
+import {
+  createSlug,
+  replaceS3UrlsWithCloudFront,
+} from "../../../lib/functionsClient";
 import { SelectOption, UnionData } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import StepBack from "../../StepBack";
 import AdminNotAuthorized from "../AdminNotAuthorized";
 import Tiptap from "../../TipTapEditor/TipTap";
-import { CompressImage } from "../../../lib/functions";
+import { CompressImage, uploadFileS3 } from "../../../lib/functions";
 
 const AdminUnionPageNew = () => {
   const queryClient = useQueryClient();
@@ -232,20 +235,29 @@ const AdminUnionPageNew = () => {
       const uploadedUrls = await Promise.all(
         compressedFiles.map(async (compressedFile) => {
           const formData = new FormData();
+
+          const fileName = compressedFile.name.replace(/\s+/g, "_");
+          console.log(fileName);
+
           formData.append("file", compressedFile);
 
           const response = await axios.post(
             `${import.meta.env.VITE_API_URL}/admin/upload/photoUnion`,
-            formData,
+            { fileName },
             {
               headers: {
                 Authorization: `Bearer ${token}`,
-                "Content-Type": "multipart/form-data",
+                "Content-Type": "application/json",
               },
             }
           );
 
-          return response.data.uploadUrl;
+          const { url, fields } = response.data;
+
+          await uploadFileS3(url, fields, formData);
+
+          const final_url = `https://${fields.bucket}.s3.eu-north-1.amazonaws.com/${fields.key}`;
+          return final_url;
         })
       );
 
@@ -258,6 +270,7 @@ const AdminUnionPageNew = () => {
       alert("Failed to upload one or more photos. Please try again.");
     } finally {
       setDataLoading(false);
+      e.target.value = "";
     }
   };
 
@@ -279,24 +292,30 @@ const AdminUnionPageNew = () => {
     formData.append("file", file);
 
     try {
+      const fileName = file.name;
+
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/admin/upload/pdf`,
-        formData,
+        { fileName },
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
 
-      const { uploadUrl, fileName } = response.data;
+      const { url, fields } = response.data;
+
+      await uploadFileS3(url, fields, formData);
+
+      const final_url = `https://${fields.bucket}.s3.eu-north-1.amazonaws.com/${fields.key}`;
 
       setActualizeData((prevData) => {
         const updatedPdf = [...prevData.pdf];
         updatedPdf[index] = {
-          nazov: fileName,
-          link: uploadUrl,
+          nazov: file.name,
+          link: final_url,
           datum: new Date(),
         };
         return { ...prevData, pdf: updatedPdf };
@@ -427,6 +446,11 @@ const AdminUnionPageNew = () => {
               <div className="flex flex-col">
                 {actualizeData.fotky.map((object, index) => (
                   <div className="flex flex-row gap-4 items-center">
+                    <img
+                      src={replaceS3UrlsWithCloudFront(object, "photoUnion")}
+                      alt=""
+                      className="w-24 h-24 object-cover"
+                    />
                     <input
                       key={index}
                       type="text"

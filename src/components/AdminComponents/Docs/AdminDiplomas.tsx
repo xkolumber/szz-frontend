@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
-import { CompressImage } from "../../../lib/functions";
+import { CompressImage, uploadFileS3 } from "../../../lib/functions";
 import { Diplomas } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import { replaceS3UrlsWithCloudFront } from "../../../lib/functionsClient";
@@ -135,8 +135,8 @@ const AdminDiplomas = ({ data, refetch }: Props) => {
 
     setDataLoading(true);
 
-    const compressedFiles = [];
-    for (const file of files) {
+    const compressedFiles: File[] = [];
+    for (const file of validFiles) {
       const compressedFile = await CompressImage(file);
       if (compressedFile) {
         const newFile = new File([compressedFile], file.name, {
@@ -151,20 +151,29 @@ const AdminDiplomas = ({ data, refetch }: Props) => {
       const uploadedUrls = await Promise.all(
         compressedFiles.map(async (compressedFile) => {
           const formData = new FormData();
+
+          const fileName = compressedFile.name.replace(/\s+/g, "_");
+          console.log(fileName);
+
           formData.append("file", compressedFile);
 
           const response = await axios.post(
             `${import.meta.env.VITE_API_URL}/admin/upload/photoUnion`,
-            formData,
+            { fileName },
             {
               headers: {
                 Authorization: `Bearer ${token}`,
-                "Content-Type": "multipart/form-data",
+                "Content-Type": "application/json",
               },
             }
           );
 
-          return response.data.uploadUrl;
+          const { url, fields } = response.data;
+
+          await uploadFileS3(url, fields, formData);
+
+          const final_url = `https://${fields.bucket}.s3.eu-north-1.amazonaws.com/${fields.key}`;
+          return final_url;
         })
       );
 
@@ -177,8 +186,8 @@ const AdminDiplomas = ({ data, refetch }: Props) => {
       alert("Failed to upload one or more photos. Please try again.");
     } finally {
       setDataLoading(false);
-      // e.target.value = null;
     }
+    e.target.value = "";
   };
 
   return (

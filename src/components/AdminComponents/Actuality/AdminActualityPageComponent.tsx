@@ -6,6 +6,7 @@ import axios from "axios";
 import { GeneralPageInterface } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import Tiptap from "../../TipTapEditor/TipTap";
+import { uploadFileS3 } from "../../../lib/functions";
 
 interface Props {
   data: GeneralPageInterface;
@@ -134,24 +135,33 @@ const AdminActualityPageComponent = ({ data, refetch }: Props) => {
     formData.append("file", file);
 
     try {
+      const jsonData = {
+        fileName: file.name,
+        year: "tlaciva",
+      };
+
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/admin/upload/archivedocs/tlaciva`,
-        formData,
+        `${import.meta.env.VITE_API_URL}/admin/upload/archivedocs`,
+        jsonData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
 
-      const { uploadUrl, fileName } = response.data;
+      const { url, fields } = response.data;
+
+      await uploadFileS3(url, fields, formData);
+
+      const final_url = `https://${fields.bucket}.s3.eu-north-1.amazonaws.com/${fields.key}`;
 
       setActualizeData((prevData) => {
         const updatedPdf = [...prevData.pdf];
         updatedPdf[index] = {
-          nazov: fileName,
-          link: uploadUrl,
+          nazov: file.name,
+          link: final_url,
           datum: new Date(),
         };
         return { ...prevData, pdf: updatedPdf };

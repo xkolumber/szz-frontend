@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { CompressImage } from "../../../lib/functions";
+import { CompressImage, uploadFileS3 } from "../../../lib/functions";
 import {
   isValidDate,
   isValidYear,
@@ -230,20 +230,29 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
       const uploadedUrls = await Promise.all(
         compressedFiles.map(async (compressedFile) => {
           const formData = new FormData();
+
+          const fileName = compressedFile.name.replace(/\s+/g, "_");
+          console.log(fileName);
+
           formData.append("file", compressedFile);
 
           const response = await axios.post(
             `${import.meta.env.VITE_API_URL}/admin/upload/imagesalll`,
-            formData,
+            { fileName },
             {
               headers: {
                 Authorization: `Bearer ${token}`,
-                "Content-Type": "multipart/form-data",
+                "Content-Type": "application/json",
               },
             }
           );
 
-          return response.data.uploadUrl;
+          const { url, fields } = response.data;
+
+          await uploadFileS3(url, fields, formData);
+
+          const final_url = `https://${fields.bucket}.s3.eu-north-1.amazonaws.com/${fields.key}`;
+          return final_url;
         })
       );
 
@@ -256,6 +265,7 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
       alert("Failed to upload one or more photos. Please try again.");
     } finally {
       setDataLoading(false);
+      e.target.value = "";
     }
   };
 
@@ -329,12 +339,12 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
                       <img
                         width={70}
                         height={70}
-                        src={replaceS3UrlsWithCloudFront(object, "photoUnion")}
+                        src={replaceS3UrlsWithCloudFront(object, "imagesalll")}
                         className="h-[70px] object-cover rounded-[16px] cursor-pointer"
                         style={{ imageRendering: "pixelated" }}
                         onClick={() =>
                           handleShowBiggerIamge(
-                            replaceS3UrlsWithCloudFront(object, "photoUnion")
+                            replaceS3UrlsWithCloudFront(object, "imagesalll")
                           )
                         }
                       />

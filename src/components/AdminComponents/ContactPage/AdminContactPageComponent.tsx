@@ -4,10 +4,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
-import { CompressImage } from "../../../lib/functions";
+import { CompressImage, uploadFileS3 } from "../../../lib/functions";
 import { ContactPageInterface } from "../../../lib/interface";
 import IconUpload from "../../Icons/IconUpload";
 import Tiptap from "../../TipTapEditor/TipTap";
+import { replaceS3UrlsWithCloudFront } from "../../../lib/functionsClient";
 
 interface Props {
   data: ContactPageInterface;
@@ -72,8 +73,8 @@ const AdminContactPageComponent = ({ data, refetch }: Props) => {
       toast.error("Iba obrázky sú povolené");
       return;
     }
-    setDataLoading(true);
 
+    setDataLoading(true);
     let formData = new FormData();
 
     const compressedFile = await CompressImage(file);
@@ -85,33 +86,38 @@ const AdminContactPageComponent = ({ data, refetch }: Props) => {
       });
 
       formData.append("file", newFile);
-    }
 
-    axios
-      .post(
-        `${import.meta.env.VITE_API_URL}/admin/upload/blogphoto`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((response) => {
-        const { message, uploadUrl } = response.data;
+      try {
+        const fileName = compressedFile.name.replace(/\s+/g, "_");
+        console.log(fileName);
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_URL}/admin/upload/blogphoto`,
+          { fileName },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-        if (message === "done") {
-          setActualizeData((prevData) => ({
-            ...prevData,
-            [key]: uploadUrl,
-          }));
-        }
-        setDataLoading(false);
-      })
-      .catch((error) => {
+        const { url, fields } = response.data;
+
+        await uploadFileS3(url, fields, formData);
+
+        const final_url = `https://${fields.bucket}.s3.eu-north-1.amazonaws.com/${fields.key}`;
+
+        setActualizeData((prevData) => ({
+          ...prevData,
+          [key]: final_url,
+        }));
+      } catch (error) {
         console.error("Error uploading file:", error);
-      });
+        toast.error("Failed to upload the image. Please try again.");
+      } finally {
+        setDataLoading(false);
+      }
+    }
   }, []);
 
   const createDropHandler = (key: string) => (acceptedFiles: File[]) =>
@@ -184,9 +190,19 @@ const AdminContactPageComponent = ({ data, refetch }: Props) => {
               <img
                 width={120}
                 height={120}
-                src={actualizeData.foto1}
+                src={replaceS3UrlsWithCloudFront(
+                  actualizeData.foto1,
+                  "blogphoto"
+                )}
                 className="mt-4 mb-4 cursor-pointer"
-                onClick={() => handleShowBiggerIamge(actualizeData.foto1)}
+                onClick={() =>
+                  handleShowBiggerIamge(
+                    replaceS3UrlsWithCloudFront(
+                      actualizeData.foto1,
+                      "blogphoto"
+                    )
+                  )
+                }
               />
             )}
             <div className={dragAreaClasses} {...getPhoto1RootProps()}>

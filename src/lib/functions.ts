@@ -1951,3 +1951,31 @@ export async function getCount() {
     console.error("Error fetching visit count:", error);
   }
 }
+
+export async function uploadFileS3(
+  url: string,
+  fields: any,
+  formData: FormData
+) {
+  const formDataS3 = new FormData();
+  Object.entries(fields).forEach(([key, value]) => {
+    formDataS3.append(key, value as string);
+  });
+
+  const final_file = formData.get("file");
+  if (final_file instanceof File) {
+    formDataS3.append("file", final_file);
+  } else {
+    console.error("No file found in formData.");
+  }
+
+  try {
+    const uploadResponse = await fetch(url, {
+      method: "POST",
+      body: formDataS3,
+    });
+    console.log(uploadResponse);
+  } catch (error) {
+    console.log(error);
+  }
+}
