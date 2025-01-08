@@ -87,6 +87,7 @@ import SpravodajcaPage from "./components/SpravodajcaComponents/SpravodajcaPage"
 import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
 import UsefullLinksPage from "./components/UsefullLinksPage";
+import { replaceS3UrlsWithCloudFront } from "./lib/functionsClient";
 
 interface LayoutProps {
   children: ReactNode;
@@ -108,12 +109,16 @@ function Layout({ children }: LayoutProps) {
 }
 
 function App() {
+  const helmetContext = {};
   return (
-    <HelmetProvider>
+    <HelmetProvider context={helmetContext}>
       <SeoElement
         title="Slovenský zväz záhradkárov"
         description="Slovenský zväz záhradkárov je komunita nadšencov záhradkárstva na Slovensku. Objavte užitočné rady, tipy na pestovanie a zapojte sa do aktivít, ktoré podporujú lásku k prírode a záhradkárstvu."
-        image="https://szzimagesalll.s3.eu-north-1.amazonaws.com/2024/a55a601c-dff3-4dc0-8b6b-6063c9ee166d/1.jpg"
+        image={replaceS3UrlsWithCloudFront(
+          "https://szzimagesalll.s3.eu-north-1.amazonaws.com/2024/a55a601c-dff3-4dc0-8b6b-6063c9ee166d/1.jpg",
+          "imagesalll"
+        )}
       />
 
       <BrowserRouter>

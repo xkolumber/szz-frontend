@@ -17,7 +17,6 @@ const SeoElement = ({ title, description, image }: Props) => {
       />
       <meta name="author" content="Slovenský zväz záhradkárov" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="canonical" href="https://www.zvazzahradkarov.sk/prednasky" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
 
