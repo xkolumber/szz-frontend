@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import { navbar_admin_data } from "../../lib/functionsClient";
@@ -16,32 +16,32 @@ function AdminLayout({ children }: LayoutProps) {
     // setIsLoading(true);
     e.preventDefault();
 
-    // try {
-    //   const response = await fetch(`${API_URL_AMIN}/logout`, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Accept: "application/json",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   });
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/logout`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
 
-    //   if (!response.ok) {
-    //     throw new Error("Network response was not ok");
-    //   }
-
-    //   const responseData = await response.json();
-    //   console.log(responseData.message);
-    //   if (responseData.message === "Successfully logged out") {
-    //     toast.success("Boli ste úspešne odhlásený");
-    //     localStorage.removeItem("token");
-    //   }
-    // } catch (err) {
-    //   toast.error("Niečo sa pokaziloo");
-    //   console.log(err);
-    // }
+      const responseData = await response.json();
+      console.log(responseData.message);
+      if (responseData.message === "Successfully logged out") {
+        toast.success("Boli ste úspešne odhlásený");
+      }
+    } catch (err) {
+      toast.error("Niečo sa pokaziloo");
+      console.log(err);
+    }
     // setIsLoading(false);
-    // localStorage.removeItem("token");
+
     navigate("/");
   };
 
