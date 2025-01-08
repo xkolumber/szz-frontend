@@ -36,6 +36,7 @@ const UsefullLinksPage = () => {
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
       <SeoElement
+        slug="uzitocne-linky"
         title="Užitočné linky"
         description="Zoznam užitočných linkov"
       />

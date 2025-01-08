@@ -8,6 +8,7 @@ const ArchivePage = () => {
   return (
     <div className="own_edge min-h-[600px]">
       <SeoElement
+        slug={"archiv"}
         title="Archív dokumentov"
         description="Archív dokumentov za posledných 10 rokov."
       />

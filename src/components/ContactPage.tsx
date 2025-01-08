@@ -35,6 +35,7 @@ const ContactPage = () => {
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
       <SeoElement
+        slug={`kontakt`}
         title="Kontakt"
         description="Slovenský zväz záhradkárov je komunita nadšencov záhradkárstva na Slovensku. Objavte užitočné rady, tipy na pestovanie a zapojte sa do aktivít, ktoré podporujú lásku k prírode a záhradkárstvu."
         image={replaceS3UrlsWithCloudFront(

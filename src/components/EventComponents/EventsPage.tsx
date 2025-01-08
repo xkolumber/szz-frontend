@@ -146,6 +146,7 @@ const EventsPage = () => {
   return (
     <div className="own_edge min-h-screen overflow-hidden relative">
       <SeoElement
+        slug={`vystavy-a-podujatia`}
         title="Tipy na výstavy a aktivity zväzu"
         description="Zoznam tipov na výstavy a aktivity zväzu."
       />

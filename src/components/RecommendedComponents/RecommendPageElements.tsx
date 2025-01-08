@@ -11,7 +11,11 @@ interface Props {
 const RecommendPageElements = ({ data }: Props) => {
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
-      <SeoElement title="Odporúčame" description="Zoznam našich partnerov" />
+      <SeoElement
+        slug="odporucame"
+        title="Odporúčame"
+        description="Zoznam našich partnerov"
+      />
 
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />

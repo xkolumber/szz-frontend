@@ -87,6 +87,7 @@ const GalleryPageId = () => {
         {!isLoading && data ? (
           <>
             <SeoElement
+              slug={`galeria/${data.id}`}
               title={data.nazov}
               description="Prehliadnite si naše spomienkové fotografie z našich udalostí."
               image={

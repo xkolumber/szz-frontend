@@ -36,6 +36,7 @@ const AboutUs = () => {
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
       <SeoElement
+        slug={`o-nas`}
         title="O nás"
         description="Naši predchodcovia sa venovali záhradkárčeniu, ako aj združovaniu v záujmových záhradkárskych organizáciách dávno predtým, ako začali byť veľkými  problémami  srdcovo – cievne choroby, chemická ochrana a jej rezíduá v potravinách, geneticky modifikované organizmy, intolerancia, neznášanlivosť a ďalšie neduhy posledných desaťročí, prenášajúcich sa aj medzi nás. "
       />

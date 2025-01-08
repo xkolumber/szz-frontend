@@ -1,12 +1,13 @@
 import { Helmet } from "react-helmet-async";
 
 interface Props {
+  slug: string;
   title: string;
   description: string;
   image?: string;
 }
 
-const SeoElement = ({ title, description, image }: Props) => {
+const SeoElement = ({ slug, title, description, image }: Props) => {
   return (
     <Helmet>
       <title>{title}</title>
@@ -17,6 +18,10 @@ const SeoElement = ({ title, description, image }: Props) => {
       />
       <meta name="author" content="Slovenský zväz záhradkárov" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link
+        rel="canonical"
+        href={`${import.meta.env.VITE_API_URL_DOMAIN}/${slug}`}
+      />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
 

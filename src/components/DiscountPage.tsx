@@ -36,6 +36,7 @@ const DiscountPage = () => {
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
       <SeoElement
+        slug="zlavy"
         title="Zľavy pre členov"
         description="V priloženom dokumente nájdete možnosti využitia zliav."
       />

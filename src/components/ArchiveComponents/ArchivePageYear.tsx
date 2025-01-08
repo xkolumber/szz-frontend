@@ -52,6 +52,7 @@ const ArchivePageYear = () => {
   return (
     <div className="own_edge">
       <SeoElement
+        slug={`archiv/${year}`}
         title={`Archív ${year}`}
         description={`Archív dokumentov za rok ${year}`}
       />

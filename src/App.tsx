@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AboutUs from "./components/AboutUsComponents/AboutUs";
 import ActualityPage from "./components/ActualityPage";
@@ -82,12 +81,10 @@ import ProtectedRoutes from "./components/ProtectedRoute";
 import { NavbarProvider } from "./components/Provider";
 import RecommendPage from "./components/RecommendedComponents/RecommendPage";
 import ScrollToTop from "./components/ScrollToTop";
-import SeoElement from "./components/SeoElement";
 import SpravodajcaPage from "./components/SpravodajcaComponents/SpravodajcaPage";
 import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
 import UsefullLinksPage from "./components/UsefullLinksPage";
-import { replaceS3UrlsWithCloudFront } from "./lib/functionsClient";
 
 interface LayoutProps {
   children: ReactNode;
@@ -109,346 +106,331 @@ function Layout({ children }: LayoutProps) {
 }
 
 function App() {
-  const helmetContext = {};
   return (
-    <HelmetProvider context={helmetContext}>
-      <SeoElement
-        title="Slovenský zväz záhradkárov"
-        description="Slovenský zväz záhradkárov je komunita nadšencov záhradkárstva na Slovensku. Objavte užitočné rady, tipy na pestovanie a zapojte sa do aktivít, ktoré podporujú lásku k prírode a záhradkárstvu."
-        image={replaceS3UrlsWithCloudFront(
-          "https://szzimagesalll.s3.eu-north-1.amazonaws.com/2024/a55a601c-dff3-4dc0-8b6b-6063c9ee166d/1.jpg",
-          "imagesalll"
-        )}
-      />
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <HomePage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/o-nas"
+          element={
+            <Layout>
+              <AboutUs />
+            </Layout>
+          }
+        />
 
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Layout>
-                <HomePage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/o-nas"
-            element={
-              <Layout>
-                <AboutUs />
-              </Layout>
-            }
-          />
+        <Route
+          path="/blog"
+          element={
+            <Layout>
+              <BlogsPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/blog/:slug"
+          element={
+            <Layout>
+              <BlogDetailPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/vystavy-a-podujatia"
+          element={
+            <Layout>
+              <EventsPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/vystavy-a-podujatia/:slug"
+          element={
+            <Layout>
+              <EventDetailPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/galeria"
+          element={
+            <Layout>
+              <GalleryPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/galeria/:id"
+          element={
+            <Layout>
+              <GalleryPageId />
+            </Layout>
+          }
+        />
+        <Route
+          path="/archiv"
+          element={
+            <Layout>
+              <ArchivePage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/spravodajca"
+          element={
+            <Layout>
+              <SpravodajcaPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/gdpr"
+          element={
+            <Layout>
+              <GdprPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/archiv/:year"
+          element={
+            <Layout>
+              <ArchivePageYear />
+            </Layout>
+          }
+        />
+        <Route
+          path="/zvaz"
+          element={
+            <Layout>
+              <UnionPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/zlavy"
+          element={
+            <Layout>
+              <DiscountPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/prednasky"
+          element={
+            <Layout>
+              <LecturesPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/aktuality"
+          element={
+            <Layout>
+              <ActualityPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/mladez"
+          element={
+            <Layout>
+              <ChildrenPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/oznamy"
+          element={
+            <Layout>
+              <AnnPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/oznamy/:slug"
+          element={
+            <Layout>
+              <AnnPageSlug />
+            </Layout>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Layout>
+              <LoginElement />
+            </Layout>
+          }
+        />
 
+        <Route path="/admin" element={<ProtectedRoutes />}>
+          <Route index element={<AdminPage />} />
+          <Route path="hlavicka-odkazy" element={<AdminNavbarData />} />
+          <Route path="hlavicka-odkazy/:id" element={<AdminNavbarDataId />} />
           <Route
-            path="/blog"
-            element={
-              <Layout>
-                <BlogsPage />
-              </Layout>
-            }
+            path="hlavicka-odkazy/novy-odkaz"
+            element={<AdminNavbarDataNewId />}
           />
-          <Route
-            path="/blog/:slug"
-            element={
-              <Layout>
-                <BlogDetailPage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/vystavy-a-podujatia"
-            element={
-              <Layout>
-                <EventsPage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/vystavy-a-podujatia/:slug"
-            element={
-              <Layout>
-                <EventDetailPage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/galeria"
-            element={
-              <Layout>
-                <GalleryPage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/galeria/:id"
-            element={
-              <Layout>
-                <GalleryPageId />
-              </Layout>
-            }
-          />
-          <Route
-            path="/archiv"
-            element={
-              <Layout>
-                <ArchivePage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/spravodajca"
-            element={
-              <Layout>
-                <SpravodajcaPage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/gdpr"
-            element={
-              <Layout>
-                <GdprPage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/archiv/:year"
-            element={
-              <Layout>
-                <ArchivePageYear />
-              </Layout>
-            }
-          />
-          <Route
-            path="/zvaz"
-            element={
-              <Layout>
-                <UnionPage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/zlavy"
-            element={
-              <Layout>
-                <DiscountPage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/prednasky"
-            element={
-              <Layout>
-                <LecturesPage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/aktuality"
-            element={
-              <Layout>
-                <ActualityPage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/mladez"
-            element={
-              <Layout>
-                <ChildrenPage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/oznamy"
-            element={
-              <Layout>
-                <AnnPage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/oznamy/:slug"
-            element={
-              <Layout>
-                <AnnPageSlug />
-              </Layout>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <Layout>
-                <LoginElement />
-              </Layout>
-            }
-          />
+          <Route path="deti-a-mladez" element={<AdminChildren />} />
+          <Route path="o-nas" element={<AdminAboutUs />} />
+          <Route path="zlavy" element={<AdminZlavyPage />} />
+          <Route path="prednasky" element={<AdminPrednasky />} />
+          <Route path="uzitocne-linky" element={<AdminUzitocne />} />
+          <Route path="aktuality" element={<AdminActualityPage />} />
+          <Route path="kontakt" element={<AdminContactPage />} />
 
-          <Route path="/admin" element={<ProtectedRoutes />}>
-            <Route index element={<AdminPage />} />
-            <Route path="hlavicka-odkazy" element={<AdminNavbarData />} />
-            <Route path="hlavicka-odkazy/:id" element={<AdminNavbarDataId />} />
-            <Route
-              path="hlavicka-odkazy/novy-odkaz"
-              element={<AdminNavbarDataNewId />}
-            />
-            <Route path="deti-a-mladez" element={<AdminChildren />} />
-            <Route path="o-nas" element={<AdminAboutUs />} />
-            <Route path="zlavy" element={<AdminZlavyPage />} />
-            <Route path="prednasky" element={<AdminPrednasky />} />
-            <Route path="uzitocne-linky" element={<AdminUzitocne />} />
-            <Route path="aktuality" element={<AdminActualityPage />} />
-            <Route path="kontakt" element={<AdminContactPage />} />
-
-            <Route path="galeria" element={<AdminGalleryPage />} />
-            <Route
-              path="galeria/novy-album"
-              element={<AdminGalleryPageNew />}
-            />
-            <Route path="galeria/:rok/:id" element={<AdminGalleryPageId />} />
-            <Route path="galeria/:rok" element={<AdminGalleryPageYear />} />
-            <Route path="blog" element={<AdminBlogsPage />} />
-            <Route path="blog/:id" element={<AdminBlogPageId />} />
-            <Route path="blog/novy-blog" element={<AdminBlogPageNew />} />
-            <Route path="vystavy-a-podujatia" element={<AdminEventsPage />} />
-            <Route
-              path="vystavy-a-podujatia/:rok"
-              element={<AdminEventsPageYear />}
-            />
-            <Route
-              path="vystavy-a-podujatia/:rok/:id"
-              element={<AdminEventPageId />}
-            />
-            <Route
-              path="vystavy-a-podujatia/nova-udalost"
-              element={<AdminEventPageNew />}
-            />
-            <Route path="aktualne-prace" element={<AdminActualJobs />} />
-            <Route path="aktualne-prace/:id" element={<AdminActualJobId />} />
-
-            <Route path="oznamy" element={<AdminAnnouncementsPage />} />
-            <Route path="oznamy/:id" element={<AdminAnnPageId />} />
-            <Route path="oznamy/novy-oznam" element={<AdminAnnPageNew />} />
-
-            <Route path="zvaz" element={<AdminUnionPage />} />
-            <Route path="zvaz/:id" element={<AdminUnionPageId />} />
-            <Route path="zvaz/novy-dokument" element={<AdminUnionPageNew />} />
-
-            <Route path="/admin/otazky-a-odpovede" element={<AdminFaqPage />} />
-            <Route
-              path="/admin/otazky-a-odpovede/:id"
-              element={<AdminFaqPageId />}
-            />
-            <Route
-              path="/admin/otazky-a-odpovede/nova-otazka"
-              element={<AdminFaqPageNew />}
-            />
-
-            <Route
-              path="aktualne-prace/novy-mesiac"
-              element={<AdminActualJobNewMonth />}
-            />
-
-            <Route path="archiv" element={<AdminArchivePage />} />
-            <Route path="archiv/:rok" element={<AdminArchivePageYear />} />
-            <Route path="archiv/:rok/:id" element={<AdminArchivePageId />} />
-
-            <Route path="sponzori" element={<AdminSponsors />} />
-            <Route path="sponzori/novy-sponzor" element={<AdminSponsorNew />} />
-            <Route path="sponzori/:id" element={<AdminSponsorId />} />
-
-            <Route path="tlaciva" element={<AdminDocs />} />
-            <Route path="tlaciva/nove-tlacivo" element={<AdminDocsNew />} />
-            <Route path="tlaciva/:id" element={<AdminDocsId />} />
-
-            <Route path="poradna" element={<AdminPoradna />} />
-            <Route path="gdpr" element={<AdminGdpr />} />
-            <Route path="novy-dokument" element={<AdminNewFile />} />
-
-            <Route path="spravodajca" element={<AdminSpravodajci />} />
-            <Route
-              path="spravodajca/novy-objekt"
-              element={<AdminSpravodajciNew />}
-            />
-            <Route path="spravodajca/:id" element={<AdminSpravodajciId />} />
-
-            <Route
-              path="archiv/novy-dokument"
-              element={<AdminArchivePageNew />}
-            />
-          </Route>
-
+          <Route path="galeria" element={<AdminGalleryPage />} />
+          <Route path="galeria/novy-album" element={<AdminGalleryPageNew />} />
+          <Route path="galeria/:rok/:id" element={<AdminGalleryPageId />} />
+          <Route path="galeria/:rok" element={<AdminGalleryPageYear />} />
+          <Route path="blog" element={<AdminBlogsPage />} />
+          <Route path="blog/:id" element={<AdminBlogPageId />} />
+          <Route path="blog/novy-blog" element={<AdminBlogPageNew />} />
+          <Route path="vystavy-a-podujatia" element={<AdminEventsPage />} />
           <Route
-            path="/task"
-            element={
-              <Layout>
-                <TaskPage />
-              </Layout>
-            }
+            path="vystavy-a-podujatia/:rok"
+            element={<AdminEventsPageYear />}
           />
           <Route
-            path="/uzitocne-linky"
-            element={
-              <Layout>
-                <UsefullLinksPage />
-              </Layout>
-            }
+            path="vystavy-a-podujatia/:rok/:id"
+            element={<AdminEventPageId />}
           />
           <Route
-            path="/odporucame"
-            element={
-              <Layout>
-                <RecommendPage />
-              </Layout>
-            }
+            path="vystavy-a-podujatia/nova-udalost"
+            element={<AdminEventPageNew />}
+          />
+          <Route path="aktualne-prace" element={<AdminActualJobs />} />
+          <Route path="aktualne-prace/:id" element={<AdminActualJobId />} />
+
+          <Route path="oznamy" element={<AdminAnnouncementsPage />} />
+          <Route path="oznamy/:id" element={<AdminAnnPageId />} />
+          <Route path="oznamy/novy-oznam" element={<AdminAnnPageNew />} />
+
+          <Route path="zvaz" element={<AdminUnionPage />} />
+          <Route path="zvaz/:id" element={<AdminUnionPageId />} />
+          <Route path="zvaz/novy-dokument" element={<AdminUnionPageNew />} />
+
+          <Route path="/admin/otazky-a-odpovede" element={<AdminFaqPage />} />
+          <Route
+            path="/admin/otazky-a-odpovede/:id"
+            element={<AdminFaqPageId />}
+          />
+          <Route
+            path="/admin/otazky-a-odpovede/nova-otazka"
+            element={<AdminFaqPageNew />}
           />
 
           <Route
-            path="/faq"
-            element={
-              <Layout>
-                <FaqPage />
-              </Layout>
-            }
+            path="aktualne-prace/novy-mesiac"
+            element={<AdminActualJobNewMonth />}
           />
+
+          <Route path="archiv" element={<AdminArchivePage />} />
+          <Route path="archiv/:rok" element={<AdminArchivePageYear />} />
+          <Route path="archiv/:rok/:id" element={<AdminArchivePageId />} />
+
+          <Route path="sponzori" element={<AdminSponsors />} />
+          <Route path="sponzori/novy-sponzor" element={<AdminSponsorNew />} />
+          <Route path="sponzori/:id" element={<AdminSponsorId />} />
+
+          <Route path="tlaciva" element={<AdminDocs />} />
+          <Route path="tlaciva/nove-tlacivo" element={<AdminDocsNew />} />
+          <Route path="tlaciva/:id" element={<AdminDocsId />} />
+
+          <Route path="poradna" element={<AdminPoradna />} />
+          <Route path="gdpr" element={<AdminGdpr />} />
+          <Route path="novy-dokument" element={<AdminNewFile />} />
+
+          <Route path="spravodajca" element={<AdminSpravodajci />} />
           <Route
-            path="/poradna"
-            element={
-              <Layout>
-                <PoradnaPage />
-              </Layout>
-            }
+            path="spravodajca/novy-objekt"
+            element={<AdminSpravodajciNew />}
           />
+          <Route path="spravodajca/:id" element={<AdminSpravodajciId />} />
+
           <Route
-            path="/kontakt"
-            element={
-              <Layout>
-                <ContactPage />
-              </Layout>
-            }
+            path="archiv/novy-dokument"
+            element={<AdminArchivePageNew />}
           />
-          <Route
-            path="/tlaciva"
-            element={
-              <Layout>
-                <DocumentsPage />
-              </Layout>
-            }
-          />
-          <Route
-            path="*"
-            element={
-              <Layout>
-                <NotFound />
-              </Layout>
-            }
-          />
-        </Routes>
-        <CookieComponent />
-      </BrowserRouter>
-    </HelmetProvider>
+        </Route>
+
+        <Route
+          path="/task"
+          element={
+            <Layout>
+              <TaskPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/uzitocne-linky"
+          element={
+            <Layout>
+              <UsefullLinksPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/odporucame"
+          element={
+            <Layout>
+              <RecommendPage />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/faq"
+          element={
+            <Layout>
+              <FaqPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/poradna"
+          element={
+            <Layout>
+              <PoradnaPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/kontakt"
+          element={
+            <Layout>
+              <ContactPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/tlaciva"
+          element={
+            <Layout>
+              <DocumentsPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <Layout>
+              <NotFound />
+            </Layout>
+          }
+        />
+      </Routes>
+      <CookieComponent />
+    </BrowserRouter>
   );
 }
 

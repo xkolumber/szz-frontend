@@ -53,6 +53,7 @@ const DocumentsPage = () => {
     <div className="own_edge">
       <div className="main_section !pt-8 min-h-screen ">
         <SeoElement
+          slug="tlaciva"
           title="Tlačivá na stiahnutie"
           description="Dôležité tlačivá na stiahnutie"
         />

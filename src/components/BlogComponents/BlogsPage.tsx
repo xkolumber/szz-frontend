@@ -59,6 +59,7 @@ const BlogsPage = () => {
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
       <SeoElement
+        slug="blog"
         title={`Záhradkársky blog`}
         description={`Vitajte na našom záhradkárskom blogu, kde nájdete tipy, triky a inšpiráciu pre vašu záhradu. Objavte užitočné rady na pestovanie rastlín, starostlivosť o záhradu a mnoho ďalších praktických informácií pre záhradkárov.`}
       />

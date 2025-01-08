@@ -4,6 +4,7 @@ import AttachedFiles from "../AttachedFiles";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import IconCloseButtonBlack from "../Icons/IconCloseButtonBlack";
 import SeoElement from "../SeoElement";
+import { replaceS3UrlsWithCloudFront } from "../../lib/functionsClient";
 
 interface Props {
   data: Spravodajca[];
@@ -23,8 +24,9 @@ const SpravodajcaPageComponent = ({ data }: Props) => {
   return (
     <div className="main_section !pt-8">
       <SeoElement
+        slug="spravodajca"
         title="Spravodajca"
-        description="Zoznam vydaní časopisu Spravodajca"
+        description="Zoznam vydaní časopisov Spravodajca"
       />
 
       <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
@@ -38,7 +40,7 @@ const SpravodajcaPageComponent = ({ data }: Props) => {
               onClick={() => setClickedObject(object)}
             >
               <img
-                src={object.foto}
+                src={replaceS3UrlsWithCloudFront(object.foto, "blogphoto")}
                 width={400}
                 height={400}
                 className="cursor-pointer h-[350px] object-cover"

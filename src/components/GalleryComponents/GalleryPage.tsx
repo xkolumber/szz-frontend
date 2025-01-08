@@ -112,6 +112,7 @@ const GalleryPage = () => {
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
       <SeoElement
+        slug={`galeria`}
         title="Galéria"
         description="Nahliadnite na zoznam našich galérii."
       />

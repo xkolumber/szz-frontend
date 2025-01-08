@@ -72,6 +72,7 @@ const BlogDetailPage = () => {
         {blogData && (
           <>
             <SeoElement
+              slug={`blog/${blogData.slug}`}
               title={blogData.nazov_blog}
               description={stripHtmlTags(blogData.popis1)}
               image={replaceS3UrlsWithCloudFront(

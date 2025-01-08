@@ -115,6 +115,7 @@ const EventDetailPage = () => {
         {data ? (
           <>
             <SeoElement
+              slug={`vystavy-a-podujatia/${data.slug}`}
               title={data.nazov_vystavy}
               description={`"Radi by sme Vás pozvali na zaujímavú udalosť, ktorá sa bude konať dňa ${data.datum_den}.${data.datum_mesiac}.${data.datum_rok}, kde sa môžete tešiť na nezabudnuteľný zážitok a množstvo inšpirácie."`}
               image={replaceS3UrlsWithCloudFront(

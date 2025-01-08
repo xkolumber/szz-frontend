@@ -36,6 +36,7 @@ const DiscountPage = () => {
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
       <SeoElement
+        slug={`prednasky`}
         title="Prednášky"
         description="Praktické vzdelávanie záhradkárov."
       />

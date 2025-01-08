@@ -48,6 +48,7 @@ const FaqPage = () => {
   return (
     <div className="own_edge ">
       <SeoElement
+        slug={`faq`}
         title="Najčastejšie kladené otázky"
         description="Tu nájdete odpovede na najčastejšie kladené otázky"
       />

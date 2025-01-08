@@ -37,6 +37,7 @@ const PoradnaPage = () => {
     <div className="own_edge min-h-screen relative overflow-hidden">
       <div className="main_section !pt-8">
         <SeoElement
+          slug="poradna"
           title="Poradne"
           description="Služby všetkých poradní sú určené pre členov szz s vyrovnanými záväzkami zdarma."
         />
