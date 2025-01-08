@@ -42,7 +42,6 @@ const LoginElement = () => {
       if (result.isAdmin) {
         navigate("/admin");
       }
-      console.log(result);
     } catch (err) {
       toast.error("Meno alebo heslo sú nesprávne");
       console.log(err);
