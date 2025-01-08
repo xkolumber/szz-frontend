@@ -4,6 +4,11 @@ import { ClipLoader } from "react-spinners";
 import { fetchAnnouncementSlug } from "../../lib/functions";
 import { Oznamy } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
+import {
+  replaceS3UrlsWithCloudFront,
+  stripHtmlTags,
+} from "../../lib/functionsClient";
+import SeoElement from "../SeoElement";
 
 const AnnPageSlug = () => {
   const queryClient = useQueryClient();
@@ -57,6 +62,12 @@ const AnnPageSlug = () => {
         <ButtonWithArrowLeft title="Späť na oznamy" link={`/oznamy`} />
         {elementData && (
           <>
+            <SeoElement
+              slug={`oznamy/${elementData.slug}`}
+              title={elementData.nazov}
+              description={stripHtmlTags(elementData.text1)}
+              image={replaceS3UrlsWithCloudFront(elementData.foto, "blogphoto")}
+            />
             <div className="flex items-center flex-col">
               <h1 className="pt-8 pb-4 text-center">{elementData?.nazov}</h1>
               <div className="flex flex-row gap-6  ">
@@ -64,7 +75,7 @@ const AnnPageSlug = () => {
               </div>
             </div>
 
-            <div className="max-w-[900px] m-auto mt-8 xl:mt-[80px]">
+            <div className="max-w-[900px] m-auto mt-4 xl:mt-[60px]">
               {elementData.text1 && (
                 <div
                   className="content  "
@@ -73,10 +84,13 @@ const AnnPageSlug = () => {
               )}
               {elementData.foto && (
                 <img
-                  src={elementData.foto}
+                  src={replaceS3UrlsWithCloudFront(
+                    elementData.foto,
+                    "blogphoto"
+                  )}
                   width={900}
                   height={900}
-                  className="rounded-[16px] w-full max-w-[1080px] max-h-[459px] object-cover mt-8"
+                  className="rounded-[16px] w-full max-w-[1080px] max-h-[459px] object-contain mt-8"
                 />
               )}
             </div>

@@ -6,6 +6,7 @@ import { Oznamy } from "../../lib/interface";
 import ButtonWithArrowLeft from "../ButtonWithArrowLeft";
 import { useState } from "react";
 import IconArrow from "../Icons/IconArrow";
+import SeoElement from "../SeoElement";
 
 const AnnPage = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -39,6 +40,11 @@ const AnnPage = () => {
   return (
     <div className="own_edge min-h-[500px] relative overflow-hidden">
       <div className="main_section !pt-8">
+        <SeoElement
+          slug="oznamy"
+          title={`Oznamy`}
+          description={`V tejto sekcii zverejňujeme aktuálne oznamy.`}
+        />
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
         <h2 className="uppercase text-center pt-8 pb-4">Oznamy</h2>
         {existingElements && existingElements.length > 0 ? (
