@@ -39,8 +39,11 @@ const LoginElement = () => {
       );
 
       const result = await response.json();
+
       if (result.isAdmin) {
         navigate("/admin");
+      } else {
+        toast.error("Meno alebo heslo sú nesprávne");
       }
     } catch (err) {
       toast.error("Meno alebo heslo sú nesprávne");
