@@ -18,7 +18,6 @@ const AdminNavbarDataIdComponent = ({ data, onDataUpdated }: Props) => {
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [actualizeData, setActualizeData] = useState<NavbarInfoData>(data);
 
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const handleChange = (
@@ -50,8 +49,8 @@ const AdminNavbarDataIdComponent = ({ data, onDataUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
             nazov: actualizeData.nazov,
@@ -91,8 +90,8 @@ const AdminNavbarDataIdComponent = ({ data, onDataUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
           }),

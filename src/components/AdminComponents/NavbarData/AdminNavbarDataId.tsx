@@ -5,11 +5,9 @@ import {
   fetchNavbarDataToken,
 } from "../../../lib/functions";
 import { NavbarInfoData } from "../../../lib/interface";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminNavbarDataIdComponent from "./AdminNavbarDataIdComponent";
 
 const AdminNavbarDataId = () => {
-  const token = localStorage.getItem("token");
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
 
@@ -30,7 +28,7 @@ const AdminNavbarDataId = () => {
     status,
   } = useQuery<NavbarInfoData>({
     queryKey: ["admin_navbar", id],
-    queryFn: () => fetchNavbarDataIdToken(token, id),
+    queryFn: () => fetchNavbarDataIdToken(id),
     enabled: !initialElementData,
   });
 
@@ -69,7 +67,7 @@ const AdminNavbarDataId = () => {
     } else {
       const data2: NavbarInfoData[] = await queryClient.fetchQuery({
         queryKey: ["admin_navbar"],
-        queryFn: () => fetchNavbarDataToken(token),
+        queryFn: () => fetchNavbarDataToken(),
       });
 
       const cachedElement = data2.find((object) => object.id === id);
@@ -90,8 +88,6 @@ const AdminNavbarDataId = () => {
           onDataUpdated={revalidateFunction}
         />
       )}
-
-      {data == null && <AdminNotAuthorized />}
     </div>
   );
 };

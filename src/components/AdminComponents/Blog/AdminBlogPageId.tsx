@@ -2,11 +2,9 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { fetchBlogIdToken, fetchBlogsToken } from "../../../lib/functions";
 import { Blog } from "../../../lib/interface";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminBlogPageIdComponent from "./AdminBlogPageIdComponent";
 
 const AdminBlogPageId = () => {
-  const token = localStorage.getItem("token");
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
   const cachedElements =
@@ -26,7 +24,7 @@ const AdminBlogPageId = () => {
     status,
   } = useQuery<Blog>({
     queryKey: ["admin_blogs", id],
-    queryFn: () => fetchBlogIdToken(token, id),
+    queryFn: () => fetchBlogIdToken(id),
     enabled: !initialElementData,
   });
 
@@ -62,7 +60,7 @@ const AdminBlogPageId = () => {
     } else {
       const data2: Blog[] = await queryClient.fetchQuery({
         queryKey: ["admin_blogs"],
-        queryFn: () => fetchBlogsToken(token),
+        queryFn: () => fetchBlogsToken(),
       });
 
       const cachedElement = data2.find((event) => event.id === id);
@@ -80,8 +78,6 @@ const AdminBlogPageId = () => {
           onEventUpdated={revalidateFunction}
         />
       )}
-
-      {data == null && <AdminNotAuthorized />}
     </div>
   );
 };

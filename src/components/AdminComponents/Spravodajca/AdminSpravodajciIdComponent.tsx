@@ -30,8 +30,6 @@ const AdminSpravodajciIdComponent = ({ data, onDataUpdated }: Props) => {
   const [openPopUp, setOpenPopUp] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
 
-  const token = localStorage.getItem("token");
-
   const navigate = useNavigate();
 
   const [actualizeData, setActualizeData] = useState<Spravodajca>(data);
@@ -59,8 +57,8 @@ const AdminSpravodajciIdComponent = ({ data, onDataUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
             foto: actualizeData.foto,
@@ -102,8 +100,8 @@ const AdminSpravodajciIdComponent = ({ data, onDataUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
           }),
@@ -140,9 +138,9 @@ const AdminSpravodajciIdComponent = ({ data, onDataUpdated }: Props) => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
+          withCredentials: true,
         }
       );
 
@@ -239,9 +237,9 @@ const AdminSpravodajciIdComponent = ({ data, onDataUpdated }: Props) => {
           { fileName },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
+            withCredentials: true,
           }
         );
 

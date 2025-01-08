@@ -3,15 +3,13 @@ import { Toaster } from "react-hot-toast";
 import { getAboutUsDataToken } from "../../../lib/functions";
 import { AboutUsPage } from "../../../lib/interface";
 import StepBack from "../../StepBack";
+
 import AdminAboutUsComponent from "./AdminAboutUsComponent";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const AdminAboutUs = () => {
-  const token = localStorage.getItem("token");
-
   const { data, status, isLoading, refetch } = useQuery<AboutUsPage>({
     queryKey: ["admin_about_us"],
-    queryFn: () => getAboutUsDataToken(token),
+    queryFn: () => getAboutUsDataToken(),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -50,7 +48,6 @@ const AdminAboutUs = () => {
           <AdminAboutUsComponent data={data} refetch={refetch} />
         </div>
       )}
-      {data === null && <AdminNotAuthorized />}
     </div>
   );
 };

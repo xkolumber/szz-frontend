@@ -10,7 +10,6 @@ import { uploadFileS3 } from "../../../lib/functions";
 import { ActualJob } from "../../../lib/interface";
 import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const AdminActualJobNewMonth = () => {
   const queryClient = useQueryClient();
@@ -18,8 +17,6 @@ const AdminActualJobNewMonth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
 
-  const [authorized] = useState("ano");
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const [actualizeData, setActualizeData] = useState<ActualJob>({
@@ -71,8 +68,8 @@ const AdminActualJobNewMonth = () => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             mesiac: actualizeData.mesiac,
             mesiac_cislo: actualizeData.mesiac_cislo,
@@ -119,9 +116,9 @@ const AdminActualJobNewMonth = () => {
       { fileName },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       }
     );
 
@@ -147,129 +144,123 @@ const AdminActualJobNewMonth = () => {
 
   return (
     <div>
-      {authorized === "ano" && (
-        <div className=" w-full">
-          <StepBack />
-          <Toaster />
-          <h2>Nový mesiac</h2>
+      <div className=" w-full">
+        <StepBack />
+        <Toaster />
+        <h2>Nový mesiac</h2>
 
-          <form className=" products_admin " onSubmit={handleAddMonth}>
-            <div className="product_admin_row">
-              <p>Mesiac:</p>
+        <form className=" products_admin " onSubmit={handleAddMonth}>
+          <div className="product_admin_row">
+            <p>Mesiac:</p>
+            <input
+              type="text"
+              name="mesiac"
+              onChange={handleChange}
+              className="w-[70%]"
+              maxLength={50}
+              value={actualizeData?.mesiac}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Mesiac v číselnom formáte:</p>
+            <input
+              type="number"
+              name="mesiac_cislo"
+              onChange={handleChange}
+              className="w-[70%]"
+              maxLength={50}
+              value={actualizeData?.mesiac_cislo}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Link PDF:</p>
+            <div className="flex flex-col w-[75%]">
               <input
                 type="text"
-                name="mesiac"
-                onChange={handleChange}
-                className="w-[70%]"
-                maxLength={50}
-                value={actualizeData?.mesiac}
+                name="nazov"
+                onChange={handlePdfChange}
+                className="mb-2"
+                maxLength={1000}
                 required
               />
-            </div>
-            <div className="product_admin_row">
-              <p>Mesiac v číselnom formáte:</p>
               <input
-                type="number"
-                name="mesiac_cislo"
-                onChange={handleChange}
-                className="w-[70%]"
-                maxLength={50}
-                value={actualizeData?.mesiac_cislo}
+                type="text"
+                name="link"
+                onChange={handlePdfChange}
+                className="mb-2"
+                value={actualizeData?.pdf.link}
+                maxLength={1000}
                 required
               />
-            </div>
-            <div className="product_admin_row">
-              <p>Link PDF:</p>
-              <div className="flex flex-col w-[75%]">
-                <input
-                  type="text"
-                  name="nazov"
-                  onChange={handlePdfChange}
-                  className="mb-2"
-                  maxLength={1000}
-                  required
-                />
-                <input
-                  type="text"
-                  name="link"
-                  onChange={handlePdfChange}
-                  className="mb-2"
-                  value={actualizeData?.pdf.link}
-                  maxLength={1000}
-                  required
-                />
-                <div className={dragAreaClasses} {...getRootProps()}>
-                  <input
-                    {...getInputProps()}
-                    className="border border-red-500"
-                  />
-                  <div className="flex flex-col items-center justify-center gap-4">
-                    <IconUpload />
-                    <p className="text-center">Drop files here</p>
-                  </div>
+              <div className={dragAreaClasses} {...getRootProps()}>
+                <input {...getInputProps()} className="border border-red-500" />
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <IconUpload />
+                  <p className="text-center">Drop files here</p>
                 </div>
               </div>
             </div>
-            <div className="product_admin_row">
-              <p>Link na pranostiku: </p>
-              <input
-                type="text"
-                name="link_pranostika"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.link_pranostika}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Text:</p>
-              <input
-                type="text"
-                name="text"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.text}
-                maxLength={250}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Farba mesiacu: '#ffffff' </p>
-              <input
-                type="text"
-                name="farba"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.farba}
-                maxLength={10}
-                required
-              />
-            </div>
-            <div className="flex flex-row justify-between mt-8">
-              <button
-                className={`btn btn--tertiary ${
-                  isLoading && "disabledPrimaryBtn"
-                }`}
-                type="submit"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <ClipLoader
-                    size={20}
-                    color={"#00000"}
-                    loading={true}
-                    className="ml-16 mr-16"
-                  />
-                ) : (
-                  "Aktualizovať"
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
+          </div>
+          <div className="product_admin_row">
+            <p>Link na pranostiku: </p>
+            <input
+              type="text"
+              name="link_pranostika"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.link_pranostika}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Text:</p>
+            <input
+              type="text"
+              name="text"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.text}
+              maxLength={250}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Farba mesiacu: '#ffffff' </p>
+            <input
+              type="text"
+              name="farba"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.farba}
+              maxLength={10}
+              required
+            />
+          </div>
+          <div className="flex flex-row justify-between mt-8">
+            <button
+              className={`btn btn--tertiary ${
+                isLoading && "disabledPrimaryBtn"
+              }`}
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <ClipLoader
+                  size={20}
+                  color={"#00000"}
+                  loading={true}
+                  className="ml-16 mr-16"
+                />
+              ) : (
+                "Aktualizovať"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
 
-      {authorized === "nie" && <AdminNotAuthorized />}
       {dataLoading && (
         <>
           {" "}

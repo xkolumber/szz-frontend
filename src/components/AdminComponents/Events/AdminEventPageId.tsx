@@ -2,11 +2,9 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { fetchEventIdToken, fetchEventsToken } from "../../../lib/functions";
 import { ActualEvent } from "../../../lib/interface";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminEventPageIdComponent from "./AdminEventPageIdComponent";
 
 const AdminEventPageId = () => {
-  const token = localStorage.getItem("token");
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
   const cachedElements =
@@ -26,7 +24,7 @@ const AdminEventPageId = () => {
     status,
   } = useQuery<ActualEvent>({
     queryKey: ["admin_events", id],
-    queryFn: () => fetchEventIdToken(token, id),
+    queryFn: () => fetchEventIdToken(id),
     enabled: !initialElementData,
   });
 
@@ -65,7 +63,7 @@ const AdminEventPageId = () => {
     } else {
       const data2: ActualEvent[] = await queryClient.fetchQuery({
         queryKey: ["admin_events"],
-        queryFn: () => fetchEventsToken(token),
+        queryFn: () => fetchEventsToken(),
       });
 
       const cachedElement = data2.find((object) => object.id === id);
@@ -86,8 +84,6 @@ const AdminEventPageId = () => {
           onDataUpdated={revalidateFunction}
         />
       )}
-
-      {data == null && <AdminNotAuthorized />}
     </div>
   );
 };

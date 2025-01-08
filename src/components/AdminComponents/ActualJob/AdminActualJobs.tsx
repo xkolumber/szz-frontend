@@ -5,13 +5,11 @@ import { ActualJob } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 import AdminDataSkeleton from "../AdminDataSkeleton";
 import AdminErrorStatus from "../AdminErrorStatus";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const AdminActualJobs = () => {
-  const token = localStorage.getItem("token");
   const { data, status, isLoading } = useQuery<ActualJob[]>({
     queryKey: ["admin_jobs"],
-    queryFn: () => fetchActualJobsToken(token),
+    queryFn: () => fetchActualJobsToken(),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -77,7 +75,6 @@ const AdminActualJobs = () => {
           </table>
         </div>
       )}
-      {data === null && <AdminNotAuthorized />}
     </div>
   );
 };

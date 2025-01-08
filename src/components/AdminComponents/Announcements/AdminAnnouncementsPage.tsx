@@ -5,13 +5,11 @@ import { Oznamy } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 import AdminDataSkeleton from "../AdminDataSkeleton";
 import AdminErrorStatus from "../AdminErrorStatus";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const AdminAnnouncementsPage = () => {
-  const token = localStorage.getItem("token");
   const { data, status, isLoading } = useQuery<Oznamy[]>({
     queryKey: ["admin_announcements"],
-    queryFn: () => fetchAnnouncementsToken(token),
+    queryFn: () => fetchAnnouncementsToken(),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -69,8 +67,6 @@ const AdminAnnouncementsPage = () => {
           </table>
         </div>
       )}
-
-      {data === null && <AdminNotAuthorized />}
     </div>
   );
 };

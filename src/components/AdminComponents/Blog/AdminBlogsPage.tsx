@@ -3,16 +3,13 @@ import { Link } from "react-router-dom";
 import { fetchBlogsToken } from "../../../lib/functions";
 import { Blog } from "../../../lib/interface";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminErrorStatus from "../AdminErrorStatus";
 import AdminDataSkeleton from "../AdminDataSkeleton";
 
 const AdminBlogsPage = () => {
-  const token = localStorage.getItem("token");
-
   const { data, status, isLoading } = useQuery<Blog[]>({
     queryKey: ["admin_blogs"],
-    queryFn: () => fetchBlogsToken(token),
+    queryFn: () => fetchBlogsToken(),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -73,8 +70,6 @@ const AdminBlogsPage = () => {
           </table>
         </div>
       )}
-
-      {data === null && <AdminNotAuthorized />}
     </div>
   );
 };

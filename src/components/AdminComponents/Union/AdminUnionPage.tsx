@@ -3,16 +3,14 @@ import { Link } from "react-router-dom";
 import { fetchUnionDataToken } from "../../../lib/functions";
 import { UnionData } from "../../../lib/interface";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
+
 import AdminDataSkeleton from "../AdminDataSkeleton";
 import AdminErrorStatus from "../AdminErrorStatus";
 
 const AdminUnionPage = () => {
-  const token = localStorage.getItem("token");
-
   const { data, status, isLoading } = useQuery<UnionData[]>({
     queryKey: ["admin_union"],
-    queryFn: () => fetchUnionDataToken(token),
+    queryFn: () => fetchUnionDataToken(),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -70,8 +68,6 @@ const AdminUnionPage = () => {
             </tbody>
           </table>
         )}
-
-        {data === null && <AdminNotAuthorized />}
       </div>
     </div>
   );

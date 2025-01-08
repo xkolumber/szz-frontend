@@ -5,11 +5,9 @@ import {
   fetchAnnouncementsToken,
 } from "../../../lib/functions";
 import { Oznamy } from "../../../lib/interface";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminAnnPageIdComponent from "./AdminAnnPageIdComponent";
 
 const AdminAnnPageId = () => {
-  const token = localStorage.getItem("token");
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
   const cachedElements =
@@ -29,7 +27,7 @@ const AdminAnnPageId = () => {
     status,
   } = useQuery<Oznamy>({
     queryKey: ["admin_announcements", id],
-    queryFn: () => fetchAnnouncementIdToken(token, id),
+    queryFn: () => fetchAnnouncementIdToken(id),
     enabled: !initialElementData,
   });
 
@@ -68,7 +66,7 @@ const AdminAnnPageId = () => {
     } else {
       const data2: Oznamy[] = await queryClient.fetchQuery({
         queryKey: ["admin_announcements"],
-        queryFn: () => fetchAnnouncementsToken(token),
+        queryFn: () => fetchAnnouncementsToken(),
       });
 
       const cachedElement = data2.find((event) => event.id === id);
@@ -89,8 +87,6 @@ const AdminAnnPageId = () => {
           onEventUpdated={revalidateFunction}
         />
       )}
-
-      {data == null && <AdminNotAuthorized />}
     </div>
   );
 };

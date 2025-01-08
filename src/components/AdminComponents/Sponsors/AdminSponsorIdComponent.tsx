@@ -22,7 +22,6 @@ const AdminSponsorIdComponent = ({ data, onDataUpdated }: Props) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
-  const token = localStorage.getItem("token");
   const [clickedPhoto, setClickedPhoto] = useState("");
   const [openPopUp, setOpenPopUp] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
@@ -55,8 +54,8 @@ const AdminSponsorIdComponent = ({ data, onDataUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
             link: actualizeData.link,
@@ -95,8 +94,8 @@ const AdminSponsorIdComponent = ({ data, onDataUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
           }),
@@ -148,9 +147,9 @@ const AdminSponsorIdComponent = ({ data, onDataUpdated }: Props) => {
           { fileName },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
+            withCredentials: true,
           }
         );
 

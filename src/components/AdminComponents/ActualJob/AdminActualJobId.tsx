@@ -5,11 +5,10 @@ import {
   fetchActualJobsToken,
 } from "../../../lib/functions";
 import { ActualJob } from "../../../lib/interface";
-import AdminNotAuthorized from "../AdminNotAuthorized";
+
 import AdminActualJobIdComponent from "./AdminActualJobIdComponent";
 
 const AdminActualJobId = () => {
-  const token = localStorage.getItem("token");
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
   const cachedElements =
@@ -29,7 +28,7 @@ const AdminActualJobId = () => {
     status,
   } = useQuery<ActualJob>({
     queryKey: ["admin_jobs", id],
-    queryFn: () => fetchActualJobIdToken(token, id),
+    queryFn: () => fetchActualJobIdToken(id),
     enabled: !initialElementData,
   });
 
@@ -68,7 +67,7 @@ const AdminActualJobId = () => {
     } else {
       const data2: ActualJob[] = await queryClient.fetchQuery({
         queryKey: ["admin_jobs"],
-        queryFn: () => fetchActualJobsToken(token),
+        queryFn: () => fetchActualJobsToken(),
       });
 
       const cachedElement = data2.find((event) => event.id === id);
@@ -89,8 +88,6 @@ const AdminActualJobId = () => {
           onDataUpdated={revalidateFunction}
         />
       )}
-
-      {data == null && <AdminNotAuthorized />}
     </div>
   );
 };

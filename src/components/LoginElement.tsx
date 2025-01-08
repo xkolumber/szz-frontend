@@ -1,9 +1,8 @@
-"use client";
-
 import { useState } from "react";
 
 import toast, { Toaster } from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
 
 const LoginElement = () => {
   const [data, setData] = useState({
@@ -12,19 +11,26 @@ const LoginElement = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleLogin = async (e: any) => {
-    setIsLoading(true);
     e.preventDefault();
+    setIsLoading(true);
 
     try {
+      if (data.username === "" || data.password === "") {
+        toast.error("Please provide both username and password");
+        return;
+      }
+
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/admin/signin`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Accept: "application/json",
           },
+          credentials: "include",
           body: JSON.stringify({
             username: data.username,
             password: data.password,
@@ -32,18 +38,17 @@ const LoginElement = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+      const result = await response.json();
+      if (result.isAdmin) {
+        navigate("/admin");
       }
-
-      const responseData = await response.json();
-      localStorage.setItem("token", responseData.token);
-      window.location.reload();
+      console.log(result);
     } catch (err) {
       toast.error("Meno alebo heslo sú nesprávne");
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (

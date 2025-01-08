@@ -12,8 +12,6 @@ interface Props {
 }
 
 const AdminPrednaskyComponent = ({ data, refetch }: Props) => {
-  const token = localStorage.getItem("token");
-
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
 
@@ -37,8 +35,8 @@ const AdminPrednaskyComponent = ({ data, refetch }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
             text1: actualizeData.text1,
@@ -136,9 +134,9 @@ const AdminPrednaskyComponent = ({ data, refetch }: Props) => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
+          withCredentials: true,
         }
       );
 

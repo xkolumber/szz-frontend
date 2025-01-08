@@ -9,7 +9,7 @@ import { ClipLoader } from "react-spinners";
 import { Sponsor } from "../../../lib/interface";
 import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
+
 import { CompressImage, uploadFileS3 } from "../../../lib/functions";
 import { replaceS3UrlsWithCloudFront } from "../../../lib/functionsClient";
 
@@ -21,8 +21,6 @@ const AdminSponsorNew = () => {
   const [clickedPhoto, setClickedPhoto] = useState("");
   const [openPopUp, setOpenPopUp] = useState(false);
 
-  const [authorized] = useState("ano");
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const popupRef = useRef<HTMLDivElement>(null);
 
@@ -61,8 +59,8 @@ const AdminSponsorNew = () => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             link: actualizeData.link,
             logo: actualizeData.logo,
@@ -116,9 +114,9 @@ const AdminSponsorNew = () => {
           { fileName },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
+            withCredentials: true,
           }
         );
 
@@ -187,97 +185,94 @@ const AdminSponsorNew = () => {
 
   return (
     <div>
-      {authorized === "ano" && (
-        <div className=" w-full">
-          <StepBack />
-          <Toaster />
-          <h2>Nový sponzor</h2>
+      <div className=" w-full">
+        <StepBack />
+        <Toaster />
+        <h2>Nový sponzor</h2>
 
-          <form className=" products_admin " onSubmit={handleAddSponsor}>
-            <div className="product_admin_row">
-              <p>Názov:</p>
-              <input
-                type="text"
-                name="nazov"
-                onChange={handleChange}
-                className="w-[70%]"
-                maxLength={50}
-                value={actualizeData?.nazov}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Logo:</p>
-              <div className="flex flex-col w-[75%]">
-                {actualizeData.logo && (
-                  <img
-                    width={120}
-                    height={120}
-                    src={replaceS3UrlsWithCloudFront(
-                      actualizeData.logo,
-                      "imagesalll"
-                    )}
-                    className="mt-4 mb-4 cursor-pointer"
-                    onClick={() =>
-                      handleShowBiggerIamge(
-                        replaceS3UrlsWithCloudFront(
-                          actualizeData.logo,
-                          "imagesalll"
-                        )
+        <form className=" products_admin " onSubmit={handleAddSponsor}>
+          <div className="product_admin_row">
+            <p>Názov:</p>
+            <input
+              type="text"
+              name="nazov"
+              onChange={handleChange}
+              className="w-[70%]"
+              maxLength={50}
+              value={actualizeData?.nazov}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Logo:</p>
+            <div className="flex flex-col w-[75%]">
+              {actualizeData.logo && (
+                <img
+                  width={120}
+                  height={120}
+                  src={replaceS3UrlsWithCloudFront(
+                    actualizeData.logo,
+                    "imagesalll"
+                  )}
+                  className="mt-4 mb-4 cursor-pointer"
+                  onClick={() =>
+                    handleShowBiggerIamge(
+                      replaceS3UrlsWithCloudFront(
+                        actualizeData.logo,
+                        "imagesalll"
                       )
-                    }
-                  />
-                )}
-                <div className={dragAreaClasses} {...getPhoto1RootProps()}>
-                  <input
-                    {...getPhoto1InputProps()}
-                    className="border border-red-500"
-                  />
-                  <div className="flex flex-col items-center justify-center gap-4">
-                    <IconUpload />
-                    <p className="text-center">Drop files here</p>
-                  </div>
+                    )
+                  }
+                />
+              )}
+              <div className={dragAreaClasses} {...getPhoto1RootProps()}>
+                <input
+                  {...getPhoto1InputProps()}
+                  className="border border-red-500"
+                />
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <IconUpload />
+                  <p className="text-center">Drop files here</p>
                 </div>
               </div>
             </div>
-            <div className="product_admin_row">
-              <p>Link:</p>
-              <input
-                type="text"
-                name="link"
-                onChange={handleChange}
-                className="w-[70%]"
-                maxLength={50}
-                value={actualizeData?.link}
-                required
-              />
-            </div>
+          </div>
+          <div className="product_admin_row">
+            <p>Link:</p>
+            <input
+              type="text"
+              name="link"
+              onChange={handleChange}
+              className="w-[70%]"
+              maxLength={50}
+              value={actualizeData?.link}
+              required
+            />
+          </div>
 
-            <div className="flex flex-row justify-between mt-8">
-              <button
-                className={`btn btn--tertiary ${
-                  isLoading && "disabledPrimaryBtn"
-                }`}
-                type="submit"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <ClipLoader
-                    size={20}
-                    color={"#00000"}
-                    loading={true}
-                    className="ml-16 mr-16"
-                  />
-                ) : (
-                  "Aktualizovať"
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
+          <div className="flex flex-row justify-between mt-8">
+            <button
+              className={`btn btn--tertiary ${
+                isLoading && "disabledPrimaryBtn"
+              }`}
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <ClipLoader
+                  size={20}
+                  color={"#00000"}
+                  loading={true}
+                  className="ml-16 mr-16"
+                />
+              ) : (
+                "Aktualizovať"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
 
-      {authorized === "nie" && <AdminNotAuthorized />}
       {dataLoading && (
         <>
           {" "}

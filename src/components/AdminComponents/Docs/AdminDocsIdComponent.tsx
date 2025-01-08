@@ -20,8 +20,6 @@ const AdminDocsIdComponent = ({ data, onDataUpdated }: Props) => {
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
 
-  const token = localStorage.getItem("token");
-
   const navigate = useNavigate();
 
   const [actualizeData, setActualizeData] = useState<Tlacivo>(data);
@@ -49,8 +47,9 @@ const AdminDocsIdComponent = ({ data, onDataUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
+
           body: JSON.stringify({
             id: data?.id,
             link: actualizeData.link,
@@ -87,8 +86,9 @@ const AdminDocsIdComponent = ({ data, onDataUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
+
           body: JSON.stringify({
             id: data?.id,
           }),
@@ -130,9 +130,9 @@ const AdminDocsIdComponent = ({ data, onDataUpdated }: Props) => {
         jsonData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       );
 

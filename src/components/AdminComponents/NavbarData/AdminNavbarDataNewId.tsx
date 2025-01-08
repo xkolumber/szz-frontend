@@ -4,15 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { NavbarInfoData } from "../../../lib/interface";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
+
 import { useQueryClient } from "@tanstack/react-query";
 
 const AdminNavbarDataNewId = () => {
   const queryClient = useQueryClient();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [authorized] = useState("ano");
-  const token = localStorage.getItem("token");
+
   const navigate = useNavigate();
 
   const [actualizeData, setActualizeData] = useState<NavbarInfoData>({
@@ -52,8 +51,8 @@ const AdminNavbarDataNewId = () => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             nazov: actualizeData.nazov,
             link: actualizeData.link,
@@ -82,80 +81,76 @@ const AdminNavbarDataNewId = () => {
 
   return (
     <div>
-      {authorized === "ano" && (
-        <div className=" w-full">
-          <StepBack />
-          <Toaster />
-          <h2>Nový odkaz</h2>
+      <div className=" w-full">
+        <StepBack />
+        <Toaster />
+        <h2>Nový odkaz</h2>
 
-          <form className=" products_admin " onSubmit={handleAddNavbarData}>
-            <div className="product_admin_row">
-              <p>Názov:</p>
-              <input
-                type="text"
-                name="nazov"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.nazov}
-                required
+        <form className=" products_admin " onSubmit={handleAddNavbarData}>
+          <div className="product_admin_row">
+            <p>Názov:</p>
+            <input
+              type="text"
+              name="nazov"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.nazov}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Link: napr. /spravodajca</p>
+            <input
+              type="text"
+              name="link"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.link}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Poradie:</p>
+            <input
+              type="number"
+              name="poradie"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.poradie}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Typ odkazu: 'pdf' alebo 'link'</p>
+            <input
+              type="text"
+              name="typ"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.typ}
+              required
+            />
+          </div>
+          <button
+            className={`btn btn--tertiary !mt-4 ${
+              isLoading && "disabledPrimaryBtn"
+            }`}
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <ClipLoader
+                size={20}
+                color={"#00000"}
+                loading={true}
+                className="ml-16 mr-16"
               />
-            </div>
-            <div className="product_admin_row">
-              <p>Link: napr. /spravodajca</p>
-              <input
-                type="text"
-                name="link"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.link}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Poradie:</p>
-              <input
-                type="number"
-                name="poradie"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.poradie}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Typ odkazu: 'pdf' alebo 'link'</p>
-              <input
-                type="text"
-                name="typ"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.typ}
-                required
-              />
-            </div>
-            <button
-              className={`btn btn--tertiary !mt-4 ${
-                isLoading && "disabledPrimaryBtn"
-              }`}
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <ClipLoader
-                  size={20}
-                  color={"#00000"}
-                  loading={true}
-                  className="ml-16 mr-16"
-                />
-              ) : (
-                "Aktualizovať"
-              )}
-            </button>
-          </form>
-        </div>
-      )}
-
-      {authorized === "nie" && <AdminNotAuthorized />}
+            ) : (
+              "Aktualizovať"
+            )}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

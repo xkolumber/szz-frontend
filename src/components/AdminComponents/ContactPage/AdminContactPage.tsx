@@ -3,15 +3,13 @@ import { Toaster } from "react-hot-toast";
 import { getContactPageToken } from "../../../lib/functions";
 import { ContactPageInterface } from "../../../lib/interface";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
+
 import AdminContactPageComponent from "./AdminContactPageComponent";
 
 const AdminContactPage = () => {
-  const token = localStorage.getItem("token");
-
   const { data, status, isLoading, refetch } = useQuery<ContactPageInterface>({
     queryKey: ["admin_contact"],
-    queryFn: () => getContactPageToken(token),
+    queryFn: () => getContactPageToken(),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -50,7 +48,6 @@ const AdminContactPage = () => {
           <AdminContactPageComponent data={data} refetch={refetch} />
         </div>
       )}
-      {data === null && <AdminNotAuthorized />}
     </div>
   );
 };

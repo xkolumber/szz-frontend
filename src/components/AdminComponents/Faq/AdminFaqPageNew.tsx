@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { Faq } from "../../../lib/interface";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
+
 import { useQueryClient } from "@tanstack/react-query";
 import Tiptap from "../../TipTapEditor/TipTap";
 
@@ -12,9 +12,7 @@ const AdminFaqPageNew = () => {
   const queryClient = useQueryClient();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [authorized] = useState("ano");
 
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const [actualizeData, setActualizeData] = useState<Faq>({
@@ -48,8 +46,8 @@ const AdminFaqPageNew = () => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             otazka: actualizeData.otazka,
             odpoved: actualizeData.odpoved,
@@ -84,57 +82,53 @@ const AdminFaqPageNew = () => {
 
   return (
     <div>
-      {authorized === "ano" && (
-        <div className=" w-full">
-          <StepBack />
-          <Toaster />
-          <h2>Nová otázka / odpoveď: </h2>
+      <div className=" w-full">
+        <StepBack />
+        <Toaster />
+        <h2>Nová otázka / odpoveď: </h2>
 
-          <form className=" products_admin " onSubmit={handleSaveProduct}>
-            <div className="product_admin_row">
-              <p>Otázka:</p>
-              <input
-                type="text"
-                name="otazka"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.otazka}
-                required
-              />
-            </div>
-            <div className="product_admin_row !flex-col items-start">
-              <p className="text-left">Odpoveď:</p>
-              <Tiptap
-                content={actualizeData.odpoved}
-                onChange={(value) => handleTextChange("odpoved", value)}
-              />
-            </div>
+        <form className=" products_admin " onSubmit={handleSaveProduct}>
+          <div className="product_admin_row">
+            <p>Otázka:</p>
+            <input
+              type="text"
+              name="otazka"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.otazka}
+              required
+            />
+          </div>
+          <div className="product_admin_row !flex-col items-start">
+            <p className="text-left">Odpoveď:</p>
+            <Tiptap
+              content={actualizeData.odpoved}
+              onChange={(value) => handleTextChange("odpoved", value)}
+            />
+          </div>
 
-            <div className="flex flex-row justify-between mt-8">
-              <button
-                className={`btn btn--tertiary ${
-                  isLoading && "disabledPrimaryBtn"
-                }`}
-                type="submit"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <ClipLoader
-                    size={20}
-                    color={"#00000"}
-                    loading={true}
-                    className="ml-16 mr-16"
-                  />
-                ) : (
-                  "Pridať"
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
-
-      {authorized === "nie" && <AdminNotAuthorized />}
+          <div className="flex flex-row justify-between mt-8">
+            <button
+              className={`btn btn--tertiary ${
+                isLoading && "disabledPrimaryBtn"
+              }`}
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <ClipLoader
+                  size={20}
+                  color={"#00000"}
+                  loading={true}
+                  className="ml-16 mr-16"
+                />
+              ) : (
+                "Pridať"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

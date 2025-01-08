@@ -23,7 +23,6 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
 
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const [actualizeData, setActualizeData] = useState<ActualJob>(data);
@@ -67,8 +66,10 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+
+          credentials: "include",
+
           body: JSON.stringify({
             id: data?.id,
             mesiac: actualizeData.mesiac,
@@ -113,8 +114,8 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
           }),
@@ -156,9 +157,9 @@ const AdminActualJobIdComponent = ({ data, onDataUpdated }: Props) => {
       { fileName },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       }
     );
 

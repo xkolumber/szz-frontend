@@ -16,7 +16,6 @@ import { ActualEvent } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const AdminEventPageNew = () => {
   const queryClient = useQueryClient();
@@ -24,8 +23,6 @@ const AdminEventPageNew = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
   const [authorized] = useState("ano");
-
-  const token = localStorage.getItem("token");
 
   const navigate = useNavigate();
 
@@ -121,8 +118,8 @@ const AdminEventPageNew = () => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             link_podujatie: actualizeData.link_podujatie,
             nazov_vystavy: actualizeData.nazov_vystavy,
@@ -203,9 +200,9 @@ const AdminEventPageNew = () => {
         { fileName },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       );
 
@@ -285,9 +282,9 @@ const AdminEventPageNew = () => {
             { fileName },
             {
               headers: {
-                Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
               },
+              withCredentials: true,
             }
           );
 
@@ -340,9 +337,9 @@ const AdminEventPageNew = () => {
           { fileName },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
+            withCredentials: true,
           }
         );
 
@@ -656,8 +653,6 @@ const AdminEventPageNew = () => {
           </form>
         </div>
       )}
-
-      {authorized === "nie" && <AdminNotAuthorized />}
 
       {dataLoading && (
         <>

@@ -15,7 +15,6 @@ import {
 import { Oznamy } from "../../../lib/interface";
 import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import Tiptap from "../../TipTapEditor/TipTap";
 
 const AdminAnnPageNew = () => {
@@ -25,7 +24,6 @@ const AdminAnnPageNew = () => {
   const [dataLoading, setDataLoading] = useState(false);
 
   const [authorized] = useState("ano");
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const [actualizeData, setActualizeData] = useState<Oznamy>({
@@ -68,8 +66,8 @@ const AdminAnnPageNew = () => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             viditelnost: actualizeData.viditelnost,
             text1: actualizeData.text1,
@@ -127,9 +125,9 @@ const AdminAnnPageNew = () => {
           { fileName },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
+            withCredentials: true,
           }
         );
 
@@ -290,8 +288,6 @@ const AdminAnnPageNew = () => {
           </form>
         </div>
       )}
-
-      {authorized === "nie" && <AdminNotAuthorized />}
 
       {dataLoading && (
         <>

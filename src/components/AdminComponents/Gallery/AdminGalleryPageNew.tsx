@@ -10,7 +10,7 @@ import {
 import { Gallery } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
+
 import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { CompressImage } from "../../../lib/functions";
@@ -23,8 +23,6 @@ const AdminGalleryPageNew = () => {
   const [clickedPhoto, setClickedPhoto] = useState("");
   const [openPopUp, setOpenPopUp] = useState(false);
 
-  const [authorized] = useState("ano");
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const [actualizeData, setActualizeData] = useState<Gallery>({
@@ -90,8 +88,8 @@ const AdminGalleryPageNew = () => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             nazov: actualizeData.nazov,
             datum: actualizeData.datum,
@@ -182,9 +180,9 @@ const AdminGalleryPageNew = () => {
             formData,
             {
               headers: {
-                Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data",
               },
+              withCredentials: true,
             }
           );
 
@@ -227,127 +225,123 @@ const AdminGalleryPageNew = () => {
 
   return (
     <div>
-      {authorized === "ano" && (
-        <div className=" w-full">
-          <StepBack />
-          <Toaster />
-          <h2>Nový album: </h2>
+      <div className=" w-full">
+        <StepBack />
+        <Toaster />
+        <h2>Nový album: </h2>
 
-          <form className=" products_admin " onSubmit={handleSaveProduct}>
-            <div className="product_admin_row">
-              <p>Názov galérie:</p>
-              <input
-                type="text"
-                name="nazov"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.nazov}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Dátum:</p>
-              <input
-                type="text"
-                name="datum"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.datum}
-                required
-              />
-            </div>
+        <form className=" products_admin " onSubmit={handleSaveProduct}>
+          <div className="product_admin_row">
+            <p>Názov galérie:</p>
+            <input
+              type="text"
+              name="nazov"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.nazov}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Dátum:</p>
+            <input
+              type="text"
+              name="datum"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.datum}
+              required
+            />
+          </div>
 
-            <div className="product_admin_row">
-              <p>Rok:</p>
-              <input
-                type="text"
-                name="rok"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.rok}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Link albumu:</p>
-              <input
-                type="text"
-                name="link_album"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.link_album}
-                placeholder="akýkoľvek link / Youtube alebo link google album"
-              />
-            </div>
+          <div className="product_admin_row">
+            <p>Rok:</p>
+            <input
+              type="text"
+              name="rok"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.rok}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Link albumu:</p>
+            <input
+              type="text"
+              name="link_album"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.link_album}
+              placeholder="akýkoľvek link / Youtube alebo link google album"
+            />
+          </div>
 
-            <div className="product_admin_row">
-              <p>Fotky:</p>
-              <div className="flex flex-col">
-                {actualizeData.fotky.map((object, index) => (
-                  <div className="flex flex-row gap-4 items-center" key={index}>
-                    {object != "" && (
-                      <img
-                        width={70}
-                        height={70}
-                        src={replaceS3UrlsWithCloudFront(object, "imagesalll")}
-                        className="h-[70px] object-cover rounded-[16px] cursor-pointer"
-                        style={{ imageRendering: "pixelated" }}
-                        onClick={() =>
-                          handleShowBiggerIamge(
-                            replaceS3UrlsWithCloudFront(object, "imagesalll")
-                          )
-                        }
-                      />
-                    )}
-
-                    <input
-                      key={index}
-                      type="text"
-                      name={`fotky${index}`}
-                      value={object}
-                      onChange={(e) => handleChangeItemArray("fotky", index, e)}
-                      className="md:!w-[450px] mt-2"
+          <div className="product_admin_row">
+            <p>Fotky:</p>
+            <div className="flex flex-col">
+              {actualizeData.fotky.map((object, index) => (
+                <div className="flex flex-row gap-4 items-center" key={index}>
+                  {object != "" && (
+                    <img
+                      width={70}
+                      height={70}
+                      src={replaceS3UrlsWithCloudFront(object, "imagesalll")}
+                      className="h-[70px] object-cover rounded-[16px] cursor-pointer"
+                      style={{ imageRendering: "pixelated" }}
+                      onClick={() =>
+                        handleShowBiggerIamge(
+                          replaceS3UrlsWithCloudFront(object, "imagesalll")
+                        )
+                      }
                     />
-                    <div className="" onClick={() => handleDeletePhoto(object)}>
-                      <IconTrash />
-                    </div>
-                  </div>
-                ))}
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => handleUploadPhotos(e)}
-                  className="mt-6"
-                  multiple
-                />
-              </div>
-            </div>
+                  )}
 
-            <div className="flex flex-row justify-between mt-8">
-              <button
-                className={`btn btn--tertiary ${
-                  (isLoading || dataLoading) && "disabledPrimaryBtn"
-                }`}
-                type="submit"
-                disabled={isLoading || dataLoading}
-              >
-                {isLoading ? (
-                  <ClipLoader
-                    size={20}
-                    color={"#00000"}
-                    loading={true}
-                    className="ml-16 mr-16"
+                  <input
+                    key={index}
+                    type="text"
+                    name={`fotky${index}`}
+                    value={object}
+                    onChange={(e) => handleChangeItemArray("fotky", index, e)}
+                    className="md:!w-[450px] mt-2"
                   />
-                ) : (
-                  "Pridať"
-                )}
-              </button>
+                  <div className="" onClick={() => handleDeletePhoto(object)}>
+                    <IconTrash />
+                  </div>
+                </div>
+              ))}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleUploadPhotos(e)}
+                className="mt-6"
+                multiple
+              />
             </div>
-          </form>
-        </div>
-      )}
+          </div>
 
-      {authorized === "nie" && <AdminNotAuthorized />}
+          <div className="flex flex-row justify-between mt-8">
+            <button
+              className={`btn btn--tertiary ${
+                (isLoading || dataLoading) && "disabledPrimaryBtn"
+              }`}
+              type="submit"
+              disabled={isLoading || dataLoading}
+            >
+              {isLoading ? (
+                <ClipLoader
+                  size={20}
+                  color={"#00000"}
+                  loading={true}
+                  className="ml-16 mr-16"
+                />
+              ) : (
+                "Pridať"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
 
       {dataLoading && (
         <>

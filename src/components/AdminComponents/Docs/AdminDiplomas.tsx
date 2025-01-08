@@ -13,8 +13,6 @@ interface Props {
 }
 
 const AdminDiplomas = ({ data, refetch }: Props) => {
-  const token = localStorage.getItem("token");
-
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
   const [clickedPhoto, setClickedPhoto] = useState("");
@@ -35,8 +33,8 @@ const AdminDiplomas = ({ data, refetch }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
             fotky: actualizeData.fotky,
@@ -162,9 +160,9 @@ const AdminDiplomas = ({ data, refetch }: Props) => {
             { fileName },
             {
               headers: {
-                Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
               },
+              withCredentials: true,
             }
           );
 

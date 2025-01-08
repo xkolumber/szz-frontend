@@ -5,14 +5,11 @@ import { NavbarInfoData } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 import AdminDataSkeleton from "../AdminDataSkeleton";
 import AdminErrorStatus from "../AdminErrorStatus";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const AdminNavbarData = () => {
-  const token = localStorage.getItem("token");
-
   const { data, status, isLoading } = useQuery<NavbarInfoData[]>({
     queryKey: ["admin_navbar"],
-    queryFn: () => fetchNavbarDataToken(token),
+    queryFn: () => fetchNavbarDataToken(),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -74,8 +71,6 @@ const AdminNavbarData = () => {
           </table>
         </div>
       )}
-
-      {data === null && <AdminNotAuthorized />}
     </div>
   );
 };

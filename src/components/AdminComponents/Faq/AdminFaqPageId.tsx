@@ -2,11 +2,9 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { fetchFaqIdToken, fetchFaqToken } from "../../../lib/functions";
 import { Faq } from "../../../lib/interface";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminFaqPageIdComponent from "./AdminFaqPageIdComponent";
 
 const AdminFaqPageId = () => {
-  const token = localStorage.getItem("token");
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
   const cachedElements = queryClient.getQueryData<Faq[]>(["admin_faq"]) || [];
@@ -22,7 +20,7 @@ const AdminFaqPageId = () => {
     status,
   } = useQuery<Faq>({
     queryKey: ["admin_faq", id],
-    queryFn: () => fetchFaqIdToken(token, id),
+    queryFn: () => fetchFaqIdToken(id),
     enabled: !initialElementData,
   });
 
@@ -57,7 +55,7 @@ const AdminFaqPageId = () => {
     } else {
       const data2: Faq[] = await queryClient.fetchQuery({
         queryKey: ["admin_faq"],
-        queryFn: () => fetchFaqToken(token),
+        queryFn: () => fetchFaqToken(),
       });
 
       const cachedElement = data2.find((object) => object.id === id);
@@ -75,8 +73,6 @@ const AdminFaqPageId = () => {
           onDataUpdated={revalidateFunction}
         />
       )}
-
-      {data == null && <AdminNotAuthorized />}
     </div>
   );
 };

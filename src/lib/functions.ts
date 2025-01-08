@@ -82,11 +82,8 @@ export async function getActualThreeEvents() {
   }
 }
 
-export const getActualEventsYearToken = async (
-  token: string | null,
-  rok: string | undefined
-) => {
-  if (token && rok) {
+export const getActualEventsYearToken = async (rok: string | undefined) => {
+  if (rok) {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/admin/events/geteventsbyyear/${rok}`,
@@ -95,8 +92,8 @@ export const getActualEventsYearToken = async (
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 
@@ -160,11 +157,8 @@ export async function fetchBlogs(limit: number) {
   }
 }
 
-export async function fetchBlogIdToken(
-  token: string | null,
-  id: string | undefined
-) {
-  if (token && id) {
+export async function fetchBlogIdToken(id: string | undefined) {
+  if (id) {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/admin/blogs/getblog/${id}`,
@@ -173,8 +167,8 @@ export async function fetchBlogIdToken(
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 
@@ -195,11 +189,8 @@ export async function fetchBlogIdToken(
   }
 }
 
-export async function fetchEventIdToken(
-  token: string | null,
-  id: string | undefined
-) {
-  if (token && id) {
+export async function fetchEventIdToken(id: string | undefined) {
+  if (id) {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/admin/events/getevent/${id}`,
@@ -208,8 +199,8 @@ export async function fetchEventIdToken(
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 
@@ -258,68 +249,60 @@ export async function getAboutUsData() {
   }
 }
 
-export async function getAboutUsDataToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL
-        }/admin/aboutus/getaboutuspage/sdfg5s4fd5g-asdfasdf-5465`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function getAboutUsDataToken() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/aboutus/getaboutuspage/sdfg5s4fd5g-asdfasdf-5465`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
 
-export async function fetchBlogsToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/blogs/getblogs`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function fetchBlogsToken() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/blogs/getblogs`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData.Items;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData.Items;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
@@ -401,43 +384,36 @@ export async function fetchFaqDataClient() {
   }
 }
 
-export async function fetchUnionDataToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/union/getuniondata`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function fetchUnionDataToken() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/union/getuniondata`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData.Items;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData.Items;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
 
-export async function fetchUnionDataIdToken(
-  token: string | null,
-  id: string | undefined
-) {
-  if (token && id) {
+export async function fetchUnionDataIdToken(id: string | undefined) {
+  if (id) {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/admin/union/getunionid/${id}`,
@@ -446,8 +422,8 @@ export async function fetchUnionDataIdToken(
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 
@@ -519,75 +495,64 @@ export async function fetchArchiveByYear(year: string | undefined) {
   }
 }
 
-export async function fetchEventsToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/events/getallevents`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function fetchEventsToken() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/events/getallevents`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData.Items;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData.Items;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
 
-export async function fetchGalleriesToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/gallery/getallgalleries`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function fetchGalleriesToken() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/gallery/getallgalleries`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData.Items;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData.Items;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
 
-export async function fetchGalleryIdToken(
-  token: string | null,
-  id: string | undefined
-) {
-  if (token && id) {
+export async function fetchGalleryIdToken(id: string | undefined) {
+  if (id) {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/admin/gallery/getgalleryalbum/${id}`,
@@ -596,8 +561,8 @@ export async function fetchGalleryIdToken(
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 
@@ -618,43 +583,36 @@ export async function fetchGalleryIdToken(
   }
 }
 
-export async function fetchActualJobsToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/actualjobs/getactualjobs`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function fetchActualJobsToken() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/actualjobs/getactualjobs`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData.Items;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData.Items;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
 
-export async function fetchActualJobIdToken(
-  token: string | null,
-  id: string | undefined
-) {
-  if (token && id) {
+export async function fetchActualJobIdToken(id: string | undefined) {
+  if (id) {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/admin/actualjobs/getactualjob/${id}`,
@@ -663,8 +621,8 @@ export async function fetchActualJobIdToken(
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 
@@ -685,42 +643,35 @@ export async function fetchActualJobIdToken(
   }
 }
 
-export async function fetchNavbarDataToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/navbar/getnavbarinfodata`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function fetchNavbarDataToken() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/navbar/getnavbarinfodata`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData.Items;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData.Items;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
-export async function fetchNavbarDataIdToken(
-  token: string | null,
-  id: string | undefined
-) {
-  if (token && id) {
+export async function fetchNavbarDataIdToken(id: string | undefined) {
+  if (id) {
     try {
       const response = await fetch(
         `${
@@ -731,8 +682,8 @@ export async function fetchNavbarDataIdToken(
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 
@@ -753,43 +704,36 @@ export async function fetchNavbarDataIdToken(
   }
 }
 
-export async function fetchFaqToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/faq/getfaqdata`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function fetchFaqToken() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/faq/getfaqdata`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData.Items;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData.Items;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
 
-export async function fetchFaqIdToken(
-  token: string | null,
-  id: string | undefined
-) {
-  if (token && id) {
+export async function fetchFaqIdToken(id: string | undefined) {
+  if (id) {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/admin/faq/getfaq/${id}`,
@@ -798,8 +742,8 @@ export async function fetchFaqIdToken(
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 
@@ -820,43 +764,36 @@ export async function fetchFaqIdToken(
   }
 }
 
-export async function fetchSponsorsToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/sponsors/getsponsors`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function fetchSponsorsToken() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/sponsors/getsponsors`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData.Items;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData.Items;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
 
-export async function fetchSponsorIdToken(
-  token: string | null,
-  id: string | undefined
-) {
-  if (token && id) {
+export async function fetchSponsorIdToken(id: string | undefined) {
+  if (id) {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/admin/sponsors/getsponsor/${id}`,
@@ -865,8 +802,8 @@ export async function fetchSponsorIdToken(
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 
@@ -887,55 +824,48 @@ export async function fetchSponsorIdToken(
   }
 }
 
-export async function fetchDocsToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/docs/getdocs`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function fetchDocsToken() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/docs/getdocs`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      const sortedData = responseData.Items.sort((a: any, b: any) => {
-        const nameA = a.nazov.toUpperCase();
-        const nameB = b.nazov.toUpperCase();
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-        return 0;
-      });
-
-      return sortedData;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    const sortedData = responseData.Items.sort((a: any, b: any) => {
+      const nameA = a.nazov.toUpperCase();
+      const nameB = b.nazov.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+
+    return sortedData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
 
-export async function fetchDocIdToken(
-  token: string | null,
-  id: string | undefined
-) {
-  if (token && id) {
+export async function fetchDocIdToken(id: string | undefined) {
+  if (id) {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/admin/docs/getdoc/${id}`,
@@ -944,8 +874,8 @@ export async function fetchDocIdToken(
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 
@@ -1043,11 +973,8 @@ export async function CompressImage(file: File) {
   }
 }
 
-export async function fetchGalleriesYearToken(
-  token: string | null,
-  year: string | undefined
-) {
-  if (token && year) {
+export async function fetchGalleriesYearToken(year: string | undefined) {
+  if (year) {
     try {
       const response = await fetch(
         `${
@@ -1058,8 +985,8 @@ export async function fetchGalleriesYearToken(
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 
@@ -1092,36 +1019,32 @@ export async function fetchGalleriesYearToken(
   }
 }
 
-export async function getContactPageToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL
-        }/admin/contact/getcontactpage/285cea37-e56b-4eb1-ba34-7b4e8cf1ea4e`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function getContactPageToken() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/contact/getcontactpage/285cea37-e56b-4eb1-ba34-7b4e8cf1ea4e`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
@@ -1155,34 +1078,30 @@ export async function getContactPageClient() {
   }
 }
 
-export async function fetchAnnouncementsToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/ann/getallann`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function fetchAnnouncementsToken() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/ann/getallann`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData.Items;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData.Items;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
@@ -1225,11 +1144,8 @@ function convertToDate(dateString: string): Date {
   return new Date(Number(year), Number(month) - 1, Number(day));
 }
 
-export async function fetchAnnouncementIdToken(
-  token: string | null,
-  id: string | undefined
-) {
-  if (token && id) {
+export async function fetchAnnouncementIdToken(id: string | undefined) {
+  if (id) {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/admin/ann/getannid/${id}`,
@@ -1238,8 +1154,8 @@ export async function fetchAnnouncementIdToken(
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 
@@ -1287,36 +1203,32 @@ export async function fetchAnnouncementSlug(slug: string) {
   }
 }
 
-export async function getActualityPageDataToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL
-        }/admin/actualitypage/getactualitypage/1c933dae-3e21-4a7d-b6fa-6ebacccde181`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function getActualityPageDataToken() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/actualitypage/getactualitypage/1c933dae-3e21-4a7d-b6fa-6ebacccde181`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
@@ -1350,36 +1262,32 @@ export async function getActualityPageData() {
   }
 }
 
-export async function getPoradnaPageToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL
-        }/admin/poradnapage/getporadnapage/f0ffd755-1463-4342-a8d1-fcaaae32fb18`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function getPoradnaPageToken() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/poradnapage/getporadnapage/f0ffd755-1463-4342-a8d1-fcaaae32fb18`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
@@ -1413,36 +1321,32 @@ export async function getPoradnaPage() {
   }
 }
 
-export async function getZlavyPageToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL
-        }/admin/zlavypage/getzlavypage/faec1027-3bc0-4bf2-9d0e-cdb1578d9032`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function getZlavyPageToken() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/zlavypage/getzlavypage/faec1027-3bc0-4bf2-9d0e-cdb1578d9032`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
@@ -1476,36 +1380,32 @@ export async function getZlavyPage() {
   }
 }
 
-export async function getUzitocneLinkyPageToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL
-        }/admin/uzitocnepage/getuzitocnepage/a4e4c819-685a-443d-aeb1-6232242e6905`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function getUzitocneLinkyPageToken() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/uzitocnepage/getuzitocnepage/a4e4c819-685a-443d-aeb1-6232242e6905`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
@@ -1539,36 +1439,32 @@ export async function getUzitocneLinkyPage() {
   }
 }
 
-export async function getPrednaskyPageToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL
-        }/admin/prednaskypage/getprednaskypage/34d4b87f-604b-4513-9fd6-12467ef92cc3`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function getPrednaskyPageToken() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/prednaskypage/getprednaskypage/34d4b87f-604b-4513-9fd6-12467ef92cc3`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
@@ -1602,36 +1498,32 @@ export async function getPrednaskyPage() {
   }
 }
 
-export async function fetchDiplomasToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL
-        }/admin/docs/getdiplomas/c5db7e39-2b24-4276-acfd-317506e3f515`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function fetchDiplomasToken() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/docs/getdiplomas/c5db7e39-2b24-4276-acfd-317506e3f515`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
@@ -1665,36 +1557,32 @@ export async function fetchDiplomas() {
   }
 }
 
-export async function getChildrenPageToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL
-        }/admin/childrenpage/getchildrenpage/7ae8a22a-3acc-4a47-ba7f-997e69eacb8e`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function getChildrenPageToken() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/childrenpage/getchildrenpage/7ae8a22a-3acc-4a47-ba7f-997e69eacb8e`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
@@ -1728,36 +1616,32 @@ export async function getChildrenPageClient() {
   }
 }
 
-export async function getGdprPageToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL
-        }/admin/gdpr/getgdprpage/e4c653e5-c664-459f-a984-7a9d3b08d978`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function getGdprPageToken() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/admin/gdpr/getgdprpage/e4c653e5-c664-459f-a984-7a9d3b08d978`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      return responseData;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
@@ -1791,52 +1675,45 @@ export async function getGdprPage() {
   }
 }
 
-export async function fetchSpravodajciToken(token: string | null) {
-  if (token) {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/admin/spravodajca/getspravodajci`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("error");
-        return null;
+export async function fetchSpravodajciToken() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/spravodajca/getspravodajci`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
       }
+    );
 
-      const responseData = await response.json();
-
-      const final_data = responseData.Items.sort(
-        (a: Spravodajca, b: Spravodajca) => {
-          if (b.rok !== a.rok) {
-            return b.rok - a.rok;
-          }
-          return b.mesiac - a.mesiac;
-        }
-      );
-
-      return final_data;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      console.log("error");
       return null;
     }
-  } else {
+
+    const responseData = await response.json();
+
+    const final_data = responseData.Items.sort(
+      (a: Spravodajca, b: Spravodajca) => {
+        if (b.rok !== a.rok) {
+          return b.rok - a.rok;
+        }
+        return b.mesiac - a.mesiac;
+      }
+    );
+
+    return final_data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return null;
   }
 }
 
-export async function fetchSpravodajciIdToken(
-  token: string | null,
-  id: string | undefined
-) {
-  if (token && id) {
+export async function fetchSpravodajciIdToken(id: string | undefined) {
+  if (id) {
     try {
       const response = await fetch(
         `${
@@ -1847,8 +1724,8 @@ export async function fetchSpravodajciIdToken(
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 

@@ -5,14 +5,12 @@ import { Diplomas, Tlacivo } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 import AdminDataSkeleton from "../AdminDataSkeleton";
 import AdminErrorStatus from "../AdminErrorStatus";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminDiplomas from "./AdminDiplomas";
 
 const AdminDocs = () => {
-  const token = localStorage.getItem("token");
   const { data, status, isLoading } = useQuery<Tlacivo[]>({
     queryKey: ["admin_docs"],
-    queryFn: () => fetchDocsToken(token),
+    queryFn: () => fetchDocsToken(),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -23,7 +21,7 @@ const AdminDocs = () => {
     refetch,
   } = useQuery<Diplomas>({
     queryKey: ["admin_diplomas"],
-    queryFn: () => fetchDiplomasToken(token),
+    queryFn: () => fetchDiplomasToken(),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -92,8 +90,6 @@ const AdminDocs = () => {
           <AdminDiplomas data={data2} refetch={refetch} />
         </>
       )}
-
-      {data === null && <AdminNotAuthorized />}
     </div>
   );
 };

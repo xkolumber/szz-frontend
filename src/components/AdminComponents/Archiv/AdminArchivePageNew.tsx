@@ -5,16 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { Archive } from "../../../lib/interface";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import { uploadFileS3 } from "../../../lib/functions";
 
 const AdminArchivePageNew = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
 
-  const [authorized] = useState("ano");
-
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const [actualizeData, setActualizeData] = useState<Archive>({
@@ -49,8 +45,8 @@ const AdminArchivePageNew = () => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             pdf_link: actualizeData.pdf_link,
             pdf_nazov: actualizeData.pdf_nazov,
@@ -100,9 +96,9 @@ const AdminArchivePageNew = () => {
         jsonData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       );
 
@@ -137,89 +133,85 @@ const AdminArchivePageNew = () => {
 
   return (
     <div>
-      {authorized === "ano" && (
-        <div className=" w-full">
-          <StepBack />
-          <Toaster />
-          <h2>Nový dokument</h2>
+      <div className=" w-full">
+        <StepBack />
+        <Toaster />
+        <h2>Nový dokument</h2>
 
-          <form className=" products_admin " onSubmit={handleSaveProduct}>
-            <div className="product_admin_row">
-              <p>Názov:</p>
-              <input
-                type="text"
-                name="pdf_nazov"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.pdf_nazov}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>rok:</p>
-              <input
-                type="text"
-                name="rok"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.rok}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>link:</p>
-              <input
-                type="text"
-                name="pdf_link"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.pdf_link}
-                required
-              />
-              <input
-                type="file"
-                accept=".pdf, .doc, .docx, .xls, .xlsx"
-                onChange={(e) => handleUploadPdf(e)}
-                className="mt-2"
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>typ súboru: (pdf, doc, docx...)</p>
-              <input
-                type="text"
-                name="typ"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.typ}
-                required
-              />
-            </div>
+        <form className=" products_admin " onSubmit={handleSaveProduct}>
+          <div className="product_admin_row">
+            <p>Názov:</p>
+            <input
+              type="text"
+              name="pdf_nazov"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.pdf_nazov}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>rok:</p>
+            <input
+              type="text"
+              name="rok"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.rok}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>link:</p>
+            <input
+              type="text"
+              name="pdf_link"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.pdf_link}
+              required
+            />
+            <input
+              type="file"
+              accept=".pdf, .doc, .docx, .xls, .xlsx"
+              onChange={(e) => handleUploadPdf(e)}
+              className="mt-2"
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>typ súboru: (pdf, doc, docx...)</p>
+            <input
+              type="text"
+              name="typ"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.typ}
+              required
+            />
+          </div>
 
-            <div className="flex flex-row justify-between mt-8">
-              <button
-                className={`btn btn--tertiary ${
-                  (isLoading || dataLoading) && "disabledPrimaryBtn"
-                }`}
-                type="submit"
-                disabled={isLoading || dataLoading}
-              >
-                {isLoading ? (
-                  <ClipLoader
-                    size={20}
-                    color={"#00000"}
-                    loading={true}
-                    className="ml-16 mr-16"
-                  />
-                ) : (
-                  "Pridať"
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
-
-      {authorized === "nie" && <AdminNotAuthorized />}
+          <div className="flex flex-row justify-between mt-8">
+            <button
+              className={`btn btn--tertiary ${
+                (isLoading || dataLoading) && "disabledPrimaryBtn"
+              }`}
+              type="submit"
+              disabled={isLoading || dataLoading}
+            >
+              {isLoading ? (
+                <ClipLoader
+                  size={20}
+                  color={"#00000"}
+                  loading={true}
+                  className="ml-16 mr-16"
+                />
+              ) : (
+                "Pridať"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
 
       {dataLoading && (
         <>

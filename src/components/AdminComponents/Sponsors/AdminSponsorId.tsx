@@ -5,11 +5,9 @@ import {
   fetchSponsorsToken,
 } from "../../../lib/functions";
 import { Sponsor } from "../../../lib/interface";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminSponsorIdComponent from "./AdminSponsorIdComponent";
 
 const AdminSponsorId = () => {
-  const token = localStorage.getItem("token");
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
   const cachedElements =
@@ -29,7 +27,7 @@ const AdminSponsorId = () => {
     status,
   } = useQuery<Sponsor>({
     queryKey: ["admin_sponsors", id],
-    queryFn: () => fetchSponsorIdToken(token, id),
+    queryFn: () => fetchSponsorIdToken(id),
     enabled: !initialElementData,
   });
 
@@ -68,7 +66,7 @@ const AdminSponsorId = () => {
     } else {
       const data2: Sponsor[] = await queryClient.fetchQuery({
         queryKey: ["admin_sponsors"],
-        queryFn: () => fetchSponsorsToken(token),
+        queryFn: () => fetchSponsorsToken(),
       });
 
       const cachedElement = data2.find((event) => event.id === id);
@@ -89,8 +87,6 @@ const AdminSponsorId = () => {
           onDataUpdated={revalidateFunction}
         />
       )}
-
-      {data == null && <AdminNotAuthorized />}
     </div>
   );
 };

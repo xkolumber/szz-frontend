@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { Tlacivo } from "../../../lib/interface";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
+
 import { uploadFileS3 } from "../../../lib/functions";
 
 const AdminDocsNew = () => {
@@ -15,8 +15,6 @@ const AdminDocsNew = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
 
-  const [authorized] = useState("ano");
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const [actualizeData, setActualizeData] = useState<Tlacivo>({
@@ -49,8 +47,9 @@ const AdminDocsNew = () => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+
+          credentials: "include",
           body: JSON.stringify({
             link: actualizeData.link,
             nazov: actualizeData.nazov,
@@ -94,9 +93,9 @@ const AdminDocsNew = () => {
         jsonData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       );
 
@@ -122,78 +121,75 @@ const AdminDocsNew = () => {
 
   return (
     <div>
-      {authorized === "ano" && (
-        <div className=" w-full">
-          <StepBack />
-          <Toaster />
-          <h2>Nové tlačivo</h2>
+      <div className=" w-full">
+        <StepBack />
+        <Toaster />
+        <h2>Nové tlačivo</h2>
 
-          <form className=" products_admin " onSubmit={handleAddDoc}>
-            <div className="product_admin_row">
-              <p>Názov:</p>
-              <input
-                type="text"
-                name="nazov"
-                onChange={handleChange}
-                className="w-[70%]"
-                maxLength={50}
-                value={actualizeData?.nazov}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>link:</p>
-              <input
-                type="text"
-                name="link"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.link}
-                required
-              />
-              <input
-                type="file"
-                accept=".pdf, .doc, .docx, .xls, .xlsx"
-                onChange={(e) => handleUploadPdf(e)}
-                className="mt-2"
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>typ súboru: (pdf, doc, docx...)</p>
-              <input
-                type="text"
-                name="typ"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.typ}
-                required
-              />
-            </div>
-            <div className="flex flex-row justify-between mt-8">
-              <button
-                className={`btn btn--tertiary ${
-                  isLoading && "disabledPrimaryBtn"
-                }`}
-                type="submit"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <ClipLoader
-                    size={20}
-                    color={"#00000"}
-                    loading={true}
-                    className="ml-16 mr-16"
-                  />
-                ) : (
-                  "Pridať"
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
+        <form className=" products_admin " onSubmit={handleAddDoc}>
+          <div className="product_admin_row">
+            <p>Názov:</p>
+            <input
+              type="text"
+              name="nazov"
+              onChange={handleChange}
+              className="w-[70%]"
+              maxLength={50}
+              value={actualizeData?.nazov}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>link:</p>
+            <input
+              type="text"
+              name="link"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.link}
+              required
+            />
+            <input
+              type="file"
+              accept=".pdf, .doc, .docx, .xls, .xlsx"
+              onChange={(e) => handleUploadPdf(e)}
+              className="mt-2"
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>typ súboru: (pdf, doc, docx...)</p>
+            <input
+              type="text"
+              name="typ"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.typ}
+              required
+            />
+          </div>
+          <div className="flex flex-row justify-between mt-8">
+            <button
+              className={`btn btn--tertiary ${
+                isLoading && "disabledPrimaryBtn"
+              }`}
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <ClipLoader
+                  size={20}
+                  color={"#00000"}
+                  loading={true}
+                  className="ml-16 mr-16"
+                />
+              ) : (
+                "Pridať"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
 
-      {authorized === "nie" && <AdminNotAuthorized />}
       {dataLoading && (
         <>
           {" "}

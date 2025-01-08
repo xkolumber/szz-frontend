@@ -5,14 +5,13 @@ import { Gallery } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 import AdminDataSkeleton from "../AdminDataSkeleton";
 import AdminErrorStatus from "../AdminErrorStatus";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const AdminGalleryPageYear = () => {
   const { rok } = useParams<{ rok: string }>();
-  const token = localStorage.getItem("token");
+
   const { data, status, isLoading } = useQuery<Gallery[]>({
     queryKey: ["admin_galleries", rok],
-    queryFn: () => fetchGalleriesYearToken(token, rok),
+    queryFn: () => fetchGalleriesYearToken(rok),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -72,8 +71,6 @@ const AdminGalleryPageYear = () => {
           </table>
         </div>
       )}
-
-      {data === null && <AdminNotAuthorized />}
     </div>
   );
 };

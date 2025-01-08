@@ -5,11 +5,10 @@ import {
   fetchUnionDataToken,
 } from "../../../lib/functions";
 import { UnionData } from "../../../lib/interface";
-import AdminNotAuthorized from "../AdminNotAuthorized";
+
 import AdminUnionPageIdComponent from "./AdminUnionPageIdComponent";
 
 const AdminUnionPageId = () => {
-  const token = localStorage.getItem("token");
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
   const cachedUnionData =
@@ -29,7 +28,7 @@ const AdminUnionPageId = () => {
     status,
   } = useQuery<UnionData>({
     queryKey: ["admin_union", id],
-    queryFn: () => fetchUnionDataIdToken(token, id),
+    queryFn: () => fetchUnionDataIdToken(id),
     enabled: !initialUnionData,
   });
 
@@ -68,7 +67,7 @@ const AdminUnionPageId = () => {
     } else {
       const data2: UnionData[] = await queryClient.fetchQuery({
         queryKey: ["admin_union"],
-        queryFn: () => fetchUnionDataToken(token),
+        queryFn: () => fetchUnionDataToken(),
       });
 
       const cachedEvent = data2.find((event) => event.id === id);
@@ -89,7 +88,6 @@ const AdminUnionPageId = () => {
           onDataUpdated={revalidateFunction}
         />
       )}{" "}
-      {data === null && <AdminNotAuthorized />}
     </>
   );
 };

@@ -4,15 +4,12 @@ import { getZlavyPageToken } from "../../../lib/functions";
 import { GeneralPageInterface } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminZlavyPageComponent from "./AdminZlavyPageComponent";
 
 const AdminZlavyPage = () => {
-  const token = localStorage.getItem("token");
-
   const { data, status, isLoading, refetch } = useQuery<GeneralPageInterface>({
     queryKey: ["admin_zlavy"],
-    queryFn: () => getZlavyPageToken(token),
+    queryFn: () => getZlavyPageToken(),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -51,7 +48,6 @@ const AdminZlavyPage = () => {
           <AdminZlavyPageComponent data={data} refetch={refetch} />
         </div>
       )}
-      {data === null && <AdminNotAuthorized />}
     </div>
   );
 };

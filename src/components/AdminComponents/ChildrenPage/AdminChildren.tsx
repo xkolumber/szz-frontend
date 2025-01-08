@@ -4,15 +4,12 @@ import { getChildrenPageToken } from "../../../lib/functions";
 import { GeneralPageInterface } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminChildrenComponent from "./AdminChildrenComponent";
 
 const AdminChildren = () => {
-  const token = localStorage.getItem("token");
-
   const { data, status, isLoading, refetch } = useQuery<GeneralPageInterface>({
     queryKey: ["admin_children"],
-    queryFn: () => getChildrenPageToken(token),
+    queryFn: () => getChildrenPageToken(),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -51,7 +48,6 @@ const AdminChildren = () => {
           <AdminChildrenComponent data={data} refetch={refetch} />
         </div>
       )}
-      {data === null && <AdminNotAuthorized />}
     </div>
   );
 };

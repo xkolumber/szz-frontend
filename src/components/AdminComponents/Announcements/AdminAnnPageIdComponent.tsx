@@ -31,8 +31,6 @@ const AdminAnnPageIdComponent = ({ data, onEventUpdated }: Props) => {
 
   const [openPopUp, setOpenPopUp] = useState(false);
 
-  const token = localStorage.getItem("token");
-
   const navigate = useNavigate();
   const popupRef = useRef<HTMLDivElement>(null);
 
@@ -68,8 +66,8 @@ const AdminAnnPageIdComponent = ({ data, onEventUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
             viditelnost: actualizeData.viditelnost,
@@ -109,8 +107,8 @@ const AdminAnnPageIdComponent = ({ data, onEventUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
           }),
@@ -162,9 +160,9 @@ const AdminAnnPageIdComponent = ({ data, onEventUpdated }: Props) => {
           { fileName },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
+            withCredentials: true,
           }
         );
 

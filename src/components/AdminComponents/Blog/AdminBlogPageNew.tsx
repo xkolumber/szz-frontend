@@ -9,7 +9,7 @@ import {
 } from "../../../lib/functionsClient";
 import { Blog } from "../../../lib/interface";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
+
 import IconUpload from "../../Icons/IconUpload";
 import { useDropzone } from "react-dropzone";
 import classNames from "classnames";
@@ -25,8 +25,6 @@ const AdminBlogNew = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
 
-  const [authorized] = useState("ano");
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const [actualizeData, setActualizeData] = useState<Blog>({
@@ -97,8 +95,8 @@ const AdminBlogNew = () => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             nazov_blog: actualizeData.nazov_blog,
             slug: createSlug(actualizeData.nazov_blog),
@@ -161,9 +159,9 @@ const AdminBlogNew = () => {
           { fileName },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
+            withCredentials: true,
           }
         );
 
@@ -257,9 +255,9 @@ const AdminBlogNew = () => {
         { fileName },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       );
 
@@ -307,243 +305,236 @@ const AdminBlogNew = () => {
 
   return (
     <div>
-      {authorized === "ano" && (
-        <div className=" w-full">
-          <StepBack />
-          <Toaster />
-          <h2>Nový blog: </h2>
+      <div className=" w-full">
+        <StepBack />
+        <Toaster />
+        <h2>Nový blog: </h2>
 
-          <form className=" products_admin " onSubmit={handleSaveProduct}>
-            <div className="product_admin_row">
-              <p>Názov:</p>
-              <input
-                type="text"
-                name="nazov_blog"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.nazov_blog}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Dátum:</p>
-              <input
-                type="text"
-                name="datum"
-                onChange={handleChange}
-                className="w-[70%]"
-                value={actualizeData?.datum}
-                placeholder="DD.MM.YYYY"
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Titulná foto:</p>
-              <div className="flex flex-col w-[75%]">
-                {actualizeData.titulna_foto && (
-                  <img
-                    width={120}
-                    height={120}
-                    src={replaceS3UrlsWithCloudFront(
-                      actualizeData.titulna_foto,
-                      "blogphoto"
-                    )}
-                    className="mt-4 mb-4 cursor-pointer"
-                  />
-                )}
-                <div className={dragAreaClasses} {...getTitulnaRootProps()}>
-                  <input
-                    {...getTitulnaInputProps()}
-                    className="border border-red-500"
-                  />
-                  <div className="flex flex-col items-center justify-center gap-4">
-                    <IconUpload />
-                    <p className="text-center">Drop files here</p>
-                  </div>
+        <form className=" products_admin " onSubmit={handleSaveProduct}>
+          <div className="product_admin_row">
+            <p>Názov:</p>
+            <input
+              type="text"
+              name="nazov_blog"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.nazov_blog}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Dátum:</p>
+            <input
+              type="text"
+              name="datum"
+              onChange={handleChange}
+              className="w-[70%]"
+              value={actualizeData?.datum}
+              placeholder="DD.MM.YYYY"
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Titulná foto:</p>
+            <div className="flex flex-col w-[75%]">
+              {actualizeData.titulna_foto && (
+                <img
+                  width={120}
+                  height={120}
+                  src={replaceS3UrlsWithCloudFront(
+                    actualizeData.titulna_foto,
+                    "blogphoto"
+                  )}
+                  className="mt-4 mb-4 cursor-pointer"
+                />
+              )}
+              <div className={dragAreaClasses} {...getTitulnaRootProps()}>
+                <input
+                  {...getTitulnaInputProps()}
+                  className="border border-red-500"
+                />
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <IconUpload />
+                  <p className="text-center">Drop files here</p>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div className="product_admin_row !flex-col">
-              <p>Popis 1:</p>
-              <Tiptap
-                content={actualizeData.popis1}
-                onChange={(value) => handleTextChange("popis1", value)}
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Foto1:</p>
-              <div className="flex flex-col w-[75%]">
-                {actualizeData.foto1 && (
-                  <img
-                    width={120}
-                    height={120}
-                    src={replaceS3UrlsWithCloudFront(
-                      actualizeData.foto1,
-                      "blogphoto"
-                    )}
-                    className="mt-4 mb-4 cursor-pointer"
-                  />
-                )}
-                <div className={dragAreaClasses} {...getPhoto1RootProps()}>
-                  <input
-                    {...getPhoto1InputProps()}
-                    className="border border-red-500"
-                  />
-                  <div className="flex flex-col items-center justify-center gap-4">
-                    <IconUpload />
-                    <p className="text-center">Drop files here</p>
-                  </div>
+          <div className="product_admin_row !flex-col">
+            <p>Popis 1:</p>
+            <Tiptap
+              content={actualizeData.popis1}
+              onChange={(value) => handleTextChange("popis1", value)}
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Foto1:</p>
+            <div className="flex flex-col w-[75%]">
+              {actualizeData.foto1 && (
+                <img
+                  width={120}
+                  height={120}
+                  src={replaceS3UrlsWithCloudFront(
+                    actualizeData.foto1,
+                    "blogphoto"
+                  )}
+                  className="mt-4 mb-4 cursor-pointer"
+                />
+              )}
+              <div className={dragAreaClasses} {...getPhoto1RootProps()}>
+                <input
+                  {...getPhoto1InputProps()}
+                  className="border border-red-500"
+                />
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <IconUpload />
+                  <p className="text-center">Drop files here</p>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div className="product_admin_row !flex-col">
-              <p>Popis 2:</p>
-              <Tiptap
-                content={actualizeData.popis2}
-                onChange={(value) => handleTextChange("popis2", value)}
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Foto2:</p>
-              <div className="flex flex-col w-[75%]">
-                {actualizeData.foto2 && (
-                  <img
-                    width={120}
-                    height={120}
-                    src={replaceS3UrlsWithCloudFront(
-                      actualizeData.foto2,
-                      "blogphoto"
-                    )}
-                    className="mt-4 mb-4 cursor-pointer"
-                  />
-                )}
-                <div className={dragAreaClasses} {...getPhoto2RootProps()}>
-                  <input
-                    {...getPhoto2InputProps()}
-                    className="border border-red-500"
-                  />
-                  <div className="flex flex-col items-center justify-center gap-4">
-                    <IconUpload />
-                    <p className="text-center">Drop files here</p>
-                  </div>
+          <div className="product_admin_row !flex-col">
+            <p>Popis 2:</p>
+            <Tiptap
+              content={actualizeData.popis2}
+              onChange={(value) => handleTextChange("popis2", value)}
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Foto2:</p>
+            <div className="flex flex-col w-[75%]">
+              {actualizeData.foto2 && (
+                <img
+                  width={120}
+                  height={120}
+                  src={replaceS3UrlsWithCloudFront(
+                    actualizeData.foto2,
+                    "blogphoto"
+                  )}
+                  className="mt-4 mb-4 cursor-pointer"
+                />
+              )}
+              <div className={dragAreaClasses} {...getPhoto2RootProps()}>
+                <input
+                  {...getPhoto2InputProps()}
+                  className="border border-red-500"
+                />
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <IconUpload />
+                  <p className="text-center">Drop files here</p>
                 </div>
               </div>
             </div>
-            <div className="product_admin_row !flex-col">
-              <p>Popis 3:</p>
-              <Tiptap
-                content={actualizeData.popis3}
-                onChange={(value) => handleTextChange("popis3", value)}
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Foto3:</p>
-              <div className="flex flex-col w-[75%]">
-                {actualizeData.foto3 && (
-                  <img
-                    width={120}
-                    height={120}
-                    src={replaceS3UrlsWithCloudFront(
-                      actualizeData.foto3,
-                      "blogphoto"
-                    )}
-                    className="mt-4 mb-4 cursor-pointer"
-                  />
-                )}
-                <div className={dragAreaClasses} {...getPhoto3RootProps()}>
-                  <input
-                    {...getPhoto3InputProps()}
-                    className="border border-red-500"
-                  />
-                  <div className="flex flex-col items-center justify-center gap-4">
-                    <IconUpload />
-                    <p className="text-center">Drop files here</p>
-                  </div>
+          </div>
+          <div className="product_admin_row !flex-col">
+            <p>Popis 3:</p>
+            <Tiptap
+              content={actualizeData.popis3}
+              onChange={(value) => handleTextChange("popis3", value)}
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Foto3:</p>
+            <div className="flex flex-col w-[75%]">
+              {actualizeData.foto3 && (
+                <img
+                  width={120}
+                  height={120}
+                  src={replaceS3UrlsWithCloudFront(
+                    actualizeData.foto3,
+                    "blogphoto"
+                  )}
+                  className="mt-4 mb-4 cursor-pointer"
+                />
+              )}
+              <div className={dragAreaClasses} {...getPhoto3RootProps()}>
+                <input
+                  {...getPhoto3InputProps()}
+                  className="border border-red-500"
+                />
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <IconUpload />
+                  <p className="text-center">Drop files here</p>
                 </div>
               </div>
             </div>
-            <div className="product_admin_row">
-              <p>Dokument:</p>
-              <div className="flex flex-col">
-                <p
-                  className="underline cursor-pointer mt-4 mb-16"
-                  onClick={handleAddInputPdf}
-                >
-                  Pridať súbor
-                </p>
-                {actualizeData.pdf
-                  .sort(
-                    (a, b) =>
-                      new Date(b.datum).getTime() - new Date(a.datum).getTime()
-                  )
-                  .map((object, index) => (
-                    <div
-                      key={index}
-                      className="flex flex-row gap-4 items-center"
-                    >
-                      <input
-                        type="text"
-                        name={`pdf-nazov${index}`}
-                        value={object.nazov}
-                        onChange={(e) =>
-                          handleChangeItemTwoArray("pdf", index, "nazov", e)
-                        }
-                        className="md:!w-[250px] mt-2"
-                      />
-                      <input
-                        type="text"
-                        name={`pdf-link-${index}`}
-                        value={object.link}
-                        onChange={(e) =>
-                          handleChangeItemTwoArray("pdf", index, "link", e)
-                        }
-                        className="md:!w-[250px] mt-2"
-                      />
-                      <div
-                        className=""
-                        onClick={() =>
-                          handleDeleteObjectPdf(object.nazov, object.link)
-                        }
-                      >
-                        <IconTrash />
-                      </div>
-                      <input
-                        type="file"
-                        accept=".pdf, .doc, .docx, .xls, .xlsx"
-                        onChange={(e) => handleUploadPdf(e, index)}
-                        className="mt-2"
-                      />
-                    </div>
-                  ))}
-              </div>
-            </div>
-            <div className="flex flex-row justify-between mt-8">
-              <button
-                className={`btn btn--tertiary ${
-                  isLoading && "disabledPrimaryBtn"
-                }`}
-                type="submit"
-                disabled={isLoading}
+          </div>
+          <div className="product_admin_row">
+            <p>Dokument:</p>
+            <div className="flex flex-col">
+              <p
+                className="underline cursor-pointer mt-4 mb-16"
+                onClick={handleAddInputPdf}
               >
-                {isLoading ? (
-                  <ClipLoader
-                    size={20}
-                    color={"#00000"}
-                    loading={true}
-                    className="ml-16 mr-16"
-                  />
-                ) : (
-                  "Pridať"
-                )}
-              </button>
+                Pridať súbor
+              </p>
+              {actualizeData.pdf
+                .sort(
+                  (a, b) =>
+                    new Date(b.datum).getTime() - new Date(a.datum).getTime()
+                )
+                .map((object, index) => (
+                  <div key={index} className="flex flex-row gap-4 items-center">
+                    <input
+                      type="text"
+                      name={`pdf-nazov${index}`}
+                      value={object.nazov}
+                      onChange={(e) =>
+                        handleChangeItemTwoArray("pdf", index, "nazov", e)
+                      }
+                      className="md:!w-[250px] mt-2"
+                    />
+                    <input
+                      type="text"
+                      name={`pdf-link-${index}`}
+                      value={object.link}
+                      onChange={(e) =>
+                        handleChangeItemTwoArray("pdf", index, "link", e)
+                      }
+                      className="md:!w-[250px] mt-2"
+                    />
+                    <div
+                      className=""
+                      onClick={() =>
+                        handleDeleteObjectPdf(object.nazov, object.link)
+                      }
+                    >
+                      <IconTrash />
+                    </div>
+                    <input
+                      type="file"
+                      accept=".pdf, .doc, .docx, .xls, .xlsx"
+                      onChange={(e) => handleUploadPdf(e, index)}
+                      className="mt-2"
+                    />
+                  </div>
+                ))}
             </div>
-          </form>
-        </div>
-      )}
-
-      {authorized === "nie" && <AdminNotAuthorized />}
+          </div>
+          <div className="flex flex-row justify-between mt-8">
+            <button
+              className={`btn btn--tertiary ${
+                isLoading && "disabledPrimaryBtn"
+              }`}
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <ClipLoader
+                  size={20}
+                  color={"#00000"}
+                  loading={true}
+                  className="ml-16 mr-16"
+                />
+              ) : (
+                "Pridať"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
 
       {dataLoading && (
         <>

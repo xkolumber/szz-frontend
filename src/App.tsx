@@ -8,7 +8,6 @@ import AdminActualityPage from "./components/AdminComponents/Actuality/AdminActu
 import AdminActualJobId from "./components/AdminComponents/ActualJob/AdminActualJobId";
 import AdminActualJobNewMonth from "./components/AdminComponents/ActualJob/AdminActualJobNewMonth";
 import AdminActualJobs from "./components/AdminComponents/ActualJob/AdminActualJobs";
-import AdminLayout from "./components/AdminComponents/AdminLayout";
 import AdminNewFile from "./components/AdminComponents/AdminNewFile";
 import AdminPage from "./components/AdminComponents/AdminPage";
 import AdminAnnouncementsPage from "./components/AdminComponents/Announcements/AdminAnnouncementsPage";
@@ -29,6 +28,7 @@ import AdminDocsNew from "./components/AdminComponents/Docs/AdminDocsNew";
 import AdminEventPageId from "./components/AdminComponents/Events/AdminEventPageId";
 import AdminEventPageNew from "./components/AdminComponents/Events/AdminEventPageNew";
 import AdminEventsPage from "./components/AdminComponents/Events/AdminEventsPage";
+import AdminEventsPageYear from "./components/AdminComponents/Events/AdminEventsPageYear";
 import AdminFaqPage from "./components/AdminComponents/Faq/AdminFaqPage";
 import AdminFaqPageId from "./components/AdminComponents/Faq/AdminFaqPageId";
 import AdminFaqPageNew from "./components/AdminComponents/Faq/AdminFaqPageNew";
@@ -73,10 +73,12 @@ import GalleryPageId from "./components/GalleryComponents/GalleryPageId";
 import GdprPage from "./components/GdprPage";
 import HomePage from "./components/HomePageComponents/HomePage";
 import LecturesPage from "./components/LecturesPage";
+import LoginElement from "./components/LoginElement";
 import Navbar from "./components/Navbar";
 import NavbarInfo from "./components/NavbarInfo";
 import NotFound from "./components/NotFound";
 import PoradnaPage from "./components/PoradnaPage";
+import ProtectedRoutes from "./components/ProtectedRoute";
 import { NavbarProvider } from "./components/Provider";
 import RecommendPage from "./components/RecommendedComponents/RecommendPage";
 import ScrollToTop from "./components/ScrollToTop";
@@ -85,7 +87,6 @@ import SpravodajcaPage from "./components/SpravodajcaComponents/SpravodajcaPage"
 import TaskPage from "./components/TaskPage";
 import UnionPage from "./components/UnionElements/UnionPage";
 import UsefullLinksPage from "./components/UsefullLinksPage";
-import AdminEventsPageYear from "./components/AdminComponents/Events/AdminEventsPageYear";
 
 interface LayoutProps {
   children: ReactNode;
@@ -271,7 +272,16 @@ function App() {
               </Layout>
             }
           />
-          <Route path="/admin" element={<AdminLayout />}>
+          <Route
+            path="/login"
+            element={
+              <Layout>
+                <LoginElement />
+              </Layout>
+            }
+          />
+
+          <Route path="/admin" element={<ProtectedRoutes />}>
             <Route index element={<AdminPage />} />
             <Route path="hlavicka-odkazy" element={<AdminNavbarData />} />
             <Route path="hlavicka-odkazy/:id" element={<AdminNavbarDataId />} />

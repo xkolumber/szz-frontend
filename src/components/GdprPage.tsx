@@ -46,7 +46,7 @@ const GdprPage = () => {
               />
 
               <h6 className="uppercase pt-8 underline">
-                Dokumnty na stiahnutie
+                Dokumenty na stiahnutie
               </h6>
               <AttachedFiles pdf={data.pdf} />
             </div>

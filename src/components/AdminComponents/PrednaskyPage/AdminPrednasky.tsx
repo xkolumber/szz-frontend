@@ -4,15 +4,12 @@ import { getPrednaskyPageToken } from "../../../lib/functions";
 import { GeneralPageInterface } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminPrednaskyComponent from "./AdminPrednaskyComponent";
 
 const AdminPrednasky = () => {
-  const token = localStorage.getItem("token");
-
   const { data, status, isLoading, refetch } = useQuery<GeneralPageInterface>({
     queryKey: ["admin_prednasky"],
-    queryFn: () => getPrednaskyPageToken(token),
+    queryFn: () => getPrednaskyPageToken(),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -51,7 +48,6 @@ const AdminPrednasky = () => {
           <AdminPrednaskyComponent data={data} refetch={refetch} />
         </div>
       )}
-      {data === null && <AdminNotAuthorized />}
     </div>
   );
 };

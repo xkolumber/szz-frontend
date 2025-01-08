@@ -6,6 +6,7 @@ import { useDropzone } from "react-dropzone";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import { CompressImage, uploadFileS3 } from "../../../lib/functions";
 import {
   createSlug,
   isValidDate,
@@ -15,7 +16,6 @@ import { Blog } from "../../../lib/interface";
 import IconTrash from "../../Icons/IconTrash";
 import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
-import { CompressImage, uploadFileS3 } from "../../../lib/functions";
 import Tiptap from "../../TipTapEditor/TipTap";
 
 interface Props {
@@ -30,8 +30,6 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [clickedPhoto, setClickedPhoto] = useState("");
   const [openPopUp, setOpenPopUp] = useState(false);
-
-  const token = localStorage.getItem("token");
 
   const navigate = useNavigate();
   const popupRef = useRef<HTMLDivElement>(null);
@@ -87,8 +85,8 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
             nazov_blog: actualizeData.nazov_blog,
@@ -133,8 +131,8 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
           }),
@@ -186,9 +184,9 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
           { fileName },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
+            withCredentials: true,
           }
         );
 
@@ -282,9 +280,9 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
         { fileName },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       );
 

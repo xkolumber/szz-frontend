@@ -5,11 +5,10 @@ import {
   fetchSpravodajciToken,
 } from "../../../lib/functions";
 import { Spravodajca } from "../../../lib/interface";
-import AdminNotAuthorized from "../AdminNotAuthorized";
+
 import AdminSpravodajciIdComponent from "./AdminSpravodajciIdComponent";
 
 const AdminSpravodajciId = () => {
-  const token = localStorage.getItem("token");
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
   const cachedElements =
@@ -29,7 +28,7 @@ const AdminSpravodajciId = () => {
     status,
   } = useQuery<Spravodajca>({
     queryKey: ["admin_spravodajci", id],
-    queryFn: () => fetchSpravodajciIdToken(token, id),
+    queryFn: () => fetchSpravodajciIdToken(id),
     enabled: !initialElementData,
   });
 
@@ -68,7 +67,7 @@ const AdminSpravodajciId = () => {
     } else {
       const data2: Spravodajca[] = await queryClient.fetchQuery({
         queryKey: ["admin_spravodajci"],
-        queryFn: () => fetchSpravodajciToken(token),
+        queryFn: () => fetchSpravodajciToken(),
       });
 
       const cachedElement = data2.find((event) => event.id === id);
@@ -89,8 +88,6 @@ const AdminSpravodajciId = () => {
           onDataUpdated={revalidateFunction}
         />
       )}
-
-      {data == null && <AdminNotAuthorized />}
     </div>
   );
 };

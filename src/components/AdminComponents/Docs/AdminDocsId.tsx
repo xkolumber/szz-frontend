@@ -2,11 +2,10 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { fetchDocIdToken, fetchDocsToken } from "../../../lib/functions";
 import { Tlacivo } from "../../../lib/interface";
-import AdminNotAuthorized from "../AdminNotAuthorized";
+
 import AdminDocsIdComponent from "./AdminDocsIdComponent";
 
 const AdminDocsId = () => {
-  const token = localStorage.getItem("token");
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
   const cachedElements =
@@ -26,7 +25,7 @@ const AdminDocsId = () => {
     status,
   } = useQuery<Tlacivo>({
     queryKey: ["admin_docs", id],
-    queryFn: () => fetchDocIdToken(token, id),
+    queryFn: () => fetchDocIdToken(id),
     enabled: !initialElementData,
   });
 
@@ -62,7 +61,7 @@ const AdminDocsId = () => {
     } else {
       const data2: Tlacivo[] = await queryClient.fetchQuery({
         queryKey: ["admin_docs"],
-        queryFn: () => fetchDocsToken(token),
+        queryFn: () => fetchDocsToken(),
       });
 
       const cachedElement = data2.find((event) => event.id === id);
@@ -77,8 +76,6 @@ const AdminDocsId = () => {
       {data && (
         <AdminDocsIdComponent data={data} onDataUpdated={revalidateFunction} />
       )}
-
-      {data == null && <AdminNotAuthorized />}
     </div>
   );
 };

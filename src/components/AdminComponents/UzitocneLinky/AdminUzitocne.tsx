@@ -4,15 +4,12 @@ import { getUzitocneLinkyPageToken } from "../../../lib/functions";
 import { GeneralPageInterface } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminUzitocneComponent from "./AdminUzitocneComponent";
 
 const AdminUzitocne = () => {
-  const token = localStorage.getItem("token");
-
   const { data, status, isLoading, refetch } = useQuery<GeneralPageInterface>({
     queryKey: ["admin_uzitocne"],
-    queryFn: () => getUzitocneLinkyPageToken(token),
+    queryFn: () => getUzitocneLinkyPageToken(),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -51,7 +48,6 @@ const AdminUzitocne = () => {
           <AdminUzitocneComponent data={data} refetch={refetch} />
         </div>
       )}
-      {data === null && <AdminNotAuthorized />}
     </div>
   );
 };

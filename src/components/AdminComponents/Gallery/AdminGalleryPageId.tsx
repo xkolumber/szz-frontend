@@ -5,11 +5,9 @@ import {
   fetchGalleryIdToken,
 } from "../../../lib/functions";
 import { Gallery } from "../../../lib/interface";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminGalleryPageIdComponent from "./AdminGalleryPageIdComponent";
 
 const AdminGalleryPageId = () => {
-  const token = localStorage.getItem("token");
   const queryClient = useQueryClient();
   const { rok } = useParams<{ rok: string }>();
   const { id } = useParams<{ id: string }>();
@@ -31,7 +29,7 @@ const AdminGalleryPageId = () => {
     status,
   } = useQuery<Gallery>({
     queryKey: ["admin_galleries", id],
-    queryFn: () => fetchGalleryIdToken(token, id),
+    queryFn: () => fetchGalleryIdToken(id),
     enabled: !initialElementData,
   });
 
@@ -55,8 +53,6 @@ const AdminGalleryPageId = () => {
     );
   }
 
-  console.log(data);
-
   const revalidateFunction = async () => {
     const cachedElements =
       queryClient.getQueryData<Gallery[]>(["admin_galleries", rok]) || [];
@@ -72,7 +68,7 @@ const AdminGalleryPageId = () => {
     } else {
       const data2: Gallery[] = await queryClient.fetchQuery({
         queryKey: ["admin_galleries", rok],
-        queryFn: () => fetchGalleriesYearToken(token, rok),
+        queryFn: () => fetchGalleriesYearToken(rok),
       });
 
       const cachedElement = data2.find((object) => object.id === id);
@@ -93,8 +89,6 @@ const AdminGalleryPageId = () => {
           onDataUpdated={revalidateFunction}
         />
       )}
-
-      {data == null && <AdminNotAuthorized />}
 
       {data === undefined && <p>Neexistuje album</p>}
     </div>

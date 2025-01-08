@@ -30,8 +30,6 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
   const [openPopUp, setOpenPopUp] = useState(false);
   const [actualizeData, setActualizeData] = useState<Gallery>(data);
 
-  const token = localStorage.getItem("token");
-
   const navigate = useNavigate();
   const popupRef = useRef<HTMLDivElement>(null);
 
@@ -87,8 +85,8 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
             nazov: actualizeData.nazov,
@@ -134,8 +132,8 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
           }),
@@ -241,9 +239,9 @@ const AdminGalleryPageIdComponent = ({ data, onDataUpdated }: Props) => {
             { fileName },
             {
               headers: {
-                Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
               },
+              withCredentials: true,
             }
           );
 

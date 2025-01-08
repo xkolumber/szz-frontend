@@ -5,16 +5,13 @@ import { ActualEvent } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 import AdminDataSkeleton from "../AdminDataSkeleton";
 import AdminErrorStatus from "../AdminErrorStatus";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const AdminEventsPageYear = () => {
-  const token = localStorage.getItem("token");
-
   const { rok } = useParams<{ rok: string }>();
 
   const { data, status, isLoading } = useQuery<ActualEvent[]>({
     queryKey: ["admin_events", rok],
-    queryFn: () => getActualEventsYearToken(token, rok),
+    queryFn: () => getActualEventsYearToken(rok),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -76,8 +73,6 @@ const AdminEventsPageYear = () => {
           )}
         </div>
       )}
-
-      {data === null && <AdminNotAuthorized />}
     </div>
   );
 };

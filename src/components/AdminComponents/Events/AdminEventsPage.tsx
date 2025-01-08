@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
 
 const generateYears = () => {
   const currentYear = new Date().getFullYear();
@@ -14,8 +13,6 @@ const generateYears = () => {
 const years = generateYears();
 
 const AdminEventsPage = () => {
-  const token = localStorage.getItem("token");
-
   return (
     <div>
       <div className=" w-full">
@@ -38,7 +35,6 @@ const AdminEventsPage = () => {
           ))}
         </div>
       </div>
-      {token === null && <AdminNotAuthorized />}
     </div>
   );
 };

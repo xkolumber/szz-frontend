@@ -12,7 +12,7 @@ import IconTrash from "../../Icons/IconTrash";
 import IconUpload from "../../Icons/IconUpload";
 import StepBack from "../../StepBack";
 import Tiptap from "../../TipTapEditor/TipTap";
-import AdminNotAuthorized from "../AdminNotAuthorized";
+
 import { replaceS3UrlsWithCloudFront } from "../../../lib/functionsClient";
 
 const AdminSpravodajciNew = () => {
@@ -24,8 +24,6 @@ const AdminSpravodajciNew = () => {
   const [openPopUp, setOpenPopUp] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
 
-  const [authorized] = useState("ano");
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const [actualizeData, setActualizeData] = useState<Spravodajca>({
@@ -66,8 +64,8 @@ const AdminSpravodajciNew = () => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             foto: actualizeData.foto,
             text1: actualizeData.text1,
@@ -109,9 +107,9 @@ const AdminSpravodajciNew = () => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
+          withCredentials: true,
         }
       );
 
@@ -196,9 +194,9 @@ const AdminSpravodajciNew = () => {
           { fileName },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
+            withCredentials: true,
           }
         );
 
@@ -279,171 +277,165 @@ const AdminSpravodajciNew = () => {
 
   return (
     <div>
-      {authorized === "ano" && (
-        <div className=" w-full">
-          <StepBack />
-          <Toaster />
-          <h2>Nový objekt</h2>
+      <div className=" w-full">
+        <StepBack />
+        <Toaster />
+        <h2>Nový objekt</h2>
 
-          <form className=" products_admin " onSubmit={handleAddObject}>
-            <div className="product_admin_row">
-              <p>Názov:</p>
-              <input
-                type="text"
-                name="nazov"
-                onChange={handleChange}
-                className="w-[70%]"
-                maxLength={50}
-                value={actualizeData?.nazov}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Rok:</p>
-              <input
-                type="number"
-                name="rok"
-                onChange={handleChange}
-                className="w-[70%]"
-                maxLength={50}
-                value={actualizeData?.rok}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Mesiac:</p>
-              <input
-                type="number"
-                name="mesiac"
-                onChange={handleChange}
-                className="w-[70%]"
-                maxLength={50}
-                value={actualizeData?.mesiac}
-                required
-              />
-            </div>
-            <div className="product_admin_row">
-              <p>Titulná foto:</p>
-              <div className="flex flex-col w-[75%]">
-                {actualizeData.foto && (
-                  <img
-                    width={120}
-                    height={120}
-                    src={replaceS3UrlsWithCloudFront(
-                      actualizeData.foto,
-                      "blogphoto"
-                    )}
-                    className="mt-4 mb-4 cursor-pointer"
-                    onClick={() =>
-                      handleShowBiggerIamge(
-                        replaceS3UrlsWithCloudFront(
-                          actualizeData.foto,
-                          "blogphoto"
-                        )
+        <form className=" products_admin " onSubmit={handleAddObject}>
+          <div className="product_admin_row">
+            <p>Názov:</p>
+            <input
+              type="text"
+              name="nazov"
+              onChange={handleChange}
+              className="w-[70%]"
+              maxLength={50}
+              value={actualizeData?.nazov}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Rok:</p>
+            <input
+              type="number"
+              name="rok"
+              onChange={handleChange}
+              className="w-[70%]"
+              maxLength={50}
+              value={actualizeData?.rok}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Mesiac:</p>
+            <input
+              type="number"
+              name="mesiac"
+              onChange={handleChange}
+              className="w-[70%]"
+              maxLength={50}
+              value={actualizeData?.mesiac}
+              required
+            />
+          </div>
+          <div className="product_admin_row">
+            <p>Titulná foto:</p>
+            <div className="flex flex-col w-[75%]">
+              {actualizeData.foto && (
+                <img
+                  width={120}
+                  height={120}
+                  src={replaceS3UrlsWithCloudFront(
+                    actualizeData.foto,
+                    "blogphoto"
+                  )}
+                  className="mt-4 mb-4 cursor-pointer"
+                  onClick={() =>
+                    handleShowBiggerIamge(
+                      replaceS3UrlsWithCloudFront(
+                        actualizeData.foto,
+                        "blogphoto"
                       )
-                    }
-                  />
-                )}
-                <div className={dragAreaClasses} {...getTitulnaRootProps()}>
-                  <input
-                    {...getTitulnaInputProps()}
-                    className="border border-red-500"
-                  />
-                  <div className="flex flex-col items-center justify-center gap-4">
-                    <IconUpload />
-                    <p className="text-center">Drop files here</p>
-                  </div>
+                    )
+                  }
+                />
+              )}
+              <div className={dragAreaClasses} {...getTitulnaRootProps()}>
+                <input
+                  {...getTitulnaInputProps()}
+                  className="border border-red-500"
+                />
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <IconUpload />
+                  <p className="text-center">Drop files here</p>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div className="product_admin_row !flex-col">
-              <Tiptap
-                content={actualizeData.text1}
-                onChange={(value) => handleTextChange("text1", value)}
-              />
-            </div>
+          <div className="product_admin_row !flex-col">
+            <Tiptap
+              content={actualizeData.text1}
+              onChange={(value) => handleTextChange("text1", value)}
+            />
+          </div>
 
-            <div className="product_admin_row">
-              <p>typ súboru: (pdf, doc, docx...)</p>
-              <div className="flex flex-col">
-                <p
-                  className="underline cursor-pointer mt-4 mb-16"
-                  onClick={handleAddInputPdf}
-                >
-                  Pridať súbor
-                </p>
-                {actualizeData.pdf
-                  .sort(
-                    (a, b) =>
-                      new Date(b.datum).getTime() - new Date(a.datum).getTime()
-                  )
-                  .map((object, index) => (
-                    <div
-                      key={index}
-                      className="flex flex-row gap-4 items-center"
-                    >
-                      <input
-                        type="text"
-                        name={`pdf-nazov${index}`}
-                        value={object.nazov}
-                        onChange={(e) =>
-                          handleChangeItemTwoArray("pdf", index, "nazov", e)
-                        }
-                        className="md:!w-[250px] mt-2"
-                      />
-                      <input
-                        type="text"
-                        name={`pdf-link-${index}`}
-                        value={object.link}
-                        onChange={(e) =>
-                          handleChangeItemTwoArray("pdf", index, "link", e)
-                        }
-                        className="md:!w-[250px] mt-2"
-                      />
-                      <div
-                        className=""
-                        onClick={() =>
-                          handleDeleteObjectPdf(object.nazov, object.link)
-                        }
-                      >
-                        <IconTrash />
-                      </div>
-                      <input
-                        type="file"
-                        accept=".pdf, .doc, .docx, .xls, .xlsx"
-                        onChange={(e) => handleUploadPdf(e, index)}
-                        className="mt-2"
-                      />
-                    </div>
-                  ))}
-              </div>
-            </div>
-            <div className="flex flex-row justify-between mt-8">
-              <button
-                className={`btn btn--tertiary ${
-                  isLoading && "disabledPrimaryBtn"
-                }`}
-                type="submit"
-                disabled={isLoading}
+          <div className="product_admin_row">
+            <p>typ súboru: (pdf, doc, docx...)</p>
+            <div className="flex flex-col">
+              <p
+                className="underline cursor-pointer mt-4 mb-16"
+                onClick={handleAddInputPdf}
               >
-                {isLoading ? (
-                  <ClipLoader
-                    size={20}
-                    color={"#00000"}
-                    loading={true}
-                    className="ml-16 mr-16"
-                  />
-                ) : (
-                  "Pridať"
-                )}
-              </button>
+                Pridať súbor
+              </p>
+              {actualizeData.pdf
+                .sort(
+                  (a, b) =>
+                    new Date(b.datum).getTime() - new Date(a.datum).getTime()
+                )
+                .map((object, index) => (
+                  <div key={index} className="flex flex-row gap-4 items-center">
+                    <input
+                      type="text"
+                      name={`pdf-nazov${index}`}
+                      value={object.nazov}
+                      onChange={(e) =>
+                        handleChangeItemTwoArray("pdf", index, "nazov", e)
+                      }
+                      className="md:!w-[250px] mt-2"
+                    />
+                    <input
+                      type="text"
+                      name={`pdf-link-${index}`}
+                      value={object.link}
+                      onChange={(e) =>
+                        handleChangeItemTwoArray("pdf", index, "link", e)
+                      }
+                      className="md:!w-[250px] mt-2"
+                    />
+                    <div
+                      className=""
+                      onClick={() =>
+                        handleDeleteObjectPdf(object.nazov, object.link)
+                      }
+                    >
+                      <IconTrash />
+                    </div>
+                    <input
+                      type="file"
+                      accept=".pdf, .doc, .docx, .xls, .xlsx"
+                      onChange={(e) => handleUploadPdf(e, index)}
+                      className="mt-2"
+                    />
+                  </div>
+                ))}
             </div>
-          </form>
-        </div>
-      )}
+          </div>
+          <div className="flex flex-row justify-between mt-8">
+            <button
+              className={`btn btn--tertiary ${
+                isLoading && "disabledPrimaryBtn"
+              }`}
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <ClipLoader
+                  size={20}
+                  color={"#00000"}
+                  loading={true}
+                  className="ml-16 mr-16"
+                />
+              ) : (
+                "Pridať"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
 
-      {authorized === "nie" && <AdminNotAuthorized />}
       {dataLoading && (
         <>
           {" "}

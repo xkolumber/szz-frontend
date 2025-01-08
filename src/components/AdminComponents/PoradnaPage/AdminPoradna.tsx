@@ -4,15 +4,12 @@ import { getPoradnaPageToken } from "../../../lib/functions";
 import { GeneralPageInterface } from "../../../lib/interface";
 import StepBack from "../../StepBack";
 
-import AdminNotAuthorized from "../AdminNotAuthorized";
 import AdminPoradnaComponent from "./AdminPoradnaComponent";
 
 const AdminPoradna = () => {
-  const token = localStorage.getItem("token");
-
   const { data, status, isLoading, refetch } = useQuery<GeneralPageInterface>({
     queryKey: ["admin_poradna"],
-    queryFn: () => getPoradnaPageToken(token),
+    queryFn: () => getPoradnaPageToken(),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
@@ -51,7 +48,6 @@ const AdminPoradna = () => {
           <AdminPoradnaComponent data={data} refetch={refetch} />
         </div>
       )}
-      {data === null && <AdminNotAuthorized />}
     </div>
   );
 };

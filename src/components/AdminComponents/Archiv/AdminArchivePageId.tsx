@@ -3,10 +3,9 @@ import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import { uploadFileS3 } from "../../../lib/functions";
 import { Archive } from "../../../lib/interface";
 import StepBack from "../../StepBack";
-import AdminNotAuthorized from "../AdminNotAuthorized";
-import { uploadFileS3 } from "../../../lib/functions";
 
 const AdminArchivePageId = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,9 +13,7 @@ const AdminArchivePageId = () => {
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
 
   const [data, setData] = useState<Archive>();
-  const [authorized, setAuthorized] = useState("");
 
-  const token = localStorage.getItem("token");
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -37,8 +34,8 @@ const AdminArchivePageId = () => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 
@@ -47,12 +44,10 @@ const AdminArchivePageId = () => {
       }
 
       const responseData = await response.json();
-      setAuthorized("ano");
 
       setData(responseData);
       setActualizeData(responseData);
     } catch (error) {
-      setAuthorized("nie");
       console.error("Error fetching data:", error);
     }
   };
@@ -85,8 +80,8 @@ const AdminArchivePageId = () => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
             pdf_link: actualizeData.pdf_link,
@@ -125,8 +120,8 @@ const AdminArchivePageId = () => {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({
             id: data?.id,
           }),
@@ -173,9 +168,9 @@ const AdminArchivePageId = () => {
         jsonData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       );
 
@@ -210,7 +205,7 @@ const AdminArchivePageId = () => {
 
   return (
     <div>
-      {data && authorized === "ano" && (
+      {data && (
         <div className=" w-full">
           <StepBack />
           <Toaster />
@@ -309,8 +304,6 @@ const AdminArchivePageId = () => {
           </form>
         </div>
       )}
-
-      {authorized === "nie" && <AdminNotAuthorized />}
 
       {dataLoading && (
         <>
