@@ -49,7 +49,6 @@ const AdminUzitocneComponent = ({ data, refetch }: Props) => {
       }
       const responseData = await response.json();
 
-      console.log(responseData);
       if (responseData.$metadata.httpStatusCode === 200) {
         toast.success("Sekcia bola aktualizovaná");
         refetch();

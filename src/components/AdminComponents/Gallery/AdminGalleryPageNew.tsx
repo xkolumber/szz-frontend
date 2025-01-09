@@ -13,7 +13,7 @@ import StepBack from "../../StepBack";
 
 import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
-import { CompressImage } from "../../../lib/functions";
+import { CompressImage, uploadFileS3 } from "../../../lib/functions";
 
 const AdminGalleryPageNew = () => {
   const queryClient = useQueryClient();
@@ -173,20 +173,29 @@ const AdminGalleryPageNew = () => {
       const uploadedUrls = await Promise.all(
         compressedFiles.map(async (compressedFile) => {
           const formData = new FormData();
+
+          const fileName = compressedFile.name.replace(/\s+/g, "_");
+          console.log(fileName);
+
           formData.append("file", compressedFile);
 
           const response = await axios.post(
             `${import.meta.env.VITE_API_URL}/admin/upload/imagesalll`,
-            formData,
+            { fileName },
             {
               headers: {
-                "Content-Type": "multipart/form-data",
+                "Content-Type": "application/json",
               },
               withCredentials: true,
             }
           );
 
-          return response.data.uploadUrl;
+          const { url, fields } = response.data;
+
+          await uploadFileS3(url, fields, formData);
+
+          const final_url = `https://${fields.bucket}.s3.eu-north-1.amazonaws.com/${fields.key}`;
+          return final_url;
         })
       );
 

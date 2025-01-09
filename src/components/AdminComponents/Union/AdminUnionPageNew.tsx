@@ -233,7 +233,6 @@ const AdminUnionPageNew = () => {
           const formData = new FormData();
 
           const fileName = compressedFile.name.replace(/\s+/g, "_");
-          console.log(fileName);
 
           formData.append("file", compressedFile);
 

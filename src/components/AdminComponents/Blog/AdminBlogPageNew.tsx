@@ -153,7 +153,6 @@ const AdminBlogNew = () => {
 
       try {
         const fileName = compressedFile.name.replace(/\s+/g, "_");
-        console.log(fileName);
         const response = await axios.post(
           `${import.meta.env.VITE_API_URL}/admin/upload/blogphoto`,
           { fileName },
