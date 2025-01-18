@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import {
   createSlug,
-  isValidDate,
   replaceS3UrlsWithCloudFront,
 } from "../../../lib/functionsClient";
 import { Blog } from "../../../lib/interface";
@@ -77,10 +76,6 @@ const AdminBlogNew = () => {
   const handleSaveProduct = async (event: any) => {
     event.preventDefault();
 
-    if (!isValidDate(actualizeData.datum)) {
-      toast.error("Dátum musí byť v tvare DD.MM.YYYY.");
-      return;
-    }
     if (actualizeData.titulna_foto === "") {
       toast.error("Titulná fotka musí byť pridaná.");
       return;
@@ -324,12 +319,10 @@ const AdminBlogNew = () => {
           <div className="product_admin_row">
             <p>Dátum:</p>
             <input
-              type="text"
+              type="date"
               name="datum"
               onChange={handleChange}
-              className="w-[70%]"
               value={actualizeData?.datum}
-              placeholder="DD.MM.YYYY"
               required
             />
           </div>

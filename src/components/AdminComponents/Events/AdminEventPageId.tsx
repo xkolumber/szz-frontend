@@ -1,12 +1,16 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { fetchEventIdToken, fetchEventsToken } from "../../../lib/functions";
+import {
+  fetchEventIdToken,
+  getActualEventsYearToken,
+} from "../../../lib/functions";
 import { ActualEvent } from "../../../lib/interface";
 import AdminEventPageIdComponent from "./AdminEventPageIdComponent";
 
 const AdminEventPageId = () => {
   const queryClient = useQueryClient();
-  const { id } = useParams<{ id: string }>();
+  const { rok, id } = useParams<{ id: string; rok: string }>();
+
   const cachedElements =
     queryClient.getQueryData<ActualEvent[]>(["admin_events"]) || [];
 
@@ -61,18 +65,20 @@ const AdminEventPageId = () => {
         initialElementData
       );
     } else {
-      const data2: ActualEvent[] = await queryClient.fetchQuery({
-        queryKey: ["admin_events"],
-        queryFn: () => fetchEventsToken(),
-      });
+      if (rok) {
+        const data2: ActualEvent[] = await queryClient.fetchQuery({
+          queryKey: ["admin_events", rok],
+          queryFn: () => getActualEventsYearToken(rok),
+        });
 
-      const cachedElement = data2.find((object) => object.id === id);
+        const cachedElement = data2.find((object) => object.id === id);
 
-      const initialElementData = cachedElement;
-      queryClient.setQueryData<ActualEvent>(
-        ["admin_events", id],
-        initialElementData
-      );
+        const initialElementData = cachedElement;
+        queryClient.setQueryData<ActualEvent>(
+          ["admin_events", id],
+          initialElementData
+        );
+      }
     }
   };
 

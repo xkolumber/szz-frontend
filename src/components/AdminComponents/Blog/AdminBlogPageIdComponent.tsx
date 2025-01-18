@@ -9,7 +9,6 @@ import { ClipLoader } from "react-spinners";
 import { CompressImage, uploadFileS3 } from "../../../lib/functions";
 import {
   createSlug,
-  isValidDate,
   replaceS3UrlsWithCloudFront,
 } from "../../../lib/functionsClient";
 import { Blog } from "../../../lib/interface";
@@ -70,11 +69,6 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
 
   const handleSaveProduct = async (event: any) => {
     event.preventDefault();
-
-    if (!isValidDate(actualizeData.datum)) {
-      toast.error("Dátum musí byť v tvare DD.MM.YYYY.");
-      return;
-    }
 
     try {
       setIsLoading(true);
@@ -384,10 +378,9 @@ const AdminBlogPageIdComponent = ({ data, onEventUpdated }: Props) => {
             <div className="product_admin_row">
               <p>Dátum:</p>
               <input
-                type="text"
+                type="date"
                 name="datum"
                 onChange={handleChange}
-                className="w-[70%]"
                 value={actualizeData?.datum}
                 required
               />

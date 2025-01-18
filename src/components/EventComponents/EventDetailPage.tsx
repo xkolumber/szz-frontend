@@ -25,7 +25,10 @@ const EventDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const [choosenAlbum, setChoosenAlbum] = useState<SlideImage[]>([]);
   const navigate = useNavigate();
+
   const [hoverButton, setHoverButton] = useState(false);
+  const [isFetchedData1, setIsFetchedData1] = useState(false);
+  const [isFetchedData2, setIsFetchedData2] = useState(false);
 
   const handleOpenGallery = (choosenArticel: ActualEvent, index: number) => {
     const transformedAlbum = choosenArticel.fotky.map((url) => ({
@@ -60,6 +63,8 @@ const EventDetailPage = () => {
       }
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setIsFetchedData1(true);
     }
   };
 
@@ -68,7 +73,7 @@ const EventDetailPage = () => {
       const response = await fetch(
         `${
           import.meta.env.VITE_API_URL
-        }/admin/events/getactualeventsexcept/${slug}`,
+        }/admin/events/getactualeventsexcept/${slug}/${data?.datum_rok}`,
         {
           method: "GET",
           headers: {
@@ -89,15 +94,24 @@ const EventDetailPage = () => {
       }
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setIsFetchedData2(true);
     }
   };
 
   useEffect(() => {
-    if (slug) {
+    if (slug && !isFetchedData1) {
       getData();
+    }
+    if (slug && data && data.datum_rok && !isFetchedData2) {
       getData2();
     }
-  }, [slug]);
+  }, [slug, data, isFetchedData2, isFetchedData1]);
+
+  const handleAllowFetch = () => {
+    setIsFetchedData1(false);
+    setIsFetchedData2(false);
+  };
 
   return (
     <div className="own_edge relative overflow-hidden">
@@ -250,6 +264,7 @@ const EventDetailPage = () => {
                 className={`flex flex-col  rounded-[24px] w-full max-w-[464px] hover:scale-[1.02] duration-200`}
                 key={index}
                 to={`/vystavy-a-podujatia/${object.slug}`}
+                onClick={handleAllowFetch}
               >
                 <div key={index} className="relative w-full h-[280px]">
                   <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-[16px]"></div>
@@ -258,7 +273,6 @@ const EventDetailPage = () => {
                       object.titulna_foto,
                       "blogphoto"
                     )}
-                    // src={object.titulna_foto}
                     className="rounded-[16px] w-full h-full object-cover relative z-10 cursor-pointer hover:scale-[1.02] duration-200"
                   />
                 </div>
@@ -270,7 +284,9 @@ const EventDetailPage = () => {
                   </p>
                 </div>
 
-                <h5 className="pt-[8px]">{object.nazov_vystavy}</h5>
+                <h5 className="pt-[8px] line-clamp-1">
+                  {object.nazov_vystavy}
+                </h5>
               </Link>
             ))}
           </div>

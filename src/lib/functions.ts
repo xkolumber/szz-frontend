@@ -142,16 +142,40 @@ export async function fetchBlogs(limit: number) {
     }
 
     const responseData = await response.json();
-
     const sortedBlogs = responseData.Items.sort(
       (a: { datum: string }, b: { datum: string }) => {
-        const dateA = new Date(a.datum.split(".").reverse().join("-"));
-        const dateB = new Date(b.datum.split(".").reverse().join("-"));
+        const dateA = new Date(a.datum);
+        const dateB = new Date(b.datum);
         return dateB.getTime() - dateA.getTime();
       }
     );
 
     return sortedBlogs;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+export async function fetchFourLatestBlog() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/blogs/getblogsopenlatest`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const responseData = await response.json();
+
+    return responseData.Items;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -492,34 +516,6 @@ export async function fetchArchiveByYear(year: string | undefined) {
     }
   } catch (error) {
     console.error("Error fetching data:", error);
-  }
-}
-
-export async function fetchEventsToken() {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/admin/events/getallevents`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        credentials: "include",
-      }
-    );
-
-    if (!response.ok) {
-      console.log("error");
-      return null;
-    }
-
-    const responseData = await response.json();
-
-    return responseData.Items;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return null;
   }
 }
 
