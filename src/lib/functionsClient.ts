@@ -143,7 +143,7 @@ export const footer_data = [
     slug: "/uzitocne-linky",
   },
   {
-    title: "Odporúčame",
+    title: "Záhradkári spolupracujú",
     slug: "/odporucame",
   },
 ];
