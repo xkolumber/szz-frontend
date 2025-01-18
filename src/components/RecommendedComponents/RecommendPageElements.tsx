@@ -12,14 +12,14 @@ const RecommendPageElements = ({ data }: Props) => {
   return (
     <div className="own_edge min-h-screen relative overflow-hidden">
       <SeoElement
-        slug="odporucame"
-        title="Odporúčame"
+        slug="Záhradkári spolupracujú"
+        title="Záhradkári spolupracujú"
         description="Zoznam našich partnerov"
       />
 
       <div className="main_section !pt-8">
         <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
-        <h2 className="text-center mt-8">Odporúčame</h2>
+        <h2 className="text-center mt-8">Záhradkári spolupracujú</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {data.map((object, index) => (
             <Link className="" key={index} to={object.link} target="_blank">

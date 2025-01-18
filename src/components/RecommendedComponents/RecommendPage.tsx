@@ -29,7 +29,7 @@ const RecommendPage = () => {
       <div className="own_edge">
         <div className="main_section !pt-8 min-h-[600px]">
           <ButtonWithArrowLeft title="Domovská stránka" link={`/`} />
-          <h2 className="text-center pt-8">Odporúčame</h2>
+          <h2 className="text-center pt-8">Záhradkári spolupracujú</h2>
           <ClipLoader size={20} color={"#000000"} loading={true} />
         </div>
       </div>
