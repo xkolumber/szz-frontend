@@ -268,13 +268,20 @@ const EventDetailPage = () => {
               >
                 <div key={index} className="relative w-full h-[280px]">
                   <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-[16px]"></div>
-                  <img
-                    src={replaceS3UrlsWithCloudFront(
-                      object.titulna_foto,
-                      "blogphoto"
-                    )}
-                    className="rounded-[16px] w-full h-full object-cover relative z-10 cursor-pointer hover:scale-[1.02] duration-200"
-                  />
+                  {object.titulna_foto ? (
+                    <img
+                      src={replaceS3UrlsWithCloudFront(
+                        object.titulna_foto,
+                        "blogphoto"
+                      )}
+                      className="rounded-[16px] w-full h-full object-cover relative z-10 cursor-pointer hover:scale-[1.02] duration-200"
+                    />
+                  ) : (
+                    <img
+                      src={`${webimages_link + "gray.png"}`}
+                      className="rounded-[16px] w-full h-full object-cover relative z-10 cursor-pointer hover:scale-[1.02] duration-200"
+                    />
+                  )}
                 </div>
                 <div className="flex flex-row gap-6 pt-[24px] opacity-60">
                   <IconCalendar />

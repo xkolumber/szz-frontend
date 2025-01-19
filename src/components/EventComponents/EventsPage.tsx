@@ -212,7 +212,6 @@ const EventsPage = () => {
                           object.titulna_foto,
                           "blogphoto"
                         )}
-                        // src={object.titulna_foto}
                         className="rounded-[16px] w-full h-full object-cover relative z-10 cursor-pointer hover:scale-[1.02] duration-200"
                       />
                     ) : (
