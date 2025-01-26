@@ -97,7 +97,7 @@ const AboutUsComponent = ({ data }: Props) => {
               className="mt-4 mb-4 cursor-pointer object-cover w-full h-full rounded-[16px]"
             />
           )}
-          <h5 className="uppercase pt-8">Ako sa k nám dostanete</h5>
+          {/* <h5 className="uppercase pt-8">Ako sa k nám dostanete</h5>
 
           <iframe
             title="Bratislava Map"
@@ -105,7 +105,7 @@ const AboutUsComponent = ({ data }: Props) => {
             allowFullScreen={true}
             loading="lazy"
             className="rounded-[16px] w-full h-[400px]"
-          ></iframe>
+          ></iframe> */}
           <div className="flex flex-row justify-between opacity-60 mt-16">
             <p className="uppercase font-semibold">Publikované {data.datum}</p>
             <p
