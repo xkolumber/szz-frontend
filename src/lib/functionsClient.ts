@@ -144,7 +144,7 @@ export const footer_data = [
   },
   {
     title: "Záhradkári spolupracujú",
-    slug: "/odporucame",
+    slug: "/zahradkari-spolupracuju",
   },
 ];
 

@@ -380,7 +380,7 @@ function App() {
           }
         />
         <Route
-          path="/odporucame"
+          path="/zahradkari-spolupracuju"
           element={
             <Layout>
               <RecommendPage />
