@@ -145,6 +145,7 @@ const Navbar = () => {
                   to={object.link}
                   target={object.typ === "link" ? "_self" : "_blank"}
                   onClick={() => clickedButtonClose()}
+                  rel="noopener noreferrer"
                 >
                   {object.nazov}
                 </Link>

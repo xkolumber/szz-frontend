@@ -113,6 +113,7 @@ const GalleryPageId = () => {
                     to={data.link_album}
                     target="_blank"
                     className="underline"
+                    rel="noopener noreferrer"
                   >
                     {data.link_album}
                   </Link>{" "}

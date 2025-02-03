@@ -53,6 +53,7 @@ const DocumentsPageComponent = ({ data }: Props) => {
                 "highlight"
               }`}
               id={object.nazov}
+              rel="noopener noreferrer"
             >
               {object.nazov}
             </Link>

@@ -57,6 +57,7 @@ const ActualityPage = () => {
                       target="_blank"
                       key={index}
                       className="underline"
+                      rel="noopener noreferrer"
                     >
                       {" "}
                       {object.nazov}

@@ -22,7 +22,13 @@ const RecommendPageElements = ({ data }: Props) => {
         <h2 className="text-center mt-8">Záhradkári spolupracujú</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {data.map((object, index) => (
-            <Link className="" key={index} to={object.link} target="_blank">
+            <Link
+              className=""
+              key={index}
+              to={object.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img
                 width={200}
                 height={120}

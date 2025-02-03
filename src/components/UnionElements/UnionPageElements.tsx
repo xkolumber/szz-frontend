@@ -241,6 +241,7 @@ const UnionPageElements = ({ data }: Props) => {
                             to={replaceS3UrlsWithCloudFront(object.link, "pdf")}
                             target="_blank"
                             key={index}
+                            rel="noopener noreferrer"
                           >
                             <ButtonWithElement
                               text={object.nazov}

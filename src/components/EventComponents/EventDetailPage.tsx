@@ -182,6 +182,7 @@ const EventDetailPage = () => {
                   className="flex flex-row gap-6  "
                   to={data.link_podujatie}
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <IconLink />
                   <p className="font-semibold uppercase">Link podujatia</p>

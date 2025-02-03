@@ -84,6 +84,7 @@ const NavbarInfo = () => {
             key={index}
             to={object.link}
             target={object.typ === "link" ? "_self" : "_blank"}
+            rel="noopener noreferrer"
           >
             {object.nazov}
           </Link>
